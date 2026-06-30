@@ -71,18 +71,17 @@ def search_orcid(email: str) -> list:
 
 def search_openalex(name: str, ror: str = None) -> list:
     """按姓名 + 机构 ROR 搜 OpenAlex"""
-    params = {"search": name, "per_page": 20}
+    params = {"search": name, "per_page": "20"}
     if ror:
         params["filter"] = f"last_known_institutions.id:{ror}"
     # OpenAlex 不接受 ":" URL 编码后的值。手动构建 query string。
     qs_parts = []
     for k, v in params.items():
+        str_val = str(v)  # 确保是字符串（per_page 初始为整数）
         if k == "filter":
-            encoded = urllib.parse.quote(v, safe=":/")
+            encoded = urllib.parse.quote(str_val, safe=":/")
         else:
-            # 对 query value 中的空格等编码，空 safe
-            from urllib.parse import quote
-            encoded = quote(v)
+            encoded = urllib.parse.quote(str_val)
         qs_parts.append(f"{k}={encoded}")
     qs = "&".join(qs_parts)
     url = f"https://api.openalex.org/authors?{qs}"
@@ -160,8 +159,8 @@ def cross_check_papers(candidate_id: str, source: str, papers_from_homepage: lis
 
     if source == "openalex":
         # OpenAlex ID 形如 "https://openalex.org/Axxxxx"，取末段
-        openalex_id = candidate_id.split("/")[-1]
-        url = f"https://api.openalex.org/works?filter=authorships.author.id:{candidate_id}&per_page=200"
+        author_id = candidate_id.split("/")[-1]
+        url = f"https://api.openalex.org/works?filter=authorships.author.id:{author_id}&per_page=200"
         data = http_get_json(url)
         if not data or "results" not in data:
             return {"hit_rate": 0, "matched": [], "_error": "fetch works failed"}

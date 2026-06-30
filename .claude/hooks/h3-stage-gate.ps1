@@ -1,8 +1,10 @@
 # H3: PreToolUse -- stage gate (warn, do not block)
-# Source: SKILL.md section 2 + D07 K5
+# Source: 计划书.md 2.1 + user-review-gate design
 # Trigger: Write tool before execution
-# Check: writing 'output/stageN_xxx.md' (N=2/3/4) -- check stage N-1 product exists
-# Block: no (warn + ask user; CLAUDE.md R3 lets user decide whether to roll back)
+# Check: writing '00_身份验证卡.md' without phase-0 prereqs; or '01_基础画像.md' without phase-0 card
+# Block: no (warn only; user decides)
+#
+# Note: Updated 2026-07-01 for new file paths (项目/导师/<姓名>/00_*.md instead of output/stageN_*.md)
 
 # Safe stdin read with 5s timeout
 $stdinJson = $null
@@ -36,30 +38,26 @@ if ([string]::IsNullOrWhiteSpace($filePath)) {
     exit 0
 }
 
-# Match pattern: output/stageN_xxx.md where N=2/3/4 (stage 1 is entry, no gate)
-if ($filePath -match '(?i)output[/\\]stage([2-4])_') {
-    $stageNum = [int]$matches[1]
-    $prevStage = $stageNum - 1
+$leaf = Split-Path -Leaf $filePath
 
-    $projectDir = $env:CLAUDE_PROJECT_DIR
-    if ([string]::IsNullOrWhiteSpace($projectDir)) {
-        $projectDir = (Get-Location).Path
+# Check 1: writing 01_基础画像.md without 00_身份验证卡.md in same directory
+if ($leaf -eq '01_基础画像.md') {
+    $parentDir = Split-Path -Parent $filePath
+    $cardPath = Join-Path $parentDir '00_身份验证卡.md'
+    if (-not (Test-Path -LiteralPath $cardPath)) {
+        [Console]::Error.WriteLine("WARN H3: writing 01_基础画像.md but 00_身份验证卡.md not found in same directory. Phase 0 (identity verification) must complete first per 计划书.md 2.2.")
     }
-    $outputDir = Join-Path $projectDir 'output'
+    exit 0
+}
 
-    if (-not (Test-Path -LiteralPath $outputDir)) {
-        # output/ doesn't exist yet -- no previous stage product possible, but still warn
-        [Console]::Error.WriteLine("WARN H3: writing stage${stageNum} product but output/ directory not yet created. SKILL.md stage 1 product missing.")
-        exit 0
+# Check 2: writing 02_领域脉络.md without 01_基础画像.md in same directory
+if ($leaf -match '^02_') {
+    $parentDir = Split-Path -Parent $filePath
+    $profilePath = Join-Path $parentDir '01_基础画像.md'
+    if (-not (Test-Path -LiteralPath $profilePath)) {
+        [Console]::Error.WriteLine("WARN H3: writing $leaf but 01_基础画像.md not found. Phase 1 must complete first.")
     }
-
-    $pattern = "stage${prevStage}_*.md"
-    $prevFiles = Get-ChildItem -Path $outputDir -Filter $pattern -ErrorAction SilentlyContinue
-
-    if (-not $prevFiles -or $prevFiles.Count -eq 0) {
-        $leaf = Split-Path -Leaf $filePath
-        [Console]::Error.WriteLine("WARN H3: writing stage${stageNum} ($leaf), but stage${prevStage} product (output/stage${prevStage}_*.md) missing. SKILL.md section 2 requires user confirmation before stage switch.")
-    }
+    exit 0
 }
 
 exit 0
