@@ -85,9 +85,6 @@ def fetch_all_works(author_id: str,
 
     while cursor and page < max_pages:
         page += 1
-        # OpenAlex 的作品分页使用 filter=author.id 查询参数格式
-        # cursor= 用于游标分页，* 表示第一页
-        page += 1
         params = f"per_page=200&sort=publication_year:desc&cursor={cursor}"
         url = f"{BASE_URL}/works?{WORKS_FILTER}:{author_id}&{params}"
 
