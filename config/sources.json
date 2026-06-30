@@ -1,0 +1,130 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-06-30",
+  "scope": "项目级共享；scripts/ 与 skill 都读这里",
+  "disciplines": {
+    "high_energy_physics": {
+      "keywords_cn": ["高能物理", "粒子物理", "重离子", "强子", "夸克", "胶子", "希格斯", "中微子", "对撞机", "LHC", "BESIII"],
+      "keywords_en": ["HEP", "particle physics", "quark", "gluon", "higgs", "neutrino", "collider"],
+      "primary_sources": ["inspire-hep", "arxiv", "openalex"],
+      "arxiv_categories": ["hep-ph", "hep-th", "hep-ex", "nucl-th", "nucl-ex"]
+    },
+    "astrophysics": {
+      "keywords_cn": ["天体物理", "宇宙学", "天文", "星系", "暗物质", "暗能量", "引力波"],
+      "keywords_en": ["astrophysics", "cosmology", "galaxy", "dark matter", "dark energy", "gravitational wave"],
+      "primary_sources": ["nasa-ads", "arxiv", "openalex"],
+      "arxiv_categories": ["astro-ph"]
+    },
+    "condensed_matter": {
+      "keywords_cn": ["凝聚态", "超导", "拓扑", "强关联", "莫特", "量子相变", "低维系统"],
+      "keywords_en": ["condensed matter", "superconduct", "topological", "strongly correlated", "Mott", "quantum phase"],
+      "primary_sources": ["openalex", "arxiv"],
+      "arxiv_categories": ["cond-mat", "cond-mat.str-el", "cond-mat.mes-hall"]
+    },
+    "atomic_molecular_optical": {
+      "keywords_cn": ["原子", "分子", "光学", "阿秒", "强场", "超快", "激光", "高次谐波"],
+      "keywords_en": ["atomic", "molecular", "optical", "attosecond", "strong field", "ultrafast", "laser", "HHG", "high harmonic"],
+      "primary_sources": ["openalex", "arxiv"],
+      "arxiv_categories": ["physics.atom-ph", "physics.optics"]
+    },
+    "quantum_information": {
+      "keywords_cn": ["量子信息", "量子计算", "量子通信", "量子纠缠", "量子比特"],
+      "keywords_en": ["quantum information", "quantum computing", "quantum communication", "qubit", "entanglement"],
+      "primary_sources": ["arxiv", "openalex"],
+      "arxiv_categories": ["quant-ph"]
+    },
+    "general_physics": {
+      "keywords_cn": ["物理"],
+      "keywords_en": ["physics"],
+      "primary_sources": ["openalex", "arxiv", "semantic_scholar"],
+      "arxiv_categories": ["physics"]
+    }
+  },
+  "sources": {
+    "openalex": {
+      "type": "rest_api",
+      "base_url": "https://api.openalex.org",
+      "auth": "none",
+      "polite_pool_email_optional": true,
+      "rate_limit": "10 req/s polite, 100K/day",
+      "endpoints": {
+        "search_authors": "GET /authors?search={name}&filter=last_known_institutions.id:{ror}&per_page=20",
+        "author_works": "GET /authors/{id}/works?per_page=200&sort=cited_by_count:desc",
+        "author_profile": "GET /authors/{id}"
+      }
+    },
+    "semantic_scholar": {
+      "type": "rest_api",
+      "base_url": "https://api.semanticscholar.org/graph/v1",
+      "auth": "api_key_optional",
+      "rate_limit": "100 req/5min no key; higher with key",
+      "endpoints": {
+        "author_search": "GET /author/search?query={name}&fields=name,affiliations,paperCount,externalIds",
+        "author_papers": "GET /author/{id}/papers?fields=title,tldr,year,citationCount,externalIds,venue"
+      }
+    },
+    "arxiv": {
+      "type": "rest_api",
+      "base_url": "https://export.arxiv.org/api",
+      "auth": "none",
+      "rate_limit": "1 req/3s",
+      "endpoints": {
+        "search": "GET /query?search_query=au:{name}&sortBy=submittedDate&sortOrder=descending&max_results=20",
+        "author_id_format": "https://arxiv.org/a/{lastname_lower}_{firstinitial}_{n}"
+      }
+    },
+    "orcid": {
+      "type": "rest_api",
+      "base_url": "https://pub.orcid.org/v3.0",
+      "auth": "none",
+      "rate_limit": "no official limit (be polite)",
+      "endpoints": {
+        "search_by_email": "GET /expanded-search?q=email:{email}",
+        "read_profile": "GET /{orcid-id}"
+      }
+    },
+    "inspire-hep": {
+      "type": "rest_api",
+      "base_url": "https://inspirehep.net/api",
+      "auth": "none",
+      "discipline_only": "high_energy_physics",
+      "rate_limit": "no official limit (be polite)",
+      "endpoints": {
+        "search_authors": "GET /authors?q={name}&size=20",
+        "author_literature": "GET /literature?sort=mostrecent&size=25&q=a {bai}"
+      }
+    },
+    "nasa-ads": {
+      "type": "rest_api",
+      "base_url": "https://api.adsabs.harvard.edu/v1",
+      "auth": "api_key_required_env:ADS_API_TOKEN",
+      "discipline_only": "astrophysics",
+      "rate_limit": "5000 queries/day"
+    },
+    "google_scholar": {
+      "type": "indirect_only",
+      "note": "无官方 API。必须经 Web Search（Serper/Exa）发现 profile URL 后 HTTP 抓取，单会话 ≤50 次以避 CAPTCHA。",
+      "discovery_query": "site:scholar.google.com/citations?user= {name}",
+      "fallback_role": "cross_validation_only"
+    },
+    "crossref": {
+      "type": "rest_api",
+      "base_url": "https://api.crossref.org",
+      "auth": "none",
+      "rate_limit": "50 req/s polite pool",
+      "endpoints": {
+        "doi_meta": "GET /works/{doi}",
+        "search_by_title": "GET /works?query.title={title}"
+      }
+    }
+  },
+  "verification": {
+    "thresholds": {
+      "high_confidence": "≥80% title match AND ≥2 ID sources agree",
+      "medium_confidence": "50-80% title match OR single ID source with high match",
+      "low_confidence": "<50% title match, user manual selection required"
+    },
+    "user_gate_required": true,
+    "no_error_exit": true
+  }
+}
