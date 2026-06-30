@@ -49,7 +49,7 @@
       "rate_limit": "10 req/s polite, 100K/day",
       "endpoints": {
         "search_authors": "GET /authors?search={name}&filter=last_known_institutions.id:{ror}&per_page=20",
-        "author_works": "GET /authors/{id}/works?per_page=200&sort=cited_by_count:desc",
+        "author_works": "GET /works?filter=authorships.author.id:{id}&per_page=200&sort=publication_year:desc",
         "author_profile": "GET /authors/{id}"
       }
     },
