@@ -45,19 +45,26 @@ def _extract_arxiv_id_from_url(url: str) -> str:
 
 def search_by_author(author_name: str,
                      max_results: int = 50,
-                     delay: float = 3.0) -> List[Dict[str, Any]]:
+                     delay: float = 3.0,
+                     categories: Optional[str] = None) -> List[Dict[str, Any]]:
     """按作者搜索 arXiv 预印本。
 
     Args:
         author_name: 作者姓名拼音（下划线分隔姓和名），如 "Lastname_Firstname"。
         max_results: 最大返回数（arXiv 上限 2000，但为礼貌设 50）。
         delay: 请求间隔（arXiv 要求 3 秒）。
+        categories: arXiv 分类过滤，如 "physics" 或 "physics.atom-ph physics.optics"。
 
     Returns:
         论文列表。
     """
+    search_parts = [f"au:{author_name}"]
+    if categories:
+        for cat in categories.split():
+            search_parts.append(f"cat:{cat}")
+    search_query = "+AND+".join(search_parts)
     url = (
-        f"{ARIXV_SEARCH_URL}?search_query=au:{author_name}"
+        f"{ARIXV_SEARCH_URL}?search_query={search_query}"
         f"&sortBy=submittedDate&sortOrder=descending&max_results={max_results}"
     )
 
@@ -162,6 +169,7 @@ def main() -> None:
     )
     parser.add_argument("author_name", help="作者姓名拼音（如 Lastname_Firstname）")
     parser.add_argument("--max-results", "-n", type=int, default=50, help="最大返回数")
+    parser.add_argument("--categories", "-c", help="arXiv 分类过滤，如 'physics' 或 'physics.atom-ph physics.optics'")
     parser.add_argument("--output", "-o", help="输出 JSON 文件")
     parser.add_argument("--verbose", "-v", action="store_true", help="详细日志")
     args = parser.parse_args()
@@ -169,7 +177,7 @@ def main() -> None:
     if args.verbose:
         logging.getLogger().setLevel(logging.INFO)
 
-    papers = search_by_author(args.author_name, args.max_results)
+    papers = search_by_author(args.author_name, args.max_results, categories=args.categories)
 
     result = {
         "source": "arxiv",

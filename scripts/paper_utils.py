@@ -119,15 +119,15 @@ def merge_paper_entries(entries: List[Dict[str, Any]]) -> Dict[str, Any]:
         sources.append(source_name)
 
     merged = {
-        "title": best_field(entries, "title", ["openalex", "s2", "arxiv"]),
+        "title": best_field(entries, "title", ["openalex", "s2", "arxiv", "google_scholar"]),
         "doi": best_field(entries, "doi", ["openalex", "crossref", "s2"]),
         "arxiv_id": best_field(entries, "arxiv_id", ["arxiv", "s2", "openalex"]),
-        "publication_date": best_field(entries, "publication_date", ["openalex", "arxiv"]),
+        "publication_date": best_field(entries, "publication_date", ["openalex", "arxiv", "google_scholar"]),
         "journal": best_field(entries, "journal", ["openalex", "s2"]),
-        "cited_by_count": best_field(entries, "cited_by_count", ["openalex", "s2"]),
+        "cited_by_count": best_field(entries, "cited_by_count", ["openalex", "s2", "google_scholar"]),
         "tldr": best_field(entries, "tldr", ["s2"]),
         "authors": best_field(entries, "authors", ["openalex", "s2"]),
-        "year": best_field(entries, "year", ["openalex", "arxiv", "s2"]),
+        "year": best_field(entries, "year", ["openalex", "arxiv", "s2", "google_scholar"]),
         "type": best_field(entries, "type", ["openalex"]),
         "sources": sources,
         "source_count": len(set(sources)),

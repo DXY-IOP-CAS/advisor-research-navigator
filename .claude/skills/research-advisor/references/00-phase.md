@@ -63,16 +63,22 @@ python scripts/gs_scraper.py {gs_id} --output phase1_gs.json --pages 3 --delay 2
 
 ### Step 4: OpenAlex 元数据补充（不是论文列表源）
 
-对 GS 每篇论文，用标题搜 OpenAlex，补充 DOI、期刊名、作者列表：
+先调 `openalex_works.py` 拿作者 profile 数据（h-index、总引用数）：
+
+```bash
+python scripts/openalex_works.py {openalex_id} --output .cache/oa_profile.json
+```
+
+然后对 GS 每篇论文，用标题搜 OpenAlex 补 DOI/期刊/作者（**标题搜索比作者 works 列表覆盖更广**——对中文作者，OA 的作者 works 列表可能只收录了实际论文的 22-38%）：
 
 ```
 对 GS 列表中的每篇论文 title:
   GET /works?search={urllib.parse.quote(title)}&per_page=3
   → 匹配上的：取 DOI、journal、authors、cited_by_count
-  → 匹配不上的：保留 GS 原始数据
+  → 匹配不上的：保留 GS 原始数据（标记"仅 GS 来源"）
 ```
 
-不依赖 OpenAlex 的 works_count。OpenAlex 只做元数据补充。
+**注意**：OA 的作者 profile（h-index/引用数）不可靠——中文作者的 OA profile 常因身份消歧错误包含非本人的论文，导致指标失真。引用指标以 GS 的 `metrics` 字段为准。
 
 ### Step 5: 同名干扰过滤（仅在需要时）
 
