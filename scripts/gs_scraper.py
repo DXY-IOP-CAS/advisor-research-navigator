@@ -70,6 +70,31 @@ def fetch_page(user_id: str, start: int = 0) -> Optional[str]:
         return None
 
 
+def parse_metrics(html: str) -> Dict[str, Any]:
+    """从 GS profile top 解析引用指标（总引用、h-index、i10-index）。
+
+    返回：
+        {"citations": int, "h_index": int, "i10_index": int} 等。
+        解析失败时返回空 dict。
+    """
+    metrics: Dict[str, Any] = {}
+
+    # GS 指标表：<td class="gsc_rsb_std">数字</td>
+    values = re.findall(r'class="gsc_rsb_std"[^>]*>(\d+)</td>', html)
+
+    if len(values) >= 3:
+        metrics["citations"] = int(values[0])
+        metrics["h_index"] = int(values[2])
+        metrics["i10_index"] = int(values[4]) if len(values) >= 5 else None
+    else:
+        # 降级：直接从文字中提取
+        hm = re.search(r'h-index[^<]*(?:<[^>]*>){0,5}?(\d+)', html)
+        if hm:
+            metrics["h_index_direct"] = int(hm.group(1))
+
+    return metrics
+
+
 def parse_papers(html: str) -> List[Dict[str, Any]]:
     """从 GS profile 的 HTML 中解析论文列表。
 
@@ -106,8 +131,8 @@ def parse_papers(html: str) -> List[Dict[str, Any]]:
 
 def scrape_profile(user_id: str,
                    max_pages: int = 5,
-                   delay: float = 3.0) -> List[Dict[str, Any]]:
-    """爬取 GS profile 的全部论文。
+                   delay: float = 3.0) -> Dict[str, Any]:
+    """爬取 GS profile 的全部论文 + 引用指标。
 
     自动分页，直到某页无结果或超过 max_pages。
 
@@ -117,9 +142,10 @@ def scrape_profile(user_id: str,
         delay: 页间延迟（秒）。
 
     Returns:
-        全部论文列表。
+        {"works": [...], "metrics": {...}}
     """
     all_papers: List[Dict[str, Any]] = []
+    metrics: Dict[str, Any] = {}
 
     for page in range(max_pages):
         start = page * 20
@@ -129,6 +155,10 @@ def scrape_profile(user_id: str,
         if not html:
             logger.warning(f"Failed to fetch page {page + 1}, stopping")
             break
+
+        # 第一页还解析引用指标
+        if page == 0:
+            metrics = parse_metrics(html)
 
         papers = parse_papers(html)
         if not papers:
@@ -147,7 +177,7 @@ def scrape_profile(user_id: str,
         time.sleep(delay)
 
     logger.info(f"Total: {len(all_papers)} papers from GS profile")
-    return all_papers
+    return {"works": all_papers, "metrics": metrics}
 
 
 def main() -> None:
@@ -169,20 +199,21 @@ def main() -> None:
         logging.getLogger().setLevel(logging.INFO)
 
     logger.info(f"Scraping GS profile: {args.user_id}")
-    papers = scrape_profile(args.user_id, args.pages, args.delay)
+    result = scrape_profile(args.user_id, args.pages, args.delay)
 
-    result = {
+    output = {
         "source": "google_scholar",
         "user_id": args.user_id,
-        "works_count": len(papers),
-        "works": papers,
+        "works_count": len(result["works"]),
+        "works": result["works"],
+        "metrics": result["metrics"],
     }
 
     import paper_utils
-    paper_utils.write_output(result, args.output)
+    paper_utils.write_output(output, args.output)
 
     if args.output:
-        print(f"✅ {len(papers)} papers → {args.output}", file=sys.stderr)
+        print(f"✅ {output['works_count']} papers → {args.output}", file=sys.stderr)
 
 
 if __name__ == "__main__":
