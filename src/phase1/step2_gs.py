@@ -1,14 +1,33 @@
 #!/usr/bin/env python3
 """
-step2_gs.py — Google Scholar 数据获取（scholarly 封装）。
+step2_gs.py — Google Scholar 数据获取（scholarly 封装）
 
-step1 之后的数据源。一次调用获取教授信息 + 全部论文 + 引用指标。
+流水线位置：阶段 B 第一步。在阶段 A 确认 GS ID 后执行。
+
+数据流：
+  [Phase A] 广域搜索确认 GS ID
+      ↓
+  [本脚本] → 01_gs.json
+      ↓
+  [step6_merge.py] 合并三个源
+
+输出格式（统一 SOURCE_OUTPUT，详见 pipeline.md §2.2）：
+  {
+    "pipeline": "phase1",
+    "source": "google_scholar",
+    "status": "success | blocked | error",
+    "professor": { name, affiliation, email_domain, gs_id, h_index, i10_index, total_citations },
+    "papers": [{ title, year, citation_count, source }, ...]
+  }
+
+特点：
+  - 一次调用返回 GS profile 的全部论文（scholarly 库自动翻页）
+  - 不返回 DOI、arXiv ID、作者列表（这些由 step3/step5 补充）
+  - 期刊名含卷期号混杂（如 "Phys. Rev. A 83 (5), 052707"）
+  - 梯子节点质量直接影响可用性
 
 用法：
-  python src/phase1/step2_gs.py ls7XuGoAAAAJ -o output/<机构>/<部门>/<姓名>/archive/<timestamp>/01_gs.json
-  python src/phase1/step2_gs.py ls7XuGoAAAAJ --verbose
-
-输出格式见 pipeline.md §2.2（统一 SOURCE_OUTPUT 格式）。
+  python src/phase1/step2_gs.py {gs_id} -o output/<机构>/<部门>/<姓名>/archive/<timestamp>/01_gs.json
 
 依赖：pip install scholarly
 """

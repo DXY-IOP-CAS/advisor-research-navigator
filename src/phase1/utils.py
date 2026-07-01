@@ -1,11 +1,18 @@
 """
-src/phase1/utils.py — 阶段 1 共享工具库。
+utils.py — 阶段 1 共享工具库
 
-包含：
-  1. 通用论文模式（COMMON_PAPER_SCHEMA）
-  2. 输入/输出格式验证
-  3. 标题归一化、DOI/arXiv ID 比对
-  4. JSON 读写输出
+被所有 step 脚本引用。提供的函数：
+  normalize_title(str) → str      标题归一化（去标点小写去空格）
+  clean_doi(str) → str            清洗 DOI 协议前缀
+  doi_match(str, str) → bool      DOI 是否相同
+  strip_arxiv_version(str) → str  去除 arXiv ID 版本后缀
+  arxiv_id_match(str, str) → bool arXiv ID 是否相同
+  title_match(str, str) → bool    标题模糊匹配
+  write_output(data, path) → None 写 JSON 文件/输出
+  safe_json(data) → str           安全 JSON 序列化
+
+  class RateLimiter:               GS 限速器（2 req/min, 120 req/hr）
+  retry(max_retries=3, delay=2):   API 重试装饰器（指数退避）
 """
 
 import json

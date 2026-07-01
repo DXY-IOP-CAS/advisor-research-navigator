@@ -1,15 +1,36 @@
 #!/usr/bin/env python3
 """
-step3_openalex.py — OpenAlex 数据获取。
+step3_openalex.py — OpenAlex 数据获取
 
-从 OpenAlex 拉取教授 profile + 论文列表 + 元数据（DOI/期刊/引用数/作者）。
-输出统一 SOURCE_OUTPUT 格式（pipeline.md §2.2）。
+流水线位置：阶段 B 第二步。与 step2_gs 并行执行（互不依赖）。
+
+数据流：
+  [Phase A] 广域搜索确认 OA ID
+      ↓
+  [本脚本] → 02_oa.json
+      ↓
+  [step6_merge.py] 补充 GS 缺失的元数据（DOI/期刊/作者/引用数）
+
+输出格式（统一 SOURCE_OUTPUT）：
+  {
+    "pipeline": "phase1",
+    "source": "openalex",
+    "status": "success | error",
+    "professor": { name, affiliation, oa_id, orcid, h_index, total_citations },
+    "papers": [{ title, year, authors, journal, doi, citation_count, source }, ...]
+  }
+
+特点：
+  - 论文数通常少于 GS（对中文学者仅覆盖 22-38%）
+  - 教授信息（h-index、affiliation）可能因消歧错误不准确
+  - h-index 和引用数以 GS 为准，本脚本供对比参考
+  - 加 --email 传真实邮箱可进 polite pool（10 req/s）
+  - 无 email 时自动限速至 ~1 req/s 避免 503
 
 用法：
-  python src/phase1/step3_openalex.py A5000914228 --email you@ex.com -o oa.json
-  python src/phase1/step3_openalex.py A5000914228 --verbose
+  python src/phase1/step3_openalex.py {oa_id} --email your@email.com -o output/<机构>/<部门>/<姓名>/archive/<timestamp>/02_oa.json
 
-依赖：标准库
+依赖：标准库（urllib）
 """
 
 import argparse
@@ -114,7 +135,11 @@ def fetch(oa_id: str, email: Optional[str] = None, max_pages: int = 50) -> dict:
         batch = data.get("results", [])
         works.extend(batch)
         cursor = data.get("meta", {}).get("next_cursor")
-        time.sleep(0.1)
+        # 限速：有真实 email 时 10 req/s，无 email 时 ~1 req/s
+        if email and "@" in email and "." in email.split("@")[1]:
+            time.sleep(0.1)  # polite pool: 10 req/s
+        else:
+            time.sleep(1.0)  # anonymous: ~1 req/s
 
     last_insts = profile.get("last_known_institutions") or []
 

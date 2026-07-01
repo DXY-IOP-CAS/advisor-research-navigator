@@ -1,20 +1,38 @@
 #!/usr/bin/env python3
 """
-step6_merge.py — 多源合并去重 + 教授信息合并。
+step6_merge.py — 多源合并去重 + 教授信息合并
 
-输入：N 个统一 SOURCE_OUTPUT 格式的 JSON 文件（gs.json, oa.json, arxiv.json）
-处理：
-  - 教授信息：按优先级合并（后加载覆盖前加载）
-  - 论文去重：P0:DOI → P1:arXiv ID → P2:归一化标题
-  - 引用数/期刊名等字段选最优源值
+流水线位置：阶段 B 最后一步。收集所有源输出后执行。
 
-输出：MERGED_OUTPUT 格式（见 pipeline.md §2.3）
+数据流：
+  [01_gs.json] ────────────┐
+  [02_oa.json] ────────────┤
+  [03_arxiv.json] ─────────┤
+                           ▼
+                     [本脚本] → 04_merged.json
+                           │
+                           ▼
+                     [render_profile.py] → 01_基础画像.md
+
+输入：N 个统一 SOURCE_OUTPUT 格式的 JSON 文件
+输出：MERGED_OUTPUT 格式（详见 pipeline.md §2.3）
+
+处理逻辑：
+  1. 教授信息合并（按字段优先级：GS > OA，详见 PROF_PRIORITY 表）
+  2. 论文去重（P0:DOI → P1:arXiv ID → P2:归一化标题）
+  3. 字段择优（引用数: OA > GS；期刊名: OA > GS）
+  4. 多源交叉验证标记（source_count/sources）
+
+特点：
+  - 不读任何缓存，每次全新合并
+  - 教授信息：GS 占 h-index/i10-index/引用数，OA 占 DOI/ORCID
+  - arXiv 噪声通过 DOI/标题匹配 GS/OA 自动过滤
+  - 排序：多源验证优先 → 引用数高优先 → 年份新优先
 
 用法：
-  python src/phase1/step6_merge.py gs.json oa.json arxiv.json -o merged.json
-  python src/phase1/step6_merge.py oa.json arxiv.json --verbose
+  python src/phase1/step6_merge.py 01_gs.json 02_oa.json 03_arxiv.json -o 04_merged.json
 
-依赖：标准库（utils.py）
+依赖：标准库（utils.py 的匹配函数）
 """
 
 import argparse

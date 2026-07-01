@@ -1,12 +1,31 @@
 """
-step1_discipline.py — 根据官网研究方向文本判定学科。
+step1_discipline.py — 学科关键词分类
 
-输入：研究方向文本（中英文混合） + 机构名
-输出：学科归类 + 置信度 + 命中关键词
-依赖：config/sources.json
+用途：根据官网研究方向文本，自动判定该导师所属的物理学科分支。
+
+流水线位置：阶段 A，在官网抓取后执行。
+
+数据流：
+  [MCP Fetch] 读官网提取研究方向文本
+      ↓
+  [本脚本] → 学科标签 JSON（含 arXiv 分类，传给 step5 减少噪声）
+
+输出格式：
+  {
+    "primary": "atomic_molecular_optical",       # 学科 ID
+    "confidence": 0.67,                            # 置信度
+    "matched_keywords": ["attosecond", "ultrafast"],
+    "arxiv_categories": ["physics.atom-ph", "physics.optics"],
+    "primary_sources": ["openalex", "arxiv"]
+  }
+
+算法：关键词字典匹配（config/sources.json），不涉及网络请求。
+取命中关键词数最多的学科。general_physics 作为无命中时的兜底。
 
 用法：
   python src/phase1/step1_discipline.py --text "阿秒科学、强场物理" --affiliation "中科院物理所"
+
+依赖：标准库 + config/sources.json
 """
 
 import json

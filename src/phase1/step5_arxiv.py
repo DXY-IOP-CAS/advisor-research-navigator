@@ -1,14 +1,32 @@
 #!/usr/bin/env python3
 """
-step5_arxiv.py — arXiv 预印本搜索。
+step5_arxiv.py — arXiv 预印本搜索
 
-按作者姓名拼音搜索 arXiv，返回统一 SOURCE_OUTPUT 格式。
-注意同名噪声：搜索按姓名匹配，非目标作者的论文由 step6_merge
-通过 DOI/标题匹配过滤（目标是 GS/OA 已验证的论文）。
+流水线位置：阶段 B 第三步。与 step2/step3 并行执行。
+
+数据流：
+  [Phase A] 广域搜索确认姓名拼音；step1 输出 arXiv 分类
+      ↓
+  [本脚本] → 03_arxiv.json
+      ↓
+  [step6_merge.py] 与 GS/OA 合并去重
+
+输出格式（统一 SOURCE_OUTPUT）：
+  {
+    "pipeline": "phase1",
+    "source": "arxiv",
+    "status": "success | empty | error",
+    "papers": [{ title, year, authors, journal, doi, arxiv_id, abstract }, ...]
+  }
+
+特点：
+  - au: 搜索按姓名匹配，返回结果中同名噪声率高（常见中文名可达 80%+）
+  - 加 -c 参数传 arXiv 学科分类（来自 step1_discipline.py 输出）可降低噪声
+  - 噪声过滤由 step6_merge.py 通过 DOI/标题匹配 GS/OA 已确认论文完成
+  - arXiv 要求 ≥3 秒请求间隔
 
 用法：
-  python src/phase1/step5_arxiv.py "Zhang_Pengju" -o arxiv.json
-  python src/phase1/step5_arxiv.py "Zhang_Pengju" -c "physics" --verbose
+  python src/phase1/step5_arxiv.py "Zhang_Pengju" -c "physics.atom-ph" -o output/<机构>/<部门>/<姓名>/archive/<timestamp>/03_arxiv.json
 
 依赖：标准库
 """

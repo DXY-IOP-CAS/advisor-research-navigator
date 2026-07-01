@@ -1,11 +1,35 @@
 #!/usr/bin/env python3
 """
-render_profile.py — 从 merged.json 按模板生成 01_基础画像.md。
+render_profile.py — 从 merged.json 按模板生成 01_基础画像.md
 
-严格遵循模板要求：全部论文逐一列出，按学术履历阶段分组。
+流水线位置：阶段 C。在 step6_merge.py 输出 merged.json 后执行。
+
+数据流：
+  [04_merged.json] ────────────┐
+                               ▼
+                         [本脚本] → 01_基础画像.md
+                               │
+                          [AI 润色] → 补充叙事/合作网络/公开信息
+
+功能：
+  1. 读取 merged.json，生成包含全部论文表格的结构化画像
+  2. 论文按学术履历阶段分组（从 --stages 文件或 5 年默认段）
+  3. 每篇论文附带 DOI/arXiv 超链接
+  4. 头部嵌入运行统计（时间戳、各源状态、论文总数）
+  5. 支持 --department 和 --stage-desc 参数定制内容
+
+  脚本不写的内容（由 AI 渲染后补充）：
+  - 学术履历表格     - 研究方向描述    - 合作网络
+  - 公开信息整理     - 所有外部超链接  - 每阶段叙事段落
 
 用法：
-  python src/phase1/render_profile.py output/.../04_merged.json -o output/.../01_基础画像.md
+  python src/phase1/render_profile.py 04_merged.json -o 01_基础画像.md --department "超快物质科学中心"
+
+可选参数：
+  --stages career_stages.json   学术阶段配置
+  --stage-desc stage_desc.json  阶段叙事描述
+
+依赖：标准库
 """
 
 import argparse
