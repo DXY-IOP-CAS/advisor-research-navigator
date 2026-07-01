@@ -55,10 +55,15 @@ COMMON_SOURCE_OUTPUT = {
 # ── 标题归一化 ────────────────────────────────────────────────────────
 
 def normalize_title(title: str) -> str:
-    """归一化标题：去标点 → 小写 → 去空格。"""
+    """归一化标题：去 HTML/XML 标签 → 去标点 → 小写 → 去空格。
+
+    HTML/XML 标签（如 OpenAlex 返回的 <mml:math>）必须先去除，
+    否则同一篇论文的 GS 版（纯文本）和 OA 版（含 MathML）不会匹配。
+    """
     if not title:
         return ""
-    cleaned = re.sub(r"[^\w\s]", "", title)
+    cleaned = re.sub(r"<[^>]+>", "", title)  # 先剥 XML/HTML 标签
+    cleaned = re.sub(r"[^\w\s]", "", cleaned)
     return re.sub(r"\s+", "", cleaned.lower().strip())
 
 
@@ -114,6 +119,10 @@ OA_POLLUTION_KEYWORDS = [
     "wind imaging interferometer", "atmospheric remote sensing",
     "soil moisture", "plant science", "biomass",
     "marine biology", "fishery", "veterinary medicine",
+    # 遥感/大气光学类（被 OpenAlex 错误合并到超快/激光研究者中）
+    "imaging spectropolarimeter", "wind imaging", "atmospheric wind",
+    "fabry-pérot interferometer", "michelson interferometer",
+    "doppler asymmetry", "ocean color", "sea surface temperature",
     # 凝聚态/拓扑类（被 OpenAlex 错误合并到超快/激光研究者中）
     "weyl semimetal", "kagome", "chern insulator",
     "quantum spin liquid", "supercurrent density",

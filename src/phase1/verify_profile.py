@@ -35,7 +35,7 @@ def verify(profile_path: str, merged_path: str = None) -> int:
         content = f.read()
 
     # 1. 无禁止关键词
-    forbidden = ["代表性论文", "以下见完整列表", "如下图"]
+    forbidden = ["代表性论文", "关键论文", "以下见完整列表", "如下图"]
     for kw in forbidden:
         check(kw not in content, f"无禁止关键词「{kw}」", errors)
 
@@ -102,12 +102,24 @@ def verify(profile_path: str, merged_path: str = None) -> int:
     links = content.count("https://doi.org") + content.count("https://arxiv.org")
     check(links > 0, f"有超链接（{links} 个）", errors)
 
-    # 7. §2 履历、§6 合作网络、§7 公开信息至少存在 1 个
-    sections_found = 0
-    for section in ["## 2. 学术履历", "## 6.", "## 7.", "## 9."]:
-        if section in content:
-            sections_found += 1
-    check(sections_found >= 2, f"补充章节存在（{sections_found}/4）", errors)
+    # 7. 全部 9 节必须存在至少 7 节（部分节可能因数据不足合理缺失）
+    required_sections = [
+        "## 1.", "## 2.", "## 3.", "## 4.",
+        "## 5.", "## 6.", "## 7.", "## 8.", "## 9.",
+    ]
+    sections_found = sum(1 for s in required_sections if s in content)
+    check(sections_found >= 7, f"基础章节 9 节中存在 {sections_found}/9", errors)
+
+    # 8. 无重复论文标题（去重失败检测）
+    titles = re.findall(r"^\| \d+ \| \d{4} \| (.+?) \|", content, re.MULTILINE)
+    seen = set()
+    dupes = set()
+    for t in titles:
+        norm = re.sub(r"[\[\]\(\)]", "", t).strip().lower()[:80]
+        if norm in seen:
+            dupes.add(t)
+        seen.add(norm)
+    check(len(dupes) == 0, f"无重复论文标题（发现 {len(dupes)} 篇重复：{list(dupes)[:3]}）", errors)
 
     # 汇总
     print()
