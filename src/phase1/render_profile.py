@@ -40,6 +40,7 @@ import re
 import sys
 from datetime import datetime
 from collections import defaultdict
+from typing import Optional
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from utils import write_output, is_oa_pollution, mark_source_tag
@@ -70,18 +71,21 @@ def compute_career_stages(year: int, stages: list = None) -> str:
     return f"{decade}–{decade + 4}"
 
 
-def paper_link(paper: dict) -> str:
-    """生成论文的超链接 markdown。优先 DOI，其次 arXiv。"""
+def paper_url(paper: dict) -> Optional[str]:
+    """返回论文的外部链接 URL。优先 DOI，其次 arXiv。
+
+    返回值直接拼接到标题 markdown 链接中。
+    """
     doi = paper.get("doi")
     if doi:
         clean = doi.strip()
         if clean.startswith("http"):
-            return f"[DOI]({clean})"
-        return f"[DOI](https://doi.org/{clean})"
+            return clean
+        return f"https://doi.org/{clean}"
     aid = paper.get("arxiv_id")
     if aid:
-        return f"[arXiv](https://arxiv.org/abs/{aid})"
-    return "—"
+        return f"https://arxiv.org/abs/{aid}"
+    return None
 
 
 def generate(data: dict, output_path: str, stage_config: list = None,
@@ -205,16 +209,17 @@ def generate(data: dict, output_path: str, stage_config: list = None,
             L("")
         L(f"论文数：{len(stage_papers)} 篇")
         L("")
-        L("| # | 年份 | 标题 | 期刊 | 引用 | 来源 | 链接 |")
-        L("|:-:|:----:|:-----|:-----|:----:|:-----|:-----|")
+        L("| # | 年份 | 标题 | 期刊 | 引用 | 来源 |")
+        L("|:-:|:----:|:-----|:-----|:----:|:-----|")
         for i, p in enumerate(stage_papers, 1):
             title = (p.get("title") or "")[:100]
+            url = paper_url(p)
+            title_display = f"[{title}]({url})" if url else title
             journal = (p.get("journal") or "")[:40] or "—"
             cites = p.get("citation_count") or "—"
             tag = mark_source_tag(p.get("sources", []))
-            link = paper_link(p)
             y = p.get("year") or "—"
-            L(f"| {i} | {y} | {title} | {journal} | {cites} | {tag} | {link} |")
+            L(f"| {i} | {y} | {title_display} | {journal} | {cites} | {tag} |")
         L("")
         stage_idx += 1
 
