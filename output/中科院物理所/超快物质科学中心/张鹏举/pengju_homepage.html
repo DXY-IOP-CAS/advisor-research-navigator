@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<title>研究生教育网</title>
+<link rel="stylesheet" type="text/css" href="./style/reset.css">
+<link rel="stylesheet" type="text/css" href="./style/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="./style/bootstrap.reset.css">
+<link rel="stylesheet" type="text/css" href="./style/common.css">
+<script src="./script/popper.min.js"></script>
+<script src="./script/jquery.min.js"></script>
+<style>
+    .search-link{border:0; background: transparent; width:28px!important;}
+</style>
+	<link rel="stylesheet" type="text/css" href="./style/detail.css">
+</head>
+<body>
+<div class="page-top">
+	<div class="top-line d-none d-xl-block"></div>
+	<div class="d-xl-none m-nav" style="height: 58px;"></div>
+	<div class="back-wuli d-none d-xl-block"><a href="https://www.iop.cas.cn/">返回物理所首页</a><img src="./static/back-home.png" alt=""></div>
+	<div class="container-fluid page-header d-none d-xl-flex">
+		<div class="logo-area">
+			<a href="."><img src="./static/logo.png" class="page-logo" alt="" /></a>
+			<!-- <a href=""><img src="./static/logo-2.png" class="page-logo" alt=""></a> -->
+			<!-- <a href=""><img src="./static/logo-3.png" class="page-logo" alt=""></a> -->
+		</div>
+		<form class="search" action="?q=search">
+			<input name="q" type="hidden" value="search">
+			<input name="key" type="text" class="search-input" placeholder="请输入关键字" maxlength="10">
+			<button class="search-link"><img src="./static/search-icon.png" class="search-icon" alt=""></button>
+		</form>
+	</div>
+	<div class="d-block d-xl-none m-nav">
+		<nav class="navbar navbar-expand-xl navbar-light bg-white fixed-top">
+			<div class="top-line-m"></div>
+			<a class="navbar-brand navbar-brand-m" href="." style="width: 50%;">
+				<img src="./static/logo-m.png" class="page-logo-m" alt=""/>
+				<img src="./static/logo-m-w.png" class="page-logo-m-w" alt=""/>
+			</a>
+			<div
+					class="toggle-btn-m collapsed"
+					type="button"
+					data-toggle="collapse"
+					data-target="#navbarCollapse"
+					aria-controls="navbarCollapse"
+					aria-expanded="false"
+					aria-label="Toggle navigation"
+					id="toggleBtnM"
+			>
+				<!-- <span class="navbar-toggler-icon"></span> -->
+			</div>
+			<div class="collapse navbar-collapse" id="navbarCollapse">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link active" href=".">首&nbsp;&nbsp;&nbsp;&nbsp;页</a>
+					</li>
+					
+					
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="?q=list_top&amp;id=3267" role="button" aria-expanded="false">
+							概况
+						</a>
+						<div class="dropdown-menu">
+							
+							<a class="dropdown-item" href="?q=list_first&amp;id=3268">历史沿革</a>
+							
+							<a class="dropdown-item" href="?q=list&amp;id=3269">学科简介</a>
+							
+							<a class="dropdown-item" href="?q=list&amp;id=3646">学位委员会</a>
+							
+							<a class="dropdown-item" href="?q=list&amp;id=3648">教育督导委员会</a>
+							
+							<a class="dropdown-item" href="?q=contactus&amp;id=3270">联系我们</a>
+							
+						</div>
+					</li>
+					
+					
+					
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="?q=list_top&amp;id=3271" role="button" aria-expanded="false">
+							硕博招生
+						</a>
+						<div class="dropdown-menu">
+							
+							<a class="dropdown-item" href="?q=list2&amp;id=3277">推荐免试</a>
+							
+							<a class="dropdown-item" href="?q=list2&amp;id=3278">硕士招生</a>
+							
+							<a class="dropdown-item" href="?q=list2&amp;id=3279">博士招生</a>
+							
+							<a class="dropdown-item" href="?q=list2&amp;id=3280">International Students</a>
+							
+						</div>
+					</li>
+					
+					
+					
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="?q=list_top&amp;id=3272" role="button" aria-expanded="false">
+							联合培养
+						</a>
+						<div class="dropdown-menu">
+							
+							<a class="dropdown-item" href="?q=list2&amp;id=3281">硕博联培</a>
+							
+							<a class="dropdown-item" href="?q=list2&amp;id=3282">本科毕设</a>
+							
+							<a class="dropdown-item" href="?q=list2&amp;id=3284">短期交流</a>
+							
+						</div>
+					</li>
+					
+					
+					
+					<li class="nav-item">
+						<a class="nav-link" href="?q=list_teacher&amp;id=3285">导师介绍</a>
+					</li>
+					
+					
+					
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="?q=list_top&amp;id=3273" role="button" aria-expanded="false">
+							培养学位
+						</a>
+						<div class="dropdown-menu">
+							
+							<a class="dropdown-item" href="?q=list&amp;id=3653">学籍管理</a>
+							
+							<a class="dropdown-item" href="?q=list_top&amp;id=3286">培养方案</a>
+							
+							<a class="dropdown-item" href="?q=list2&amp;id=3287">学位申请</a>
+							
+							<a class="dropdown-item" href="?q=list2&amp;id=3288">所内课程</a>
+							
+							<a class="dropdown-item" href="?q=list&amp;id=3289">评奖评优</a>
+							
+							<a class="dropdown-item" href="?q=list&amp;id=3652">规章制度</a>
+							
+						</div>
+					</li>
+					
+					
+					
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="?q=list_top&amp;id=3274" role="button" aria-expanded="false">
+							团学思政
+						</a>
+						<div class="dropdown-menu">
+							
+							<a class="dropdown-item" href="?q=list&amp;id=3290">思政活动</a>
+							
+							<a class="dropdown-item" href="?q=list_top&amp;id=3291">明理时空</a>
+							
+							<a class="dropdown-item" href="?q=list_top&amp;id=3292">研究生会</a>
+							
+						</div>
+					</li>
+					
+					
+					
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="?q=list_top&amp;id=3275" role="button" aria-expanded="false">
+							严济慈班
+						</a>
+						<div class="dropdown-menu">
+							
+							<a class="dropdown-item" href="?q=list&amp;id=3293">选拔公告</a>
+							
+							<a class="dropdown-item" href="?q=list&amp;id=3294">前沿讲座</a>
+							
+							<a class="dropdown-item" href="?q=list&amp;id=3295">严班奖学金</a>
+							
+							<a class="dropdown-item" href="?q=list&amp;id=3296">活动交流</a>
+							
+						</div>
+					</li>
+					
+					
+					
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="?q=list_top&amp;id=3276" role="button" aria-expanded="false">
+							毕业就业
+						</a>
+						<div class="dropdown-menu">
+							
+							<a class="dropdown-item" href="?q=list&amp;id=3297">毕业流程</a>
+							
+							<a class="dropdown-item" href="?q=list&amp;id=3298">就业去向</a>
+							
+							<a class="dropdown-item" href="?q=list&amp;id=3299">选调信息</a>
+							
+							<a class="dropdown-item" href="?q=list&amp;id=3715">就业信息</a>
+							
+						</div>
+					</li>
+					
+					
+				</ul>
+				<div class="back-btn"><a href="https://www.iop.cas.cn/">返回物理所首页</a><img src="./static/back-home.png" alt=""></div>
+			</div>
+		</nav>
+	</div>
+</div>
+<div class="page-main">
+	<div class="main-banner d-none d-xl-block"></div>
+<div class="main-top d-block d-xl-none">
+	<img src="./static/banner-2.jpg" class="d-none d-md-block" alt="" style="width: 100%;height: auto;">
+	<img src="./static/m-banner-1.jpg" class="d-block d-md-none" alt="" style="width: 100%;height: auto;">
+	<div class="search">
+		<form class="search-content" action="?q=search">
+			<input name="q" type="hidden" value="search">
+			<input name="key" type="text" class="search-input" placeholder="请输入关键字" maxlength="10">
+			<button class="search-link"><img src="./static/search-icon-m.png" class="search-icon" alt=""></button>
+		</form>
+	</div>
+</div>
+	<div class="container main-content">
+		<div class="d-none d-xl-block" style="height: 200px;"></div>
+<div class="nav-area d-none d-xl-block">
+	<ul class="nav justify-content-center">
+		<li class="nav-item">
+			<a class="nav-link " href=".">首&nbsp;&nbsp;&nbsp;&nbsp;页</a>
+		</li>
+		
+		
+		<li class="nav-item dropdown">
+			<a class="nav-link  dropdown-toggle" data-toggle="dropdown" href="?q=list_top&amp;id=3267" role="button" aria-expanded="false">
+				概况
+			</a>
+			<div class="dropdown-menu">
+				
+				<a class="dropdown-item" href="?q=list_first&amp;id=3268">历史沿革</a>
+				
+				<a class="dropdown-item" href="?q=list&amp;id=3269">学科简介</a>
+				
+				<a class="dropdown-item" href="?q=list&amp;id=3646">学位委员会</a>
+				
+				<a class="dropdown-item" href="?q=list&amp;id=3648">教育督导委员会</a>
+				
+				<a class="dropdown-item" href="?q=contactus&amp;id=3270">联系我们</a>
+				
+			</div>
+		</li>
+		
+		
+		
+		<li class="nav-item dropdown">
+			<a class="nav-link  dropdown-toggle" data-toggle="dropdown" href="?q=list_top&amp;id=3271" role="button" aria-expanded="false">
+				硕博招生
+			</a>
+			<div class="dropdown-menu">
+				
+				<a class="dropdown-item" href="?q=list2&amp;id=3277">推荐免试</a>
+				
+				<a class="dropdown-item" href="?q=list2&amp;id=3278">硕士招生</a>
+				
+				<a class="dropdown-item" href="?q=list2&amp;id=3279">博士招生</a>
+				
+				<a class="dropdown-item" href="?q=list2&amp;id=3280">International Students</a>
+				
+			</div>
+		</li>
+		
+		
+		
+		<li class="nav-item dropdown">
+			<a class="nav-link  dropdown-toggle" data-toggle="dropdown" href="?q=list_top&amp;id=3272" role="button" aria-expanded="false">
+				联合培养
+			</a>
+			<div class="dropdown-menu">
+				
+				<a class="dropdown-item" href="?q=list2&amp;id=3281">硕博联培</a>
+				
+				<a class="dropdown-item" href="?q=list2&amp;id=3282">本科毕设</a>
+				
+				<a class="dropdown-item" href="?q=list2&amp;id=3284">短期交流</a>
+				
+			</div>
+		</li>
+		
+		
+		
+		<li class="nav-item">
+			<a class="nav-link " href="?q=list_teacher&amp;id=3285">导师介绍</a>
+		</li>
+		
+		
+		
+		<li class="nav-item dropdown">
+			<a class="nav-link  dropdown-toggle" data-toggle="dropdown" href="?q=list_top&amp;id=3273" role="button" aria-expanded="false">
+				培养学位
+			</a>
+			<div class="dropdown-menu">
+				
+				<a class="dropdown-item" href="?q=list&amp;id=3653">学籍管理</a>
+				
+				<a class="dropdown-item" href="?q=list_top&amp;id=3286">培养方案</a>
+				
+				<a class="dropdown-item" href="?q=list2&amp;id=3287">学位申请</a>
+				
+				<a class="dropdown-item" href="?q=list2&amp;id=3288">所内课程</a>
+				
+				<a class="dropdown-item" href="?q=list&amp;id=3289">评奖评优</a>
+				
+				<a class="dropdown-item" href="?q=list&amp;id=3652">规章制度</a>
+				
+			</div>
+		</li>
+		
+		
+		
+		<li class="nav-item dropdown">
+			<a class="nav-link  dropdown-toggle" data-toggle="dropdown" href="?q=list_top&amp;id=3274" role="button" aria-expanded="false">
+				团学思政
+			</a>
+			<div class="dropdown-menu">
+				
+				<a class="dropdown-item" href="?q=list&amp;id=3290">思政活动</a>
+				
+				<a class="dropdown-item" href="?q=list_top&amp;id=3291">明理时空</a>
+				
+				<a class="dropdown-item" href="?q=list_top&amp;id=3292">研究生会</a>
+				
+			</div>
+		</li>
+		
+		
+		
+		<li class="nav-item dropdown">
+			<a class="nav-link  dropdown-toggle" data-toggle="dropdown" href="?q=list_top&amp;id=3275" role="button" aria-expanded="false">
+				严济慈班
+			</a>
+			<div class="dropdown-menu">
+				
+				<a class="dropdown-item" href="?q=list&amp;id=3293">选拔公告</a>
+				
+				<a class="dropdown-item" href="?q=list&amp;id=3294">前沿讲座</a>
+				
+				<a class="dropdown-item" href="?q=list&amp;id=3295">严班奖学金</a>
+				
+				<a class="dropdown-item" href="?q=list&amp;id=3296">活动交流</a>
+				
+			</div>
+		</li>
+		
+		
+		
+		<li class="nav-item dropdown">
+			<a class="nav-link  dropdown-toggle" data-toggle="dropdown" href="?q=list_top&amp;id=3276" role="button" aria-expanded="false">
+				毕业就业
+			</a>
+			<div class="dropdown-menu">
+				
+				<a class="dropdown-item" href="?q=list&amp;id=3297">毕业流程</a>
+				
+				<a class="dropdown-item" href="?q=list&amp;id=3298">就业去向</a>
+				
+				<a class="dropdown-item" href="?q=list&amp;id=3299">选调信息</a>
+				
+				<a class="dropdown-item" href="?q=list&amp;id=3715">就业信息</a>
+				
+			</div>
+		</li>
+		
+		
+	</ul>
+</div>
+
+		<div class="content-body">
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href=".">首页</a></li>
+					<li class="breadcrumb-item"><a href="?q=list_teacher">导师介绍</a></li>
+					<li class="breadcrumb-item breadcrumb-item-item active" aria-current="page">导师详情</li>
+				</ol>
+			</nav>
+			<div class="article-info">
+				<div class="big-title">张鹏举</div>
+				<div class="sm-title">2023-12-30</div>
+				<div class="article-body">
+					
+					<img style="max-width:300px; float:right; margin-left:1em" src="https://in.iphy.ac.cn/upload/person_photo/6368_2025010715502728059.jpg">
+					
+					
+					<p><b>简介</b>：</p>
+					<p></br><p><strong>张鹏举，中国科学院物理研究所，特聘研究员，博士生导师</strong></p>
+<p><strong>国家人才引进青年项目</strong></p>
+<p><strong>中国科学院国外杰出人才引进计划 (择优支持)</strong></p>
+<p>---&nbsp; &nbsp; &nbsp;</p>
+<p style="text-align: left;">2024~<span style="color: #212529; background: white;"><span style="mso-spacerun: yes;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></span>中国科学院物理研究所，超快物质科学中心，特聘研究员</p>
+<p style="text-align: left;">2018-2024，苏黎世联邦理工学院(ETH Zurich)，超快谱学与阿秒科学研究组，博士后&amp;资深研究员<strong>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</strong></p>
+<p style="text-align: left;">2016-2018，中国科学院近代物理研究所，原子分子动力学研究组，副研究员</p>
+<p style="text-align: left;">2013-2016，日本理化学研究所(RIKEN)，東原子、分子、光学研究组，博士后研究员</p>
+<p style="text-align: left;">2010-2013，中国科学院近代物理研究所，原子、分子物理，理学博士</p>
+<p style="text-align: left;">2007-2010，中国科学院近代物理研究所，原子、分子物理，理学硕士</p>
+<p style="text-align: left;">2003-2007，河北大学，物理科学与技术学院，应用物理学，理学学士&nbsp;</p>
+<p style="text-align: left;"><strong>成果简述：</strong></p>
+<p>已发表SCI论文50余篇，包括第一作者（含共一）/通讯作者论文10余篇。</p>
+<p>包括： Nature Photonics 1篇；Nature Chemistry 1篇；Nature Communications 1篇；</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Physical Review Letters 3篇；Physical Review Letters 2篇 （Under review）；</p>
+<p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Ultrafast Science 1篇，Chemical Science 1篇，JPCL 3篇；PRR 1篇；PRA 1篇；Rev. Sci. Instrum. 1篇；JPB 1篇；</p>
+<div>受邀在国际原子、分子、光物理大会、欧洲阿秒化学年会等国际重要学术会议上作邀请报告10余次</div>
+<div>担任AAAS旗下 《Ultrafast Science》杂志的青年编委</div>
+<div>著名光学、光子学综述期刊 《<a>Photonics Insights</a>》的青年编委</div>
+<div>担任中国物理学会杂志CPL，CPB等</div>
+<div>美国物理学会杂志PRX,PRL,PRA</div>
+<div>美国物理联合会（AIP）杂志APL等</div>
+<div>英国皇家物理学会杂志JPB, Physica Scripta等独立审稿人。&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div></p>
+					
+					<p><b>主要研究方向</b>：</p>
+					<p></br><p>高次谐波产生技术的发展，极大地促进了阿秒激光脉冲的应用，使得在电子以及核的本征运动时间尺度内观察并描述其运动规律成为现实。光与物质相互作用导致的超快激发态动力学，即电荷转移和能量传递机制，是原子、分子、光物理、光化学、光致生物反应以及强关联电子材料非平衡动力学的核心问题之一。本课题组主要基于超快激光装置，结合高次谐波产生技术和外场调控手段，从事阿秒激光脉冲与原子、分子、液体水、水溶液、常温液相分子、固体材料等体系相互作用导致的超快激发态动力学实验研究。</p>
+<p><strong style="mso-bidi-font-weight: normal;">具体研究方向包括：</strong></p>
+<p style="margin-left: 18.0pt; text-indent: -18.0pt; mso-char-indent-count: 0; mso-list: l0 level1 lfo1;"><span style="mso-list: Ignore;">1，<span style="font: 7.0pt;">&nbsp; 新型便携、桌面式阿秒光源的研制</span></span>；</p>
+<p style="margin-left: 18.0pt; text-indent: -18.0pt; mso-char-indent-count: 0; mso-list: l0 level1 lfo1;"><span style="mso-list: Ignore;">2，<span style="font: 7.0pt;">&nbsp; </span></span>原子、分子的电子态相干动力学；</p>
+<p style="margin-left: 18.0pt; text-indent: -18.0pt; mso-char-indent-count: 0; mso-list: l0 level1 lfo1;"><span style="mso-list: Ignore;">3，<span style="font: 7.0pt;">&nbsp;液体水的电子态结构， 常温</span></span>液相分子的超快非绝热化学反应动力学；</p>
+<p><span style="mso-list: Ignore;">4，<span style="font: 7.0pt;"> </span></span>关联电子材料的阿秒电子动力学表征和操控；</p></p>
+					
+					<p><b>过去的主要工作及获得的成果</b>：</p>
+					<p></br><p><strong>（2024年之前）</strong>基于高次谐波产生技术，液体微束技术和磁瓶式高分辨光电子谱仪技术，分别发展并建立了：</p>
+<p>&nbsp;i）高精度液相光电子能谱测量方案；</p>
+<p>&nbsp;ii）液相（液体水，水溶液，常温液相分子）样品的时间分辨光电子能谱方案；</p>
+<p>&nbsp;iii）（时间分辨）电子-电子符合能谱实验方案。</p>
+<p><strong>并取得了以下代表性成果：</strong></p>
+<p style="margin-left: 18.0pt; text-indent: -18.0pt; mso-char-indent-count: 0; mso-list: l0 level1 lfo1;"><span style="mso-list: Ignore;">1，<span style="font: 7.0pt;">&nbsp; </span></span>针对原子内层电离诱发的双俄歇电子发射过程，建立了时间分辨的多电子符合能谱测量技术，首次测量并得到了Xe(4d<sup>-1</sup>)离子级联俄歇过程的寿命；</p>
+<p style="margin-left: 18.0pt; text-indent: 0cm; mso-char-indent-count: 0;">文章链接：<a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.132.083201" target="_blank">Phys. Rev. Lett. 132, 083201 (2024)</a>（一作兼共同通讯）</p>
+<p style="margin-left: 18.0pt; text-indent: -18.0pt; mso-char-indent-count: 0; mso-list: l0 level1 lfo1;"><span style="mso-list: Ignore;">2，<span style="font: 7.0pt;">&nbsp; </span></span>针对分子激发态自电离和直接电离通道的干涉问题，利用XUV泵浦-IR探测的双共振增强效应，通过振动波包的量子拍相位，揭示了自电离态在分子激发态动力学的作用；</p>
+<p style="margin-left: 18.0pt; text-indent: 0cm; mso-char-indent-count: 0;">文章链接：<a href="https://doi.org/10.1103/PhysRevLett.130.153201" target="_blank">Phys. Rev. Lett. 130, 153201 (2023)</a>（一作兼共同通讯）</p>
+<p style="margin-left: 18.0pt; text-indent: -18.0pt; mso-char-indent-count: 0; mso-list: l0 level1 lfo1;"><span style="mso-list: Ignore;">3，<span style="font: 7.0pt;">&nbsp; </span></span>针对液体水靶的流动电势，液体水和金属谱仪的真空能级差等对光电子探测的影响，基于均匀电场原理，建立了液体靶&ldquo;偏压补偿&rdquo;新方案，系统测量了液体水各价带电离能，并定量研究了二次电子的产生机制，为开展液相激发态动力研究奠定了基础；</p>
+<p style="margin-left: 18.0pt; text-indent: 0cm; mso-char-indent-count: 0;">文章链接：<a href="https://doi.org/10.1021/acs.jpclett.9b03391" target="_blank">J. Phys. Chem. Lett. 11, 1789 (2020)</a> (第二作者);</p>
+<p style="margin-left: 18.0pt; text-indent: 0cm; mso-char-indent-count: 0;"><a href="https://doi.org/10.1021/acs.jpclett.0c03424" target="_blank">J. Phys. Chem. Lett. 12, 2990&minus;2996 (2021)</a> (通讯作者);</p>
+<p style="margin-left: 18.0pt; text-indent: 0cm; mso-char-indent-count: 0;"><a href="https://doi.org/10.1039/D1SC06741A" target="_blank">Chem. Sci., 13, 1675-1692 (2022)</a> (通讯作者))</p>
+<p style="margin-left: 18.0pt; text-indent: -18.0pt; mso-char-indent-count: 0; mso-list: l0 level1 lfo1;"><span style="mso-list: Ignore;">4，<span style="font: 7.0pt;">&nbsp; </span></span>针对激发态液体水的非局域自电离直接实验观测的难题，建立了液相光电子-二次电子的符合测量方案，首次观测到了液体水2a<sub>1</sub>内价带的分子间库伦退激过程(Intermolecular Coulombic Decay (ICD))；</p>
+<p style="margin-left: 18.0pt; text-indent: 0cm; mso-char-indent-count: 0;">文章链接：<a href="https://doi.org/10.1103/PhysRevLett.128.133001" target="_blank">Phys. Rev. Lett. 128, 133001 (2022) （Editors' Suggestion）</a>（一作兼共同通讯）</p>
+<p style="margin-left: 18.0pt; text-indent: -18.0pt; mso-char-indent-count: 0; mso-list: l0 level1 lfo1;"><span style="mso-list: Ignore;">5，<span style="font: 7.0pt;">&nbsp; </span></span>针对溶剂化效应对液相样品非绝热激发态动力学的影响，克服了液相样品光电子的高计数率，稳定性差，空间电荷效应等关键难题，并进行了液气两相激发态动力学的对比研究，发现了液相分子异构化过程中的相干保持及溶剂化效应对分子超快异构化过程的减速现象。</p>
+<p style="margin-left: 18.0pt; text-indent: 0cm; mso-char-indent-count: 0;">文章链接：<a href="https://www.nature.com/articles/s41557-022-01012-0" target="_blank">Nature Chemistry 14,1126&ndash;1132 (2022) </a>(共一兼共同通讯)</p></p>
+					
+					<p><b>代表性论文及专利</b>：</p>
+					<p></br><p>（*通讯； #共一）</p>
+<p><strong>回国之后（2024年3月起）</strong></p>
+<p>&nbsp; &nbsp; 9, 赵蒙龙, 于尧, 闫鹏宇, 任百惠, 刘立, 孟胜, 曾敏, 张鹏举*</p>
+<p>&nbsp; &nbsp;桌面式极紫外高次谐波光源的产生及模拟</p>
+<p><strong>&nbsp; &nbsp;物理学报 </strong>2026, 75(10): 100405</p>
+<p>&nbsp; <a href="https://wulixb.iphy.ac.cn/article/doi/10.7498/aps.75.20260167" target="_blank">DOI: 10.7498/aps.75.20260167</a></p>
+<p>&nbsp; &nbsp; 8，Wenchao Zhao, Zepeng Qian, Yuanjie Pan, Jinkai Zhang, Menglong Zhao, Gefei Li, Tien-Dat Tran,<br>Tran Trung Luu, and <strong>Pengju Zhang*</strong></p>
+<p>A liquid-phase high-order harmonic generation apparatus for investigating ultrafast dynamics in liquids</p>
+<p>&nbsp; &nbsp; &nbsp;<strong>Review of Scientific Instruments</strong>, <strong>97</strong>, 013005 (2026)</p>
+<p><a href="https://doi.org/10.1063/5.0278967">DOI：https://doi.org/10.1063/5.0278967</a></p>
+<p><em>&nbsp; </em>&nbsp;7, Gefei Li, Hao Teng*, Zhiyi Wei*,Sheng Meng, <strong>Pengju Zhang*</strong></p>
+<p>&nbsp; &nbsp; &nbsp;Generation of isolated white-light attosecond pulses in solids</p>
+<p>&nbsp; &nbsp; &nbsp;<strong><span style="mso-bidi-font-size: 10.5pt;">Phys. Rev. Research</span></strong><span style="mso-bidi-font-size: 10.5pt;"><strong>&nbsp;8</strong>, 013067 <strong style="mso-bidi-font-weight: normal;">&nbsp;</strong>(2026)</span></p>
+<p><a href="https://doi.org/10.1103/8x1z-3l7k" target="_blank">DOI:https://doi.org/10.1103/8x1z-3l7k</a></p>
+<p>&nbsp; &nbsp; 6，任百惠, 于尧, 闫鹏宇, 王孟阳, 孟胜, 张鹏举*</p>
+<p>&nbsp; &nbsp; &nbsp;液相磁瓶式光电子谱仪及其在超快动力学领域中的应用</p>
+<p><em>&nbsp; <strong>&nbsp;</strong></em><strong>物理学报 </strong>2025, 74(24): 244204</p>
+<p>&nbsp; &nbsp;<a href="https://doi.org/10.1038/s41467-025-62162-6" target="_blank">DOI:</a><a href="https://doi.org/10.7498/aps.74.20251130" target="_blank">10.7498/aps.74.20251130</a></p>
+<p>&nbsp; &nbsp; &nbsp;5，Danylo T. Matselyukh, F. Rott, T. Schnappinger, <strong>Pengju Zhang</strong>, Zheng Li, J. Richardson, Regina de Vivie-Riedle &amp; Hans Jakob W&ouml;rner</p>
+<p>&nbsp; &nbsp; &nbsp;Attosecond spectroscopy of molecular charge transfer uncovers a 1.5-fs delay in population transfer</p>
+<p><em>&nbsp; &nbsp; </em><strong>Nature Communications</strong><em><strong> </strong></em><strong>16</strong>, 7211 (2025)</p>
+<p>&nbsp; &nbsp;<a href="https://doi.org/10.1038/s41467-025-62162-6" target="_blank">DOI:https://doi.org/10.1038/s41467-025-62162-6</a></p>
+<p>&nbsp; &nbsp; &nbsp;4，<strong>Pengju Zhang&lowast;#, </strong>Ming Zhang#, Tianyu Zhou, Zheng Li*, Hans Jakob Worner*</p>
+<p>&nbsp; &nbsp; &nbsp;Observing vibrational quantum beating in the ultrafast predissociation of SF<sub>6</sub></p>
+<p>&nbsp; &nbsp; &nbsp;<strong>Ultrafast Science </strong><span style="mso-bidi-font-size: 10.5pt;"><strong>6</strong>, 0147<strong style="mso-bidi-font-weight: normal;">&nbsp;</strong>(2026)<strong> <span style="background-color: #ffffff; color: #e03e2d;">(Front Cover)</span></strong></span></p>
+<p><span style="mso-bidi-font-size: 10.5pt;">&nbsp; &nbsp;<a href="https://doi.org/10.34133/ultrafastscience.0147" target="_blank"> DOI:https://doi.org/10.34133/ultrafastscience.0147</a></span></p>
+<p>&nbsp; &nbsp; &nbsp;3，<strong>Pengju Zhang*</strong>, Joel Trester, Jakub Dubsky, Premysl Kolorenc, Petr Slavıcek* and Hans Jakob Worner*</p>
+<p>&nbsp; &nbsp; &nbsp;Intermolecular Coulombic decay in liquid water competes with proton transfer and non-adiabatic relaxation</p>
+<p><em>&nbsp; &nbsp; &nbsp;</em><strong>Nature Communications</strong><em> </em>16, 6732 (2025)</p>
+<p>&nbsp; &nbsp;<a href="https://doi.org/10.1038/s41467-025-61912-w" target="_blank"> DOI: https://doi.org/10.1038/s41467-025-61912-w</a></p>
+<p>&nbsp; &nbsp; &nbsp;2，<strong>Pengju Zhang*#</strong>, Hao Liang*#, Meng Han, Joel Trester, Jiabao Ji, Jan Michael Rost and Hans Jakob Worner*</p>
+<p>&nbsp; &nbsp; &nbsp; Resolving the phase of Fano resonance wavepackets with photoelectron frequency-resolved optical gating</p>
+<p><em>&nbsp; &nbsp; &nbsp;</em><strong>Nature Photonics</strong><em> </em><strong>19</strong><em>, </em>847&ndash;853<em> </em>&nbsp;(2025)</p>
+<p>&nbsp; &nbsp;<a href="https://doi.org/10.1038/s41566-025-01715-z" target="_blank">DOI: https://doi.org/10.1038/s41566-025-01715-z</a></p>
+<p>&nbsp; &nbsp; &nbsp;1，Ziwei Chen, Ziyuan Li, Jingchen Xie, <strong>Pengju Zhang*</strong>, Tiantian Tong, Yue Wang, Jie Hu, Hans Jakob W&ouml;rner,&nbsp; and ShanXi Tian<strong>* （合作文章）</strong></p>
+<p>&nbsp; &nbsp; &nbsp; Direct Observation of Anionic Yields from the Liquid&ndash;Vapor Interface by Electron Irradiation</p>
+<p><em>&nbsp; &nbsp; &nbsp; <strong>J. Phys. Chem. Lett.</strong></em> 2024, 15, 21, 5607&ndash;5611</p>
+<p>&nbsp; &nbsp; &nbsp;<a href="https://pubs.acs.org/doi/10.1021/acs.jpclett.4c00521">DOI: https://pubs.acs.org/doi/10.1021/acs.jpclett.4c00521</a></p>
+<p><strong>回国之前（截止2024年3月）</strong></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">1,&nbsp;</span><strong style="mso-bidi-font-weight: normal;"><span style="mso-bidi-font-size: 10.5pt;">Pengju Zhang*</span></strong><span style="mso-bidi-font-size: 10.5pt;">&nbsp;et al, </span><span style="mso-bidi-font-size: 10.5pt;">Time-resolved multi-electron coincidence spectroscopy of double Auger-Meitner decay following Xe 4d ionization.</span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;"><strong>Phys. Rev. Lett.</strong>&nbsp;<span style="mso-bidi-font-weight: bold;">132</span>, 083201 (2024)</span></p>
+<p style="margin-left: 18.0pt;"><a href="https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.132.083201" target="_blank"><span style="mso-bidi-font-size: 10.5pt;">DOI: </span><span style="mso-bidi-font-size: 10.5pt;">https://doi.org/10.1103/PhysRevLett.132.083201</span></a></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">2, <strong style="mso-bidi-font-weight: normal;">Pengju. Zhang*#</strong> et al, Effects of autoionizing resonances on wave-packet dynamics studied by time-resolved photoelectron spectroscopy.</span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;"><strong>Phys. Rev. Lett.</strong>&nbsp;</span><span style="mso-bidi-font-size: 10.5pt;">130, 153201 (2023)</span></p>
+<p style="margin-left: 18.0pt;"><a href="https://doi.org/10.1103/PhysRevLett.130.153201" target="_blank"><span style="mso-bidi-font-size: 10.5pt;">DOI: https://doi.org/10.1103/PhysRevLett.130.153201</span></a></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">3, Daniel Hammerland, Thomas Berglitsch, <strong style="mso-bidi-font-weight: normal;">Pengju Zhang</strong> et al, Bond-length dependence of attosecond ionization delays in O<sub>2</sub> arising from electron correlation to shape resonances.</span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;"><strong>Science Advances,</strong> 10, eadl3810 (2024) </span></p>
+<p style="margin-left: 18.0pt;"><a href="https://doi.org/10.1126/sciadv.adl3810">DOI: 10.1126/sciadv.adl3810</a></p>
+<div>
+<p>&nbsp; &nbsp; &nbsp;4, Chuncheng Wang<sup><strong>#</strong></sup>, Max D.J. Waters<sup><strong>#</strong></sup>, <strong>Pengju Zhang<sup>#</sup><sup>,</sup></strong><strong><sup>&lowast;</sup></strong><strong> </strong>et al, Different timescales during ultrafast stilbene&nbsp; isomerization in the gas and liquid phases revealed using time-resolved photoelectron spectroscopy.</p>
+</div>
+<p style="margin-left: 18.0pt;"><strong><span style="mso-bidi-font-size: 10.5pt;">Nature Chemistry,</span></strong><span style="mso-bidi-font-size: 10.5pt;"> <span style="color: #212529; background: white;">14, 1126&ndash;1132 (2022).</span></span></p>
+<p style="margin-left: 18.0pt;"><a href="https://www.nature.com/articles/s41557-022-01012-0" target="_blank"><span style="mso-bidi-font-size: 10.5pt;">DOI: https://www.nature.com/articles/s41557-022-01012-0</span></a></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">5, <strong style="mso-bidi-font-weight: normal;">Pengju Zhang</strong></span><strong style="mso-bidi-font-weight: normal;"><span style="mso-bidi-font-size: 10.5pt;">&lowast;</span></strong><span style="mso-bidi-font-size: 10.5pt;">et al, Intermolecular Coulombic Decay in Liquid Water. </span></p>
+<p style="margin-left: 18.0pt;"><strong><span style="mso-bidi-font-size: 10.5pt;">Phys. Rev. Lett.</span></strong><span style="mso-bidi-font-size: 10.5pt;"> 128, 133001 (2022).<span style="color: #e03e2d;"> <strong style="mso-bidi-font-weight: normal;">(Editors' suggestion)</strong></span></span></p>
+<p style="margin-left: 18.0pt;"><a href="https://doi.org/10.1103/PhysRevLett.128.133001" target="_blank"><span style="mso-bidi-font-size: 10.5pt;">DOI: https://doi.org/10.1103/PhysRevLett.128.133001</span></a></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">6, Titouan Gadeyne, <strong style="mso-bidi-font-weight: normal;">Pengju Zhang</strong></span><strong style="mso-bidi-font-weight: normal;"><span style="mso-bidi-font-size: 10.5pt;">&lowast;</span></strong><span style="mso-bidi-font-size: 10.5pt;"> et al, Low-energy electron distributions from the photoionization of liquid water: a sensitive test of electron mean free paths. </span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;"><strong>Chemical Science,</strong> 13, 1675-1692 (2022)</span></p>
+<p style="margin-left: 18.0pt;"><a href="https://doi.org/10.1039/D1SC06741A" target="_blank"><span style="mso-bidi-font-size: 10.5pt;">DOI: https://doi.org/10.1039/D1SC06741A</span></a></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">7, Conaill F. Perry, Inga Jordan, <strong style="mso-bidi-font-weight: normal;">Pengju Zhang</strong></span><strong style="mso-bidi-font-weight: normal;"><span style="mso-bidi-font-size: 10.5pt;">&lowast;</span></strong><span style="mso-bidi-font-size: 10.5pt;"> et al, Photoelectron Spectroscopy of Liquid Water with Tunable Extreme-Ultraviolet Radiation: Effects of Electron Scattering.</span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;"><span style="mso-spacerun: yes;">&nbsp;</span><strong>J. Phys. Chem. Lett.</strong> 12, 2990-2996 (2021)</span></p>
+<p style="margin-left: 18.0pt;"><a href="https://doi.org/10.1021/acs.jpclett.0c03424" target="_blank"><span style="mso-bidi-font-size: 10.5pt;">DOI: https://doi.org/10.1021/acs.jpclett.0c03424</span></a></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">8, Conaill F. Perry, <strong style="mso-bidi-font-weight: normal;">Pengju Zhang</strong> et al, Ionization Energy of Liquid Water Revisited.</span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;"><strong>J. Phys. Chem. Lett.</strong> 11, 1789-1794 (2020)</span></p>
+<p style="margin-left: 18.0pt;"><a href="https://doi.org/10.1021/acs.jpclett.9b03391" target="_blank"><span style="mso-bidi-font-size: 10.5pt;">DOI: https://doi.org/10.1021/acs.jpclett.9b03391</span></a></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">9, S. Yan, X. L. Zhu, S. F. Zhang, D. M. Zhao, <strong style="mso-bidi-font-weight: normal;">P. Zhang </strong>et al,<strong style="mso-bidi-font-weight: normal;"> </strong>Enhanced damage induced by secondary high-energy electrons. </span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;"><strong>Phys. Rev. A </strong>102, 032809 (2020).</span></p>
+<p style="margin-left: 18.0pt;"><a href="https://doi.org/10.1103/PhysRevA.102.032809" target="_blank"><span style="mso-bidi-font-size: 10.5pt;">DOI: https://doi.org/10.1103/PhysRevA.102.032809</span></a></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">10, D. Hammerland<sup><strong>#</strong></sup>, <strong style="mso-bidi-font-weight: normal;">Pengju Zhang<sup><strong>#</strong></sup>&nbsp;</strong>et al, Reconstruction of attosecond pulses in the presence of interfering dressing fields using a 100 kHz laser system at ELI-ALPS</span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;"><strong>J. Phys. B: At. Mol. Opt. Phys.</strong> 52 (2019) 23LT01.</span></p>
+<p style="margin-left: 18.0pt;"><a href="https://doi.org/10.1088/1361-6455/ab486c" target="_blank"><span style="mso-bidi-font-size: 10.5pt;">DOI: https://doi.org/10.1088/1361-6455/ab486c</span></a></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">11,<strong style="mso-bidi-font-weight: normal;"> Pengju. Zhang</strong> et al, Observation of indirect (e, 3e) process of CO</span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;"><strong>J. Phys. B: At. Mol. Opt. Phys.</strong> 51, 185203 (2018).</span></p>
+<p style="margin-left: 18.0pt;"><a href="https://doi.org/10.1088/1361-6455/aad49d" target="_blank"><span style="mso-bidi-font-size: 10.5pt;">DOI:https://doi.org/10.1088/1361-6455/aad49d</span></a></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">12, S. Yan, <strong style="mso-bidi-font-weight: normal;">P. Zhang,</strong> et al, Interatomic relaxation processes induced in neon dimers by electron-impact ionization.</span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;"><strong>Phys. Rev. A</strong> 97, 010701(R) (2018).</span></p>
+<p style="margin-left: 18.0pt;"><a href="https://doi.org/10.1103/PhysRevA.97.010701" target="_blank"><span style="mso-bidi-font-size: 10.5pt;">DOI: https://doi.org/10.1103/PhysRevA.97.010701</span></a></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">13, X. L. Zhu, S. Yan, W. T. Feng, X. Ma</span><span style="mso-bidi-font-size: 10.5pt;">&lowast;</span><span style="mso-bidi-font-size: 10.5pt;">, X. Y. Chuai, D. L. Guo, Y. Gao, R. T. Zhang, <strong style="mso-bidi-font-weight: normal;">P.Zhang,</strong> et al, Orientation effect in Ar dimer fragmentation by highly charged ion impact. </span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;"><strong>J. Phys. B: At. Mol. Opt. Phys.</strong> 51 (2018) 155204.</span></p>
+<p style="margin-left: 18.0pt;"><a href="https://doi.org/10.1088/1361-6455/aacfed" target="_blank"><span style="mso-bidi-font-size: 10.5pt;">DOI: https://doi.org/10.1088/1361-6455/aacfed</span></a></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">14, S. Yan, X. L. Zhu, <strong style="mso-bidi-font-weight: normal;">P. Zhang et al, </strong>Observation of two sequential pathways of (CO<sub>2</sub>)<sup>3+</sup> dissociation by heavy-ion impact.</span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;"><strong>Phys. Rev. A</strong> 94, 032708 (2016).</span></p>
+<p style="margin-left: 18.0pt;"><a href="http://dx.doi.org/10.1103/PhysRevA.94.032708" target="_blank"><span style="mso-bidi-font-size: 10.5pt;">DOI: http://dx.doi.org/10.1103/PhysRevA.94.032708</span></a></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">15, S. Yan, <strong style="mso-bidi-font-weight: normal;">P. Zhang </strong>et al, Dissociation mechanisms of the Ar trimer induced by a third atom in high-energy electron impact ionization. </span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;"><strong>Phys. Rev. A</strong> 89, 062707 (2014).</span></p>
+<p style="margin-left: 18.0pt;"><a href="https://doi.org/10.1103/PhysRevA.89.062707" target="_blank"><span style="mso-bidi-font-size: 10.5pt;">DOI: https://doi.org/10.1103/PhysRevA.89.062707</span></a></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">16, S. Yan, <strong style="mso-bidi-font-weight: normal;">P. Zhang </strong>et al,<strong style="mso-bidi-font-weight: normal;"> </strong>Observation of interatomic Coulombic decay and electron-transfer-mediated decay in high energy electron-impact ionization of Ar<sub>2</sub>. </span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;"><strong>Phys. Rev. A</strong> 88, 042712 (2013).</span></p>
+<p style="margin-left: 18.0pt;"><a href="https://doi.org/10.1103/PhysRevA.88.042712" target="_blank"><span style="mso-bidi-font-size: 10.5pt;">DOI: https://doi.org/10.1103/PhysRevA.88.042712</span></a></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">17, <strong style="mso-bidi-font-weight: normal;">P. Zhang </strong>et al, (e, 2e) processes on atomic targets (Ne, Ar) and molecular targets (CH<sub>4</sub>, N<sub>2</sub>, CO<sub>2</sub>): Role of electron-nucleus scattering. </span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;"><strong>Phys. Rev. A</strong> 86, 012712 (2012).</span></p>
+<p style="margin-left: 18.0pt;"><a href="http://dx.doi.org/10.1103/PhysRevA.86.012712" target="_blank"><span style="mso-bidi-font-size: 10.5pt;">DOI: http://dx.doi.org/10.1103/PhysRevA.86.012712</span></a></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">18, S. Xu, X. Ma</span><span style="mso-bidi-font-size: 10.5pt;">&lowast;</span><span style="mso-bidi-font-size: 10.5pt;">, S. Yan and <strong style="mso-bidi-font-weight: normal;">P. Zhang</strong>.</span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">Comment on&ldquo;Dynamical (e, 2e) studies using tetrahydrofuran as a DNA analog&rdquo; [J. Chem.</span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">Phys. 133, 124302 (2010)]. </span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;"><strong>J. Chem. Phys. </strong>136, 237101 (2012).</span></p>
+<p style="margin-left: 18.0pt;"><a href="http://dx.doi.org/10.1103/PhysRevA.86.012712" target="_blank"><span style="mso-bidi-font-size: 10.5pt;">DOI: https://doi.org/10.1063/1.4729370</span></a></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">19, D. L. Guo, X. Ma, S. F. Zhang, X. L. Zhu, W. T. Feng, R. T. Zhang, B. Li, H. P. Liu, S. C.Yan, <strong style="mso-bidi-font-weight: normal;">P. J. Zhang</strong> and Q. Wang.</span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">Angular- and state-selective differential cross sections for single-electron capture in p-He</span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">collisions at intermediate energies. </span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;"><strong>Phys. Rev. A</strong> 86, 052707 (2012).</span></p>
+<p style="margin-left: 18.0pt;"><a href="http://dx.doi.org/10.1103/PhysRevA.86.012712" target="_blank"><span style="mso-bidi-font-size: 10.5pt;">DOI: https://doi.org/10.1103/PhysRevA.86.052707</span></a></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">20, S. Yan, X. Ma</span><span style="mso-bidi-font-size: 10.5pt;">&lowast;</span><span style="mso-bidi-font-size: 10.5pt;">, <strong style="mso-bidi-font-weight: normal;">P. Zhang</strong> et al,</span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">Signatures of the projectile electron&ndash;target core elastic scattering in Ar (e, 2e) reactions at</span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">low and intermediate impact energies. </span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;"><strong>J. Phys. B: At. Mol. Opt. Phys.</strong> 44, 055202 (2011).</span></p>
+<p style="margin-left: 18.0pt;"><a href="http://dx.doi.org/10.1088/0953-4075/44/5/055202" target="_blank"><span style="mso-bidi-font-size: 10.5pt;">DOI: http://dx.doi.org/10.1088/0953-4075/44/5/055202</span></a></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">21, S. Yan, X. Ma</span><span style="mso-bidi-font-size: 10.5pt;">&lowast;</span><span style="mso-bidi-font-size: 10.5pt;">,<strong style="mso-bidi-font-weight: normal;"> P. Zhang</strong> et al, Evidence of strong projectile&ndash;target-core interaction in single ionization of neon by electron impact.</span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;"><span style="mso-spacerun: yes;">&nbsp;</span><strong>Phys. Rev. A</strong> 82, 052702 (2010).</span></p>
+<p style="margin-left: 18.0pt;"><span style="mso-bidi-font-size: 10.5pt;">DOI:&nbsp;</span><a href="https://doi.org/10.1103/PhysRevA.82.052702"><span style="mso-bidi-font-size: 10.5pt;">https://doi.org/10.1103/PhysRevA.82.052702</span></a></p></p>
+					
+					<p><b>目前的研究课题及展望</b>：</p>
+					<p></br><p>在研课题：</p>
+<p>1，中国科学院国外杰出人才引进计划(择优支持)。（主持）</p>
+<p>2，中国科学院物理研究所<strong>I</strong>类人才项目，No.24D1201LSXX。（主持）</p>
+<p>3，国家自然科学基金面上项目，No.12474261。(主持）</p>
+<p>4，国家自然科学基金指南引导类原创探索计划项目，No.12450401。（参与）</p>
+<p>5，东莞松山湖高新区硕博士联合培养项目。（主持）</p>
+<p>6，中国科学院PIFI国际学者交流项目 （主持）</p></p>
+					
+					<p><b>培养研究生情况</b>：</p>
+					<p></br><p style="margin-left: 18.0pt; text-indent: 0cm; mso-char-indent-count: 0;"><span style="mso-bidi-font-size: 10.5pt;">拟每年招收研究生（硕士，博士）</span><span style="mso-bidi-font-size: 10.5pt;">1-3</span><span style="mso-bidi-font-size: 10.5pt;">名</span></p>
+<p style="margin-left: 18.0pt; text-indent: 0cm; mso-char-indent-count: 0;"><span style="mso-bidi-font-size: 10.5pt;">专业：物理，化学，光学，光学工程，应用物理等</span></p>
+<p style="margin-left: 18.0pt; text-indent: 0cm; mso-char-indent-count: 0;"><span style="mso-bidi-font-size: 10.5pt;">研究生在学期间均有出国交流的机会。</span></p>
+<p style="margin-left: 18.0pt; text-indent: 0cm; mso-char-indent-count: 0;">欢迎本科生垂询，报考，实习！欢迎博士后加入！</p>
+<p>-----</p>
+<p><strong>已毕业学生：</strong></p>
+<p>1，赵蒙龙（华南理工联培硕士），毕业去向：麓邦光电，研发总部</p>
+<p><strong>在读学生：</strong></p>
+<p>1，李格非（博士生，2022级，光学，东南大学），时间分辨高次谐波，孤立阿秒脉冲产生</p>
+<p>PRR 一篇，两篇大子刊在投；</p>
+<p>2，潘远杰（直博生，2025级，光学，兰州大学翠英学院），固体阿秒电子动力学，液体高次谐波产生</p>
+<p>RSI 一篇；</p>
+<p>3，陈扬睿（硕博生，2025级，光学，中山大学），孤立阿秒脉冲产生，极端光场合成</p>
+<p>4，闫鹏宇（硕博生，2025级，光学，兰州大学），时间分辨光电子能谱，超快激发态动力学</p>
+<p>5，吴可非（博士生，2026级，光学，上海科技大学），时间分辨光电子能谱，量子光学</p>
+<p>6，王孟阳（工硕，2024级，光学，武汉大学），高分辨光电子谱仪研制</p></p>
+					
+					<p><b>其他联系方式</b>：</p>
+					<p></br><p>（松山湖材料实验室邮箱）zhangpengju(replaced by at)sslab.org.cn</p></p>
+					
+					<p><b>Email</b>：</p>
+					<p></br><a href="mailto:pengju.zhang@iphy.ac.cn">pengju.zhang@iphy.ac.cn</a></p>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="page-bottom">
+	<div class="container bottom-content">
+		<div class="row bottom-content_wrap">
+			<div class="bottom-left col-lg-8 col-md-12">
+				<p>版权：版权所有@2015-2026中国科学院物理研究所研究生部</p>
+				<p>地址：北京中关村南三街8号M楼229</p>
+				<p>邮编：100190 ｜邮箱：education@iphy.ac.cn</p>
+			</div>
+			<div class="bottom-right col-lg-4 col-md-12">
+				
+				<div class="code-wrap">
+					<img src="https://edu.iphy.ac.cn/cmsfiles/t/202408151135401895.png" class="code-img" alt="">
+					<p>物理所研究生教育微信公众号</p>
+				</div>
+				
+				<div class="code-wrap">
+					<img src="https://edu.iphy.ac.cn/cmsfiles/t/202408151135201891.png" class="code-img" alt="">
+					<p>物理所官方微信公众号</p>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="./script/bootstrap.min.js"></script>
+<script src="./script/common.js"></script>
+</body>
+</html>

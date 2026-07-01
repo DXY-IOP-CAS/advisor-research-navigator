@@ -1,0 +1,12 @@
+{
+  "pipeline": "phase1",
+  "source": "arxiv",
+  "status": "empty",
+  "error": null,
+  "professor": null,
+  "papers": [],
+  "metadata": {
+    "query": "Zhang_Pengju",
+    "max_results": 50
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "primary": "atomic_molecular_optical",
+  "confidence": 0.82,
+  "matched_keywords": [
+    "原子",
+    "分子",
+    "阿秒",
+    "强场",
+    "超快",
+    "激光",
+    "高次谐波"
+  ],
+  "arxiv_categories": [
+    "physics.atom-ph",
+    "physics.optics"
+  ],
+  "primary_sources": [
+    "openalex",
+    "arxiv"
+  ]
+}

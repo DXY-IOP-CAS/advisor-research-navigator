@@ -103,7 +103,14 @@ def generate(data: dict, output_path: str, stage_config: list = None,
     src_status = data.get("source_status", {})
 
     ts = datetime.now().strftime("%Y-%m-%d %H:%M")
-    ts_dir = os.path.basename(os.path.dirname(os.path.dirname(output_path)))
+    # 向上 1 层到 professor 目录，再找 archive 子目录的最新时间戳
+    prof_dir = os.path.dirname(output_path)
+    archive_dir = os.path.join(prof_dir, "archive")
+    if os.path.isdir(archive_dir):
+        subdirs = sorted(os.listdir(archive_dir), reverse=True)
+        ts_dir = subdirs[0] if subdirs else "latest"
+    else:
+        ts_dir = "latest"
 
     by_source = stats.get("by_source", {})
     cross_count = sum(1 for p in papers if p.get("source_count", 0) > 1)
@@ -149,7 +156,7 @@ def generate(data: dict, output_path: str, stage_config: list = None,
     L("|:-----|:------|")
     L(f'| 姓名 | {prof.get("name", "")} |')
     L(f'| 机构 | {prof.get("affiliation", "")} |')
-    L(f'| 邮箱 | ...@{prof.get("email_domain", "")} |')
+    L(f'| 邮箱 | pengju.zhang{prof.get("email_domain", "")} |')
     L(f'| GS ID | {prof.get("gs_id", "")} |')
     L(f'| OA ID | {prof.get("oa_id", "")} |')
     L(f'| ORCID | {prof.get("orcid", "")} |')

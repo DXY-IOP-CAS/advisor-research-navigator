@@ -1,0 +1,46 @@
+{
+  "name": "张鹏举",
+  "name_en": "Pengju Zhang",
+  "institution": "中科院物理研究所",
+  "institution_en": "Institute of Physics, Chinese Academy of Sciences",
+  "department": "超快物质科学中心",
+  "title": "特聘研究员、博士生导师",
+  "email": "pengju.zhang@iphy.ac.cn",
+  "email_alt": "zhangpengju@sslab.org.cn",
+  "email_domain": "@iphy.ac.cn",
+  "gs_id": "ls7XuGoAAAAJ",
+  "oa_id": "A5000914228",
+  "orcid": "0000-0001-7746-2113",
+  "identity_verified": true,
+  "identity_evidence": "三重交叉验证：(1) 官网邮箱域 @iphy.ac.cn 与 OA 查询结果中 institution 为 'Institute of Physics, CAS' 一致；(2) GS profile 显示 verified email @iphy.ac.cn；(3) ORCID 0000-0001-7746-2113 与 OA 记录一致，且 ORCID 显示的机构（近代物理所→ETH→物理所）与官网履历完全吻合。",
+  "homepage_url": "https://edu.iphy.ac.cn/?q=detail_teacher&id=6368",
+  "ucas_url": "https://people.ucas.ac.cn/~0052353",
+  "scholar_url": "https://scholar.google.com/citations?hl=en&user=ls7XuGoAAAAJ",
+  "orcid_url": "https://orcid.org/0000-0001-7746-2113",
+  "public_notes": [
+    {
+      "source": "IPHY 研究教育网",
+      "url": "https://edu.iphy.ac.cn/?q=detail_teacher&id=6368",
+      "note": "官方简历页，详细研究方向与履历"
+    },
+    {
+      "source": "中国科学院大学 UCAS",
+      "url": "https://people.ucas.ac.cn/~0052353",
+      "note": "国科大个人页，含完整论文列表"
+    },
+    {
+      "source": "IPHY 英文 Faculty 页",
+      "url": "https://english.iop.cas.cn/pe/faculty/?id=6368",
+      "note": "英文版教师页"
+    }
+  ],
+  "career_stages": [
+    {"start": 2003, "end": 2007, "name": "2003–2007 河北大学（学士）"},
+    {"start": 2007, "end": 2010, "name": "2007–2010 中科院近代物理所（硕士）"},
+    {"start": 2010, "end": 2013, "name": "2010–2013 中科院近代物理所（博士）"},
+    {"start": 2013, "end": 2016, "name": "2013–2016 日本理化学研究所 RIKEN（博士后）"},
+    {"start": 2016, "end": 2018, "name": "2016–2018 中科院上海光机所（副研究员）"},
+    {"start": 2018, "end": 2024, "name": "2018–2024 ETH Zurich（博士后 & 资深研究员）"},
+    {"start": 2024, "end": 2026, "name": "2024~  中科院物理所 超快中心（特聘研究员）"}
+  ]
+}
