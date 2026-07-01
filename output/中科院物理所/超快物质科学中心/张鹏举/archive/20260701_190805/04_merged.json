@@ -40,8 +40,8 @@
       "citation_count": 2,
       "source": "google_scholar",
       "sources": [
-        "google_scholar",
         "openalex",
+        "google_scholar",
         "arxiv"
       ],
       "source_count": 3,
@@ -68,8 +68,8 @@
       "citation_count": 44,
       "source": "google_scholar",
       "sources": [
-        "google_scholar",
-        "openalex"
+        "openalex",
+        "google_scholar"
       ],
       "source_count": 2,
       "abstract": null
@@ -91,8 +91,8 @@
       "citation_count": 14,
       "source": "google_scholar",
       "sources": [
-        "google_scholar",
-        "openalex"
+        "openalex",
+        "google_scholar"
       ],
       "source_count": 2,
       "abstract": null
@@ -119,8 +119,8 @@
       "citation_count": 12,
       "source": "google_scholar",
       "sources": [
-        "google_scholar",
-        "openalex"
+        "openalex",
+        "google_scholar"
       ],
       "source_count": 2,
       "abstract": null
@@ -143,8 +143,8 @@
       "citation_count": 5,
       "source": "google_scholar",
       "sources": [
-        "google_scholar",
-        "openalex"
+        "openalex",
+        "google_scholar"
       ],
       "source_count": 2,
       "abstract": null
@@ -168,8 +168,8 @@
       "citation_count": 4,
       "source": "google_scholar",
       "sources": [
-        "google_scholar",
-        "openalex"
+        "openalex",
+        "google_scholar"
       ],
       "source_count": 2,
       "abstract": null
@@ -194,8 +194,8 @@
       "citation_count": 0,
       "source": "google_scholar",
       "sources": [
-        "google_scholar",
-        "openalex"
+        "openalex",
+        "google_scholar"
       ],
       "source_count": 2,
       "abstract": null
@@ -1055,8 +1055,8 @@
   "statistics": {
     "total": 60,
     "by_source": {
-      "google_scholar": 54,
       "openalex": 13,
+      "google_scholar": 54,
       "arxiv": 1
     },
     "unique": 60

@@ -1,0 +1,42 @@
+{
+  "pipeline": "phase1",
+  "step": "verified_ids",
+  "status": "success",
+  "timestamp": "20260701_190805",
+  "professor": {
+    "name_zh": "张鹏举",
+    "name_en": "Pengju Zhang",
+    "title": "特聘研究员/博士生导师",
+    "affiliation": "中国科学院物理研究所",
+    "department": "超快物质科学中心",
+    "email": "pengju.zhang@iphy.ac.cn",
+    "email_domain": "iphy.ac.cn",
+    "email_verified": true,
+    "email_verification_method": "GS profile matches official website email domain",
+    "phone": "+8610 8264 9361",
+    "office": "中关村南三街8号",
+    "gs_id": "ls7XuGoAAAAJ",
+    "gs_url": "https://scholar.google.com/citations?hl=en&user=ls7XuGoAAAAJ",
+    "orcid": "0000-0001-7746-2113",
+    "orcid_url": "https://orcid.org/0000-0001-7746-2113",
+    "openalex_id": "A5000914228",
+    "openalex_url": "https://openalex.org/A5000914228",
+    "official_website": "https://edu.iphy.ac.cn/?q=detail_teacher&id=6368",
+    "ucas_page": "https://people.ucas.ac.cn/~0052353",
+    "linkedin": "https://linkedin.com/in/pengju-zhang-45b828194"
+  },
+  "research_areas": [
+    "阿秒激光物理 (Attosecond physics)",
+    "高次谐波产生 (High-harmonic generation)",
+    "超快光电子能谱 (Time-resolved photoelectron spectroscopy)",
+    "液相超快动力学 (Ultrafast dynamics in liquids)",
+    "原子分子光物理 (Atomic, molecular and optical physics)"
+  ],
+  "sources": {
+    "official_website": "https://edu.iphy.ac.cn/?q=detail_teacher&id=6368",
+    "gs_profile": "https://scholar.google.com/citations?hl=en&user=ls7XuGoAAAAJ",
+    "orcid": "https://orcid.org/0000-0001-7746-2113",
+    "openalex": "https://openalex.org/A5000914228",
+    "ucas": "https://people.ucas.ac.cn/~0052353"
+  }
+}
