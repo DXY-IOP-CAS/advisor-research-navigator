@@ -1,497 +1,515 @@
 # phase1 pipeline.md — 阶段 1 技术实现文档
 
-**版本**：v1.1
+**版本**：v2.0（完整重写）
 **对应**：计划书第 2 章（工具设计）的技术落地
-**目录**：[src/phase1/](../)
+**目标读者**：实施此流水线的研究者、维护者
 
 ---
 
-## 0. 全流程总览（AI 编排 + 脚本执行）
+## 0. 全流程总览
 
-用户输入 3 条信息 → 全自动运行 → 产出画像。中间无人工闸。
+用户给 3 条信息：导师姓名、机构、官网 URL。系统全自动跑出 `01_基础画像.md`。中间无人工闸。
 
 ```
-                       用户输入（自然语言）
-       姓名（张鹏举）+ 机构（中科院物理所）+ 官网 URL（导师主页链接）
-                               │
-                               ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│  阶段 A（AI 主导）：广域收集 + 身份确认                               │
-│                                                                     │
-│  [AI] Step 1: 官网抓取                                               │
-│    → MCP Fetch 读官网 → 提取姓名/职称/邮箱/研究方向                     │
-│    → step1_discipline.py 学科分类                                    │
-│                                                                     │
-│  [AI] Step 2: 广域搜索                                               │
-│    → MCP Serper/Exa 搜：                                             │
-│      "{姓名} {机构}" → 百度百科、知乎、新闻                            │
-│      "{姓名} Google Scholar" → 找 GS 链接                            │
-│      "{姓名} ORCID" → 找 ORCID 链接                                  │
-│      "{姓名} ResearchGate" → 找 RG 链接                              │
-│    → AI 交叉验证：邮箱域名 @institution 匹配机构、研究领域一致           │
-│      官网 email 是身份金标准。匹配即信任。                               │
-│      同名歧义（如多个 "Pengju Zhang"）通过机构区分。                    │
-│    → 输出：verified_ids.json                                          │
-│                                                                     │
-│  阶段 B（脚本 + AI 看门）：深度数据获取                                │
-│                                                                     │
-│  [脚本] Step 3: GS 数据获取                                          │
-│    → step2_gs.py {gs_id} → gs.json                                  │
-│  [AI]   GS 质量门：email_domain 匹配机构？论文量 > 5？                  │
-│         → 不通过：换 GS ID 或标记降级                                  │
-│                                                                     │
-│  [脚本] Step 4: OpenAlex 数据获取                                    │
-│    → step3_openalex.py {oa_id} → oa.json                            │
-│  [AI]   OA 质量门：h-index 与 GS 差异 > 50%？affiliation 匹配官网？       │
-│         → 标记"OA 数据可能错位"（中文作者已知问题）                    │
-│                                                                     │
-│  [脚本] Step 5: arXiv 搜索                                           │
-│    → step5_arxiv.py "{姓名拼音}" -c "{学科arXiv分类}" → arxiv.json  │
-│  [AI]   arXiv 质量门：同名噪声率？                                   │
-│         → 标记"arXiv 同名干扰"（按姓名搜索的固有缺陷）                │
-│                                                                     │
-│  [脚本] Step 6: 合并去重                                             │
-│    → step6_merge.py → merged.json                                   │
-│  [AI]   合并质量门：总论文数？多源交叉验证比例？                       │
-│                                                                     │
-│  阶段 C（AI 主导）：渲染输出                                         │
-│                                                                     │
-│  [脚本] Step 7: 渲染画像                                              │
-│    → render_profile.py merged.json --stages stages.json → 01_基础画像 │
-└─────────────────────────────────────────────────────────────────────┘
+                    用户输入（自然语言）
+   姓名（张鹏举）+ 机构（中科院物理所）+ 官网 URL
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  阶段 A（AI 主导）                                              │
+│  ─ 读官网 → 学科分类 → 广域搜 GS/ORCID/UCAS → 邮箱交叉验证     │
+│  输出：verified_ids.json                                         │
+└─────────────────────────────────────────────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  阶段 B（脚本执行）                                              │
+│  ─ GS (scholarly) → OA (REST API) → arXiv → 合并去重             │
+│  输出：00/01/02/03/04_*.json（5 个中间文件）                       │
+└─────────────────────────────────────────────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  阶段 C（脚本渲染 + AI 润色）                                     │
+│  ─ render_profile.py 生成论文表格+统计 → AI 补充叙事/合作/公开信息│
+│  输出：01_基础画像.md                                             │
+└─────────────────────────────────────────────────────────────────┘
 ```
+
+**核心特性**：
+- **存档不是缓存**：每次运行从头查 API；archive/ 目录只用于错误溯源
+- **统一输出格式**：所有阶段共享 SOURCE_OUTPUT / MERGED_OUTPUT schema
+- **AI 质量门**：每步脚本后 AI 检查数据合理性（h-index、机构匹配、同名噪声）
+- **退避重试**：API 失败自动 retry（utils.py 的 `@retry` 装饰器）
 
 ---
 
-## 1. 通用数据模式
+## 1. 文件清单（src/phase1/）
 
-（同 v1.0，不变）
+| 文件 | 用途 | 必选 |
+|:-----|:-----|:----:|
+| `step1_discipline.py` | 关键词字典分类（无网络） | ✅ |
+| `step2_gs.py` | scholarly 封装取 GS profile | ✅ |
+| `step3_openalex.py` | OpenAlex API 取论文+元数据 | ✅ |
+| `step5_arxiv.py` | arXiv API 搜索预印本 | ✅ |
+| `step6_merge.py` | 三源合并去重+教授信息合并 | ✅ |
+| `render_profile.py` | 从 merged.json 生成画像（含超链接） | ✅ |
+| `utils.py` | 共享：匹配函数、限速器、retry 装饰器 | ✅ |
+| `pipeline.md` | 本文档 | — |
 
-每步脚本的输出格式统一。这是让管道无需手动转格式的关键。
+每个脚本的模块级 docstring 都包含：
+- 流水线位置（阶段 A/B/C 第几步）
+- 数据流图（ASCII 输入输出）
+- 输出格式（JSON 字段清单）
+- 关键约束与已知问题
+- CLI 用法示例
 
-### 1.1 单篇论文（每步都产）
+---
+
+## 2. 通用数据模式（所有脚本共用的契约）
+
+### 2.1 单篇论文
 
 ```json
 {
-  "title": "Electron emission from single-electron capture...",
-  "year": 2011,
-  "authors": null,
-  "journal": "Physical Review A 83 (5), 052707",
-  "doi": null,
-  "arxiv_id": null,
-  "citation_count": 88,
-  "source": "google_scholar",
-  "abstract": null
+  "title": "...",        // 必填
+  "year": 2020,           // int 或 null
+  "authors": ["..."],     // list[str] 或 null
+  "journal": "...",       // str 或 null
+  "doi": "10.1103/...",   // 完整 URL 或裸 ID 或 null
+  "arxiv_id": "2005.12345",  // 去掉版本后缀
+  "citation_count": 42,   // int 或 null
+  "source": "google_scholar"  // 字符串枚举
 }
 ```
 
-### 1.2 源输出（每步脚本产）
+### 2.2 SOURCE_OUTPUT（每个数据源脚本产出）
 
 ```json
 {
   "pipeline": "phase1",
-  "source": "google_scholar",
-  "status": "success",
+  "source": "google_scholar | openalex | arxiv",
+  "status": "success | blocked | error | empty",
   "error": null,
   "professor": {
-    "name": "Pengju Zhang",
-    "affiliation": "Institute of Physics, CAS",
-    "email_domain": "@iphy.ac.cn",
-    "gs_id": "ls7XuGoAAAAJ",
-    "oa_id": "A5000914228",
-    "orcid": null,
-    "h_index": 15,
-    "i10_index": 20,
-    "total_citations": 732
+    "name": str | null,
+    "affiliation": str | null,
+    "email_domain": str | null,
+    "gs_id": str | null,
+    "oa_id": str | null,
+    "orcid": str | null,
+    "h_index": int | null,
+    "i10_index": int | null,
+    "total_citations": int | null
   },
-  "papers": [ ... ],
-  "metadata": {
-    "publication_count": 56
-  }
+  "papers": [ 单篇论文, ... ],
+  "metadata": { /* step-specific */ }
 }
 ```
 
-**status** 取值：`success` / `blocked` / `empty` / `error`
-
-### 1.3 合并输出（step6 产）
+### 2.3 MERGED_OUTPUT（step6_merge.py 产出）
 
 ```json
 {
   "pipeline": "phase1",
   "step": "merge",
   "sources_used": ["google_scholar", "openalex", "arxiv"],
-  "source_status": {
-    "google_scholar": "success",
-    "openalex": "success",
-    "arxiv": "success"
-  },
-  "professor": { ... },
+  "source_status": { ... },
+  "professor": { ... 合并后的 },
   "papers": [
     {
-      "title": "...",
-      "year": 2020,
-      "authors": [...],
-      "journal": "Phys. Rev. Lett.",
-      "doi": "10.1103/PhysRevLett.125.123456",
-      "arxiv_id": "2005.12345",
-      "citation_count": 42,
-      "source": "openalex",
-      "sources": ["openalex", "google_scholar"],
-      "source_count": 2,
-      "abstract": "We report..."
+      ...单篇论文字段,
+      "sources": ["google_scholar", "openalex"],  // 多源验证标记
+      "source_count": 2
     }
   ],
   "statistics": {
-    "total": 60,
-    "by_source": {"google_scholar": 56, "openalex": 14, "arxiv": 3}
+    "total": 75,
+    "by_source": {"google_scholar": 54, "openalex": 13, "arxiv": 16}
   }
 }
 ```
 
-### 1.4 verified_ids.json（阶段 A 产出）
+---
+
+## 3. 阶段 A：广域搜索 + 身份确认（AI 主导）
+
+### 3.1 步骤 1：官网抓取 + 学科分类
+
+```
+[AI] MCP Fetch 读官网
+        ↓
+    提取：姓名（中文+拼音）、职称、邮箱、研究方向文本
+        ↓
+[脚本] python src/phase1/step1_discipline.py \
+        --text "研究方向关键词" \
+        --affiliation "机构名"
+        ↓
+    输出（stdout JSON）：primary 学科 ID、arxiv_categories 列表
+```
+
+`step1_discipline.py` 是纯本地匹配，不发网络请求。`arxiv_categories` 传给 step5_arxiv 减少噪声。
+
+### 3.2 步骤 2：广域搜索 + 身份确认
+
+```
+[AI] MCP Serper/Exa 搜：
+    "{姓名} {机构}"     → 百科/新闻/采访
+    "{姓名} Google Scholar"  → 找 GS profile URL
+    "{姓名} ORCID"        → 找 ORCID URL
+        ↓
+[AI] 邮箱交叉验证：
+    GS 头部 "Verified email at" 域名 == 官网邮箱域名？
+        ↓
+    是 → 身份确认。输出 verified_ids.json（结构见 3.3）
+    否 → 标记"身份存疑"，按需降级到 OA/arXiv 姓名搜索
+```
+
+**邮箱匹配规则**：
+- 域名一致（`@iphy.ac.cn` vs `@iphy.ac.cn`）→ 信任
+- 域名不一致 → 不通过
+- GS 不显示邮箱 → 标记"邮箱未验证"
+
+### 3.3 verified_ids.json
 
 ```json
 {
   "name": "张鹏举",
   "name_en": "Pengju Zhang",
   "institution": "中科院物理所",
+  "department": "超快物质科学中心",
   "gs_id": "ls7XuGoAAAAJ",
   "oa_id": "A5000914228",
   "orcid": "0000-0001-7746-2113",
   "email_domain": "@iphy.ac.cn",
-  "homepage_url": "http://english.iphy.ac.cn/...",
+  "homepage_url": "https://edu.iphy.ac.cn/?q=detail_teacher&id=6368",
   "identity_verified": true,
-  "identity_evidence": "GS email_domain matches institution domain",
+  "identity_evidence": "GS email @iphy.ac.cn matches homepage domain",
   "public_notes": [
-    {"source": "百度百科", "url": "https://baike.baidu.com/...", "note": "中科院物理所研究员"},
-    {"source": "知乎", "url": "https://zhihu.com/...", "note": "采访：阿秒光源进展"}
+    {"source": "UCAS", "url": "https://people.ucas.ac.cn/~0052353", "note": "..."},
+    {"source": "IPHY news", "url": "https://www.iop.cas.cn/...", "note": "..."}
   ],
-  "known_issues": []
+  "career_stages": [   // 可选，提供给 render_profile.py
+    {"start": 2010, "end": 2013, "name": "近代物理所博士"},
+    {"start": 2013, "end": 2016, "name": "RIKEN 博后"},
+    {"start": 2018, "end": 2021, "name": "ETH 博士后"},
+    ...
+  ]
 }
 ```
 
-### 1.5 教授信息合并优先级
-
-当前实现（step6_merge.py 的 PROF_PRIORITY 表）：
-
-| 字段 | 优先源 | 说明 |
-|:----|:-------|:-----|
-| `name` | GS > OA | 学者自己维护的姓名（GS）优先 |
-| `affiliation` | GS > OA | GS 更准确（OA 可能过时） |
-| `email_domain` | **仅 GS** | 身份金标准，其他源不提供 |
-| `gs_id` | **仅 GS** | |
-| `oa_id` | **仅 OA** | |
-| `orcid` | **仅 OA** | |
-| `h_index` | GS > OA | GS 是学者本人维护 |
-| `i10_index` | **仅 GS** | OA 不提供 |
-| `total_citations` | GS > OA | GS 覆盖更全 |
-
 ---
 
-## 2. 各步骤详情
+## 4. 阶段 B：脚本数据获取
 
-### 2.0 Step 0-2（AI 主导，见第 0 节总览）
-
-这些步骤不由 Python 脚本执行，而是由 Claude Code 根据本文档指令执行：
-- MCP 工具做 web search
-- AI 判断结果可信度
-- 产出 verified_ids.json
-
-### 2.1 step1_discipline.py — 学科分类
-
-| 项目 | 内容 |
-|:----|:------|
-| **输入** | `--text` 研究方向文本，`--affiliation` 机构名 |
-| **输出** | stdout JSON（学科ID、置信度、命中关键词、arXiv 分类） |
-| **算法** | 关键词字典匹配（config/sources.json） |
-| **网络** | 无（本地匹配） |
-| **依赖** | 标准库，config/sources.json |
+### 4.1 步骤 3：GS（scholarly 库）
 
 ```bash
-python src/phase1/step1_discipline.py --text "阿秒科学、强场物理" --affiliation "中科院物理所"
+python src/phase1/step2_gs.py {gs_id} -o archive/<ts>/01_gs.json
 ```
 
-### 2.2 step2_gs.py — Google Scholar 数据获取
+**输入**：`gs_id`（URL 中 `?user=XXX` 部分）
+**输出**：`01_gs.json`，含 professor（h-index、email_domain）+ 56 篇论文
+**限制**：不返回 DOI/arXiv ID（由 step3/step5 补）
 
-| 项目 | 内容 |
-|:----|:------|
-| **输入** | `gs_id`（GS profile ID） |
-| **中间件** | scholarly 库（2K⭐） |
-| **输出** | 统一 SOURCE_OUTPUT 格式 JSON |
-| **网络** | 需要访问 scholar.google.com |
-| **依赖** | `pip install scholarly` |
+**AI 质量门**：
+- email_domain 匹配机构域？→ 不匹配标记"身份存疑"
+- 论文数 > 5 篇？→ 太少标记"profile 可能不完整"
+- 403 错误 → 换梯子节点重试
 
-**scholarly 限制**：不返回 DOI、arXiv ID、作者列表。期刊名含卷期号混杂。以上由 merger 从 OA 和 arXiv 补。
+### 4.2 步骤 4：OpenAlex
 
-**失败处理**：
-- 403 → 换梯子节点重试
-- 节点都 403 → 接受降级（merger 用 OA + arXiv）
+```bash
+python src/phase1/step3_openalex.py {oa_id} \
+  --email your@real.com -o archive/<ts>/02_oa.json
+```
 
-### 2.3 step3_openalex.py — OpenAlex 数据获取
+**输入**：`oa_id`（A5000914228）+ **真实 email**（polite pool）
+**输出**：`02_oa.json`，含 professor（ORCID、h-index）+ 14 篇论文（含 DOI/期刊/作者）
 
-| 项目 | 内容 |
-|:----|:------|
-| **输入** | `oa_id`（如 A5000914228） |
-| **API** | openalex.org |
-| **输出** | 统一 SOURCE_OUTPUT 格式 JSON |
-| **依赖** | 标准库 |
-| **限速** | 加 `--email` 入 polite pool 10 req/s |
+**⚠️ 关键：email 必须是真实邮箱**
+- 真实邮箱 + `@` + 有效 TLD：polite pool 10 req/s
+- 假邮箱（`example.com` / `x.com`）或无 email：限速 1 req/s
+- Subagent 测试发现的 503 问题根因：用了 `test@example.com` 触发 10 req/s → OpenAlex 当匿名处理 → 超限 → 503
 
-**注意**：OpenAlex 对中文学者的 profile 数据（h-index、affiliation）可能不准确（Zheng et al. 2025）。AI 质量门会对比 GS 和 OA 的 h-index 差异。差异大时标记"OA 数据可能错位"。
+**AI 质量门**：
+- h-index 与 GS 差异 > 50%？→ 标记"OA 数据错位，以 GS 为准"
+- affiliation 不匹配官网机构？→ 标记"OA 机构信息错位"
+- 论文主题不匹配研究方向？→ 标记"OA ID 可能属于同名不同人"
 
-### 2.4 step5_arxiv.py — arXiv 预印本搜索
+### 4.3 步骤 5：arXiv
 
-| 项目 | 内容 |
-|:----|:------|
-| **输入** | `author_name`（下划线拼音） |
-| **API** | export.arxiv.org |
-| **输出** | 统一 SOURCE_OUTPUT 格式 JSON |
-| **依赖** | 标准库 |
-| **限速** | arXiv 要求 ≥3 秒间隔 |
+```bash
+python src/phase1/step5_arxiv.py "Zhang_Pengju" \
+  -c "physics.atom-ph physics.optics" \
+  -o archive/<ts>/03_arxiv.json
+```
 
-**同名噪声**：arXiv 按姓名搜索，返回大量同名作者论文。AI 质量门会检查首篇论文的 arXiv 分类和作者机构，判断是否为同一人。噪声严重的参数在 merger 中通过 DOI/标题匹配 GS 和 OA 已确认的论文来自动过滤。
+**输入**：姓名拼音（姓_名格式）+ arXiv 分类（来自 step1 输出）
+**输出**：`03_arxiv.json`，含 16 篇预印本
 
-### 2.5 step6_merge.py — 多源合并
+**已知问题**：
+- `au:` 搜索按姓名匹配，同名噪声率高（常见中文名 ~80%）
+- 加 `-c` 学科分类可降低噪声
+- 噪声过滤由 step6 通过 DOI/标题匹配 GS/OA 已确认论文完成
 
-| 项目 | 内容 |
-|:----|:------|
-| **输入** | N 个统一格式的 JSON 文件 |
-| **输出** | MERGED_OUTPUT 格式 JSON |
-| **去重** | P0:DOI → P1:arXiv ID → P2:归一化标题 |
-| **引用数选取** | OA > GS（OA 日更新） |
-| **期刊名选取** | OA > GS |
-| **教授信息** | 按 §1.5 优先级合并 |
+**AI 质量门**：
+- 有 DOI/标题与 GS/OA 匹配的论文？→ 标记"已确认部分"
+- 无任何匹配 → 标记"arXiv 噪声严重，结果仅供参考"
+
+### 4.4 步骤 6：合并去重
+
+```bash
+python src/phase1/step6_merge.py \
+  archive/<ts>/01_gs.json \
+  archive/<ts>/02_oa.json \
+  archive/<ts>/03_arxiv.json \
+  -o archive/<ts>/04_merged.json
+```
+
+**输入**：N 个 SOURCE_OUTPUT 格式 JSON
+**输出**：MERGED_OUTPUT 格式 JSON
+
+**处理逻辑**：
+1. 教授信息合并（PROF_PRIORITY 字段优先级表）
+2. 论文去重（P0:DOI → P1:arXiv ID → P2:归一化标题）
+3. 字段择优（引用数 OA > GS；期刊名 OA > GS）
+4. 多源交叉验证标记
+
+**PROF_PRIORITY**（合并优先级）：
+
+| 字段 | 优先源 | 理由 |
+|:-----|:-------|:-----|
+| name | GS > OA | 学者自己维护的姓名更准 |
+| affiliation | GS > OA | GS 通常更准确 |
+| email_domain | **仅 GS** | 身份金标准 |
+| gs_id | **仅 GS** | — |
+| oa_id | **仅 OA** | — |
+| orcid | **仅 OA** | — |
+| h_index | GS > OA | GS 是学者维护；OA 算法可能错 |
+| i10_index | **仅 GS** | OA 不提供 |
+| total_citations | GS > OA | GS 覆盖更全 |
 
 ---
 
-## 3. AI 质量门检查清单
+## 5. 阶段 C：渲染画像
 
-每步脚本执行后，Claude Code 检查以下内容：
+### 5.1 步骤 7：脚本渲染
 
-### 3.1 GS 质量门
-
-```yaml
-检查项:
-  - email_domain 是否匹配机构域名
-  - 论文数是否 < 5 篇（太少了，可能是空 profile 或同名）
-  - h-index 是否存在且 > 0
-  - 引文数是否存在且 > 0
-决策:
-  全部通过 → 继续
-  email 不匹配 → 标记"GS 邮箱校验未通过，可能同名"
-  论文数 < 5 篇 → 标记"GS profile 可能不完整"
+```bash
+python src/phase1/render_profile.py archive/<ts>/04_merged.json \
+  -o output/<机构>/<部门>/<姓名>/01_基础画像.md \
+  --department "超快物质科学中心"
 ```
 
-### 3.2 OA 质量门
+可选参数：
+- `--stages career_stages.json` — 学术阶段配置（覆盖 5 年默认分组）
+- `--stage-desc stage_desc.json` — 阶段叙事描述（{阶段名: 描述}）
 
-```yaml
-检查项:
-  - h-index 与 GS 差异是否 > 50%
-  - affiliation 是否匹配官网机构
-  - 论文主题是否与导师研究方向一致（检查论文标题关键词）
-  - ORCID 是否存在
-决策:
-  h-index 与 GS 差异大 → 标记"OA 数据可能错位，以 GS 为准"
-  affiliation 不匹配 → 标记"OA 机构信息错位"
-  主题不匹配 → 标记"OA ID 可能属于同名不同人"
+**脚本生成**：
+- 论文表格（每篇一行，含 DOI/arXiv 超链接）
+- 按学术履历阶段分组（从 stages 或 5 年段）
+- 头部运行统计（时间戳、存档路径、各源状态）
+- 数据质量说明表
+
+### 5.2 AI 润色（脚本后）
+
+脚本不写的内容由 AI 在脚本输出基础上补充：
+1. **学术履历表格**（教育+工作，含时间线）
+2. **研究方向描述**（中英文关键词 + 总体概述）
+3. **每阶段叙事段落**（该阶段的研究主题、与上一阶段的转型原因）—— 不是报菜名，是讲清楚在做什么、为什么
+4. **合作网络分析**（博士导师、长期合作者）
+5. **公开信息整理**（新闻、采访、讲座，含超链接）
+
+**硬约束（AI 渲染必须遵守）**：
+1. **全部论文逐一列出**，不允许省略或"代表性"字样
+2. **每阶段表格前必须有叙事**，说明研究主题和方向变化
+3. **每篇论文有外部超链接**（DOI 或 arXiv 或 GS）
+4. **运行统计写在画像头部**（时间戳、来源状态、论文总数）
+5. **缺失字段写 `[未找到]`**，不捏造
+
+### 5.3 输出文件清单
+
 ```
-
-### 3.3 arXiv 质量门
-
-```yaml
-检查项:
-  - 调用时是否传了学科分类（-c 参数，来自 step1 输出）
-  - arXiv 分类是否与学科一致（加了 -c 后噪声应大幅下降）
-  - 返回论文中哪些与 GS/OA 已确认的论文匹配（by DOI/标题）
-决策:
-  0 篇匹配 GS → 标记"arXiv 噪声率高，结果仅供参考"
-  有匹配 → 从确认论文反向筛选
-  未传 -c 参数 → 建议补传学科分类限定 arXiv 搜索范围
-```
-
-### 3.4 合并质量门
-
-```yaml
-检查项:
-  - 总论文数是否 > 5 篇
-  - 至少 1 个源成功
-  - 多源交叉验证比例（多个源确认的论文数 / 总论文数）
-决策:
-  总论文数 0 → 标记"所有数据源均不可用"
-  多源比例 < 10% → 标记"各源间重叠少，合并效果有限"
+output/<机构>/<部门>/<姓名>/
+├── 01_基础画像.md               # 最终画像
+├── latest.txt                    # 内容：最新 timestamp
+└── archive/<timestamp>/          # 一次运行快照
+    ├── 00_verified_ids.json
+    ├── 01_gs.json
+    ├── 02_oa.json
+    ├── 03_arxiv.json
+    └── 04_merged.json
 ```
 
 ---
 
-## 4. 错误处理与重试
+## 6. 端到端 CLI 演示
 
-### 4.1 脚本级错误
+```bash
+TS=$(date +%Y%m%d_%H%M%S)
+PROF="output/中科院物理所/超快物质科学中心/张鹏举"
+mkdir -p "$PROF/archive/$TS"
 
-脚本不抛异常退出。所有故障用 `status` 字段表示。
+# 阶段 A 由 AI 通过 MCP 工具完成（无可执行命令）
+
+# 阶段 B
+python src/phase1/step2_gs.py ls7XuGoAAAAJ \
+  -o "$PROF/archive/$TS/01_gs.json"
+
+python src/phase1/step3_openalex.py A5000914228 \
+  --email your@real.com \
+  -o "$PROF/archive/$TS/02_oa.json"
+
+python src/phase1/step5_arxiv.py "Zhang_Pengju" \
+  -c "physics.atom-ph physics.optics" \
+  -o "$PROF/archive/$TS/03_arxiv.json"
+
+python src/phase1/step6_merge.py \
+  "$PROF/archive/$TS/01_gs.json" \
+  "$PROF/archive/$TS/02_oa.json" \
+  "$PROF/archive/$TS/03_arxiv.json" \
+  -o "$PROF/archive/$TS/04_merged.json"
+
+# 阶段 C
+python src/phase1/render_profile.py \
+  "$PROF/archive/$TS/04_merged.json" \
+  -o "$PROF/01_基础画像.md" \
+  --department "超快物质科学中心"
+# AI 润色：补充叙事/合作/公开信息
+
+echo "$TS" > "$PROF/latest.txt"
+```
+
+---
+
+## 7. AI 质量门检查清单
+
+每步脚本执行后，Claude Code 必须检查：
+
+### 7.1 GS 质量门
+- [ ] email_domain 是否 @iphy.ac.cn 之类机构域
+- [ ] 论文数 > 5 篇（少于可能 profile 不全）
+- [ ] h-index 存在且 > 0
+- [ ] 引文数存在且 > 0
+
+### 7.2 OA 质量门
+- [ ] h-index 与 GS 差异是否 > 50%？（如 GS=15 OA=6 → 标记）
+- [ ] affiliation 是否匹配官网机构？
+- [ ] 论文主题是否匹配研究方向？
+- [ ] ORCID 是否存在？
+
+### 7.3 arXiv 质量门
+- [ ] 是否传了 -c 学科分类参数？
+- [ ] 有 DOI/标题与 GS/OA 已确认论文匹配的？
+- [ ] 同名噪声率估计（>80% → 标记）
+
+### 7.4 合并质量门
+- [ ] 总论文数 > 5 篇？
+- [ ] 至少 1 个源成功？
+- [ ] 多源交叉验证比例（>=10% 较理想）
+
+---
+
+## 8. 错误处理
+
+### 8.1 脚本级错误
+脚本**不抛异常退出**。所有故障用 `status` 字段表示：
 
 ```json
 {"status": "error", "error": "HTTP 403: GS blocked"}
 ```
 
-### 4.2 AI 级重试
+### 8.2 网络层重试（utils.py @retry）
+
+```python
+@retry(max_retries=3, delay=2.0, backoff=2.0,
+       retryable_exceptions=(HTTPError, URLError, OSError, TimeoutError))
+def _fetch_json(url, email):
+    ...
+```
+
+API 调用自动重试 3 次，延迟 2s/4s/8s 指数退避。`@retry` 默认只重试网络异常，不重试 4xx 业务错误。
+
+### 8.3 OpenAlex 503 专项处理
+
+OpenAlex 对匿名请求限速 ~1 req/s。如果传了 `test@example.com` 之类的假邮箱被误判走 10 req/s，会触发 503。
+
+**修复**（step3_openalex.py 已实现）：
+- 真实邮箱（有效 TLD）→ 10 req/s（polite pool）
+- 假邮箱或无 email → 1 req/s（自动限速）
+
+### 8.4 AI 级重试（编排层）
 
 Claude Code 见到 `status: "error"` 后：
+1. 网络错误（403/429/5xx）→ 等 60 秒重试
+2. 格式错误（空结果/字段缺失）→ 检查参数
+3. 质量门不通过 → 标记"数据可能有问题"继续
 
-```
-1. 如果是网络错误（403/429/5xx）：
-   → 等待 60 秒后重试同一命令
-   → 重试 2 次失败后标记"源不可用"，继续下一步
+### 8.5 完全降级
 
-2. 如果是格式错误（空结果/字段缺失）：
-   → 检查参数是否正确（GS ID 是否正确？）
-   → 尝试替代参数后重试
-   → 仍失败后标记"参数错误"
-
-3. 如果是质量门不通过：
-   → 不自动重试，在画像中标注"数据可能有问题"
-```
-
-### 4.3 完全降级
-
-三个数据源全部不可用时：
-
-```
-step6 输出 {"status": "error", "papers": []}
-AI 渲染时写：
-  "由于所有数据源均不可用，无法生成论文列表"
-  "请检查网络连接或提供其他 ID 链接"
-```
+三个数据源全部不可用：
+- step6 输出 `{"status": "error", "papers": []}`
+- AI 渲染时写明"所有数据源均不可用"
+- 建议用户检查网络或提供其他 ID 链接
 
 ---
 
-## 5. 调用关系与数据流
+## 9. 存档策略（不是缓存）
 
-全自动运行。AI 创建时间戳存档目录，各脚本定向输出到该目录。
+### 9.1 核心原则
 
-```bash
-# 阶段 A（AI 做：读官网 + 广域搜索 → verified_ids.json）
-# 自动进行，无人工介入
+**archive/ 目录仅用于错误溯源。每次运行必须从头查询所有 API。不得从历史存档加载数据充当缓存。**
 
-# 阶段 B（脚本 + AI 看门）
-TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-PROF="output/中科院物理所/超快物质科学中心/张鹏举"
-mkdir -p "$PROF/archive/$TIMESTAMP"
+理由：
+- 缓存静默覆盖新结果会导致错误难以发现
+- 重跑时不读历史数据，修复代码后能验证效果
 
-python src/phase1/step2_gs.py {gs_id} -o "$PROF/archive/$TIMESTAMP/01_gs.json"
-# AI 检查 gs.json → 通过则继续，不通过则标记
-
-python src/phase1/step3_openalex.py {oa_id} -o "$PROF/archive/$TIMESTAMP/02_oa.json"
-# AI 检查 oa.json
-
-python src/phase1/step5_arxiv.py "{姓名拼音}" -o "$PROF/archive/$TIMESTAMP/03_arxiv.json"
-# AI 检查 arxiv.json
-
-python src/phase1/step6_merge.py \
-  "$PROF/archive/$TIMESTAMP/01_gs.json" \
-  "$PROF/archive/$TIMESTAMP/02_oa.json" \
-  "$PROF/archive/$TIMESTAMP/03_arxiv.json" \
-  -o "$PROF/archive/$TIMESTAMP/04_merged.json"
-
-# 阶段 C（脚本渲染 + AI 润色）
-python src/phase1/render_profile.py "$PROF/archive/$TIMESTAMP/04_merged.json" \
-  -o "$PROF/01_基础画像.md" --department "超快物质科学中心"
-# render_profile.py 生成：论文表格（含超链接列）+ 运行统计 + 分阶段结构。
-# AI 补充：学术履历表、研究方向描述、每阶段叙事、合作网络、公开信息。
-# 每阶段表格前必须有一段话说明该阶段的研究主题和方向变化。
-# 禁止"报菜名"——列出论文的目的是展示研究方向演变，不是单纯的数据堆砌。
-
-echo "$TIMESTAMP" > "$PROF/latest.txt"
-```
-
----
-
-## 6. 输出文件与存档
-
-### 6.1 运行快照（存档）
-
-每次运行生成一个带时间戳的快照目录，完整保存所有中间产物。
+### 9.2 存档结构
 
 ```
 output/<机构>/<部门>/<姓名>/
-├── 01_基础画像.md
-├── latest.txt
 └── archive/
-    ├── 20260701_153000/          # 每次运行的完整快照
-    │   ├── 00_verified_ids.json
-    │   ├── 01_gs.json
-    │   ├── 02_oa.json
-    │   ├── 03_arxiv.json
-    │   └── 04_merged.json
-    ├── 20260702_091500/          # 下一次运行
+    ├── 20260701_153000/        # 每次运行
+    ├── 20260702_091500/        # 下次运行
     └── ...
 ```
 
-每次运行：
-1. 按时间戳（`YYYYMMDD_HHMMSS`）建新目录
-2. 所有脚本的输出定向到新目录
+每次：
+1. 按时间戳建新目录
+2. 所有脚本输出定向到新目录
 3. 更新 `latest.txt` 指向最新运行
 4. 画像内的 `source_updated` 字段标注运行时间戳
-5. **不读任何旧文件**，每次全新运行
 
-### 6.2 存档 vs 缓存（重要）
+### 9.3 错误溯源
 
-| | 缓存（不要） | 存档（采用） |
-|:--|:-----------|:-----------|
-| 目的 | 加速重复请求 | 保留历史记录，用于错误溯源 |
-| 读取方式 | 自动、静默 | 手动、按需 |
-| 生命周期 | 30 天自动过期 | 永久保留 |
-| 污染风险 | 旧数据静默覆盖新结果 | 无（每次独立目录，不交叉） |
-| 调试价值 | 低 | 高（全链路可回溯） |
+画像有问题 → 找到对应时间戳目录 → 检查各中间文件 → 定位问题步骤。
 
-### 6.3 错误溯源方法
-
-某次画像有问题 → 找到该次 archive 目录 → 检查各中间文件 → 定位问题步骤。
-
-例：h-index 显示不对。
-1. 检查 `gs.json` 中 `professor.h_index`
-2. 如果值是 15 但预期 20 → scholarly 返回了正确值但 OA 的 profile 不同 → 数据源问题
-3. 如果值是 6 但预期 15 → OA 数据覆盖了 GS 的 → 合并优先级设计问题（已修复 §1.5）
-
-### 6.4 文件清单
-
-```
-output/<机构>/<部门>/<姓名>/
-├── 01_基础画像.md                # 最终画像（根目录，方便快速访问）
-├── latest.txt                    # 内容：最新存档目录名
-└── archive/
-    └── <YYYYMMDD_HHMMSS>/        # 一次运行的完整快照
-        ├── 00_verified_ids.json
-        ├── 01_gs.json
-        ├── 02_oa.json
-        ├── 03_arxiv.json
-        ├── 04_merged.json
-        └── ...
-```
-
-**示例**（张鹏举实测产出）：
-
-```
-output/中科院物理所/
-└── 超快物质科学中心/
-    └── 张鹏举/
-        ├── 01_基础画像.md
-        ├── latest.txt
-        └── archive/
-            └── 20260701_155452/
-                ├── 00_verified_ids.json
-                ├── 01_gs.json             # GS 56 篇
-                ├── 02_oa.json             # OA 14 篇
-                ├── 03_arxiv.json          # arXiv 16 篇
-                └── 04_merged.json         # 合并 75 篇
-```
+例：h-index 显示不对：
+- 检查 `gs.json` 的 `professor.h_index` → 如果值对，但 OA 覆盖 → 数据源问题
+- 如果合并后值不对 → step6 合并优先级设计问题
+- 如果 merger 都正确 → AI 渲染读错了
 
 ---
 
-## 7. 版本记录
+## 10. 已知问题与限制
+
+| 问题 | 影响 | 当前对策 |
+|:-----|:-----|:---------|
+| OpenAlex 对中文学者覆盖 22-38% | OA 论文数少 | 以 GS 为主源，OA 仅做元数据补充 |
+| OpenAlex 消歧错误 | h-index/affiliation 错位 | 标记"OA 数据错位"，画像以 GS 为准 |
+| arXiv 同名噪声 | 80%+ | -c 分类过滤 + merge 通过 DOI/标题匹配过滤 |
+| GS 不返回 DOI/期刊全名 | 字段缺失 | OA 补充（覆盖到的论文） |
+| 跨学科学者 | 阶段分组模糊 | 5 年默认段，AI 渲染时人工调整 |
+| 早期论文（无 DOI） | 超链接缺失 | arXiv 链接兜底，无则标 "—" |
+
+---
+
+## 11. 版本记录
 
 | 版本 | 日期 | 变更 |
 |:----|:-----|:------|
-| v1.3 | 2026-07-01 | OA 质量门加 affiliation 检查；arXiv 加学科分类过滤参数 (-c)；版本记录标准化 |
-| v1.2 | 2026-07-01 | 去除所有人工闸 → 全自动运行；输出路径改为 `output/<机构>/<部门>/<姓名>/`；存档/缓存分离 |
-| v1.1 | 2026-07-01 | 加入全流程总览（AI 编排 + 脚本执行）、AI 质量门、错误处理与重试 |
-| v1.0 | 2026-07-01 | 初版。scholarly 主力、统一输出格式、去除 oa_enrich 和旧爬虫 |
+| v2.0 | 2026-07-01 | 完整重写：加错误处理章节、API 重试机制、OpenAlex 503 专项处理、代码文档契约、AI 质量门清单 |
+| v1.3 | 2026-07-01 | OA 质量门加 affiliation；arXiv 加 -c 分类参数 |
+| v1.2 | 2026-07-01 | 全自动流；`output/<机构>/<部门>/<姓名>/`；存档替代缓存 |
+| v1.0 | 2026-07-01 | 初版（已弃用） |
