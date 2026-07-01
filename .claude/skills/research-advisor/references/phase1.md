@@ -108,13 +108,32 @@ python src/phase1/step6_merge.py \
 - 多源交叉验证比例？
 - 标记结果（GS 正常 / OA 数据错位 / arXiv 噪声严重）
 
-### Step 7: 写画像
+### Step 7: 渲染画像
 
-读取 `04_merged.json` + 公开信息笔记。按 `assets/01_基础画像.md` 模板填充。
+用 `render_profile.py` 从 merged.json 生成结构化画像。脚本确保全部论文逐一列出、来源标记分明、运行统计写入头部。
+
+```bash
+python src/phase1/render_profile.py output/<机构>/<部门>/<姓名>/archive/<timestamp>/04_merged.json \
+  -o output/<机构>/<部门>/<姓名>/01_基础画像.md
+```
+
+如果 verified_ids.json 中包含了 `career_stages` 字段（学术阶段配置），传入 `--stages` 参数：
+
+```bash
+python src/phase1/render_profile.py 04_merged.json \
+  --stages 00_verified_ids.json \
+  -o 01_基础画像.md
+```
+
+**渲染后 AI 润色**：脚本不写研究方向的自然语言描述和合作网络分析。AI 在脚本输出基础上补充：
+- 学术履历表格（从官网/广域搜获取）
+- 研究方向描述（中英文关键词）
+- 合作网络分析
+- 公开信息整理
 
 **硬约束（必须遵守）**：
-1. **全部论文逐一列出，不得省略**。不允许出现"以下见完整列表""代表性论文""等字样。merged.json 中有多少篇，表格里就得有多少行。
-2. **按学术履历阶段分组**。换机构即换阶段。每阶段一个独立表格。每个表格前写 1 句话说明该阶段的研究主题。（根据 merged.json 中的论文年份分布 + 官网履历推断阶段边界。）
+1. **全部论文逐一列出，不得省略**。不允许出现"以下见完整列表""代表性论文"等字样。merged.json 中有多少篇，表格里就得有多少行。
+2. **按学术履历阶段分组**。换机构即换阶段。每阶段一个独立表格。
 3. **来源标记分明**。每篇论文末尾标记来源（GS/OA/arXiv/GS+OA 等），与 merged.json 中的 `sources` 字段一致。
 4. **运行统计写入画像头部**。包括：生成时间戳、存档路径、各源状态、论文总数。
 5. **缺失字段写 `[未找到]`**，不捏造。

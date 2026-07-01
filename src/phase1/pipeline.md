@@ -56,11 +56,8 @@
 │                                                                     │
 │  阶段 C（AI 主导）：渲染输出                                         │
 │                                                                     │
-│  [AI] Step 7: 写画像                                                │
-│    → 读 merged.json + 公开信息笔记                                   │
-│    → 按模板填充 9 节                                                 │
-│    → 论文按学术履历阶段分组（博士/博后/独立）                         │
-│    → 输出：output/<机构>/<部门>/<姓名>/01_基础画像.md                 │
+│  [脚本] Step 7: 渲染画像                                              │
+│    → render_profile.py merged.json --stages stages.json → 01_基础画像 │
 └─────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -395,9 +392,13 @@ python src/phase1/step6_merge.py \
   "$PROF/archive/$TIMESTAMP/03_arxiv.json" \
   -o "$PROF/archive/$TIMESTAMP/04_merged.json"
 
-# 阶段 C（AI 做：读 merged.json → 写画像）
-# 画像写 $PROF/01_基础画像.md
-# latest.txt 写 $PROF/latest.txt 指向最新存档目录
+# 阶段 C（脚本渲染 + AI 润色）
+python src/phase1/render_profile.py "$PROF/archive/$TIMESTAMP/04_merged.json" \
+  -o "$PROF/01_基础画像.md"
+# render_profile.py 生成论文表格 + 运行统计。
+# AI 在脚本输出基础上补充：学术履历表、研究方向描述、合作网络、公开信息。
+
+echo "$TIMESTAMP" > "$PROF/latest.txt"
 ```
 
 ---

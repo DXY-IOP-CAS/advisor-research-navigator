@@ -12,6 +12,7 @@ import argparse
 import json
 import logging
 import os
+import re
 import sys
 from datetime import datetime
 from collections import defaultdict
@@ -25,20 +26,21 @@ def load_merged(path: str) -> dict:
         return json.load(f)
 
 
-def compute_career_stages(year: int) -> str:
-    """根据年份推断学术阶段。基于中科院物理所典型履历路径。"""
-    if year <= 2013:
-        return "博士及博后早期（~2013，近代物理所）"
-    elif year <= 2016:
-        return "RIKEN 博后（2013–2016）"
-    elif year <= 2018:
-        return "近代物理所副研究员（2016–2018）"
-    elif year <= 2021:
-        return "ETH Zurich 博士后（2018–2021）"
-    elif year <= 2024:
-        return "ETH Zurich 资深研究员（2021–2024）"
-    else:
-        return "中科院物理所独立 PI（2024–至今）"
+def compute_career_stages(year: int, stages: list = None) -> str:
+    """根据年份推断学术阶段。
+
+    如果提供了 stages 配置（从 verified_ids.json 的 career_stages 读取），
+    用配置中的年份区间匹配。否则按五年段通用分组。
+    """
+    if stages:
+        for s in stages:
+            start = s.get("start", 0)
+            end = s.get("end", 9999)
+            if start <= year <= end:
+                return s.get("name", f"{start}–{end}")
+    # 默认：每 5 年一段
+    decade = (year // 5) * 5
+    return f"{decade}–{decade + 4}"
 
 
 def mark_source_tag(sources: list) -> str:
@@ -55,7 +57,8 @@ def mark_source_tag(sources: list) -> str:
     return "+".join(tags)
 
 
-def generate(data: dict, output_path: str) -> str:
+def generate(data: dict, output_path: str, stage_config: list = None,
+              department: str = "") -> str:
     prof = data.get("professor", {})
     papers = data.get("papers", [])
     stats = data.get("statistics", {})
@@ -74,7 +77,7 @@ def generate(data: dict, output_path: str) -> str:
     # Frontmatter
     L("---")
     L(f'affiliation: {prof.get("affiliation", "")}')
-    L(f"department: 超快物质科学中心")
+    L(f"department: {department}")
     L(f"source_updated: {ts}")
     L(f'orcid: {prof.get("orcid", "")}')
     L(f"google_scholar_url: https://scholar.google.com/citations?hl=en&user={prof.get('gs_id', '')}")
@@ -127,19 +130,16 @@ def generate(data: dict, output_path: str) -> str:
     for p in papers:
         y = p.get("year")
         if y and isinstance(y, int):
-            stage = compute_career_stages(y)
+            stage = compute_career_stages(y, stage_config)
             stages[stage].append(p)
         else:
             stages["未知年份"].append(p)
 
-    stage_order = [
-        "博士及博后早期（~2013，近代物理所）",
-        "RIKEN 博后（2013–2016）",
-        "近代物理所副研究员（2016–2018）",
-        "ETH Zurich 博士后（2018–2021）",
-        "ETH Zurich 资深研究员（2021–2024）",
-        "中科院物理所独立 PI（2024–至今）",
-    ]
+    # Sort stages chronologically by their starting year
+    def stage_start(name: str) -> int:
+        m = re.search(r"(\d{4})", name)
+        return int(m.group(1)) if m else 9999
+    stage_order = sorted(stages.keys(), key=stage_start)
 
     stage_idx = 1
     for stage_name in stage_order:
@@ -190,11 +190,15 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="从 merged.json 生成基础画像")
     parser.add_argument("merged_json", help="04_merged.json 路径")
     parser.add_argument("--output", "-o", default="01_基础画像.md", help="输出路径")
+    parser.add_argument("--stages", help="学术阶段配置 JSON 文件")
+    parser.add_argument("--department", "-d", default="", help="部门/实验室名称")
     args = parser.parse_args()
 
+    stage_config = None
+    if args.stages:
+        with open(args.stages, "r", encoding="utf-8") as f:
+            stage_config = json.load(f)
+
     data = load_merged(args.merged_json)
-    generate(data, args.output)
-
-
-if __name__ == "__main__":
-    main()
+    generate(data, args.output, stage_config, args.department)
+    print(f"✅ {len(data.get('papers', []))} papers → {args.output}", file=sys.stderr)
