@@ -1,18 +1,10 @@
 """
-identity_resolver.py — 多源学术 ID 查询 + 论文标题交叉比对。
+identity_resolver.py — 已废弃（阶段 0 已删除）。
 
-输入：姓名 + email + 机构 ROR + 官网论文标题列表 + 启用源列表
-输出：每个源的最佳候选 + 综合置信度
-依赖：config/sources.json
-纯 Python 标准库，零外部依赖（只 urllib + json）。
+该脚本原用于 Phase 0 的多源 ID 查询 + 论文标题交叉比对。Phase 0 删除后不再使用。
+身份验证现在在 Phase 1 Step 2/3 中通过 GS 邮箱校验完成。
 
-用法：
-  python scripts/identity_resolver.py \
-    --name "Pengju Zhang" \
-    --email "pengju.zhang@iphy.ac.cn" \
-    --ror "https://ror.org/05qbk4x57" \
-    --papers-file /tmp/papers.json \
-    --enable openalex,arxiv,orcid,semantic_scholar
+保留此文件仅供历史参考，不参与当前流水线。
 """
 
 import json

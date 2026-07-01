@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """
-s2_enrich.py — Semantic Scholar TLDR 批量拉取。
+s2_enrich.py — [可选] Semantic Scholar TLDR 批量拉取。
+
+注意：此脚本仅在有 Semantic Scholar API key 时有效。
+无 key 时逐个请求模式限速严重（100 req/5min），55 篇论文耗时约 60s。
+项目默认不依赖此脚本，跳过不影响画像质量。
 
 输入：从 OpenAlex 或 arXiv 输出的 JSON 文件中提取 DOI 列表，批量查 TLDR。
 输出：JSON 到 stdout，日志到 stderr。
