@@ -252,3 +252,136 @@ def retry(
             raise last_exc
         return wrapper
     return decorator
+
+
+# ── 源名常量（替代散落字符串）──
+
+SOURCE_GS = "google_scholar"
+SOURCE_OA = "openalex"
+SOURCE_ARXIV = "arxiv"
+
+STATUS_OK = "success"
+STATUS_ERR = "error"
+STATUS_BLOCKED = "blocked"
+STATUS_EMPTY = "empty"
+
+
+# ── 通用表格渲染 ──
+
+def format_markdown_table(
+    headers: list,
+    rows: list[list],
+    aligns: list[str] = None,
+) -> str:
+    """生成标准 markdown 表格字符串。
+
+    Parameters
+    ----------
+    headers : list[str]
+        表头，如 ["#", "年份", "标题", "期刊", "引用", "来源"]
+    rows : list[list]
+        数据行，每行元素数与 headers 一致
+    aligns : list[str], optional
+        对齐方式，默认全部 "左对齐"。
+        支持 ":---" (左), "---:" (右), ":---:" (中)
+
+    Returns
+    -------
+    str
+        不含前后空行的 markdown 表格
+
+    Examples
+    --------
+    >>> print(format_markdown_table(["A", "B"], [["1", "2"]]))
+    | A | B |
+    |:-:|:-:|
+    | 1 | 2 |
+    """
+    if not headers:
+        return ""
+    n = len(headers)
+    if aligns is None:
+        aligns = [":---"] * n
+    elif len(aligns) < n:
+        aligns = aligns + [":---"] * (n - len(aligns))
+    lines = []
+    lines.append("| " + " | ".join(headers) + " |")
+    lines.append("| " + " | ".join(aligns[:n]) + " |")
+    for row in rows:
+        padded = list(row) + [""] * (n - len(row))
+        lines.append("| " + " | ".join(str(c) for c in padded[:n]) + " |")
+    return "\n".join(lines)
+
+
+# ── 安全嵌套取值 ──
+
+def safe_get(d: dict, *keys, default=None):
+    """嵌套字典安全取值。
+
+    替代散落的 d.get("a", {}).get("b") 模式。
+
+    Examples
+    --------
+    >>> safe_get({"a": {"b": 1}}, "a", "b")
+    1
+    >>> safe_get({"a": None}, "a", "b", default="?")
+    '?'
+    """
+    current = d
+    for key in keys:
+        if not isinstance(current, dict):
+            return default
+        current = current.get(key)
+        if current is None:
+            return default
+    return current
+
+
+# ── 论文链接生成 ──
+
+def make_paper_link(paper: dict) -> str:
+    """从论文 dict 生成 markdown 链接字符串。
+
+    Priority: DOI > arXiv ID > None (return plain title).
+
+    Examples
+    --------
+    >>> make_paper_link({"title": "Test", "doi": "10.1234/test"})
+    '[Test](https://doi.org/10.1234/test)'
+    """
+    title = paper.get("title") or ""
+    doi = paper.get("doi")
+    if doi:
+        clean = doi.strip()
+        if not clean.startswith("http"):
+            clean = f"https://doi.org/{clean}"
+        return f"[{title}]({clean})"
+    arxiv_id = paper.get("arxiv_id")
+    if arxiv_id:
+        return f"[{title}](https://arxiv.org/abs/{arxiv_id})"
+    return title
+
+
+# ── URL 规范化 ──
+
+def norm_url(url: str) -> str:
+    """确保 URL 以 https:// 开头。
+
+    Examples
+    --------
+    >>> norm_url("doi.org/10.1234/test")
+    'https://doi.org/10.1234/test'
+    >>> norm_url("https://example.com")
+    'https://example.com'
+    """
+    if not url:
+        return ""
+    url = url.strip()
+    if not url.startswith(("http://", "https://")):
+        return f"https://{url}"
+    return url
+
+
+# ── 源标记（别名） ──
+
+source_tag = mark_source_tag
