@@ -1,0 +1,538 @@
+{
+  "pipeline": "phase1",
+  "source": "arxiv",
+  "status": "success",
+  "error": null,
+  "professor": null,
+  "papers": [
+    {
+      "title": "MMGait: Towards Multi-Modal Gait Recognition",
+      "year": 2026,
+      "authors": [
+        "Chenye Wang",
+        "Qingyuan Cai",
+        "Saihui Hou",
+        "Aoqi Li",
+        "Yongzhen Huang"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2604.15979",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Gait recognition has emerged as a powerful biometric technique for identifying individuals at a distance without requiring user cooperation. Most existing methods focus primarily on RGB-derived modali..."
+    },
+    {
+      "title": "BarbieGait: An Identity-Consistent Synthetic Human Dataset with Versatile Cloth-Changing for Gait Recognition",
+      "year": 2026,
+      "authors": [
+        "Qingyuan Cai",
+        "Saihui Hou",
+        "Xuecai Hu",
+        "Yongzhen Huang"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2604.12221",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Gait recognition, as a reliable biometric technology, has seen rapid development in recent years while it faces significant challenges caused by diverse clothing styles in the real world. This paper i..."
+    },
+    {
+      "title": "Human Identification at a Distance: Challenges, Methods and Results on the Competition HID 2025",
+      "year": 2026,
+      "authors": [
+        "Jingzhe Ma",
+        "Meng Zhang",
+        "Jianlong Yu",
+        "Kun Liu",
+        "Zunxiao Xu",
+        "Xue Cheng",
+        "Junjie Zhou",
+        "Yanfei Wang",
+        "Jiahang Li",
+        "Zepeng Wang",
+        "Kazuki Osamura",
+        "Rujie Liu",
+        "Narishige Abe",
+        "Jingjie Wang",
+        "Shunli Zhang",
+        "Haojun Xie",
+        "Jiajun Wu",
+        "Weiming Wu",
+        "Wenxiong Kang",
+        "Qingshuo Gao",
+        "Jiaming Xiong",
+        "Xianye Ben",
+        "Lei Chen",
+        "Lichen Song",
+        "Junjian Cui",
+        "Haijun Xiong",
+        "Junhao Lu",
+        "Bin Feng",
+        "Mengyuan Liu",
+        "Ji Zhou",
+        "Baoquan Zhao",
+        "Ke Xu",
+        "Yongzhen Huang",
+        "Liang Wang",
+        "Manuel J Marin-Jimenez",
+        "Md Atiqur Rahman Ahad",
+        "Shiqi Yu"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2602.07565",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Human identification at a distance (HID) is challenging because traditional biometric modalities such as face and fingerprints are often difficult to acquire in real-world scenarios. Gait recognition ..."
+    },
+    {
+      "title": "Learning Geometric Invariance for Gait Recognition",
+      "year": 2026,
+      "authors": [
+        "Zengbin Wang",
+        "Junjie Li",
+        "Saihui Hou",
+        "Xu Liu",
+        "Chunshui Cao",
+        "Yongzhen Huang",
+        "Muyi Sun",
+        "Siye Wang",
+        "Man Zhang"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2601.05604",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "The goal of gait recognition is to extract identity-invariant features of an individual under various gait conditions, e.g., cross-view and cross-clothing. Most gait models strive to implicitly learn ..."
+    },
+    {
+      "title": "FastDDHPose: Towards Unified, Efficient, and Disentangled 3D Human Pose Estimation",
+      "year": 2025,
+      "authors": [
+        "Qingyuan Cai",
+        "Linxin Zhang",
+        "Xuecai Hu",
+        "Saihui Hou",
+        "Yongzhen Huang"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2512.14162",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Recent approaches for monocular 3D human pose estimation (3D HPE) have achieved leading performance by directly regressing 3D poses from 2D keypoint sequences. Despite the rapid progress in 3D HPE, ex..."
+    },
+    {
+      "title": "GaitSnippet: Gait Recognition Beyond Unordered Sets and Ordered Sequences",
+      "year": 2025,
+      "authors": [
+        "Saihui Hou",
+        "Chenye Wang",
+        "Wenpeng Lang",
+        "Zhengxiang Lan",
+        "Yongzhen Huang"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2508.07782",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Recent advancements in gait recognition have significantly enhanced performance by treating silhouettes as either an unordered set or an ordered sequence. However, both set-based and sequence-based ap..."
+    },
+    {
+      "title": "OmniDiff: A Comprehensive Benchmark for Fine-grained Image Difference Captioning",
+      "year": 2025,
+      "authors": [
+        "Yuan Liu",
+        "Saihui Hou",
+        "Saijie Hou",
+        "Jiabao Du",
+        "Shibei Meng",
+        "Yongzhen Huang"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2503.11093",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Image Difference Captioning (IDC) aims to generate natural language descriptions of subtle differences between image pairs, requiring both precise visual change localization and coherent semantic expr..."
+    },
+    {
+      "title": "OpenAnimals: Revisiting Person Re-Identification for Animals Towards Better Generalization",
+      "year": 2024,
+      "authors": [
+        "Saihui Hou",
+        "Panjian Huang",
+        "Zengbin Wang",
+        "Yuan Liu",
+        "Zeyu Li",
+        "Man Zhang",
+        "Yongzhen Huang"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2410.00204",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "This paper addresses the challenge of animal re-identification, an emerging field that shares similarities with person re-identification but presents unique complexities due to the diverse species, en..."
+    },
+    {
+      "title": "Artificial Immune System of Secure Face Recognition Against Adversarial Attacks",
+      "year": 2024,
+      "authors": [
+        "Min Ren",
+        "Yunlong Wang",
+        "Yuhao Zhu",
+        "Yongzhen Huang",
+        "Zhenan Sun",
+        "Qi Li",
+        "Tieniu Tan"
+      ],
+      "journal": "arXiv",
+      "doi": "https://doi.org/10.1007/s11263-024-02153-0",
+      "arxiv_id": "2406.18144",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Insect production for food and feed presents a promising supplement to ensure food safety and address the adverse impacts of agriculture on climate and environment in the future. However, optimisation..."
+    },
+    {
+      "title": "OpenGait: A Comprehensive Benchmark Study for Gait Recognition towards Better Practicality",
+      "year": 2024,
+      "authors": [
+        "Chao Fan",
+        "Saihui Hou",
+        "Junhao Liang",
+        "Chuanfu Shen",
+        "Jingzhe Ma",
+        "Dongyang Jin",
+        "Yongzhen Huang",
+        "Shiqi Yu"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2405.09138",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Gait recognition, a rapidly advancing vision technology for person identification from a distance, has made significant strides in indoor settings. However, evidence suggests that existing methods oft..."
+    },
+    {
+      "title": "Disentangled Diffusion-Based 3D Human Pose Estimation with Hierarchical Spatial and Temporal Denoiser",
+      "year": 2024,
+      "authors": [
+        "Qingyuan Cai",
+        "Xuecai Hu",
+        "Saihui Hou",
+        "Li Yao",
+        "Yongzhen Huang"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2403.04444",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Recently, diffusion-based methods for monocular 3D human pose estimation have achieved state-of-the-art (SOTA) performance by directly regressing the 3D joint coordinates from the 2D pose sequence. Al..."
+    },
+    {
+      "title": "QAGait: Revisit Gait Recognition from a Quality Perspective",
+      "year": 2024,
+      "authors": [
+        "Zengbin Wang",
+        "Saihui Hou",
+        "Man Zhang",
+        "Xu Liu",
+        "Chunshui Cao",
+        "Yongzhen Huang",
+        "Peipei Li",
+        "Shibiao Xu"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2401.13531",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Gait recognition is a promising biometric method that aims to identify pedestrians from their unique walking patterns. Silhouette modality, renowned for its easy acquisition, simple structure, sparse ..."
+    },
+    {
+      "title": "Towards More Efficient Depression Risk Recognition via Gait",
+      "year": 2023,
+      "authors": [
+        "Min Ren",
+        "Muchan Tao",
+        "Xuecai Hu",
+        "Xiaotong Liu",
+        "Qiong Li",
+        "Yongzhen Huang"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2310.06283",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Depression, a highly prevalent mental illness, affects over 280 million individuals worldwide. Early detection and timely intervention are crucial for promoting remission, preventing relapse, and alle..."
+    },
+    {
+      "title": "FastPoseGait: A Toolbox and Benchmark for Efficient Pose-based Gait Recognition",
+      "year": 2023,
+      "authors": [
+        "Shibei Meng",
+        "Yang Fu",
+        "Saihui Hou",
+        "Chunshui Cao",
+        "Xu Liu",
+        "Yongzhen Huang"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2309.00794",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "We present FastPoseGait, an open-source toolbox for pose-based gait recognition based on PyTorch. Our toolbox supports a set of cutting-edge pose-based gait recognition algorithms and a variety of rel..."
+    },
+    {
+      "title": "Free Lunch for Gait Recognition: A Novel Relation Descriptor",
+      "year": 2023,
+      "authors": [
+        "Jilong Wang",
+        "Saihui Hou",
+        "Yan Huang",
+        "Chunshui Cao",
+        "Xu Liu",
+        "Yongzhen Huang",
+        "Tianzhu Zhang",
+        "Liang Wang"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2308.11487",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Gait recognition is to seek correct matches for query individuals by their unique walking patterns. However, current methods focus solely on extracting individual-specific features, overlooking ``inte..."
+    },
+    {
+      "title": "Unsupervised Gait Recognition with Selective Fusion",
+      "year": 2023,
+      "authors": [
+        "Xuqian Ren",
+        "Shaopeng Yang",
+        "Saihui Hou",
+        "Chunshui Cao",
+        "Xu Liu",
+        "Yongzhen Huang"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2303.10772",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Previous gait recognition methods primarily trained on labeled datasets, which require painful labeling effort. However, using a pre-trained model on a new dataset without fine-tuning can lead to sign..."
+    },
+    {
+      "title": "GPGait: Generalized Pose-based Gait Recognition",
+      "year": 2023,
+      "authors": [
+        "Yang Fu",
+        "Shibei Meng",
+        "Saihui Hou",
+        "Xuecai Hu",
+        "Yongzhen Huang"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2303.05234",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Recent works on pose-based gait recognition have demonstrated the potential of using such simple information to achieve results comparable to silhouette-based methods. However, the generalization abil..."
+    },
+    {
+      "title": "Exploring Deep Models for Practical Gait Recognition",
+      "year": 2023,
+      "authors": [
+        "Chao Fan",
+        "Saihui Hou",
+        "Yongzhen Huang",
+        "Shiqi Yu"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2303.03301",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Gait recognition is a rapidly advancing vision technique for person identification from a distance. Prior studies predominantly employed relatively shallow networks to extract subtle gait features, ac..."
+    },
+    {
+      "title": "OpenGait: Revisiting Gait Recognition Toward Better Practicality",
+      "year": 2022,
+      "authors": [
+        "Chao Fan",
+        "Junhao Liang",
+        "Chuanfu Shen",
+        "Saihui Hou",
+        "Yongzhen Huang",
+        "Shiqi Yu"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2211.06597",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Gait recognition is one of the most critical long-distance identification technologies and increasingly gains popularity in both research and industry communities. Despite the significant progress mad..."
+    },
+    {
+      "title": "Deep Learning-based Occluded Person Re-identification: A Survey",
+      "year": 2022,
+      "authors": [
+        "Yunjie Peng",
+        "Saihui Hou",
+        "Chunshui Cao",
+        "Xu Liu",
+        "Yongzhen Huang",
+        "Zhiqiang He"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2207.14452",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Occluded person re-identification (Re-ID) aims at addressing the occlusion problem when retrieving the person of interest across multiple cameras. With the promotion of deep learning technology and th..."
+    },
+    {
+      "title": "Progressive Feature Learning for Realistic Cloth-Changing Gait Recognition",
+      "year": 2022,
+      "authors": [
+        "Xuqian Ren",
+        "Saihui Hou",
+        "Chunshui Cao",
+        "Xu Liu",
+        "Yongzhen Huang"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2207.11720",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Gait recognition is instrumental in crime prevention and social security, for it can be conducted at a long distance to figure out the identity of persons. However, existing datasets and methods canno..."
+    },
+    {
+      "title": "Learning Gait Representation from Massive Unlabelled Walking Videos: A Benchmark",
+      "year": 2022,
+      "authors": [
+        "Chao Fan",
+        "Saihui Hou",
+        "Jilong Wang",
+        "Yongzhen Huang",
+        "Shiqi Yu"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2206.13964",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Gait depicts individuals' unique and distinguishing walking patterns and has become one of the most promising biometric features for human identification. As a fine-grained recognition task, gait reco..."
+    },
+    {
+      "title": "GaitEdge: Beyond Plain End-to-end Gait Recognition for Better Practicality",
+      "year": 2022,
+      "authors": [
+        "Junhao Liang",
+        "Chao Fan",
+        "Saihui Hou",
+        "Chuanfu Shen",
+        "Yongzhen Huang",
+        "Shiqi Yu"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2203.03972",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Gait is one of the most promising biometrics to identify individuals at a long distance. Although most previous methods have focused on recognizing the silhouettes, several end-to-end methods that ext..."
+    },
+    {
+      "title": "Data Augmentation For Medical MR Image Using Generative Adversarial Networks",
+      "year": 2021,
+      "authors": [
+        "Panjian Huang",
+        "Xu Liu",
+        "Yongzhen Huang"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2111.14297",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Computer-assisted diagnosis (CAD) based on deep learning has become a crucial diagnostic technology in the medical industry, effectively improving diagnosis accuracy. However, the scarcity of brain tu..."
+    },
+    {
+      "title": "Dense-View GEIs Set: View Space Covering for Gait Recognition based on Dense-View GAN",
+      "year": 2020,
+      "authors": [
+        "Rijun Liao",
+        "Weizhi An",
+        "Shiqi Yu",
+        "Zhu Li",
+        "Yongzhen Huang"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2009.12516",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Gait recognition has proven to be effective for long-distance human recognition. But view variance of gait features would change human appearance greatly and reduce its performance. Most existing gait..."
+    },
+    {
+      "title": "Learning Efficient Convolutional Networks through Irregular Convolutional Kernels",
+      "year": 2019,
+      "authors": [
+        "Weiyu Guo",
+        "Jiabin Ma",
+        "Liang Wang",
+        "Yongzhen Huang"
+      ],
+      "journal": "arXiv",
+      "doi": "https://doi.org/10.1016/j.neucom.2022.02.065",
+      "arxiv_id": "1909.13239",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "As deep neural networks are increasingly used in applications suited for low-power devices, a fundamental dilemma becomes apparent: the trend is to grow models to absorb increasing data that gives ris..."
+    },
+    {
+      "title": "Deep Semantic Ranking Based Hashing for Multi-Label Image Retrieval",
+      "year": 2015,
+      "authors": [
+        "Fang Zhao",
+        "Yongzhen Huang",
+        "Liang Wang",
+        "Tieniu Tan"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "1501.06272",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "With the rapid growth of web images, hashing has received increasing interests in large scale image retrieval. Research efforts have been devoted to learning compact binary codes that preserve semanti..."
+    },
+    {
+      "title": "Enhanced Mixtures of Part Model for Human Pose Estimation",
+      "year": 2015,
+      "authors": [
+        "Wenjuan Gong",
+        "Yongzhen Huang",
+        "Jordi Gonzalez",
+        "and Liang Wang"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "1501.05382",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Mixture of parts model has been successfully applied to 2D human pose estimation problem either as explicitly trained body part model or as latent variables for the whole human body model. Mixture of ..."
+    }
+  ],
+  "metadata": {
+    "query": "Yongzhen_Huang",
+    "max_results": 50
+  }
+}

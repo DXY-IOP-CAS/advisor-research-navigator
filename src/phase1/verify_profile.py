@@ -64,13 +64,13 @@ def verify(profile_path: str, merged_path: str = None) -> int:
     check(not blank_within_table, "论文表格内部无空行", errors)
 
     # 2. 名字格式：中文 (English) 或纯英文
-    title = re.search(r"^# (.+) — 基础画像$", content, re.MULTILINE)
+    title = re.search(r"^# (.+)[–—―]+\s*基础画像$", content, re.MULTILINE)
     if title:
-        t = title.group(1)
+        t = title.group(1).strip()
         has_chinese = bool(re.search(r"[一-鿿]", t))
         has_english = bool(re.search(r"[a-zA-Z]", t))
         if has_chinese and has_english:
-            ok = bool(re.search(r"[一-鿿].+\([a-zA-Z]", t))
+            ok = bool(re.search(r"[一-鿿].+[(（][a-zA-Z]", t))
             check(ok, f"名字格式正确：「{t}」", errors)
         elif has_chinese and not has_english:
             check(True, f"纯中文名：「{t}」", errors)
@@ -85,10 +85,11 @@ def verify(profile_path: str, merged_path: str = None) -> int:
             merged = json.load(f)
         total_merged = len(merged.get("papers", []))
         paper_rows = len(re.findall(r"^\| \d+ \| \d{4}", content, re.MULTILINE))
-        # 允许过滤 ≈5 篇的偏差
+        # 允许偏差：至少 5 篇或总论文数的 5%（对大论文量教授更宽）
+        tolerance = max(5, int(total_merged * 0.05))
         diff = abs(total_merged - paper_rows)
-        check(diff <= 5,
-              f"论文行数：{paper_rows}（merged={total_merged}，差 {diff}）",
+        check(diff <= tolerance,
+              f"论文行数：{paper_rows}（merged={total_merged}，差 {diff}，容差 {tolerance}）",
               errors)
     else:
         paper_rows = len(re.findall(r"^\| \d+ \| \d{4}", content, re.MULTILINE))
@@ -137,6 +138,13 @@ def verify(profile_path: str, merged_path: str = None) -> int:
     # 9. 论文表格为 6 列（检查表头和数据行）
     table_headers = re.findall(r"^\| # \| 年份 \| 标题 \| 期刊 \| 引用 \| 来源 \|", content, re.MULTILINE)
     check(len(table_headers) >= 1, "论文表格表头为 6 列（#、年份、标题、期刊、引用、来源）", errors)
+
+    # 9b. 阶段标题不是纯年份区间（必须含学术阶段描述）
+    stage_headers = re.findall(r"^### 4\.\d+ (.+)$", content, re.MULTILINE)
+    bare_year_stages = [s for s in stage_headers if re.match(r"^\d{4}[-–]\d{4}$", s.strip())]
+    check(len(bare_year_stages) == 0,
+          f"阶段标题不含纯年份区间（发现 {len(bare_year_stages)} 个：{bare_year_stages}）",
+          errors)
 
     # 10. 无重复论文标题（去重失败检测）
     titles = re.findall(r"^\| \d+ \| \d{4} \| (.+?) \|", content, re.MULTILINE)

@@ -58,11 +58,13 @@ def load_merged(path: str) -> dict:
         return json.load(f)
 
 
-def compute_career_stages(year: int, stages: list = None) -> str:
+def compute_career_stages(year: int, stages: list = None, no_default: bool = False) -> str:
     """根据年份推断学术阶段。
 
     如果提供了 stages 配置（从 verified_ids.json 的 career_stages 读取），
-    用配置中的年份区间匹配。否则按五年段通用分组。
+    用配置中的年份区间匹配。
+    如果没有 stages 配置，返回年份本身（不伪造 5 年段名）。
+    AI 会在叙事补充时根据真实履历重新分组。
     """
     if stages:
         for s in stages:
@@ -70,9 +72,8 @@ def compute_career_stages(year: int, stages: list = None) -> str:
             end = s.get("end", 9999)
             if start <= year <= end:
                 return s.get("name", f"{start}–{end}")
-    # 默认：每 5 年一段
-    decade = (year // 5) * 5
-    return f"{decade}–{decade + 4}"
+    # 没有 stage 配置时，按年份分组（不生成 2025-2029 这类假名）
+    return str(year)
 
 
 def paper_url(paper: dict) -> str:
