@@ -20,6 +20,7 @@ import time
 import xml.etree.ElementTree as ET
 from typing import Any, Dict, List, Optional
 from urllib.error import HTTPError, URLError
+from urllib.parse import quote
 from urllib.request import urlopen
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -58,7 +59,7 @@ def search_by_author(author_name: str,
     Returns:
         论文列表。
     """
-    search_parts = [f"au:{author_name}"]
+    search_parts = [f"au:{quote(author_name, safe='')}"]
     if categories:
         for cat in categories.split():
             search_parts.append(f"cat:{cat}")
