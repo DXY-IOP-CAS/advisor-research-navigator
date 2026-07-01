@@ -1,0 +1,12 @@
+{
+  "pipeline": "phase1",
+  "source": "arxiv",
+  "status": "empty",
+  "error": null,
+  "professor": null,
+  "papers": [],
+  "metadata": {
+    "query": "Li_Xin-Zheng",
+    "max_results": 50
+  }
+}

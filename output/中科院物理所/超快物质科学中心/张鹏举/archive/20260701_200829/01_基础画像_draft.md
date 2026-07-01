@@ -1,10 +1,10 @@
 ---
 affiliation: Institute of Physics, Chinese Academy of Sciences
 department: 超快物质科学中心
-source_updated: 2026-07-01 19:42
+source_updated: 2026-07-01 20:10
 orcid: https://orcid.org/0000-0001-7746-2113
 google_scholar_url: https://scholar.google.com/citations?hl=en&user=ls7XuGoAAAAJ
-run_timestamp: 2026-07-01 19:42
+run_timestamp: 2026-07-01 20:10
 run_archive: archive/latest/
 ---
 
@@ -14,9 +14,9 @@ run_archive: archive/latest/
 
 | 项目 | 内容 |
 |:-----|:------|
-| 生成时间 | 2026-07-01 19:42 |
+| 生成时间 | 2026-07-01 20:10 |
 | 运行存档 | `archive/latest/` |
-| 总论文数 | 60 篇（去重合并后） |
+| 总论文数 | 60 篇（合并后），60 篇（过滤后） |
 | GS 状态 | success |
 | OA 状态 | success |
 | arXiv 状态 | success |
@@ -153,6 +153,8 @@ run_archive: archive/latest/
 | 数据源 | 状态 | 论文数 | 说明 |
 |:-------|:----:|:------:|:-----|
 | Google Scholar | success | 54 | h-index 15, 引用 732 |
-| OpenAlex | success | 13 | 元数据补充（DOI/期刊/作者） |
+| OpenAlex | success | 11 | 元数据补充（DOI/期刊/作者） |
 | arXiv | success | 1 | 预印本（同名噪声已过滤） |
-| 合并 | ✅ | 60 | 多源交叉验证 7 篇（11.7%） |
+| 合并 | ✅ | 58 | 去重后唯一数（多源论文在各源计数中重复计算） |
+
+多源交叉验证 7 篇（12.1%）

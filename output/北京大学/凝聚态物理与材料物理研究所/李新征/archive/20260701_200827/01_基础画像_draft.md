@@ -5,17 +5,17 @@ source_updated: 2026-07-01 20:11
 orcid: https://orcid.org/0000-0003-0316-4257
 google_scholar_url: https://scholar.google.com/citations?hl=en&user=DY6sI4UAAAAJ
 run_timestamp: 2026-07-01 20:11
-run_archive: archive/20260701_200827/
+run_archive: archive/latest/
 ---
 
-# 李新征 (Xin-Zheng Li) — 基础画像
+# xinzheng li — 基础画像
 
 ## 运行信息
 
 | 项目 | 内容 |
 |:-----|:------|
 | 生成时间 | 2026-07-01 20:11 |
-| 运行存档 | `archive/20260701_200827/` |
+| 运行存档 | `archive/latest/` |
 | 总论文数 | 204 篇（合并后），204 篇（过滤后） |
 | GS 状态 | success |
 | OA 状态 | success |
@@ -28,52 +28,22 @@ run_archive: archive/20260701_200827/
 
 | 字段 | 内容 |
 |:-----|:------|
-| 姓名 | 李新征 (Xin-Zheng Li) |
-| 中文名 | 李新征 |
-| 英文名 | Xin-Zheng Li |
+| 姓名 | xinzheng li |
 | 机构 | Professor, School of Physics, Peking University |
-| 所在院系 | 凝聚态物理与材料物理研究所 |
-| 邮箱 | 已验证 @pku.edu.cn |
+| 邮箱 | ...@@pku.edu.cn |
 | GS ID | DY6sI4UAAAAJ |
 | OA ID | A5101563546 |
 | ORCID | https://orcid.org/0000-0003-0316-4257 |
-| GS 主页 | https://scholar.google.com/citations?hl=en&user=DY6sI4UAAAAJ |
-
----
-
-## 2. 学术履历
-
-| 时间 | 机构 | 职位 |
-|:----|:-----|:-----|
-| 1996–2000 | 北京大学物理系 | 本科（物理学） |
-| 2000–2005 | 北京大学物理学院 | 博士（凝聚态物理） |
-| 2005–2008 | 柏林自由大学 / 弗里茨-哈伯研究所（FHI, MPG） | 博士后（合作者：Matthias Scheffler, Claudia Draxl） |
-| 2008–2010 | 伦敦大学学院（UCL） | 博士后（合作者：Angelos Michaelides） |
-| 2010–2014 | 北京大学物理学院 | 研究员（百人计划） |
-| 2014–至今 | 北京大学物理学院 | 教授 |
-
-履历来源：北京大学教师主页、ORCID 记录。
-
----
-
-## 3. 研究方向
-
-李新征的主要研究方向为**凝聚态物理中的计算方法发展**，核心围绕**核量子效应（nuclear quantum effects）**在高压物理、界面水、氢键系统等体系中的作用。具体包括：
-
-- **路径积分分子动力学方法**：发展基于第一性原理的路径积分分子动力学方法（PIMD），应用于高压氢、高压水、金属氢等体系的相变问题。
-- **GW 电子结构方法**：发展全电子 GW 方法（FHI-gap 代码），研究半导体和绝缘体的准粒子能隙。
-- **界面水与氢键的量子本质**：与实验组合作，利用 STM/AFM 结合第一性原理计算，揭示界面水中的质子隧穿、氢键对称化等核量子效应。
-- **高压物理**：高压氢的相图、金属化、超导电性；高压冰的动态相变。
-- **相变理论**：从晶体结构匹配到动态相变理论，发展相变机制分类与枚举方法；Lee-Yang 零点的相变分析。
-- **低维材料物性**：二维冰、二维半导体中的激子物理、拓扑激子绝缘体。
 
 ---
 
 ## 4. 全部论文（按学术履历阶段分组）
 
-### 4.1 1996–2004：北京大学博士阶段
+<!-- 下方 4.x 节标题由 AI 渲染时填写。每节用 1-2 句话说明该阶段的研究主题，再列论文表格 -->
 
-博士期间研究涉及半导体量子结构（量子棒）的光学性质，以及感光材料中的电子陷阱效应。这些早期工作为后续计算方法发展奠定了材料物理基础。
+### 4.1 2000–2004
+
+<!-- AI 渲染：1-2 句话说明该阶段的研究主题和方向变化。不写评价。 -->
 
 论文数：2 篇
 
@@ -82,11 +52,11 @@ run_archive: archive/20260701_200827/
 | 1 | 2002 | Electronic structure and optical properties of quantum rods with wurtzite structure | Physical Review B 66 (11), 115316, 2002 | 100 | GS |
 | 2 | 2004 | [The electron trap effect of the sulfur + gold sensitization center on the photoelectron behaviors](https://doi.org/10.7498/aps.53.2019) | Acta Physica Sinica | 1 | OA |
 
-### 4.2 2005–2009：博士后阶段（FHI + UCL）
+### 4.2 2005–2009
 
-在弗里茨-哈伯研究所与 Claudia Draxl 和 Matthias Scheffler 合作，发展全电子 GW 方法（FHI-gap）。2008 年 PRL 论文（117 次引用）揭示了芯-价电子相互作用对自能的影响，是 GW 方法发展中的一项重要工作。在 UCL 与 Angelos Michaelides 合作期间，开始关注氢键中的核量子效应。
+<!-- AI 渲染：1-2 句话说明该阶段的研究主题和方向变化。不写评价。 -->
 
-论文数：6 篇（GS 过滤后核心论文）
+论文数：22 篇
 
 | # | 年份 | 标题 | 期刊 | 引用 | 来源 |
 |:-:|:----:|:-----|:-----|:----:|:-----|
@@ -113,11 +83,11 @@ run_archive: archive/20260701_200827/
 | 21 | 2009 | [Image density property of optical information recording microcapsule material](https://doi.org/10.1117/12.830801) | Proceedings of SPIE, the International S | — | OA |
 | 22 | 2009 | [Image-formation Property Based on Thermosensitive Color-reaction and Photo-sensitive Polymerization ](https://doi.org/10.2494/photopolymer.22.261) | Journal of Photopolymer Science and Tech | — | OA |
 
-### 4.3 2010–2014：北京大学研究员阶段
+### 4.3 2010–2014
 
-回国后组建独立研究组。研究重心从电子结构计算扩展到核量子效应，将路径积分方法与第一性原理电子结构结合。2011 年 PNAS 论文（459 次引用）揭示氢键的量子本质；2013 年 Nature Communications 论文（95 次引用）模拟低温金属态液态氢；2014 年 Nature Communications 论文（82 次引用）发现 NaCl 表面新奇二维冰结构。出版中文专著《分子及凝聚态系统物性的计算模拟》。
+<!-- AI 渲染：1-2 句话说明该阶段的研究主题和方向变化。不写评价。 -->
 
-论文数：33 篇（合并后总数，含同名噪声）
+论文数：33 篇
 
 | # | 年份 | 标题 | 期刊 | 引用 | 来源 |
 |:-:|:----:|:-----|:-----|:----:|:-----|
@@ -155,11 +125,11 @@ run_archive: archive/20260701_200827/
 | 32 | 2014 | 分子及凝聚态系统物性的计算模拟: 从电子结构到分子动力学 | 北京大学出版社, 2014 | 1 | GS |
 | 33 | 2014 | 界面水分子的超高分辨成像 | 中国化学会第 29 届学术年会摘要集——第 01 分会: 表面物理化学, 201 | — | GS |
 
-### 4.4 2015–2019：教授阶段——核量子效应与界面水
+### 4.4 2015–2019
 
-晋升教授后，与北京大学江颖实验组深度合作，在界面水的核量子效应研究方面取得一系列突破。2015 年 Nature Physics 论文（178 次引用）直接观测水纳米团簇中协同质子隧穿；2016 年 Science 论文（166 次引用）利用针尖增强非弹性电子隧穿探测氢键核量子效应；2017 年 PRL 论文（70 次引用）揭示氢在金属表面的同时发生深隧穿与经典跳跃；2018 年 Nature Communications 论文（222 次引用）阐明钙钛矿分解路径。出版英文专著《Computer Simulations of Molecules and Condensed Matter》。
+<!-- AI 渲染：1-2 句话说明该阶段的研究主题和方向变化。不写评价。 -->
 
-论文数：61 篇（合并后总数）
+论文数：61 篇
 
 | # | 年份 | 标题 | 期刊 | 引用 | 来源 |
 |:-:|:----:|:-----|:-----|:----:|:-----|
@@ -225,11 +195,11 @@ run_archive: archive/20260701_200827/
 | 60 | 2019 | [The quantum nature of hydrogen](https://doi.org/10.1080/0144235x.2019.1558623) | International Reviews in Physical Chemis | 35 | GS+OA |
 | 61 | 2019 | [Transparent proton transport through a two-dimensional nanomesh material](https://doi.org/10.1038/s41467-019-11899-y) | Nature Communications | 82 | GS+OA |
 
-### 4.5 2020–2024：新方向拓展——激子物理、铁电、相变理论
+### 4.5 2020–2024
 
-方向进一步拓展至激子绝缘体、铁电体、超临界物质和相变理论。2020 年 Nature 论文（264 次引用）首次原子级成像二维冰的边缘结构和生长；2021 年 PRL 论文揭示高压冰 VII 的动态本质；2022 年 Science 论文（149 次引用）可视化单层水中 Eigen/Zundel 阳离子的互变；2024 年 PRL 论文提出晶体结构匹配的固-固相变理论。
+<!-- AI 渲染：1-2 句话说明该阶段的研究主题和方向变化。不写评价。 -->
 
-论文数：62 篇（合并后总数）
+论文数：62 篇
 
 | # | 年份 | 标题 | 期刊 | 引用 | 来源 |
 |:-:|:----:|:-----|:-----|:----:|:-----|
@@ -296,11 +266,11 @@ run_archive: archive/20260701_200827/
 | 61 | 2024 | [Spin-triplet topological excitonic insulators in two-dimensional materials](https://doi.org/10.1103/physrevb.109.075167) | Physical review. B./Physical review. B | 19 | GS+OA |
 | 62 | 2024 | [The connnotation and key research areas of the new applicaiton code &amp;ldquo;computational physics](https://doi.org/10.1360/sspma-2024-0012) | Zhongguo kexue. Wulixue Lixue Tianwenxue | 3 | OA |
 
-### 4.6 2025–2029：近期——量子相变理论与计算方法发展
+### 4.6 2025–2029
 
-近年研究聚焦于量子相变理论的新框架，包括 Lee-Yang 零点分析固-固相变、费米子符号问题、全场临界性、半经典初值表示（SCIVR）方法等。核量子效应与量子无序导致的非常规超导电性是新兴方向。
+<!-- AI 渲染：1-2 句话说明该阶段的研究主题和方向变化。不写评价。 -->
 
-论文数：22 篇（合并后总数）
+论文数：22 篇
 
 | # | 年份 | 标题 | 期刊 | 引用 | 来源 |
 |:-:|:----:|:-----|:-----|:----:|:-----|
@@ -329,56 +299,14 @@ run_archive: archive/20260701_200827/
 
 ### 4.7 未知年份
 
+<!-- AI 渲染：1-2 句话说明该阶段的研究主题和方向变化。不写评价。 -->
+
 论文数：2 篇
 
 | # | 年份 | 标题 | 期刊 | 引用 | 来源 |
 |:-:|:----:|:-----|:-----|:----:|:-----|
 | 1 | — | An all-electron GW code based on FP-(L) APW+ lo: the role of core electrons | — | — | GS |
 | 2 | — | http://eprints. whiterose. ac. uk/10672 | — | — | GS |
-
-## 5. 合作网络
-
-主要合作者（基于 GS 论文共同作者频次）：
-
-| 合作者 | 机构 | 合作领域 |
-|:------|:-----|:---------|
-| Enge Wang（王恩哥） | 北京大学 / 松山湖材料实验室 | 界面水、高压氢、表面科学 |
-| Ying Jiang（江颖） | 北京大学 | 界面水 STM/AFM 实验 |
-| Ji Chen（陈基） | 北京大学 | 路径积分方法、高压氢、水科学 |
-| Jing Guo（郭静） | 北京大学 | 界面水实验 |
-| Angelos Michaelides | UCL / 剑桥大学 | 核量子效应、氢键 |
-| Yexin Feng（冯叶欣） | 山东大学 | 核量子效应、水科学 |
-| Wei Fang（方维） | 北京大学 / 中科院 | 核量子效应、半经典动力学 |
-| Qi-Jun Ye（叶麒俊） | 北京大学 | 相变理论、Lee-Yang 零点 |
-| Peng Gao（高鹏） | 北京大学 | 铁电、电子显微学 |
-| Sheng Meng（孟胜） | 中科院物理所 | 量子动力学、TDDFT |
-| Limei Xu（徐莉梅） | 北京大学 | 水科学、高压物理 |
-| Xinqiang Wang（王新强） | 北京大学 | III 族氮化物、半导体 |
-| Hong Jiang（蒋鸿） | 北京大学 | 电子结构方法 |
-| Ali Alavi / Andreas Grüneis | 马普所 | 多体电子结构理论 |
-| Bo Shen（沈波） | 北京大学 | 半导体物理 |
-| Ying Jiang, Runze Ma, Duanyun Cao | 北京大学 | 二维冰 AFM 实验 |
-
----
-
-## 6. 公开信息
-
-- **北京大学教师主页**：[https://www.phy.pku.edu.cn/](https://www.phy.pku.edu.cn/)（凝聚态物理与材料物理研究所）
-- **Google Scholar**：[https://scholar.google.com/citations?hl=en&user=DY6sI4UAAAAJ](https://scholar.google.com/citations?hl=en&user=DY6sI4UAAAAJ)
-- **ORCID**：[https://orcid.org/0000-0003-0316-4257](https://orcid.org/0000-0003-0316-4257)
-- **OpenAlex**：[https://openalex.org/A5101563546](https://openalex.org/A5101563546)
-
----
-
-## 7. 补充信息
-
-- **出版专著**：著有《分子及凝聚态系统物性的计算模拟：从电子结构到分子动力学》（北京大学出版社，2014，中文）和《Computer Simulations of Molecules and Condensed Matter》（World Scientific / 北京大学出版社，2017，英文，与王恩哥合著）。
-- **代码贡献**：参与开发 FHI-gap 全电子 GW 代码（Computer Physics Communications, 2012/2013）。
-- **h-index**：37（Google Scholar，截至 2026-07-01）
-- **总引用**：5433（Google Scholar，截至 2026-07-01）
-- **身份验证**：邮箱域名 @pku.edu.cn 匹配北京大学官方域名。GS 作者名 "Xin-Zheng Li" 与汉语拼音一致。
-
----
 
 ## 8. 数据质量说明
 
@@ -387,6 +315,6 @@ run_archive: archive/20260701_200827/
 | Google Scholar | success | 111 | h-index 37, 引用 5433 |
 | OpenAlex | success | 174 | 元数据补充（DOI/期刊/作者） |
 | arXiv | success | 5 | 预印本（同名噪声已过滤） |
-| 合并 | ✅ | 204 | 去重后唯一数 |
+| 合并 | ✅ | 204 | 去重后唯一数（多源论文在各源计数中重复计算） |
 
-多源交叉验证 81 篇（39.7%）。来源 URL 见各论文行末尾标注（GS=Google Scholar, OA=OpenAlex, arXiv=arXiv）。
+多源交叉验证 81 篇（39.7%）

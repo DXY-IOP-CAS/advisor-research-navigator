@@ -40,9 +40,9 @@
       "citation_count": 2,
       "source": "google_scholar",
       "sources": [
+        "arxiv",
         "openalex",
-        "google_scholar",
-        "arxiv"
+        "google_scholar"
       ],
       "source_count": 3,
       "abstract": "We report the first observation of intermolecular Coulombic decay (ICD) in liquid water following inner-valence ionization. By combining a monochromatized table-top high-harmonic source with a liquid ..."
@@ -1055,9 +1055,9 @@
   "statistics": {
     "total": 60,
     "by_source": {
+      "arxiv": 1,
       "openalex": 13,
-      "google_scholar": 54,
-      "arxiv": 1
+      "google_scholar": 54
     },
     "unique": 60
   }

@@ -1,0 +1,35 @@
+{
+  "pipeline": "phase1",
+  "step": "verified_ids",
+  "timestamp": "20260701_200827",
+  "professor": {
+    "name_cn": "李新征",
+    "name_en": "Xin-Zheng Li",
+    "name_full": "李新征 (Xin-Zheng Li)",
+    "institution": "北京大学",
+    "department": "凝聚态物理与材料物理研究所",
+    "email_domain": "pku.edu.cn",
+    "email": "xzli@pku.edu.cn",
+    "title": "北京大学博雅特聘教授",
+    "discipline": "condensed_matter",
+    "url": "https://faculty.pku.edu.cn/lixinzheng/zh_CN/index.htm"
+  },
+  "ids": {
+    "google_scholar": "DY6sI4UAAAAJ",
+    "openalex": "A5101563546",
+    "orcid": "0000-0003-0316-4257"
+  },
+  "verification": {
+    "email_match": true,
+    "gs_email_domain": "pku.edu.cn",
+    "source": "官网+GS验证",
+    "confidence": "high"
+  },
+  "sources": {
+    "official_website": "https://faculty.pku.edu.cn/lixinzheng/zh_CN/index.htm",
+    "gs_profile": "https://scholar.google.com/citations?user=DY6sI4UAAAAJ&hl=en",
+    "orcid": "https://orcid.org/0000-0003-0316-4257",
+    "openalex": "https://openalex.org/A5101563546",
+    "phy_pku": "https://www.phy.pku.edu.cn/xzli/info/1008/1069.htm"
+  }
+}
