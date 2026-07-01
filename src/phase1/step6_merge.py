@@ -1,0 +1,277 @@
+#!/usr/bin/env python3
+"""
+step6_merge.py — 多源合并去重 + 教授信息合并。
+
+输入：N 个统一 SOURCE_OUTPUT 格式的 JSON 文件（gs.json, oa.json, arxiv.json）
+处理：
+  - 教授信息：按优先级合并（后加载覆盖前加载）
+  - 论文去重：P0:DOI → P1:arXiv ID → P2:归一化标题
+  - 引用数/期刊名等字段选最优源值
+
+输出：MERGED_OUTPUT 格式（见 pipeline.md §2.3）
+
+用法：
+  python src/phase1/step6_merge.py gs.json oa.json arxiv.json -o merged.json
+  python src/phase1/step6_merge.py oa.json arxiv.json --verbose
+
+依赖：标准库（utils.py）
+"""
+
+import argparse
+import json
+import logging
+import os
+import sys
+from collections import defaultdict
+from typing import Any, Dict, List, Optional
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from utils import (
+    write_output, normalize_title,
+    clean_doi, doi_match,
+    strip_arxiv_version, arxiv_id_match,
+    title_match,
+)
+
+logging.basicConfig(level=logging.WARNING, format="%(levelname)s: %(message)s")
+logger = logging.getLogger("step6_merge")
+
+
+# ── 加载 ─────────────────────────────────────────────────────────────
+
+def load_source(path: str) -> Optional[dict]:
+    """加载统一格式的源输出。"""
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return data
+    except Exception as e:
+        logger.error(f"Failed to load {path}: {e}")
+        return None
+
+
+# ── 教授信息合并 ──────────────────────────────────────────────────────
+
+PROF_PRIORITY = {
+    "name": ["google_scholar", "openalex"],
+    "affiliation": ["google_scholar", "openalex"],
+    "email_domain": ["google_scholar"],
+    "gs_id": ["google_scholar"],
+    "oa_id": ["openalex"],
+    "orcid": ["openalex"],
+    "h_index": ["google_scholar", "openalex"],
+    "i10_index": ["google_scholar"],
+    "total_citations": ["google_scholar", "openalex"],
+}
+
+def merge_professors(sources: List[dict]) -> dict:
+    """按字段优先级合并教授信息。跳过 None 值。"""
+    profs_by_source = {}
+    for src in sources:
+        src_name = src.get("source")
+        prof = src.get("professor") or {}
+        profs_by_source[src_name] = prof
+
+    merged = {}
+    for field, priority in PROF_PRIORITY.items():
+        for src_name in priority:
+            val = profs_by_source.get(src_name, {}).get(field)
+            if val is not None:
+                merged[field] = val
+                break
+    return merged
+
+
+# ── 去重 ──────────────────────────────────────────────────────────────
+
+def group_papers(all_papers: List[tuple]) -> Dict[int, List[tuple]]:
+    """按去重优先级分組。返回 {group_id: [(paper, source_name), ...]}。"""
+    n = len(all_papers)
+    parent = list(range(n))
+
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    def union(x, y):
+        px, py = find(x), find(y)
+        if px != py:
+            parent[py] = px
+
+    # P0: DOI
+    doi_map = {}
+    for i, (paper, _) in enumerate(all_papers):
+        doi = paper.get("doi")
+        if doi:
+            cdoi = clean_doi(doi)
+            if cdoi in doi_map:
+                union(i, doi_map[cdoi])
+            else:
+                doi_map[cdoi] = i
+
+    # P1: arXiv ID
+    arxiv_map = {}
+    for i, (paper, _) in enumerate(all_papers):
+        aid = paper.get("arxiv_id")
+        if aid:
+            base = strip_arxiv_version(aid)
+            if base in arxiv_map:
+                union(i, arxiv_map[base])
+            else:
+                arxiv_map[base] = i
+
+    # P2: 标题
+    for i in range(n):
+        for j in range(i + 1, n):
+            if find(i) == find(j):
+                continue
+            t1, t2 = all_papers[i][0].get("title", ""), all_papers[j][0].get("title", "")
+            if title_match(t1, t2):
+                union(i, j)
+
+    groups = defaultdict(list)
+    for i in range(n):
+        groups[find(i)].append(all_papers[i])
+
+    return dict(groups)
+
+
+# ── 合并单组论文 ────────────────────────────────────────────────────
+
+FIELD_PRIORITY = {
+    "title": ["openalex", "google_scholar", "arxiv"],
+    "year": ["openalex", "arxiv", "google_scholar"],
+    "authors": ["openalex", "arxiv"],
+    "journal": ["openalex", "google_scholar", "arxiv"],
+    "doi": ["openalex", "arxiv"],
+    "arxiv_id": ["arxiv", "openalex"],
+    "citation_count": ["openalex", "google_scholar"],
+    "abstract": ["arxiv"],
+    "source": [],  # maintain the winning source for the best-field logic
+}
+
+
+def _pick(entries: List[dict], field: str) -> Any:
+    """按优先级取最佳值。"""
+    priority = FIELD_PRIORITY.get(field, [])
+    for src in priority:
+        for entry in entries:
+            if entry.get("source") == src and entry.get(field) is not None:
+                return entry[field]
+    for entry in entries:
+        if entry.get(field) is not None:
+            return entry[field]
+    return None
+
+
+def merge_paper_group(entries: List[tuple]) -> dict:
+    """合并一组论文为一个。entries = [(paper, source_name), ...]"""
+    papers_only = [e[0] for e in entries]
+    source_names = list(set(e[1] for e in entries))
+
+    return {
+        "title": _pick(papers_only, "title"),
+        "year": _pick(papers_only, "year"),
+        "authors": _pick(papers_only, "authors"),
+        "journal": _pick(papers_only, "journal"),
+        "doi": _pick(papers_only, "doi"),
+        "arxiv_id": _pick(papers_only, "arxiv_id"),
+        "citation_count": _pick(papers_only, "citation_count"),
+        "source": _pick(papers_only, "source"),
+        "sources": source_names,
+        "source_count": len(source_names),
+        "abstract": _pick(papers_only, "abstract"),
+    }
+
+
+# ── 主合并逻辑 ──────────────────────────────────────────────────────
+
+def merge(source_paths: List[str]) -> dict:
+    """合并多个源文件。返回 MERGED_OUTPUT 格式。"""
+    sources = []
+    for p in source_paths:
+        src = load_source(p)
+        if src:
+            sources.append(src)
+        else:
+            logger.warning(f"Skipping unreadable source: {p}")
+
+    if not sources:
+        return {
+            "pipeline": "phase1", "step": "merge",
+            "status": "error", "error": "No valid source files",
+            "sources_used": [], "source_status": {},
+            "professor": {}, "papers": [], "statistics": {},
+        }
+
+    # 源状态
+    source_status = {s.get("source", f"src{i}"): s.get("status", "unknown")
+                     for i, s in enumerate(sources)}
+    sources_used = list(source_status.keys())
+
+    # 教授信息合并
+    professor = merge_professors(sources)
+
+    # 论文收集（(paper, source_name) 对）
+    all_pairs: List[tuple] = []
+    for src in sources:
+        src_name = src.get("source", "unknown")
+        for p in src.get("papers", []):
+            if p.get("title"):  # 无标题的论文跳过
+                all_pairs.append((p, src_name))
+
+    # 去重
+    groups = group_papers(all_pairs)
+    merged_papers = [merge_paper_group(entries) for entries in groups.values()]
+    merged_papers.sort(key=lambda p: (
+        -(p.get("source_count") or 0),
+        -(p.get("citation_count") or 0),
+        -(p.get("year") or 0),
+    ))
+
+    # 统计
+    by_source = defaultdict(int)
+    for p in merged_papers:
+        for s in p.get("sources", []):
+            by_source[s] += 1
+
+    return {
+        "pipeline": "phase1",
+        "step": "merge",
+        "sources_used": sources_used,
+        "source_status": source_status,
+        "professor": professor,
+        "papers": merged_papers,
+        "statistics": {
+            "total": len(merged_papers),
+            "by_source": dict(by_source),
+            "unique": len(merged_papers),
+        },
+    }
+
+
+# ── CLI ──────────────────────────────────────────────────────────────
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description="多源合并去重")
+    parser.add_argument("input_files", nargs="+", help="统一格式的 JSON 源文件")
+    parser.add_argument("--output", "-o", help="输出 JSON 文件")
+    parser.add_argument("--verbose", "-v", action="store_true")
+    args = parser.parse_args()
+
+    if args.verbose:
+        logging.getLogger().setLevel(logging.INFO)
+
+    result = merge(args.input_files)
+    write_output(result, args.output)
+
+    if args.output:
+        s = result.get("statistics", {})
+        print(f"✅ [merge] {s.get('total', 0)} papers from {len(result['sources_used'])} sources"
+              f" → {args.output}", file=sys.stderr)
+
+
+if __name__ == "__main__":
+    main()

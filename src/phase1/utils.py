@@ -1,0 +1,149 @@
+"""
+src/phase1/utils.py — 阶段 1 共享工具库。
+
+包含：
+  1. 通用论文模式（COMMON_PAPER_SCHEMA）
+  2. 输入/输出格式验证
+  3. 标题归一化、DOI/arXiv ID 比对
+  4. JSON 读写输出
+"""
+
+import json
+import re
+import sys
+import time
+import os
+from collections import deque
+from typing import Any, Deque, Dict, List, Optional
+
+# ── 通用输出模式（文档用） ────────────────────────────────────────────
+
+COMMON_PAPER_SCHEMA = {
+    "title": str,
+    "year": (int, type(None)),
+    "authors": (list, type(None)),
+    "journal": (str, type(None)),
+    "doi": (str, type(None)),
+    "arxiv_id": (str, type(None)),
+    "citation_count": (int, type(None)),
+    "source": str,
+    "abstract": (str, type(None)),
+}
+
+COMMON_SOURCE_OUTPUT = {
+    "pipeline": str,
+    "source": str,
+    "status": str,
+    "error": (str, type(None)),
+    "professor": (dict, type(None)),
+    "papers": list,
+    "metadata": (dict, type(None)),
+}
+
+
+# ── 标题归一化 ────────────────────────────────────────────────────────
+
+def normalize_title(title: str) -> str:
+    """归一化标题：去标点 → 小写 → 去空格。"""
+    if not title:
+        return ""
+    cleaned = re.sub(r"[^\w\s]", "", title)
+    return re.sub(r"\s+", "", cleaned.lower().strip())
+
+
+# ── DOI 比对 ──────────────────────────────────────────────────────────
+
+def clean_doi(doi: str) -> str:
+    """清洗 DOI：去空格、小写、去协议前缀。"""
+    doi = doi.strip().lower()
+    return doi.removeprefix("https://doi.org/").removeprefix("http://doi.org/").removeprefix("doi:")
+
+def doi_match(doi1: Optional[str], doi2: Optional[str]) -> bool:
+    if not doi1 or not doi2:
+        return False
+    return clean_doi(doi1) == clean_doi(doi2)
+
+
+# ── arXiv ID 比对 ────────────────────────────────────────────────────
+
+def strip_arxiv_version(arxiv_id: str) -> str:
+    return re.sub(r"v\d+$", "", arxiv_id.strip())
+
+def arxiv_id_match(id1: Optional[str], id2: Optional[str]) -> bool:
+    if not id1 or not id2:
+        return False
+    return strip_arxiv_version(id1) == strip_arxiv_version(id2)
+
+
+# ── 标题模糊匹配 ─────────────────────────────────────────────────────
+
+def title_match(t1: str, t2: str) -> bool:
+    """返回 True 如果两标题匹配（精确匹配或完整子串）。"""
+    n1, n2 = normalize_title(t1), normalize_title(t2)
+    if not n1 or not n2:
+        return False
+    if n1 == n2:
+        return True
+    if n1 in n2 or n2 in n1:
+        return True
+    return False
+
+
+# ── JSON I/O ─────────────────────────────────────────────────────────
+
+def safe_json(data: Any, indent: int = 2) -> str:
+    return json.dumps(data, indent=indent, ensure_ascii=False, default=str)
+
+def write_output(data: Any, output_path: Optional[str] = None) -> None:
+    text = safe_json(data)
+    if output_path:
+        with open(output_path, "w", encoding="utf-8") as f:
+            f.write(text)
+    else:
+        sys.stdout.write(text)
+        sys.stdout.write("\n")
+
+
+# ── GS 限速器（PoP 式） ──────────────────────────────────────────────
+
+class RateLimiter:
+    """Publish or Perish 式自适应限速。
+
+    仅被 step2_gs 使用，scholarly 库内部另有限速逻辑。
+    """
+
+    MAX_PER_MINUTE = 2
+    YELLOW_PER_HOUR = 120
+    RED_PER_HOUR = 150
+
+    def __init__(self):
+        self.minute_window: Deque[float] = deque()
+        self.hour_window: Deque[float] = deque()
+
+    def wait_if_needed(self) -> None:
+        now = time.time()
+        self._slide_window(now)
+
+        if len(self.hour_window) >= self.RED_PER_HOUR:
+            sleep_time = 600 + (len(self.hour_window) - self.RED_PER_HOUR) * 120
+            time.sleep(sleep_time)
+            return self.wait_if_needed()
+
+        if len(self.hour_window) >= self.YELLOW_PER_HOUR:
+            sleep_time = 120 + (len(self.hour_window) - self.YELLOW_PER_HOUR) * 30
+            time.sleep(sleep_time)
+            return self.wait_if_needed()
+
+        if len(self.minute_window) >= self.MAX_PER_MINUTE:
+            sleep_time = max(10.0, 60.0 / self.MAX_PER_MINUTE * len(self.minute_window))
+            time.sleep(sleep_time)
+            return self.wait_if_needed()
+
+        self.minute_window.append(now)
+        self.hour_window.append(now)
+
+    def _slide_window(self, now: float) -> None:
+        while self.minute_window and self.minute_window[0] < now - 60:
+            self.minute_window.popleft()
+        while self.hour_window and self.hour_window[0] < now - 3600:
+            self.hour_window.popleft()

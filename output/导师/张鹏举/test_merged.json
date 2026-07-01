@@ -1,0 +1,269 @@
+{
+  "merged_count": 16,
+  "source_stats": {
+    "unknown": 0,
+    "arxiv": 16
+  },
+  "sources_used": [
+    "unknown",
+    "arxiv"
+  ],
+  "works": [
+    {
+      "title": "Bragg-Williams order competes with superconductivity",
+      "doi": null,
+      "arxiv_id": "2604.25843",
+      "publication_date": "2026-04-28",
+      "journal": null,
+      "cited_by_count": null,
+      "tldr": null,
+      "authors": null,
+      "year": "2026",
+      "type": null,
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1
+    },
+    {
+      "title": "EP-GAT: Energy-based Parallel Graph Attention Neural Network for Stock Trend Classification",
+      "doi": null,
+      "arxiv_id": "2507.08184",
+      "publication_date": "2025-07-10",
+      "journal": null,
+      "cited_by_count": null,
+      "tldr": null,
+      "authors": null,
+      "year": "2025",
+      "type": null,
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1
+    },
+    {
+      "title": "MR-COSMO: Visual-Text Memory Recall and Direct CrOSs-MOdal Alignment Method for Query-Driven 3D Segmentation",
+      "doi": null,
+      "arxiv_id": "2506.20991",
+      "publication_date": "2025-06-26",
+      "journal": null,
+      "cited_by_count": null,
+      "tldr": null,
+      "authors": null,
+      "year": "2025",
+      "type": null,
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1
+    },
+    {
+      "title": "SuperPlace: The Renaissance of Classical Feature Aggregation for Visual Place Recognition in the Era of Foundation Models",
+      "doi": null,
+      "arxiv_id": "2506.13073",
+      "publication_date": "2025-06-16",
+      "journal": null,
+      "cited_by_count": null,
+      "tldr": null,
+      "authors": null,
+      "year": "2025",
+      "type": null,
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1
+    },
+    {
+      "title": "An Underwater, Fault-Tolerant, Laser-Aided Robotic Multi-Modal Dense SLAM System for Continuous Underwater In-Situ Observation",
+      "doi": null,
+      "arxiv_id": "2504.21826",
+      "publication_date": "2025-04-30",
+      "journal": null,
+      "cited_by_count": null,
+      "tldr": null,
+      "authors": null,
+      "year": "2025",
+      "type": null,
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1
+    },
+    {
+      "title": "Unveiling Hidden Vulnerabilities in Digital Human Generation via Adversarial Attacks",
+      "doi": null,
+      "arxiv_id": "2504.17457",
+      "publication_date": "2025-04-24",
+      "journal": null,
+      "cited_by_count": null,
+      "tldr": null,
+      "authors": null,
+      "year": "2025",
+      "type": null,
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1
+    },
+    {
+      "title": "DGOcc: Depth-aware Global Query-based Network for Monocular 3D Occupancy Prediction",
+      "doi": null,
+      "arxiv_id": "2504.07524",
+      "publication_date": "2025-04-10",
+      "journal": null,
+      "cited_by_count": null,
+      "tldr": null,
+      "authors": null,
+      "year": "2025",
+      "type": null,
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1
+    },
+    {
+      "title": "Density-aware global-local attention network for point cloud segmentation",
+      "doi": null,
+      "arxiv_id": "2412.00489",
+      "publication_date": "2024-11-30",
+      "journal": null,
+      "cited_by_count": null,
+      "tldr": null,
+      "authors": null,
+      "year": "2024",
+      "type": null,
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1
+    },
+    {
+      "title": "1.5-Femtosecond Delay in Charge Transfer",
+      "doi": null,
+      "arxiv_id": "2408.17402",
+      "publication_date": "2024-08-30",
+      "journal": null,
+      "cited_by_count": null,
+      "tldr": null,
+      "authors": null,
+      "year": "2024",
+      "type": null,
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1
+    },
+    {
+      "title": "Identity information based on human magnetocardiography signals",
+      "doi": null,
+      "arxiv_id": "2403.13820",
+      "publication_date": "2024-03-02",
+      "journal": null,
+      "cited_by_count": null,
+      "tldr": null,
+      "authors": null,
+      "year": "2024",
+      "type": null,
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1
+    },
+    {
+      "title": "Multi-relational Graph Diffusion Neural Network with Parallel Retention for Stock Trends Classification",
+      "doi": null,
+      "arxiv_id": "2401.05430",
+      "publication_date": "2024-01-05",
+      "journal": null,
+      "cited_by_count": null,
+      "tldr": null,
+      "authors": null,
+      "year": "2024",
+      "type": null,
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1
+    },
+    {
+      "title": "Exploiting Rich Syntax for Better Knowledge Base Question Answering",
+      "doi": null,
+      "arxiv_id": "2107.07940",
+      "publication_date": "2021-07-16",
+      "journal": null,
+      "cited_by_count": null,
+      "tldr": null,
+      "authors": null,
+      "year": "2021",
+      "type": null,
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1
+    },
+    {
+      "title": "Observation of intermolecular Coulombic decay in liquid water",
+      "doi": null,
+      "arxiv_id": "2103.15014",
+      "publication_date": "2021-03-27",
+      "journal": null,
+      "cited_by_count": null,
+      "tldr": null,
+      "authors": null,
+      "year": "2021",
+      "type": null,
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1
+    },
+    {
+      "title": "Semi-Global Shape-aware Network",
+      "doi": null,
+      "arxiv_id": "2012.09372",
+      "publication_date": "2020-12-17",
+      "journal": null,
+      "cited_by_count": null,
+      "tldr": null,
+      "authors": null,
+      "year": "2020",
+      "type": null,
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1
+    },
+    {
+      "title": "Leveraging Local and Global Descriptors in Parallel to Search Correspondences for Visual Localization",
+      "doi": null,
+      "arxiv_id": "2009.10891",
+      "publication_date": "2020-09-23",
+      "journal": null,
+      "cited_by_count": null,
+      "tldr": null,
+      "authors": null,
+      "year": "2020",
+      "type": null,
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1
+    },
+    {
+      "title": "A New Loss Function for CNN Classifier Based on Pre-defined Evenly-Distributed Class Centroids",
+      "doi": null,
+      "arxiv_id": "1904.06008",
+      "publication_date": "2019-04-12",
+      "journal": null,
+      "cited_by_count": null,
+      "tldr": null,
+      "authors": null,
+      "year": "2019",
+      "type": null,
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1
+    }
+  ]
+}
