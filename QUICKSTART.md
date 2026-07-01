@@ -19,7 +19,7 @@
 
 ```
 pilot-test/
-├── src/               # Python 源文件（替换了旧的 scripts/）
+├── src/               # Python 源文件
 │   ├── gs_scraper.py          # GS profile 爬取（即将被 gs_browser.py 替代）
 │   ├── openalex_works.py      # OA 作者 works 拉取
 │   ├── oa_enrich.py           # OA 标题搜索补充元数据
@@ -28,26 +28,32 @@ pilot-test/
 │   ├── paper_utils.py         # 共享工具库
 │   ├── discipline_classifier.py  # 学科分类
 │   ├── s2_enrich.py           # S2 TLDR 批量填充（可选）
-│   └── identity_resolver.py   # 已废弃
+│   ├── identity_resolver.py   # 已废弃
+│   └── __init__.py
 ├── tests/             # 测试文件
 │   └── test_phase1.py
 ├── config/            # 配置
 │   └── sources.json
-├── docs/              # 文档（替换了旧的 计划/）
+├── docs/              # 规划与调研文档
 │   ├── 计划书.md
 │   ├── 上下文交接.md
 │   ├── 调研_学者分析工具全景.md
 │   ├── 调研_阶段1工具选型.md
 │   └── 阶段1重构计划.md
-├── output/            # 输出数据（替换了旧的 项目/）
+├── output/            # 导师画像产出
 │   └── 导师/
 │       ├── 张鹏举/
 │       └── 李自翔/
-├── archive/           # 历史参考文档
-│   ├── 需求草稿/
-│   └── 交接文档/
-├── .cache/            # 缓存目录（gitignore）
-├── .claude/           # Claude 配置和 skills
+├── archive/           # 历史存档（需求草稿、旧版产出、Session 交接等）
+│   ├── 00-需求草稿/
+│   ├── 01-session交接文档/
+│   ├── ...
+│   └── 旧版产出/
+├── .claude/           # Claude Skills + Hooks
+│   ├── settings.json
+│   ├── hooks/
+│   └── skills/
+│       └── research-advisor/
 ├── .gitignore
 ├── .claudeignore
 ├── CLAUDE.md
