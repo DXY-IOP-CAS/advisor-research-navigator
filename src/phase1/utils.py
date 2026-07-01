@@ -13,8 +13,12 @@ import re
 import sys
 import time
 import os
+import logging
+from functools import wraps
 from collections import deque
-from typing import Any, Deque, Dict, List, Optional
+from typing import Any, Callable, Deque, Dict, List, Optional, Tuple, Type
+
+logger = logging.getLogger("utils")
 
 # ── 通用输出模式（文档用） ────────────────────────────────────────────
 
@@ -147,3 +151,50 @@ class RateLimiter:
             self.minute_window.popleft()
         while self.hour_window and self.hour_window[0] < now - 3600:
             self.hour_window.popleft()
+
+
+# ── 重试装饰器 ────────────────────────────────────────────────────────
+
+def retry(
+    max_retries: int = 3,
+    delay: float = 2.0,
+    backoff: float = 2.0,
+    retryable_exceptions: Optional[Tuple[Type[Exception], ...]] = None,
+) -> Callable:
+    """API 调用重试装饰器。
+
+    对 retryable_exceptions 中的异常类型自动重试。
+    默认只重试网络/超时/5xx 类异常（即 HTTP 层面可恢复的错误）。
+
+    用法：
+        @retry(max_retries=2, delay=1.0)
+        def fetch_data(url):
+            return urlopen(url).read()
+    """
+    if retryable_exceptions is None:
+        retryable_exceptions = (OSError, TimeoutError, ConnectionError)
+
+    def decorator(func: Callable) -> Callable:
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            last_exc = None
+            wait = delay
+            for attempt in range(max_retries + 1):
+                try:
+                    return func(*args, **kwargs)
+                except retryable_exceptions as e:
+                    last_exc = e
+                    if attempt < max_retries:
+                        logger.warning(
+                            f"{func.__name__} failed (attempt {attempt + 1}/{max_retries + 1}): "
+                            f"{e}. Retrying in {wait:.1f}s"
+                        )
+                        time.sleep(wait)
+                        wait *= backoff
+                    else:
+                        logger.error(
+                            f"{func.__name__} failed after {max_retries + 1} attempts: {e}"
+                        )
+            raise last_exc
+        return wrapper
+    return decorator

@@ -1,8 +1,0 @@
-{
-  "source": "openalex_enriched",
-  "input": "output/导师/张鹏举/test_gs.json",
-  "total_gs_papers": 0,
-  "matched_in_oa": 0,
-  "match_rate": "0%",
-  "works": []
-}
