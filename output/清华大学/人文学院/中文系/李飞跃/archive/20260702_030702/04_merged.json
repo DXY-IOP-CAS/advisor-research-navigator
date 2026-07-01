@@ -1,0 +1,667 @@
+{
+  "pipeline": "phase1",
+  "source": "merged",
+  "status": "success",
+  "professor": {
+    "name": "李飞跃",
+    "affiliation": "清华大学人文学院中文系",
+    "email_domain": "tsinghua.edu.cn",
+    "gs_id": null,
+    "oa_id": null,
+    "orcid": null,
+    "h_index": null,
+    "i10_index": null,
+    "total_citations": null
+  },
+  "papers": [
+    {
+      "title": "诗词曲辨体的文艺融通与史论重构",
+      "year": 2019,
+      "journal": "中国社会科学",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "诗曲交侵下的词体重构",
+      "year": 2017,
+      "journal": "北京大学学报",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "中国古典诗歌平仄律的形成与嬗变",
+      "year": 2015,
+      "journal": "中国社会科学",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "中国古典诗歌平仄律的本质与功能",
+      "year": 2016,
+      "journal": "北京大学学报",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "从向上一路到民间转向——词学的小道大成与异质同构",
+      "year": 2025,
+      "journal": "文学遗产",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "唐宋燕乐的转型与词体嬗变",
+      "year": 2023,
+      "journal": "文艺研究",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "天宝十三载改诸乐名与燕乐体系的确立",
+      "year": 2022,
+      "journal": "北京大学学报",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "圆社市语与《圆里圆》赚词疏证",
+      "year": 2022,
+      "journal": "中外文论",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "王昌龄《出塞》诗的历史互文与文本场域",
+      "year": 2020,
+      "journal": "文学评论",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "重审唐宋词体研究的现代音乐学视角",
+      "year": 2019,
+      "journal": "浙江大学学报",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "天上人间与月夜观想——苏轼中秋词的文本解读与意义生成",
+      "year": 2019,
+      "journal": "清华大学学报",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "从唯物辩证法角度看词学问题",
+      "year": 2018,
+      "journal": "文学遗产",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "倚声改字与词体的律化",
+      "year": 2017,
+      "journal": "文艺研究",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "论词调的形成与词体的自觉",
+      "year": 2014,
+      "journal": "文艺研究",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "律词辨正",
+      "year": 2014,
+      "journal": "北京大学学报",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "论断句的规范与词体的统一",
+      "year": 2014,
+      "journal": "文学遗产",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "《词的起源》新论",
+      "year": 2011,
+      "journal": "北京大学学报",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "唐代乐人的流动与曲子词的兴起",
+      "year": 2019,
+      "journal": "中国社会科学报",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "传统词谱学向现代词体学的转型——林大椿及其《词式》考论",
+      "year": 2018,
+      "journal": "社会科学战线",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "《慢》体考辨",
+      "year": 2016,
+      "journal": "鲁东大学学报",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "《诗余》说述论",
+      "year": 2016,
+      "journal": "中外文论",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "《令》体考辨",
+      "year": 2015,
+      "journal": "河南社会科学",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "《近》体考辨",
+      "year": 2014,
+      "journal": "曲学",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "《引》体考辨",
+      "year": 2014,
+      "journal": "郑州大学学报",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "苏轼赤壁怀古词新论",
+      "year": 2014,
+      "journal": "中南民族大学学报",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "《花间集》的编辑传播与新词体的建构",
+      "year": 2012,
+      "journal": "中州学刊",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "《令引近慢》合称概指词体考论",
+      "year": 2011,
+      "journal": "郑州大学学报",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "《水木湛清华》与清华园关系考辨",
+      "year": 2011,
+      "journal": "信阳师范学院学报",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "《文学自觉说》辨正",
+      "year": 2011,
+      "journal": "中州学刊",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "大数据技术与传统文献学的现代转型",
+      "year": 2021,
+      "journal": "中国社会科学",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "数字时代人文研究的范式跃迁",
+      "year": 2025,
+      "journal": "中国社会科学评价",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "唐诗格律的统计分析及问题",
+      "year": 2022,
+      "journal": "文学遗产",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "古籍数字化与传统诗学的范式革新",
+      "year": 2024,
+      "journal": "北京大学学报",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "近体诗律的历史生成与实证分析",
+      "year": 2026,
+      "journal": "北京师范大学学报",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "开元十五年前后唐诗的盛放",
+      "year": 2026,
+      "journal": "南京大学学报",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "作为艺术设计的文本可视化与历史新秩序",
+      "year": 2025,
+      "journal": "装饰",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "TopWORDS-Poetry: Simultaneous Text Segmentation and Word Discovery for Classical Chinese Poetry via Bayesian Inference",
+      "year": 2023,
+      "journal": "EMNLP 2023",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": "10.48448/tj9x-hp34",
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "书同文字与再造书契——论古籍数字化时代的统一字符集与标准文本库建设",
+      "year": 2023,
+      "journal": "北京师范大学学报",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "近体诗律标准模型校考",
+      "year": 2023,
+      "journal": "中华文史论丛",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "重审唐代应试诗的格律特征与历史定位",
+      "year": 2023,
+      "journal": "山东社会科学",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "基于文本相似度分析的《红楼梦》诗词溯源研究",
+      "year": 2023,
+      "journal": "中外文化与文论",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "古籍文本结构化、知识体系化、利用智能化的实践探索——以璇琮数字人文智慧平台的设计与建设为例",
+      "year": 2022,
+      "journal": "数字人文",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "从唐宋变革到宋元近世——论宋代文艺思想的转型特征及其典范性与近世性",
+      "year": 2020,
+      "journal": "河南社会科学",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "新文科的知识与思维革新",
+      "year": 2020,
+      "journal": "中国社会科学报",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "从市语到赚词：艺术的跨界与融合",
+      "year": 2020,
+      "journal": "中国社会科学报",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "命题重释、价值重估与知识重构——论中华古典文艺思想史的重写及其学术意义",
+      "year": 2017,
+      "journal": "文艺评论",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "《君子》义绎",
+      "year": 2017,
+      "journal": "国学学刊",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "君子喻于义",
+      "year": 2017,
+      "journal": "光明日报",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "以出土文献为起点，推动文学史原创研究",
+      "year": 2017,
+      "journal": "中国社会科学报",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "《旧邦新命》：文化的承传与重构",
+      "year": 2017,
+      "journal": "人民日报（海外版）",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "从古代文学到古典文学",
+      "year": 2013,
+      "journal": "国学学刊",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "中国散文史的新建构",
+      "year": 2013,
+      "journal": "励耘学刊",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    },
+    {
+      "title": "修辞立诚 诚朴雄伟",
+      "year": 2012,
+      "journal": "社会科学辑刊",
+      "sources": [
+        "homepage"
+      ],
+      "source_count": 1,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": null
+    }
+  ],
+  "statistics": {
+    "total_before_dedup": 53,
+    "total_after_dedup": 53,
+    "by_source": {
+      "homepage": 53
+    }
+  },
+  "source_status": {
+    "google_scholar": "未找到",
+    "openalex": "未找到",
+    "arxiv": "empty",
+    "homepage": "success"
+  }
+}
