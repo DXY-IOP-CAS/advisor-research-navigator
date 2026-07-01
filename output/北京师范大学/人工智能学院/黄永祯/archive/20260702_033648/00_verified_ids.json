@@ -1,0 +1,25 @@
+{
+  "pipeline": "phase1",
+  "source": "identity_verification",
+  "status": "success",
+  "professor": {
+    "name": "黄永祯",
+    "name_en": "Yongzhen Huang",
+    "affiliation": "北京师范大学人工智能学院",
+    "affiliation_en": "School of Artificial Intelligence, Beijing Normal University",
+    "email": "huangyongzhen@bnu.edu.cn",
+    "email_domain": "bnu.edu.cn",
+    "verification_tier": "Tier 2",
+    "verification_method": "GS email domain matches official website email domain (bnu.edu.cn)",
+    "gs_id": "OH7-k7oAAAAJ",
+    "openalex_id": "A5024579621",
+    "orcid": "0000-0003-4389-9805"
+  },
+  "sources": {
+    "official_website": "https://ai.bnu.edu.cn/xygk/szdw/zgj/bfed57e2f8fc4de2a6b370063517f801.htm",
+    "google_scholar": "https://scholar.google.com/citations?user=OH7-k7oAAAAJ&hl=en",
+    "openalex": "https://openalex.org/authors/A5024579621",
+    "orcid": "https://orcid.org/0000-0003-4389-9805",
+    "dblp": "https://dblp.org/pid/11/753"
+  }
+}

@@ -39,6 +39,50 @@
       "abstract": "Gait recognition, as a reliable biometric technology, has seen rapid development in recent years while it faces significant challenges caused by diverse clothing styles in the real world. This paper i..."
     },
     {
+      "title": "Towards Long-Lived Robots: Continual Learning VLA Models via Reinforcement Fine-Tuning",
+      "year": 2026,
+      "authors": [
+        "Yuan Liu",
+        "Haoran Li",
+        "Shuai Tian",
+        "Yuxing Qin",
+        "Yuhui Chen",
+        "Yupeng Zheng",
+        "Yongzhen Huang",
+        "Dongbin Zhao"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2602.10503",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Pretrained on large-scale and diverse datasets, VLA models demonstrate strong generalization and adaptability as general-purpose robotic policies. However, Supervised Fine-Tuning (SFT), which serves a..."
+    },
+    {
+      "title": "2.5D co-packaged optical I/O chipsets on a SiON/Si interposer for 4 $\\times$ 100G optical interconnection",
+      "year": 2026,
+      "authors": [
+        "Daibao Hou",
+        "Yuntian Yao",
+        "Xiaotian Cheng",
+        "Shuning Ding",
+        "Qiyou Wu",
+        "Yonghong Hu",
+        "Wei Pan",
+        "Chao Huang",
+        "Huihui Zhu",
+        "Yongzhen Huang",
+        "Chenhui Li",
+        "Chaoyuan Jin"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2602.08284",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Optical I/O technologies have emerged as a potential industrial solution for high-performance data interconnection in AI/ML computing acceleration. While optical I/Os are deployed at the edge of compu..."
+    },
+    {
       "title": "Human Identification at a Distance: Challenges, Methods and Results on the Competition HID 2025",
       "year": 2026,
       "authors": [
@@ -217,6 +261,23 @@
       "citation_count": null,
       "source": "arxiv",
       "abstract": "Gait recognition, a rapidly advancing vision technology for person identification from a distance, has made significant strides in indoor settings. However, evidence suggests that existing methods oft..."
+    },
+    {
+      "title": "POPDG: Popular 3D Dance Generation with PopDanceSet",
+      "year": 2024,
+      "authors": [
+        "Zhenye Luo",
+        "Min Ren",
+        "Xuecai Hu",
+        "Yongzhen Huang",
+        "Li Yao"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2405.03178",
+      "citation_count": null,
+      "source": "arxiv",
+      "abstract": "Generating dances that are both lifelike and well-aligned with music continues to be a challenging task in the cross-modal domain. This paper introduces PopDanceSet, the first dataset tailored to the ..."
     },
     {
       "title": "Disentangled Diffusion-Based 3D Human Pose Estimation with Hierarchical Spatial and Temporal Denoiser",
@@ -533,6 +594,6 @@
   ],
   "metadata": {
     "query": "Yongzhen_Huang",
-    "max_results": 50
+    "max_results": 100
   }
 }

@@ -151,10 +151,11 @@ def verify(profile_path: str, merged_path: str = None) -> int:
     seen = set()
     dupes = set()
     for t in titles:
-        norm = re.sub(r"[\[\]\(\)]", "", t).strip().lower()[:80]
-        if norm in seen:
+        # 提取 markdown 链接中的纯文本标题，用完整标题去重（不截断）
+        plain = re.sub(r"\[(.+?)\]\(.+?\)", r"\1", t).strip().lower()
+        if plain in seen:
             dupes.add(t)
-        seen.add(norm)
+        seen.add(plain)
     check(len(dupes) == 0, f"无重复论文标题（发现 {len(dupes)} 篇重复：{list(dupes)[:3]}）", errors)
 
     # 汇总
