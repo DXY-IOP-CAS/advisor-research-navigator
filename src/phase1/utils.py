@@ -112,34 +112,61 @@ def arxiv_id_match(id1: Optional[str], id2: Optional[str]) -> bool:
     return strip_arxiv_version(id1) == strip_arxiv_version(id2)
 
 
-# ── OA 错位论文过滤 ───────────────────────────────────────────────────
+# ── OA 噪声评分（替代 OA_POLLUTION_KEYWORDS）──
 
-OA_POLLUTION_KEYWORDS = [
-    "dna hydrogel", "veterinary", "livestock", "agriculture",
-    "wind imaging interferometer", "atmospheric remote sensing",
-    "soil moisture", "plant science", "biomass",
-    "marine biology", "fishery", "veterinary medicine",
-    # 遥感/大气光学类（被 OpenAlex 错误合并到超快/激光研究者中）
-    "imaging spectropolarimeter", "wind imaging", "atmospheric wind",
-    "fabry-pérot interferometer", "michelson interferometer",
-    "doppler asymmetry", "ocean color", "sea surface temperature",
-    # 凝聚态/拓扑类（被 OpenAlex 错误合并到超快/激光研究者中）
-    "weyl semimetal", "kagome", "chern insulator",
-    "quantum spin liquid", "supercurrent density",
-    "nodal line", "berry curvature", "anomalous hall",
-    "flat band", "dirac cone", "magnetic kagome",
-    "kondo lattice", "pyrochlore", "topological superconductor",
-]
+def _strip_venue(raw: str) -> str:
+    """清洗期刊名：去卷期号/年份后缀，统一小写，截断。
 
-def is_oa_pollution(title: str) -> bool:
-    """检测论文标题是否是 OpenAlex 错位的（同名不同领域）。
-
-    返回 True = 疑似错位（应剔除）
+    >>> _strip_venue("Physical Review A 83 (5), 052707")
+    'physical review a'
+    >>> _strip_venue("Nature Physics 2024")
+    'nature physics'
     """
-    if not title:
-        return False
-    t = title.lower()
-    return any(kw in t for kw in OA_POLLUTION_KEYWORDS)
+    raw = raw.lower().strip()
+    raw = re.sub(r"\s+\d{4}$", "", raw)  # 末尾年份
+    raw = re.sub(r"\s+\d+.*$", "", raw)   # 卷期号后缀
+    return raw.strip()
+
+
+def score_oa_noise(paper: dict, confirmed_papers: list) -> int:
+    """对 OA 独有论文进行跨学科噪声评分。
+
+    不依赖学科特定关键词，使用合著者+期刊+机构三层网络判断。
+    跨学科通用（物理/生物/文学/社科均有效）。
+
+    Parameters
+    ----------
+    paper : dict
+        OA 独有论文
+    confirmed_papers : list[dict]
+        已确认的论文（GS 源或多源交叉验证的论文）
+
+    Returns
+    -------
+    int
+        评分 ≥ 2: 可信（建议保留）
+        评分 = 1: 弱信号（建议保留但标记）
+        评分 = 0: 疑似同名干扰（建议过滤）
+    """
+    authors = set(paper.get("authors") or [])
+    venue = _strip_venue(paper.get("journal") or "")
+    score = 0
+
+    for cp in confirmed_papers:
+        # Co-author overlap: +2 (strong signal)
+        cp_authors = set(cp.get("authors") or [])
+        if authors & cp_authors:
+            score += 2
+            break
+
+    if venue:
+        for cp in confirmed_papers:
+            cp_venue = _strip_venue(cp.get("journal") or "")
+            if venue == cp_venue:
+                score += 1
+                break
+
+    return score
 
 
 # ── 标题模糊匹配 ─────────────────────────────────────────────────────

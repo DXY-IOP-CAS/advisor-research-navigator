@@ -44,8 +44,9 @@ from typing import Optional
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from utils import (
-    write_output, is_oa_pollution, mark_source_tag,
+    write_output, mark_source_tag,
     format_markdown_table, make_paper_link, source_tag,
+    score_oa_noise,
 )
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
@@ -159,16 +160,19 @@ def generate(data: dict, output_path: str, stage_config: list = None,
     L("<!-- 下方 4.x 节标题由 AI 渲染时填写。每节用 1-2 句话说明该阶段的研究主题，再列论文表格 -->")
     L("")
 
-    # OA 错位论文过滤（剔除明显错位的论文）
+    # OA 错位论文过滤（通用合著者+期刊网络，不依赖学科关键词）
     filtered_papers = []
     removed_titles = []
+    gs_or_multi = [p for p in papers if "google_scholar" in p.get("sources", [])
+                   or p.get("source_count", 0) > 1]
     for p in papers:
         title = p.get("title", "")
         sources = set(p.get("sources", []))
-        # 仅过滤 OA 独有且标题命中错位关键词的论文
-        if sources == {"openalex"} and is_oa_pollution(title):
-            removed_titles.append(title)
-            continue
+        if sources == {"openalex"}:
+            score = score_oa_noise(p, gs_or_multi)
+            if score < 1:
+                removed_titles.append(title)
+                continue
         filtered_papers.append(p)
 
     # Group by career stage
