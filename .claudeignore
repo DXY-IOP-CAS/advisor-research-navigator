@@ -5,23 +5,24 @@
 cache/
 __pycache__/
 *.pyc
+temp_oa.json
 
 # Git
 .git/
 
-# 存档（旧版本记录，新窗口不读）
-存档/
+# 文档（历史参考，新窗口不读）
+archive/
 
-# 测试产出（仅用于验证，不贡献逻辑）
-项目/导师/*/*_v*.md
-项目/导师/*/00_测试报告*.md
+# 输出数据（非源代码）
+output/
+
+# 测试
+tests/
 
 # 第三方工具输出
-.desloppify/
 scorecard.png
 
 # 大型数据文件
-*.json
 *.zip
 *.tar.gz
 

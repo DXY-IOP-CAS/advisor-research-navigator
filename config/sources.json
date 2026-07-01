@@ -1,7 +1,7 @@
 {
   "version": "1.0",
   "last_updated": "2026-06-30",
-  "scope": "项目级共享；scripts/ 与 skill 都读这里",
+  "scope": "项目级共享；src/ 与 skill 都读这里",
   "disciplines": {
     "high_energy_physics": {
       "keywords_cn": ["高能物理", "粒子物理", "重离子", "强子", "夸克", "胶子", "希格斯", "中微子", "对撞机", "LHC", "BESIII"],

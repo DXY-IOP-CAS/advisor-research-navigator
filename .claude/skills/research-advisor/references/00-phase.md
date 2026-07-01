@@ -24,7 +24,7 @@
 学科识别：
 
 ```bash
-python scripts/discipline_classifier.py --text "研究方向关键词" --affiliation "机构名"
+python src/discipline_classifier.py --text "研究方向关键词" --affiliation "机构名"
 ```
 
 解析 JSON 输出，取 `primary` 字段。匹配到高能物理/天体物理时，后续启用 INSPIRE/ADS。
@@ -56,7 +56,7 @@ Web Search 搜 `{姓名拼音} Google Scholar` 找 GS profile 链接。找到后
 邮箱校验通过后：
 
 ```bash
-python scripts/gs_scraper.py {gs_id} --output phase1_gs.json --pages 3 --delay 2
+python src/gs_scraper.py {gs_id} --output phase1_gs.json --pages 3 --delay 2
 ```
 
 输出：论文标题 + 年份 + 引用数 + metrics（h-index、总引用、i10-index）。
@@ -64,7 +64,7 @@ python scripts/gs_scraper.py {gs_id} --output phase1_gs.json --pages 3 --delay 2
 **GS 封锁检测**：检查输出中的 `blocked` 字段。如果 `blocked: true`，说明 GS 封锁了请求。此时降级到 OpenAlex 做主源：
 
 ```bash
-python scripts/openalex_works.py {openalex_id} --output phase1_oa.json
+python src/openalex_works.py {openalex_id} --output phase1_oa.json
 ```
 
 同时画像首段标注"Google Scholar 暂时无法访问（IP 被封锁），论文数据来自 OpenAlex + arXiv，覆盖可能不完整。更换网络环境或稍后重试可恢复。"
@@ -76,7 +76,7 @@ python scripts/openalex_works.py {openalex_id} --output phase1_oa.json
 先调 `openalex_works.py` 拿作者 profile 数据（h-index、总引用数）：
 
 ```bash
-python scripts/openalex_works.py {openalex_id} --output .cache/oa_profile.json
+python src/openalex_works.py {openalex_id} --output .cache/oa_profile.json
 ```
 
 然后对 GS 每篇论文，用标题搜 OpenAlex 补 DOI/期刊/作者（**标题搜索比作者 works 列表覆盖更广**——对中文作者，OA 的作者 works 列表可能只收录了实际论文的 22-38%）：
@@ -130,7 +130,7 @@ GS 邮箱验证优先：
 
 ### Step 8: 输出画像
 
-AI 按 `assets/01_基础画像.md` 模板填充 9 节 + YAML frontmatter。写入 `项目/导师/<姓名>/01_基础画像.md`。
+AI 按 `assets/01_基础画像.md` 模板填充 9 节 + YAML frontmatter。写入 `output/导师/<姓名>/01_基础画像.md`。
 
 **写完后 AI 自检**：
 - 所有信息有来源 URL
