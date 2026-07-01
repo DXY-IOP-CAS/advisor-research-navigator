@@ -5,7 +5,7 @@ step2_gs.py — Google Scholar 数据获取（scholarly 封装）。
 step1 之后的数据源。一次调用获取教授信息 + 全部论文 + 引用指标。
 
 用法：
-  python src/phase1/step2_gs.py ls7XuGoAAAAJ -o output/导师/姓名/gs.json
+  python src/phase1/step2_gs.py ls7XuGoAAAAJ -o output/<机构>/<部门>/<姓名>/archive/<timestamp>/01_gs.json
   python src/phase1/step2_gs.py ls7XuGoAAAAJ --verbose
 
 输出格式见 pipeline.md §2.2（统一 SOURCE_OUTPUT 格式）。

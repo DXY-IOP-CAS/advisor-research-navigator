@@ -1,164 +1,155 @@
 # 阶段 1 执行步骤
 
-本文件被 `../SKILL.md` 在阶段 1 时读取。内容对应计划书 2.2 节。
+本文件被 `../SKILL.md` 在阶段 1 时读取。内容对应计划书 2.2 节和 `src/phase1/pipeline.md`。
 
-**注意**：阶段 0 已删除。用户输入姓名 + 机构 + 官网 URL 即可唯一确定导师，不需要单独的身份验证步骤。直接进入信息检索。
+**注意**：无人工闸。全自动运行。
 
 ---
 
-## 阶段 1：深调研 + 基础画像
+## 阶段 1 总体流程
 
-**性能提示**：Step 1（官网抓取）、Step 2（广域搜索）、Step 3（GS 爬取）三者互相独立，可用 sub-agent 并行执行以缩短总耗时。Step 4（OA 元数据补充）依赖 Step 3 的 GS 标题列表。oa_enrich.py 默认 delay=0.1s（OA polite pool 支持 10 req/s）。
+```
+阶段 A（AI 主导）：
+  Step 1: 官网抓取 + 学科分类
+  Step 2: 广域搜索 → 身份确认 → verified_ids.json
 
-### Step 1: 抓官网 + 学科识别
+阶段 B（脚本 + AI 看门）：
+  Step 3: step2_gs.py（scholarly 封装）
+  Step 4: step3_openalex.py（OpenAlex 论文+元数据）
+  Step 5: step5_arxiv.py（arXiv 预印本）
+  Step 6: step6_merge.py（去重合并）
 
-用 Bash（curl）或 MCP fetch 读用户给的 URL。提取：
+阶段 C（AI 主导）：
+  Step 7: 读 merged.json → 写 01_基础画像.md
+```
+
+---
+
+### Step 1: 官网抓取 + 学科识别
+
+用 MCP fetch 读用户给的官网 URL。提取：
 - 姓名（中文 + 拼音）
 - 职称
 - 邮箱
 - 研究方向关键词
-- 论文标题列表（后续做合著者白名单）
-
-容错：404 就停，让用户确认 URL。缺字段就标缺失。
 
 学科识别：
 
 ```bash
-python src/discipline_classifier.py --text "研究方向关键词" --affiliation "机构名"
+python src/phase1/step1_discipline.py --text "研究方向关键词" --affiliation "机构名"
 ```
 
-解析 JSON 输出，取 `primary` 字段。匹配到高能物理/天体物理时，后续启用 INSPIRE/ADS。
+解析 JSON 输出，取 `primary` 字段。
 
-### Step 2: 互联网广域搜索（新增 — 先广后深）
+### Step 2: 广域搜索 + 身份确认
 
-在进入论文检索之前，先在互联网上搜索该学者的公众信息。这一步有两个目的：一是在公开信息中找到该学者所有的学术 profile 链接（GS、ORCID、ResearchGate 等），二是对该学者的研究领域和公众形象有基本认知。
-
-用 MCP Web Search 搜（用 Serper / Exa / Tavily）：
-- `{姓名} {机构}` 或 `{姓名拼音} {机构拼音}` → 百度百科、知乎、新闻、采访等
-- `{姓名} Google Scholar` → 找 GS profile 链接
+用 MCP Serper/Exa 搜：
+- `{姓名} {机构}` → 百度百科、知乎、新闻
+- `{姓名} Google Scholar` → 找 GS 链接
 - `{姓名} ORCID` → 找 ORCID 链接
-- `{姓名} ResearchGate` → 找 ResearchGate 链接
-- 如官网是 UCAS 页面，也去该学者的实验室主页或机构导师页看看
 
-收集到的信息包括：
-- 该学者的教育简历、研究领域简介（这些在百度百科或机构页面上通常有）
-- 公众报道、奖项、学术兼职
-- 所有能找到的学术 profile 链接
+**邮箱校验是身份金标准**。找到 GS 链接后，检查 "Verified email at xxx" 是否与官网邮箱域名一致。一致即确认身份。
 
-**GS profile 邮箱校验**：找到 GS 链接后，打开检查页面上显示的邮箱（GS profile 头部通常有"Verified email at xxx"），与官网提取的邮箱比对。一致 → 该 GS profile 确认属于目标学者。不一致或不显示 → 标记"GS 邮箱未验证"。
+输出 `00_verified_ids.json`，包含所有确认的 ID 和公开信息源。
 
-### Step 3: GS 爬论文列表（永远第一步）
+### Step 3: GS 数据获取（scholarly）
 
-**GS 是论文列表主源。** 不用 OpenAlex 做论文列表源，它只用来补充元数据。OpenAlex 对中文作者覆盖 22-38%，用 GS 能拿到完整的论文列表。
-
-Web Search 搜 `{姓名拼音} Google Scholar` 找 GS profile 链接。找到后，**先做邮箱校验**：查看 GS 头部显示的 "Verified email at xxx"，与 Step 1 官网提取的邮箱比对。一致 → 确认该 GS profile 属于目标学者。不一致或不显示 → 标记"GS 邮箱未验证"，同名过滤时启用多维评分。
-
-邮箱校验通过后：
+GS 永远是论文列表主源。OpenAlex 只做元数据补充。
 
 ```bash
-python src/gs_scraper.py {gs_id} --output phase1_gs.json --pages 3 --delay 2
+python src/phase1/step2_gs.py {gs_id} -o output/<机构>/<部门>/<姓名>/archive/<timestamp>/01_gs.json
 ```
 
-输出：论文标题 + 年份 + 引用数 + metrics（h-index、总引用、i10-index）。
+scholarly 返回：56 篇论文 + h-index + i10-index + 引用数 + email_domain。
 
-**GS 封锁检测**：检查输出中的 `blocked` 字段。如果 `blocked: true`，说明 GS 封锁了请求。此时降级到 OpenAlex 做主源：
+**AI 质量门检查**：
+- email_domain 是否匹配官网？→ 不匹配标记"身份存疑"
+- 论文数 > 5？→ 太少标记"profile 可能不完整"
+
+**GS 不可用时（403 封锁）**：换梯子节点重试。都不可用时降级到 OpenAlex。
+
+### Step 4: OpenAlex 数据获取
 
 ```bash
-python src/openalex_works.py {openalex_id} --output phase1_oa.json
+python src/phase1/step3_openalex.py {oa_id} -o output/<机构>/<部门>/<姓名>/archive/<timestamp>/02_oa.json --email you@example.com
 ```
 
-同时画像首段标注"Google Scholar 暂时无法访问（IP 被封锁），论文数据来自 OpenAlex + arXiv，覆盖可能不完整。更换网络环境或稍后重试可恢复。"
+返回：论文列表（含 DOI/期刊/作者）+ profile（h-index/ORCID/机构）。
 
-**GS 不存在时**：降级到 OpenAlex 做主源（覆盖预期 ≤ 50%）。画像首段标注"未找到该学者的 Google Scholar profile。OpenAlex 对中文作者覆盖不完整（Zheng et al. 2025），论文列表可能不完整。建议提供 GS 链接。"
+**AI 质量门检查**：
+- h-index 与 GS 差异 > 50%？→ 标记"OA 数据可能错位，以 GS 为准"
+- 论文主题是否匹配导师研究方向？→ 不匹配标记"OA ID 可能错位"
 
-### Step 4: OpenAlex 元数据补充（不是论文列表源）
-
-先调 `openalex_works.py` 拿作者 profile 数据（h-index、总引用数）：
+### Step 5: arXiv 预印本
 
 ```bash
-python src/openalex_works.py {openalex_id} --output .cache/oa_profile.json
+python src/phase1/step5_arxiv.py "姓名拼音" -o output/<机构>/<部门>/<姓名>/archive/<timestamp>/03_arxiv.json
 ```
 
-然后对 GS 每篇论文，用标题搜 OpenAlex 补 DOI/期刊/作者（**标题搜索比作者 works 列表覆盖更广**——对中文作者，OA 的作者 works 列表可能只收录了实际论文的 22-38%）：
+**AI 质量门检查**：
+- 同名噪声率？→ 标记噪声程度
+- 是否与 GS/OA 确认论文有 DOI/标题匹配？→ 有匹配则反向筛选，无匹配则仅供参考
 
-```
-对 GS 列表中的每篇论文 title:
-  GET /works?search={urllib.parse.quote(title)}&per_page=3
-  → 匹配上的：取 DOI、journal、authors、cited_by_count
-  → 匹配不上的：保留 GS 原始数据（标记"仅 GS 来源"）
-```
+### Step 6: 合并去重
 
-**注意**：OA 的作者 profile（h-index/引用数）不可靠——中文作者的 OA profile 常因身份消歧错误包含非本人的论文，导致指标失真。引用指标以 GS 的 `metrics` 字段为准。
-
-### Step 5: 同名干扰过滤（仅在需要时）
-
-名字独特时（如 "Zi-Xiang Li"）直接跳过。
-
-名字常见时（如 "Pengju Zhang"），三筛过滤：
-
-```
-GS 邮箱验证优先：
-  GS profile 绑定了机构邮箱（如 @iphy.ac.cn）时，
-  → 该 profile 内所有论文视为已验证，跳过过滤。
-  → 学者的职业阶段转换（碰撞物理→阿秒物理）是正常发展，不是同名干扰。
-
-仅 GS 无法验证邮箱时，用多维评分：
-  合著者重叠（+2 分） → 与已知论文共享合著者
-  机构匹配（+1 分）   → 论文中的机构与履历一致
-  期刊范围（+1 分）   → 论文发表在学科主流期刊
-  领域关键词（+1 分） → 论文标题含研究方向关键词
-  
-  总分 ≥ 3 → 保留；总分 < 3 → 标记"疑似同名干扰"
+```bash
+python src/phase1/step6_merge.py \
+  output/<机构>/<部门>/<姓名>/archive/<timestamp>/01_gs.json \
+  output/<机构>/<部门>/<姓名>/archive/<timestamp>/02_oa.json \
+  output/<机构>/<部门>/<姓名>/archive/<timestamp>/03_arxiv.json \
+  -o output/<机构>/<部门>/<姓名>/archive/<timestamp>/04_merged.json
 ```
 
-### Step 6: arXiv 预印本补充
+去重优先级：P0:DOI → P1:arXiv ID → P2:归一化标题。
+教授信息按字段优先级合并（GS 占 h-index/引用数，OA 占 DOI/ORCID）。
 
-`au:姓名拼音` → 最新预印本 → 与 GS 论文去重。注意同名干扰（用 Step 4 的过滤方法）。
+**AI 质量门检查**：
+- 总论文数 > 5？
+- 多源交叉验证比例？
+- 标记结果（GS 正常 / OA 数据错位 / arXiv 噪声严重）
 
-### Step 7: 合并 + 去重 + 按履历分组 + 输出
+### Step 7: 写画像
 
-去重规则：P0:DOI → P1:arXiv ID → P2:归一化标题。
+读取 `04_merged.json` + 公开信息笔记。按以下结构写 `01_基础画像.md`：
 
-来源标记：
-- GS 独有、OA 未匹配到 → "仅 GS 来源"
-- GS+OA 都匹配到 → "GS+OA"
-- arXiv 补充 → "arXiv"
+```
+- 身份标识（姓名/职称/机构/邮箱/各平台 ID）
+- 学术履历（教育→工作，含时间线）
+- 研究方向（总体方向 + 具体中英文关键词）
+- 全部论文按学术履历阶段分组（博士/博后/独立等）
+- 影响力指标（h-index/总引用/高被引论文）
+- 合作网络
+- 公开信息（新闻/采访/博客）
+- 数据质量说明（各源状态、多源交叉验证比例）
+```
 
-**论文分组逻辑**：解析履历中的起止年份，每篇论文的发表年份落入哪个时间段就归入哪组。阶段名称根据真实经历动态设定，不硬编码。无 ORCID 履历时从机构 affiliation 推断。
+论文分组逻辑：解析履历中的起止年份，每篇论文的发表年份落入哪个时间段就归入哪组。
 
-**覆盖标注**：画像首段写"论文来自 {学者名} 的 Google Scholar profile（截至 {date}）。OpenAlex 补充元数据。仍可能缺失未更新到 GS 的最新预印本。"
-
-### Step 8: 输出画像
-
-AI 按 `assets/01_基础画像.md` 模板填充 9 节 + YAML frontmatter。写入 `output/导师/<姓名>/01_基础画像.md`。
-
-**写完后 AI 自检**：
-- 所有信息有来源 URL
-- 来源说明表列出各数据源状态
-- 未找到的字段标 `[未找到]`
-- 覆盖边界在首段标注
-- 同名干扰过滤过程在来源说明中有记录
-
-自检通过后给用户审阅。
+画像写入 `output/<机构>/<部门>/<姓名>/01_基础画像.md`，中间产物保留在 archive 目录。
 
 ---
 
 ## 全降级模式
 
-GS 和 OpenAlex 都拿不到论文时：
-1. 只用 arXiv 按姓名搜 + 官网抓取
-2. 画像中标 `[未找到，仅 Web 搜集]`
-3. 让用户后续补充 GS 或 ORCID 链接
+三个数据源全部不可用时：
+1. 画像中写明"所有数据源均不可用"
+2. 建议用户检查网络或提供其他 ID 链接
+
+---
+
+## 硬规则（守则第五条）
+
+**存档不是缓存。** archive/ 目录仅用于错误溯源，每次运行必须从头查询所有 API。不得从历史存档中加载数据充当缓存。
 
 ---
 
 ## 验证来源
 
-- 计划书: `计划/计划书.md` v3.3
-- 调研报告: `计划/调研_学者分析工具全景.md`
+- 计划书: `docs/计划书.md` v4.0
+- 技术文档: `src/phase1/pipeline.md` v1.2
 - Config: `config/sources.json`
 - Zhao & Chen (2025) OpenAlex 消歧精度: https://arxiv.org/html/2502.11610v2
 - Zheng et al. (2025) OpenAlex 中国论文覆盖: https://doi.org/10.1002/asi.70013
 
-**版本**: v3.0
+**版本**: v4.0
 **生成日期**: 2026-07-01

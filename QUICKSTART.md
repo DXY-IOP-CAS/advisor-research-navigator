@@ -2,130 +2,81 @@
 
 ## 一句话
 
-输入姓名 + 机构 + 官网 URL → 输出 4 份结构化 Markdown 文档（基础画像 → 领域脉络 → 论文定位 → 学习讲义）。目前阶段 1（基础画像）已实现，阶段 2-4 待设计。
+输入姓名 + 机构 + 官网 URL → 全自动产出基础画像到 `output/<机构>/<部门>/<姓名>/`。当前阶段 1 已实现，阶段 2-4 待设计。
 
 ## 新窗口启动
 
 ```
 1. 读 docs/计划书.md 第 2 章（理解整体设计）
-2. 读 docs/上下文交接.md（当前进度）
-3. 读 .claude/skills/research-advisor/SKILL.md（路由）
-4. 读 .claude/skills/research-advisor/references/00-phase.md（执行步骤）
-5. 读 src/ 目录了解可用脚本
-6. 向用户确认当前任务
+2. 读 src/phase1/pipeline.md（技术落地细节）
+3. 读 CLAUDE.md（快速了解项目状态）
+4. 向用户确认当前任务
 ```
 
 ## 项目结构
 
 ```
 pilot-test/
-├── src/               # Python 源文件
-│   ├── gs_scraper.py          # GS profile 爬取（即将被 gs_browser.py 替代）
-│   ├── openalex_works.py      # OA 作者 works 拉取
-│   ├── oa_enrich.py           # OA 标题搜索补充元数据
-│   ├── arxiv_preprints.py     # arXiv 预印本搜索
-│   ├── paper_merger.py        # 多源合并去重
-│   ├── paper_utils.py         # 共享工具库
-│   ├── discipline_classifier.py  # 学科分类
-│   ├── s2_enrich.py           # S2 TLDR 批量填充（可选）
-│   ├── identity_resolver.py   # 已废弃
-│   └── __init__.py
-├── tests/             # 测试文件
-│   └── test_phase1.py
-├── config/            # 配置
-│   └── sources.json
-├── docs/              # 规划与调研文档
-│   ├── 计划书.md
-│   ├── 上下文交接.md
-│   ├── 调研_学者分析工具全景.md
-│   ├── 调研_阶段1工具选型.md
-│   └── 阶段1重构计划.md
-├── output/            # 导师画像产出
-│   └── 导师/
-│       ├── 张鹏举/
-│       └── 李自翔/
-├── archive/           # 历史存档（需求草稿、旧版产出、Session 交接等）
-│   ├── 00-需求草稿/
-│   ├── 01-session交接文档/
-│   ├── ...
-│   └── 旧版产出/
-├── .claude/           # Claude Skills + Hooks
-│   ├── settings.json
-│   ├── hooks/
-│   └── skills/
-│       └── research-advisor/
-├── .gitignore
-├── .claudeignore
-├── CLAUDE.md
-└── QUICKSTART.md
+├── src/phase1/           # 阶段 1 活跃脚本
+│   ├── pipeline.md       # 技术落地文档
+│   ├── step1_discipline.py  # 学科分类
+│   ├── step2_gs.py          # scholarly 封装（GS 主源）
+│   ├── step3_openalex.py    # OpenAlex 元数据
+│   ├── step5_arxiv.py       # arXiv 预印本
+│   ├── step6_merge.py       # 多源合并去重
+│   └── utils.py             # 共享工具库
+├── config/
+│   └── sources.json         # 数据源 + 学科字典
+├── docs/                    # 规划与调研文档
+├── output/<机构>/<部门>/<姓名>/   # 导师画像产出
+│   ├── 01_基础画像.md
+│   └── archive/<timestamp>/ # 中间产物存档
+└── archive/                 # 旧版脚本 + 旧版产出存档
+    └── 旧版脚本/
 ```
 
-## 阶段 1 流程（8 步）
+## 全自动流水线（三阶段）
 
 ```
-Step 1: 抓官网 + 学科识别
-  → src/discipline_classifier.py
+用户输入：姓名、机构、官网 URL
 
-Step 2: 互联网广域搜索（MCP Web Search）
-  → 找百度百科/新闻/GS/ORCID/ResearchGate 链接
+阶段 A（AI 主导）：广域搜索 + 身份确认
+  → MCP Fetch 读官网 → MCP 搜 GS/ORCID/RG 链接
+  → 邮箱匹配官网 → 身份确认 → verified_ids.json
 
-Step 3: GS 爬论文列表（主源）
-  → src/gs_scraper.py {gs_id} --pages 3 --delay 2
-  → 检查 metrics（h-index、总引用）
+阶段 B（脚本 + AI 质量门）：深度数据获取
+  → step2_gs.py（scholarly）→ 56 篇论文 + h-index
+  → step3_openalex.py → DOI/期刊/作者
+  → step5_arxiv.py → 预印本补充
+  → step6_merge.py → 去重合并
 
-Step 4: OpenAlex 元数据补充
-  → src/openalex_works.py {oa_id}（profile 数据）
-  → src/oa_enrich.py gs.json（标题搜索补 DOI/期刊）
-
-Step 5: 同名过滤（GS 邮箱校验通过则跳过）
-
-Step 6: arXiv 预印本
-  → src/arxiv_preprints.py {姓名}
-
-Step 7: 合并去重
-  → src/paper_merger.py gs.json oa_enriched.json arxiv.json
-
-Step 8: 输出 9 节画像到 output/导师/<姓名>/01_基础画像.md
+阶段 C（AI 主导）：渲染输出
+  → 读 merged.json → 写 01_基础画像.md
 ```
+
+各步骤输出统一格式，通过 JSON 文件通信，不互相 import。
 
 ## 脚本一览
 
 | 脚本 | 位置 | 用途 | 必选 | API Key |
-|:-----|:----|:------|:----:|:--------|
-| gs_scraper.py | `src/` | GS profile 论文列表 + h-index | ✅ | 无 |
-| openalex_works.py | `src/` | OA 作者 works 拉取 | ✅ | 无（加 email 提限速） |
-| oa_enrich.py | `src/` | OA 标题搜索补充元数据 | ✅ | 无 |
-| arxiv_preprints.py | `src/` | arXiv 预印本搜索 | ✅ | 无 |
-| paper_merger.py | `src/` | 多源合并去重 | ✅ | 无 |
-| paper_utils.py | `src/` | 共享工具库 | ✅ | 无 |
-| discipline_classifier.py | `src/` | 学科分类 | ✅ | 无 |
-| s2_enrich.py | `src/` | S2 TLDR 批量填充 | ⚠️ 推荐 | `S2_API_KEY`（免费申请） |
-| identity_resolver.py | `src/` | 已废弃 | ❌ | — |
+|:-----|:-----|:------|:----:|:--------|
+| step1_discipline | `src/phase1/` | 学科关键词分类 | ✅ | 无 |
+| step2_gs | `src/phase1/` | scholarly 封装取 GS 论文 | ✅ | 无（梯子节点要稳） |
+| step3_openalex | `src/phase1/` | OpenAlex 论文+元数据 | ✅ | `--email` 提限速 |
+| step5_arxiv | `src/phase1/` | arXiv 预印本搜索 | ✅ | 无 |
+| step6_merge | `src/phase1/` | 多源合并去重 | ✅ | 无 |
+| utils | `src/phase1/` | 共享工具库 | ✅ | 无 |
 
-## API Key 配置
+## 注意事项
 
-| Key | 获取地址 | 用途 | 免费额度 |
-|:----|:---------|:-----|:---------|
-| `S2_API_KEY` | https://www.semanticscholar.org/product/api#api-key | TLDR 摘要填充，有 key 时 delay=0.2s，无 key 时 1.0s | 免费 |
-| OpenAlex email | 你自己的 email | polite pool 10 req/s | 无限 |
-
-设置方式：
-```bash
-# PowerShell
-$env:S2_API_KEY = "your_key_here"
-# Bash
-export S2_API_KEY="your_key_here"
-```
+- 每次运行**不读历史缓存**，全部重新查询。archive 目录仅供存档溯源
+- GS 访问依赖梯子节点质量。一次 403 换节点重试，不需要 Playwright 或 curl_cffi
+- OpenAlex 对中文学者覆盖约 22-38%，h-index 可能不准。以 GS 为准
+- arXiv 同名噪声率高，merger 通过 DOI/标题匹配自动过滤
 
 ## 核心原则
 
 1. **GS 是论文列表主源**，OpenAlex 只做元数据补充
-2. **GS 邮箱校验是身份金标准**，匹配官网 email 即确认身份
-3. **先广搜再深挖** — Step 2 广域搜索找 profile 链接，Step 3+ 深度检索
-4. **同名过滤** — GS 邮箱已验证不过滤，否则多维评分
-5. **全降级** — GS 不存在时用 OpenAlex 做主源（覆盖 ≤ 50%）
-
-## 关键引用
-
-- Zheng et al. (2025) OpenAlex 中国论文覆盖不完整: https://doi.org/10.1002/asi.70013
-- Zhao & Chen (2025) OpenAlex 中文作者消歧精度不足: https://arxiv.org/html/2502.11610v2
+2. **GS 邮箱校验是身份金标准**——匹配官网 email 即确认身份，不额外验证
+3. **先广搜再深挖**——阶段 A 广域搜索找 profile 链接，阶段 B 深度检索
+4. **全降级**——GS 不可用时 OA 做替补（覆盖 ≤ 50%），arXiv 补充

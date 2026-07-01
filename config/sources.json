@@ -105,7 +105,7 @@
     },
     "google_scholar": {
       "type": "indirect_only",
-      "note": "无官方 API。必须经 Web Search（Serper/Exa）发现 profile URL 后 HTTP 抓取，单会话 ≤50 次以避 CAPTCHA。",
+      "note": "无官方 API。用 scholarly 库（pip install scholarly）取 profile 数据。梯子节点质量直接影响可用性。",
       "discovery_query": "site:scholar.google.com/citations?user= {name}",
       "fallback_role": "cross_validation_only"
     },
@@ -126,7 +126,7 @@
       "medium_confidence": "50-80% title match OR single ID source with high match",
       "low_confidence": "<50% title match, user manual selection required"
     },
-    "user_gate_required": true,
+    "user_gate_required": false,
     "no_error_exit": true
   }
 }
