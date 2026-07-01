@@ -83,7 +83,7 @@ python src/phase1/step3_openalex.py {oa_id} -o output/<机构>/<部门>/<姓名>
 ### Step 5: arXiv 预印本
 
 ```bash
-python src/phase1/step5_arxiv.py "姓名拼音" -o output/<机构>/<部门>/<姓名>/archive/<timestamp>/03_arxiv.json
+python src/phase1/step5_arxiv.py "姓名拼音" -c "physics.atom-ph physics.optics" -o output/<机构>/<部门>/<姓名>/archive/<timestamp>/03_arxiv.json
 ```
 
 **AI 质量门检查**：

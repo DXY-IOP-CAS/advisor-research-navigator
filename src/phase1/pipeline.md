@@ -42,11 +42,11 @@
 │                                                                     │
 │  [脚本] Step 4: OpenAlex 数据获取                                    │
 │    → step3_openalex.py {oa_id} → oa.json                            │
-│  [AI]   OA 质量门：h-index 与 GS 差异 > 50%？                         │
+│  [AI]   OA 质量门：h-index 与 GS 差异 > 50%？affiliation 匹配官网？       │
 │         → 标记"OA 数据可能错位"（中文作者已知问题）                    │
 │                                                                     │
 │  [脚本] Step 5: arXiv 搜索                                           │
-│    → step5_arxiv.py "{姓名拼音}" → arxiv.json                       │
+│    → step5_arxiv.py "{姓名拼音}" -c "{学科arXiv分类}" → arxiv.json  │
 │  [AI]   arXiv 质量门：同名噪声率？                                   │
 │         → 标记"arXiv 同名干扰"（按姓名搜索的固有缺陷）                │
 │                                                                     │
@@ -290,10 +290,12 @@ python src/phase1/step1_discipline.py --text "阿秒科学、强场物理" --aff
 ```yaml
 检查项:
   - h-index 与 GS 差异是否 > 50%
+  - affiliation 是否匹配官网机构
   - 论文主题是否与导师研究方向一致（检查论文标题关键词）
   - ORCID 是否存在
 决策:
   h-index 与 GS 差异大 → 标记"OA 数据可能错位，以 GS 为准"
+  affiliation 不匹配 → 标记"OA 机构信息错位"
   主题不匹配 → 标记"OA ID 可能属于同名不同人"
 ```
 
@@ -301,12 +303,13 @@ python src/phase1/step1_discipline.py --text "阿秒科学、强场物理" --aff
 
 ```yaml
 检查项:
-  - 返回论文的第一作者是否包含目标姓名
-  - arXiv 分类是否与学科一致
+  - 调用时是否传了学科分类（-c 参数，来自 step1 输出）
+  - arXiv 分类是否与学科一致（加了 -c 后噪声应大幅下降）
   - 返回论文中哪些与 GS/OA 已确认的论文匹配（by DOI/标题）
 决策:
   0 篇匹配 GS → 标记"arXiv 噪声率高，结果仅供参考"
   有匹配 → 从确认论文反向筛选
+  未传 -c 参数 → 建议补传学科分类限定 arXiv 搜索范围
 ```
 
 ### 3.4 合并质量门
@@ -485,6 +488,7 @@ output/中科院物理所/
 
 | 版本 | 日期 | 变更 |
 |:----|:-----|:------|
+| v1.3 | 2026-07-01 | OA 质量门加 affiliation 检查；arXiv 加学科分类过滤参数 (-c)；版本记录标准化 |
 | v1.2 | 2026-07-01 | 去除所有人工闸 → 全自动运行；输出路径改为 `output/<机构>/<部门>/<姓名>/`；存档/缓存分离 |
 | v1.1 | 2026-07-01 | 加入全流程总览（AI 编排 + 脚本执行）、AI 质量门、错误处理与重试 |
 | v1.0 | 2026-07-01 | 初版。scholarly 主力、统一输出格式、去除 oa_enrich 和旧爬虫 |
