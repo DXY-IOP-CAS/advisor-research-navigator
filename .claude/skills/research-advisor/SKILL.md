@@ -40,7 +40,7 @@ description: >
 ## 输出目录
 
 ```
-output/<机构>/<部门>/<姓名>/
+output/<学校>/<学院或研究所>/<部门>/<姓名>/
 ├── 01_基础画像.md               # 最终画像
 ├── latest.txt                    # 指向最新存档
 └── archive/<timestamp>/          # 中间产物存档（仅供溯源）
