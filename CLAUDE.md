@@ -1,37 +1,21 @@
 # pilot-test CLAUDE.md
 
-新窗口第一步：读 `QUICKSTART.md`。
-
----
-
 ## 一句话
 
-导师研究方向调研工具。用户输入姓名+机构+官网URL → 四阶段流水线产出 Markdown 文档。
+导师研究方向调研工具。用户输入姓名+机构+官网URL → 四阶段流水线产出 Markdown 文档。详见 `src/phase1/pipeline.md`（技术细节）和 `docs/计划书.md`（设计决策）。
 
-输出路径：`output/<学校>/<学院或研究所>/<部门>/<姓名>/`
-- 例：`output/北京大学/物理学院/凝聚态物理与材料物理研究所/李新征`
-- 例：`output/中国科学院大学/中科院物理所/超快物质科学中心/张鹏举`
+## 目录角色
 
-## 项目状态
+| 路径 | 用途 |
+|:-----|:------|
+| `src/phase1/` | 阶段 1 Python 脚本（step2_gs / step3_openalex / step5_arxiv / step6_merge / render_profile / merge_tables / verify_profile / archive_previous / utils） |
+| `src/phase1/pipeline.md` | 阶段 1 技术执行文档（单一事实源） |
+| `.claude/skills/research-advisor/` | Claude Code Skill 入口 |
+| `output/` | 导师画像产出 |
+| `archive/` | 旧版存档（只写不读） |
 
-- **阶段 1**：已实现，详见 `src/phase1/pipeline.md`
-- **阶段 2-4**：待设计
-
-## 可用 Skills
-
-`.claude/skills/` 下已安装以下技能。**启动任何任务前阅读 `using-superpowers`**，它会指引如何调用其他技能。
-
-| Skill | 何时使用 |
-|:------|:---------|
-| `using-superpowers` | 任何任务开始前（必读） |
-| `brainstorming` | 需求不明确时，先厘清再动手 |
-| `writing-plans` | 任务复杂度 > 5 分钟时，先拆计划 |
-| `test-driven-development` | 修改代码逻辑时，先写测试 |
-| `systematic-debugging` | 排查 bug 时 |
-| `verification-before-completion` | 声称完成前验证 |
-
-## 关键规则
+## 硬约束
 
 - 来源必标 URL，缺失标 `[未找到]`
+- 不做导师评价（匹配度、推荐意见等）
 - 每次重要改动前 commit
-- 每次改动后跑 `python src/phase1/run_all.py`（如存在）
