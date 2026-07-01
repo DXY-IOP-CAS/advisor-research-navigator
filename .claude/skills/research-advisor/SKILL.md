@@ -35,7 +35,7 @@ description: >
 
 用户输入姓名 + 机构 + 官网 URL 后，直接进入阶段 1。
 
-阶段 1 的详细步骤写在 `references/00-phase.md`。本 SKILL.md 只做路由。
+阶段 1 的详细步骤写在 `references/phase1.md`。本 SKILL.md 只做路由。
 
 ## 输出目录
 

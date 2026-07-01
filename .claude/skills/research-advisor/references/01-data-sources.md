@@ -1,150 +1,163 @@
 # API 与数据源调用参考
 
-本文件提供阶段 0/1 中各 API 的调用方法、限速、参数说明。被 `references/00-phase.md` 引用，AI 在执行阶段 0/1 时按需读取。
+本文件提供阶段 1 各 API 的调用方法、限速、参数说明。被 `references/phase1.md` 引用。
 
-**注意**：AI 直接调用这些 API，不经过自定义脚本（除非特定步骤标注用脚本）。
+当前 pipeline 依赖三个数据源：Google Scholar（scholarly 库）、OpenAlex、arXiv。其余（S2/INSPIRE/NASA ADS/CrossRef）为可选补充，当前阶段未集成。
+
+---
+
+## Google Scholar（scholarly 库）
+
+**用途**：论文列表主源（学者本人维护，最全）。h-index、引用数、email_domain（身份金标准）。
+
+| 方法 | 用途 |
+|:-----|:------|
+| `scholarly.search_author_id(gs_id)` | 按 GS ID 取 profile |
+| `scholarly.fill(author, sections=["publications", "indices"])` | 取全量论文 + 指标 |
+
+**用法**（已封装为 step2_gs.py）：
+
+```bash
+python src/phase1/step2_gs.py ls7XuGoAAAAJ -o 01_gs.json
+```
+
+**限制**：
+- 不返回 DOI、arXiv ID、作者列表（由 OpenAlex 补充）
+- 期刊名夹杂卷期号（如 "Physical Review A 83 (5), 052707"）
+- 梯子节点质量直接影响可用性。403 时换节点重试
+
+**输出字段**：
+
+| scholarly 字段 | 输出字段 |
+|:---------------|:---------|
+| `filled["name"]` | `professor.name` |
+| `filled["email_domain"]` | `professor.email_domain`（身份金标准） |
+| `filled["hindex"]` | `professor.h_index` |
+| `filled["i10index"]` | `professor.i10_index` |
+| `filled["citedby"]` | `professor.total_citations` |
+| `pub["bib"]["title"]` | `paper.title` |
+| `pub["num_citations"]` | `paper.citation_count` |
 
 ---
 
 ## OpenAlex
 
-**用途**：论文元数据、作者资料、引用数。阶段 0 做候选人搜索，阶段 1 做全量论文拉取。
+**用途**：论文元数据补充（DOI/期刊/作者列表）。教授 profile 次要源（h-index 可能不准）。
 
 | 端点 | 用途 | 参数 |
 |:-----|:------|:------|
-| `GET /authors?search={name}&filter=last_known_institutions.id:{ror}` | 搜候选人 | `per_page=20` |
-| `GET /authors/{id}` | 作者 profile | 无额外参数 |
-| `GET /works?filter=authorships.author.id:{id}&per_page=200&sort=publication_year:desc` | 全量论文 | `cursor=*` 分页 |
+| `GET /authors/{id}` | 作者 profile（ORCID/h-index/机构） | 无 |
+| `GET /works?filter=authorships.author.id:{id}` | 全量论文 | `per_page=200&cursor=*` |
 
-限速：100K/天（带 email），10 req/s polite pool。无 API key。
+**用法**（已封装为 step3_openalex.py）：
+
+```bash
+python src/phase1/step3_openalex.py A5000914228 --email you@example.com -o 02_oa.json
+```
+
+**限速**：polite pool 10 req/s（带 email），无 email 约 1 req/s。
 
 **分页**：works 总数超过 200 时用 cursor 分页：
 
 ```
 第一次: GET /works?filter=authorships.author.id:A123456789&per_page=200&cursor=*
-响应: meta.next_cursor = "abcd" ← 下一批游标
+响应: meta.next_cursor = "abcd"
 第二次: GET /works?filter=authorships.author.id:A123456789&per_page=200&cursor=abcd
 ```
 
-**标题归一化**（用于 ID 消歧的标题比对）：去标点 + 小写 + 去空格，做子串匹配。在阶段 0 Step 5 中使用。
+**已知问题**：
+- 对中文学者覆盖约 22-38%（Zheng et al. 2025）
+- h-index 和 affiliation 可能因身份消歧错误而非本人（Zhao & Chen 2025）
+- **以 GS 数据为准**，OA 只做元数据补充
 
----
+**输出字段**：
 
-## Semantic Scholar
-
-**用途**：TLDR 摘要、补漏论文、引用影响力标记。阶段 1 使用。
-
-| 端点 | 用途 | 参数 |
-|:-----|:------|:------|
-| `GET /author/search?query={name}&fields=name,affiliations,paperCount,externalIds` | 阶段 0 搜候选人 | — |
-| `GET /author/{id}/papers?fields=title,tldr,year,citationCount,externalIds,venue` | 阶段 1 拉论文 | — |
-| `POST /paper/batch?fields=tldr,title,year,citationCount` | 批量查 TLDR | body: `{"ids":["DOI:10.1103/...","CorpusId:..."]}` |
-
-限速：100 req/5min（无 key），1 req/s（有 key）。可请求免费 API key。
-
-注意：S2 的 citationCount 可能高于 OpenAlex（因覆盖范围不同），两个都保留做交叉验证。
+| OpenAlex 字段 | 输出字段 |
+|:--------------|:---------|
+| `display_name` | `professor.name`（被 GS 覆盖） |
+| `h_index` | `professor.h_index`（被 GS 覆盖） |
+| `orcid` | `professor.orcid` |
+| `paper["title"]` | `paper.title` |
+| `publication_date[:4]` | `paper.year` |
+| `primary_location.source.display_name` | `paper.journal` |
+| `paper["doi"]` | `paper.doi` |
+| `cited_by_count` | `paper.citation_count` |
+| `authorships[].author.display_name` | `paper.authors` |
 
 ---
 
 ## arXiv
 
-**用途**：补预印本时间差。阶段 0/1 均使用。
+**用途**：预印本补充，补 GS 可能遗漏的最新论文。
 
 | 端点 | 用途 |
 |:-----|:------|
-| `GET /api/query?search_query=au:Lastname_Firstname&sortBy=submittedDate&sortOrder=descending&max_results=50` | 按作者搜 |
-| `https://arxiv.org/a/{lastname_lower}_{firstinitial}_` | 手动检查 Author ID（如已知） |
+| `GET /api/query?search_query=au:{name}&sortBy=submittedDate&max_results=50` | 按作者搜 |
 
-响应格式：Atom XML。限速 1 req/3s。
-
-常见问题：`au:` 搜索只按作者名匹配，返回结果可能有同名干扰。AI 手动筛选。
-
----
-
-## ORCID
-
-**用途**：身份精确匹配（阶段 0）+ 教育/工作履历（阶段 1）。
-
-| 端点 | 用途 |
-|:-----|:------|
-| `GET /expanded-search?q=email:{email}` | 按 email 搜 ORCID ID |
-| `GET /v3.0/{orcid-id}/educations` | 教育经历 |
-| `GET /v3.0/{orcid-id}/employments` | 工作经历 |
-
-限速：无官方限制。公共 API 免费。
-
-注意：填写 email 并关联 ORCID 的学者注册率低。email 查不到不报错，跳到下一步。
-
----
-
-## INSPIRE-HEP
-
-**用途**：仅高能物理学科启用（`discipline=high_energy_physics` 时）。
-
-| 端点 | 用途 |
-|:-----|:------|
-| `GET /api/authors?q={name}&size=20` | 搜作者 |
-| `GET /api/literature?sort=mostrecent&size=25&q=a {bai}` | 论文列表 |
-
----
-
-## NASA ADS
-
-**用途**：仅天体物理学科启用（`discipline=astrophysics` 时）。需 `ADS_API_TOKEN` 环境变量。
-
-| 端点 | 用途 |
-|:-----|:------|
-| `GET /search/query?q=author:"{name}"&fl=title,author,year,citation_count` | 按作者搜 |
-
----
-
-## CrossRef
-
-**用途**：DOI 元数据兜底，OpenAlex 查不到的论文由 CrossRef 查。
-
-| 端点 | 用途 |
-|:-----|:------|
-| `GET /works/{doi}` | 单篇元数据 |
-| `GET /works?query.author={name}&query.title={title}` | 按标题+作者搜 |
-
-限速 50 req/s。
-
----
-
-## 学科识别（本地脚本）
+**用法**（已封装为 step5_arxiv.py）：
 
 ```bash
-python scripts/discipline_classifier.py --text "方向关键词" --affiliation "机构名"
+python src/phase1/step5_arxiv.py "Zhang_Pengju" -c "physics.atom-ph physics.optics" -o 03_arxiv.json
 ```
 
-输出 JSON：`{"primary": "atomic_molecular_optical", "sources": ["openalex", "arxiv"]}`
+`-c` 参数传 arXiv 学科分类（来自 step1_discipline 输出），用于减少同名噪声。
 
-识别结果控制后续启用哪些数据源：
-- `high_energy_physics` → 启用 INSPIRE-HEP
-- `astrophysics` → 启用 NASA ADS
-- 其他学科 → 只走通用源 OpenAlex + arXiv + S2
+**限速**：≥3 秒间隔。响应格式：Atom XML。
+
+**已知问题**：
+- `au:` 搜索只按作者名匹配，返回结果中大量同名干扰
+- 同名噪声在合并步骤（step6_merge.py）通过 DOI/标题匹配自动过滤
+- 最终画像中仅保留与 GS/OA 已确认论文匹配的 arXiv 条目
+
+---
+
+## 学科识别（step1_discipline）
+
+```bash
+python src/phase1/step1_discipline.py --text "阿秒科学、强场物理" --affiliation "中科院物理所"
+```
+
+输出 JSON：
+
+```json
+{"primary": "atomic_molecular_optical", "confidence": 0.67, "arxiv_categories": ["physics.atom-ph", "physics.optics"]}
+```
+
+识别结果中的 `arxiv_categories` 传给 step5_arxiv 的 `-c` 参数，预筛 arXiv 结果。
+
+---
+
+## 可选源（当前阶段 1 未集成）
+
+以下 API 可用但不属于当前 pipeline。阶段 2/3 可能需要：
+
+| 源 | 用途 | 条件 |
+|:---|:------|:------|
+| Semantic Scholar | TLDR 摘要填充 | 有 S2_API_KEY（免费） |
+| INSPIRE-HEP | 高能物理论文 | 学科为 high_energy_physics 时 |
+| NASA ADS | 天体物理论文 | 学科为 astrophysics 时 + 有 ADS_API_TOKEN |
+| CrossRef | DOI 元数据兜底 | OpenAlex 查不到时备用 |
 
 ---
 
 ## 全降级模式
 
-所有 API 都空时（极少出现）：
-1. 跳过所有需 ID 的源（OpenAlex/S2/INSPIRE/ADS）
+三个数据源全部不可用时：
+
+1. 跳过所有需 ID 的源
 2. 只做 Web Search + arXiv 按姓名搜 + 官网抓取
-3. 画像中标 `[未找到，仅 Web 搜集]`
-4. 让用户后续补充 ORCID 或 Google Scholar 链接
+3. 画像中标 "所有数据源均不可用"
+4. 建议用户检查网络或提供其他 ID 链接
 
 ---
 
 ## 验证来源
 
 - OpenAlex API: https://docs.openalex.org
-- Semantic Scholar API: https://api.semanticscholar.org/
 - arXiv API: https://info.arxiv.org/help/api
-- ORCID Public API: https://info.orcid.org/documentation/api-tutorials
-- INSPIRE-HEP API: https://github.com/inspirehep/rest-api-doc
-- NASA ADS API: https://ui.adsabs.harvard.edu/help/api/
-- CrossRef API: https://api.crossref.org
+- scholarly: https://github.com/scholarly-python-package/scholarly
+- Zheng et al. (2025) OA 中文覆盖: https://doi.org/10.1002/asi.70013
+- Zhao & Chen (2025) OA 消歧: https://arxiv.org/html/2502.11610v2
 
-**版本**: v1.0
+**版本**: v4.0
 **生成日期**: 2026-07-01
