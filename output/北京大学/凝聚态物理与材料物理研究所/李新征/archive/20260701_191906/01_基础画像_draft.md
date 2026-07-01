@@ -1,11 +1,11 @@
 ---
 affiliation: Professor, School of Physics, Peking University
 department: 凝聚态物理与材料物理研究所
-source_updated: 2026-07-01 19:27
+source_updated: 2026-07-01 19:29
 orcid: https://orcid.org/0000-0003-0316-4257
 google_scholar_url: https://scholar.google.com/citations?hl=en&user=DY6sI4UAAAAJ
-run_timestamp: 2026-07-01 19:27
-run_archive: archive/latest/
+run_timestamp: 2026-07-01 19:29
+run_archive: archive/20260701_191906/
 ---
 
 # xinzheng li — 基础画像
@@ -14,8 +14,8 @@ run_archive: archive/latest/
 
 | 项目 | 内容 |
 |:-----|:------|
-| 生成时间 | 2026-07-01 19:27 |
-| 运行存档 | `archive/latest/` |
+| 生成时间 | 2026-07-01 19:29 |
+| 运行存档 | `archive/20260701_191906/` |
 | 总论文数 | 203 篇（去重合并后） |
 | GS 状态 | success |
 | OA 状态 | success |
