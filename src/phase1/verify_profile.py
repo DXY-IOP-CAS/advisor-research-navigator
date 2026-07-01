@@ -110,7 +110,11 @@ def verify(profile_path: str, merged_path: str = None) -> int:
     sections_found = sum(1 for s in required_sections if s in content)
     check(sections_found >= 7, f"基础章节 9 节中存在 {sections_found}/9", errors)
 
-    # 8. 无重复论文标题（去重失败检测）
+    # 9. 论文表格为 6 列（检查表头和数据行）
+    table_headers = re.findall(r"^\| # \| 年份 \| 标题 \| 期刊 \| 引用 \| 来源 \|", content, re.MULTILINE)
+    check(len(table_headers) >= 1, "论文表格表头为 6 列（#、年份、标题、期刊、引用、来源）", errors)
+
+    # 10. 无重复论文标题（去重失败检测）
     titles = re.findall(r"^\| \d+ \| \d{4} \| (.+?) \|", content, re.MULTILINE)
     seen = set()
     dupes = set()

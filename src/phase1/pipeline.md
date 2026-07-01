@@ -6,30 +6,123 @@
 
 ## 1 三阶段流程总览
 
+### 开始前准备
+
+每次运行前必须先存档旧版产出（如果有的话）：
+
+```bash
+python src/phase1/archive_previous.py "<学校>/<学院>/<部门>/<姓名>"
+```
+
+如果没有同名老师（首次运行），此命令自动跳过。
+
+### 三阶段流
+
 ```
 用户输入（姓名 + 机构 + 官网 URL）
     │
-阶段 A（AI 主导）
-  读官网 + MCP 广域搜索 → 找 Google Scholar / ORCID 链接
-  邮箱匹配官网域名 → 身份确认 → verified_ids.json
+阶段 A（AI 主导）—— 身份锁定
+  Step 1: 官网抓取 → 提取 name, email, institution
+  Step 2: MCP 搜 GS/ORCID → 跨源身份锁定（见下方协议）
+    → verified_ids.json
     │
-阶段 B（脚本执行）
+阶段 B（脚本执行）—— 数据采集
   step2_gs:   scholarly 取 Google Scholar 论文
   step3_openalex: OpenAlex API 论文 + 元数据
   step5_arxiv:  arXiv 预印本
-  step6_merge:  三源合并去重
+  step6_merge:  三源合并去重 + 噪声过滤
     │
-阶段 C（脚本 + AI 协作）
+阶段 C（脚本 + AI 协作）—— 画像生成
   render_profile.py → 论文表格渲染
   AI 补充：学术履历、研究方向叙事、合作网络、公开信息
+  verify_profile.py → 全部 10 项检查通过后声称完成
   → 01_基础画像.md
 ```
 
-全自动化：用户输入姓名 + 机构 + 官网 URL 后，三阶段按序执行，产出单篇 Markdown 画像。
+### 身份锁定协议（Phase A 核心）
+
+身份锁定的目标：**确保找到的 GS profile 属于目标学者，不是同名其他人**。
+
+锁定流程按信任等级降序执行：
+
+```
+Tier 1: ORCID 匹配
+  → 如果官网或搜索结果提供 ORCID，直接用 ORCID 查 GS/OA
+  → ORCID 是持久唯一标识，匹配即锁定
+  → 信任度：最高
+
+Tier 2: 机构邮箱验证
+  → 找到 GS profile → 检查 email_domain 是否匹配官网域名
+  → 例：官网邮箱 @iphy.ac.cn → GS 显示 "Verified email at iphy.ac.cn" → 锁定
+  → 信任度：极高
+  → GS profile 锁定后，该 profile 内所有论文视为已验证
+
+Tier 3: 论文指纹 + 合著者网络
+  → GS profile 无邮箱或邮箱不匹配时：
+    a) 检查 GS profile 中是否有至少 3 篇论文与官网 CV 或 OA profile 匹配
+       (DOI/标题/年份 三重确认)
+    b) 检查合著者网络：这些论文的合著者是否与官网一致
+  → 信任度：中高
+
+Tier 4: 信息综合判断
+  → 以上都失败时：
+    a) 比对机构是否匹配
+    b) 比对研究方向（学科分类）
+    c) 比对研究时间线
+  → 信任度：低
+  → 画像必须标注"身份未完全验证"
+
+降级路径：
+  - GS profile 找不到 → 跳过 GS，直接走 OpenAlex + arXiv
+  - OA ID 找不到 → 跳过 OA
+  - 都找不到 → 标注"所有数据源均不可用"
+```
 
 ---
 
-## 2 通用数据格式
+## 2 数据采集原理
+
+### 信息收集（三源互补，不遗漏）
+
+```
+                        Google Scholar（主源）
+                        学者维护, 最完整
+                        有 GS ID 就行
+                            |
+arXiv（预印本补新）─→ step6_merge.py ←─ OpenAlex（元数据补充）
+仅保留匹配 GS/OA 的条目         │           补 DOI/期刊/作者/引用
+                        去重后论文列表
+```
+
+**不漏的原理**：GS profile 由学者本人维护。学者不会遗漏自己的论文。只要 GS profile 存在且邮箱已验证，该 profile 内的论文列表即视为该学者的完整论文列表。OA 和 arXiv 只做元数据补充和时间差填补（GS 可能没收录近 1-2 个月的预印本）。
+
+**GS 不存在时的覆盖**：降级到 OpenAlex。OpenAlex 对非英语作者的覆盖约 22-50%（因学科而异）。画像首段标注"未找到 GS profile，论文覆盖可能不完整"。
+
+### 信息过滤（三层网络，不依赖学科关键词）
+
+过滤策略跨学科通用，因为使用的元数据（合著者、期刊）是所有学科都有的。
+
+| 层 | 过滤对象 | 方法 | 跨学科？ |
+|:---|:---------|:-----|:---------|
+| 合著者网络 | OA 独有论文 | 与 GS 已确认论文共享合著者 → +2 分 | ✅ 所有学科都有合著者 |
+| 期刊匹配 | OA 独有论文 | 期刊名称在已确认论文的期刊列表中 → +1 分 | ✅ 所有学科都有期刊 |
+| 标题去重 | 三源合并 | P0:DOI → P1:arXiv ID → P2:归一化标题 | ✅ 纯文本匹配 |
+
+OA 独有论文总分 < 1 → 疑似同名干扰，过滤。总分 ≥ 1 → 保留。
+
+### JSON → 正文生成
+
+```
+merged.json → render_profile.py → 6 列论文表格（脚本确保完整、可点击）
+                                → AI 读表格写叙事（学术履历、研究方向等）
+                                → verify_profile.py 最终检查
+```
+
+脚本保障：render_profile.py 确保论文 100% 列出、每篇有超链接、表格格式一致。AI 在脚本骨架外填充叙事内容。
+
+---
+
+## 3 通用数据格式
 
 所有 step 脚本是独立 CLI，输入输出是 JSON 文件。不互相 import。
 
@@ -72,7 +165,7 @@ step6_merge 的输出，在 SOURCE_OUTPUT 基础上增加：
 
 ---
 
-## 3 阶段 B — CLI 执行
+## 4 阶段 B — CLI 执行
 
 ### 完整运行示例
 
@@ -114,7 +207,7 @@ python src/phase1/step6_merge.py \
 
 ---
 
-## 4 阶段 C — 渲染流程
+## 5 阶段 C — 渲染流程
 
 ### 脚本渲染
 
@@ -143,7 +236,7 @@ echo "$TIMESTAMP" > "$PROF/latest.txt"
 
 ---
 
-## 5 AI 质量门清单
+## 6 AI 质量门清单
 
 每步脚本执行后按以下清单检查：
 
@@ -157,7 +250,7 @@ echo "$TIMESTAMP" > "$PROF/latest.txt"
 
 - [ ] h-index 与 GS 差异 > 50%？→ 标记"以 GS 为准"
 - [ ] affiliation 匹配官网机构？
-- [ ] 论文标题命中 `OA_POLLUTION_KEYWORDS`（如 `dna hydrogel`、`wind imaging` 等非物理主题）？→ 剔除
+- [ ] OA 独有论文是否通过合著者/期刊网络过滤？→ 未通过者标记"疑似同名干扰"
 
 ### arXiv 质量门
 
@@ -190,7 +283,7 @@ echo "$TIMESTAMP" > "$PROF/latest.txt"
 
 ---
 
-## 6 错误处理策略
+## 7 错误处理策略
 
 ### 脚本退出规范
 
@@ -214,7 +307,7 @@ echo "$TIMESTAMP" > "$PROF/latest.txt"
 
 ---
 
-## 7 输出目录结构
+## 8 输出目录结构
 
 ### 目录命名规则
 
@@ -259,7 +352,7 @@ python src/phase1/archive_previous.py "<学校>/<学院>/<部门>/<姓名>"
 
 ---
 
-## 8 已知限制
+## 9 已知限制
 
 | 问题 | 影响 | 对策 |
 |:-----|:-----|:------|
@@ -270,7 +363,7 @@ python src/phase1/archive_previous.py "<学校>/<学院>/<部门>/<姓名>"
 
 ---
 
-## 9 核心原则
+## 10 核心原则
 
 1. **存档不是缓存**：每次运行从头查询所有 API，不读历史存档。archive 目录仅用于错误溯源，不用于数据加载。违反此原则会导致旧数据静默污染新结果，发现错误也无法通过重跑验证。
 2. **来源必标 URL**：画像中每项数据标注来源 URL，缺失时标注 `[未找到]`。
@@ -279,7 +372,7 @@ python src/phase1/archive_previous.py "<学校>/<学院>/<部门>/<姓名>"
 
 ---
 
-## 10 设计哲学
+## 11 设计哲学
 
 ### 三层文档结构
 
