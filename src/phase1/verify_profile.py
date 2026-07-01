@@ -139,11 +139,11 @@ def verify(profile_path: str, merged_path: str = None) -> int:
     table_headers = re.findall(r"^\| # \| 年份 \| 标题 \| 期刊 \| 引用 \| 来源 \|", content, re.MULTILINE)
     check(len(table_headers) >= 1, "论文表格表头为 6 列（#、年份、标题、期刊、引用、来源）", errors)
 
-    # 9b. 阶段标题不是纯年份区间（必须含学术阶段描述）
+    # 9b. 阶段标题必须是学术阶段描述（不能是纯年份）
     stage_headers = re.findall(r"^### 4\.\d+ (.+)$", content, re.MULTILINE)
-    bare_year_stages = [s for s in stage_headers if re.match(r"^\d{4}[-–]?\d{0,4}$", s.strip())]
-    check(len(bare_year_stages) == 0,
-          f"阶段标题不含纯年份区间（发现 {len(bare_year_stages)} 个：{bare_year_stages}）",
+    bare_stages = [s for s in stage_headers if not re.search(r"[一-鿿]", s)]
+    check(len(bare_stages) == 0,
+          f"阶段标题含中文描述（发现 {len(bare_stages)} 个无中文的阶段：{bare_stages[:5]}）",
           errors)
 
     # 10. 无重复论文标题（去重失败检测）
