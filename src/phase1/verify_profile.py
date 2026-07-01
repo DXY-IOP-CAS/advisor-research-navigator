@@ -141,7 +141,7 @@ def verify(profile_path: str, merged_path: str = None) -> int:
 
     # 9b. 阶段标题不是纯年份区间（必须含学术阶段描述）
     stage_headers = re.findall(r"^### 4\.\d+ (.+)$", content, re.MULTILINE)
-    bare_year_stages = [s for s in stage_headers if re.match(r"^\d{4}[-–]\d{4}$", s.strip())]
+    bare_year_stages = [s for s in stage_headers if re.match(r"^\d{4}[-–]?\d{0,4}$", s.strip())]
     check(len(bare_year_stages) == 0,
           f"阶段标题不含纯年份区间（发现 {len(bare_year_stages)} 个：{bare_year_stages}）",
           errors)
