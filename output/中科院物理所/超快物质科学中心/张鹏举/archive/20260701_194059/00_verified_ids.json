@@ -1,0 +1,53 @@
+{
+  "pipeline": "phase1",
+  "step": "identity_verification",
+  "status": "success",
+  "professor": {
+    "name_zh": "张鹏举",
+    "name_en": "Pengju Zhang",
+    "affiliation": "中国科学院物理研究所",
+    "affiliation_en": "Institute of Physics, Chinese Academy of Sciences",
+    "department": "超快物质科学中心",
+    "department_en": "Center for Ultrafast Science",
+    "title": "特聘研究员，博士生导师",
+    "email": "pengju.zhang@iphy.ac.cn",
+    "email_domain": "iphy.ac.cn",
+    "email_verified": true,
+    "email_verification_method": "GS Verified email at iphy.ac.cn matches official website email",
+    "gs_id": "ls7XuGoAAAAJ",
+    "oa_id": "A5000914228",
+    "orcid": "0000-0001-7746-2113",
+    "website_url": "https://edu.iphy.ac.cn/?q=detail_teacher&id=6368",
+    "website_en": "https://english.iop.cas.cn/pe/faculty/?id=6368"
+  },
+  "discipline": {
+    "primary": "atomic_molecular_optical",
+    "confidence": 0.71,
+    "matched_keywords": ["原子", "分子", "光学", "阿秒", "超快", "高次谐波"],
+    "arxiv_categories": ["physics.atom-ph", "physics.optics"]
+  },
+  "career_stages": [
+    {"start": 2024, "end": 2026, "name": "2024–至今 IOP CAS 特聘研究员", "institution": "中国科学院物理研究所", "role": "特聘研究员"},
+    {"start": 2018, "end": 2024, "name": "2018–2024 ETH Zurich 博士后/资深研究员", "institution": "ETH Zurich", "role": "博士后&资深研究员"},
+    {"start": 2016, "end": 2018, "name": "2016–2018 IMP CAS 副研究员", "institution": "中国科学院近代物理研究所", "role": "副研究员"},
+    {"start": 2013, "end": 2016, "name": "2013–2016 RIKEN 博士后", "institution": "RIKEN", "role": "博士后研究员"},
+    {"start": 2010, "end": 2013, "name": "2010–2013 IMP CAS 博士", "institution": "中国科学院近代物理研究所", "role": "博士研究生"},
+    {"start": 2007, "end": 2010, "name": "2007–2010 IMP CAS 硕士", "institution": "中国科学院近代物理研究所", "role": "硕士研究生"},
+    {"start": 2003, "end": 2007, "name": "2003–2007 河北大学 本科", "institution": "河北大学", "role": "本科生"}
+  ],
+  "sources": {
+    "website": "https://edu.iphy.ac.cn/?q=detail_teacher&id=6368",
+    "google_scholar": "https://scholar.google.com/citations?hl=en&user=ls7XuGoAAAAJ",
+    "orcid": "https://orcid.org/0000-0001-7746-2113",
+    "openalex": "https://openalex.org/authors/A5000914228",
+    "ucas": "https://people.ucas.ac.cn/~0052353"
+  },
+  "research_directions": [
+    "新型便携、桌面式阿秒光源的研制",
+    "原子、分子的电子态相干动力学",
+    "液体水的电子态结构，常温液相分子的超快非绝热化学反应动力学",
+    "关联电子材料的阿秒电子动力学表征和操控"
+  ],
+  "verification_notes": "Email pengju.zhang@iphy.ac.cn confirmed on both official website and Google Scholar profile. GS shows 'Verified email at iphy.ac.cn'. ORCID 0000-0001-7746-2113 confirmed. OpenAlex ID A5000914228 has ORCID link but h-index (6) is significantly lower than expected — disambiguation may be incomplete for Chinese author.",
+  "timestamp": "2026-07-01 19:40:59"
+}
