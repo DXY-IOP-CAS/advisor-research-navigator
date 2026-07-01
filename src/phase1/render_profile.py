@@ -145,7 +145,7 @@ def generate(data: dict, output_path: str, stage_config: list = None,
     L("|:-----|:------|")
     L(f'| 姓名 | {prof.get("name", "")} |')
     L(f'| 机构 | {prof.get("affiliation", "")} |')
-    L(f'| 邮箱 | pengju.zhang{prof.get("email_domain", "")} |')
+    L(f'| 邮箱 | ...@{prof.get("email_domain", "")} |')
     L(f'| GS ID | {prof.get("gs_id", "")} |')
     L(f'| OA ID | {prof.get("oa_id", "")} |')
     L(f'| ORCID | {prof.get("orcid", "")} |')
@@ -267,5 +267,7 @@ def main() -> None:
             stage_descriptions = json.load(f)
 
     data = load_merged(args.merged_json)
+    args.output = os.path.abspath(args.output)
+    args.output = os.path.normpath(args.output)
     generate(data, args.output, stage_config, args.department, stage_descriptions)
     print(f"✅ {len(data.get('papers', []))} papers → {args.output}", file=sys.stderr)

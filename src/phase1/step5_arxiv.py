@@ -106,44 +106,75 @@ def _parse_entry(entry: Any) -> Optional[Dict[str, Any]]:
         return None
 
 
-def search(author_name: str, max_results: int = 50,
-           delay: float = 3.0, categories: Optional[str] = None) -> dict:
-    """按作者名搜索 arXiv。返回统一 SOURCE_OUTPUT 格式。"""
-    search_parts = [f"au:{quote(author_name, safe='')}"]
-    if categories:
-        for cat in categories.split():
-            search_parts.append(f"cat:{cat}")
-    search_query = "+AND+".join(search_parts)
+def _query_arxiv(search_query: str, max_results: int,
+                  delay: float) -> Optional[str]:
+    """向 arXiv API 发一次查询，返回 XML 文本。"""
     url = (
         f"{ARIXV_SEARCH_URL}?search_query={search_query}"
         f"&sortBy=submittedDate&sortOrder=descending&max_results={max_results}"
     )
-
     try:
         time.sleep(delay)
         with urlopen(url, timeout=30) as resp:
-            xml_text = resp.read().decode()
+            return resp.read().decode()
     except HTTPError as e:
-        logger.error(f"arXiv HTTP {e.code}")
-        return _empty_result(author_name, f"HTTP {e.code}")
+        logger.warning(f"arXiv HTTP {e.code} for: {search_query[:60]}")
+        return None
     except URLError as e:
-        logger.error(f"arXiv network: {e.reason}")
-        return _empty_result(author_name, f"Network: {e.reason}")
+        logger.warning(f"arXiv network: {e.reason}")
+        return None
     except Exception as e:
-        logger.error(f"arXiv error: {e}")
-        return _empty_result(author_name, str(e))
+        logger.warning(f"arXiv error: {e}")
+        return None
 
+
+def _parse_xml(xml_text: str) -> list:
+    """解析 arXiv Atom XML，返回论文列表。"""
     try:
         root = ET.fromstring(xml_text)
     except ET.ParseError as e:
-        return _empty_result(author_name, f"XML parse: {e}")
-
+        logger.warning(f"XML parse error: {e}")
+        return []
     papers = []
     for entry in root.findall("atom:entry", NS):
         p = _parse_entry(entry)
         if p:
             papers.append(p)
+    return papers
 
+
+def search(author_name: str, max_results: int = 50,
+           delay: float = 3.0, categories: Optional[str] = None) -> dict:
+    """按作者名搜索 arXiv。返回统一 SOURCE_OUTPUT 格式。
+
+    多个分类时分别查询（每个分类单独发请求），结果合并去重。
+    因为 arXiv API 的 cat: 过滤器用 AND 语义，
+    传多个分类一起查会要求论文同时属于所有分类，几乎永远返回 0。
+    """
+    encoded_name = quote(author_name, safe='')
+    cat_list = categories.split() if categories else []
+
+    all_papers = {}
+
+    if cat_list:
+        # 每个分类单独查
+        for cat in cat_list:
+            q = f"au:{encoded_name}+AND+cat:{cat}"
+            xml_text = _query_arxiv(q, max_results, delay)
+            if xml_text:
+                for p in _parse_xml(xml_text):
+                    dedup_key = (p.get("title", ""), p.get("arxiv_id", ""))
+                    all_papers[dedup_key] = p
+    else:
+        # 无分类过滤
+        q = f"au:{encoded_name}"
+        xml_text = _query_arxiv(q, max_results, delay)
+        if xml_text:
+            for p in _parse_xml(xml_text):
+                dedup_key = (p.get("title", ""), p.get("arxiv_id", ""))
+                all_papers[dedup_key] = p
+
+    papers = list(all_papers.values())
     status = "success" if papers else "empty"
     return {
         "pipeline": "phase1",

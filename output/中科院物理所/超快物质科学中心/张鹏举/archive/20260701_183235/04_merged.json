@@ -9,7 +9,7 @@
   "source_status": {
     "google_scholar": "success",
     "openalex": "success",
-    "arxiv": "empty"
+    "arxiv": "success"
   },
   "professor": {
     "name": "Pengju Zhang",
@@ -23,6 +23,30 @@
     "total_citations": 732
   },
   "papers": [
+    {
+      "title": "Intermolecular Coulombic decay in liquid water competes with proton transfer and non-adiabatic relaxation",
+      "year": 2025,
+      "authors": [
+        "Pengju Zhang",
+        "Joel Trester",
+        "Jakub Dubský",
+        "Přemysl Kolorenč",
+        "Petr Slavı́ček",
+        "Hans Jakob Wörner"
+      ],
+      "journal": "Nature Communications",
+      "doi": "https://doi.org/10.1038/s41467-025-61912-w",
+      "arxiv_id": "2103.15014",
+      "citation_count": 2,
+      "source": "google_scholar",
+      "sources": [
+        "arxiv",
+        "openalex",
+        "google_scholar"
+      ],
+      "source_count": 3,
+      "abstract": "We report the first observation of intermolecular Coulombic decay (ICD) in liquid water following inner-valence ionization. By combining a monochromatized table-top high-harmonic source with a liquid ..."
+    },
     {
       "title": "Different timescales during ultrafast stilbene isomerization in the gas and liquid phases revealed using time-resolved photoelectron spectroscopy",
       "year": 2022,
@@ -44,8 +68,8 @@
       "citation_count": 44,
       "source": "google_scholar",
       "sources": [
-        "google_scholar",
-        "openalex"
+        "openalex",
+        "google_scholar"
       ],
       "source_count": 2,
       "abstract": null
@@ -67,8 +91,8 @@
       "citation_count": 14,
       "source": "google_scholar",
       "sources": [
-        "google_scholar",
-        "openalex"
+        "openalex",
+        "google_scholar"
       ],
       "source_count": 2,
       "abstract": null
@@ -95,8 +119,8 @@
       "citation_count": 12,
       "source": "google_scholar",
       "sources": [
-        "google_scholar",
-        "openalex"
+        "openalex",
+        "google_scholar"
       ],
       "source_count": 2,
       "abstract": null
@@ -119,8 +143,8 @@
       "citation_count": 5,
       "source": "google_scholar",
       "sources": [
-        "google_scholar",
-        "openalex"
+        "openalex",
+        "google_scholar"
       ],
       "source_count": 2,
       "abstract": null
@@ -144,31 +168,8 @@
       "citation_count": 4,
       "source": "google_scholar",
       "sources": [
-        "google_scholar",
-        "openalex"
-      ],
-      "source_count": 2,
-      "abstract": null
-    },
-    {
-      "title": "Intermolecular Coulombic decay in liquid water competes with proton transfer and non-adiabatic relaxation",
-      "year": 2025,
-      "authors": [
-        "Pengju Zhang",
-        "Joel Trester",
-        "Jakub Dubský",
-        "Přemysl Kolorenč",
-        "Petr Slavı́ček",
-        "Hans Jakob Wörner"
-      ],
-      "journal": "Nature Communications",
-      "doi": "https://doi.org/10.1038/s41467-025-61912-w",
-      "arxiv_id": null,
-      "citation_count": 2,
-      "source": "google_scholar",
-      "sources": [
-        "google_scholar",
-        "openalex"
+        "openalex",
+        "google_scholar"
       ],
       "source_count": 2,
       "abstract": null
@@ -193,8 +194,8 @@
       "citation_count": 0,
       "source": "google_scholar",
       "sources": [
-        "google_scholar",
-        "openalex"
+        "openalex",
+        "google_scholar"
       ],
       "source_count": 2,
       "abstract": null
@@ -873,6 +874,39 @@
       "abstract": null
     },
     {
+      "title": "Bragg-Williams order competes with superconductivity",
+      "year": 2026,
+      "authors": [
+        "Xu Liu",
+        "Xu Chen",
+        "Chuizhen Chen",
+        "Boqin Song",
+        "Jing Chen",
+        "Xijing Dai",
+        "Qinghua Zhang",
+        "Feng Jin",
+        "Xingya Wang",
+        "Weiwei Dong",
+        "Dongliang Yang",
+        "Gefei Li",
+        "Pengju Zhang",
+        "Jiangping Hu",
+        "Jian-gang Guo",
+        "Tianping Ying",
+        "Xiaolong Chen"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2604.25843",
+      "citation_count": null,
+      "source": "arxiv",
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1,
+      "abstract": "Orderings in charge and spin have been extensively studied to unravel their correlation to emergent superconductivity over the past decades. Bragg-Williams order (BWO), a classical structural order pa..."
+    },
+    {
       "title": "Design and application of liquid-phase magnetic-bottle time resolved photoelectron spectroscopy",
       "year": 2025,
       "authors": null,
@@ -886,6 +920,224 @@
       ],
       "source_count": 1,
       "abstract": null
+    },
+    {
+      "title": "EP-GAT: Energy-based Parallel Graph Attention Neural Network for Stock Trend Classification",
+      "year": 2025,
+      "authors": [
+        "Zhuodong Jiang",
+        "Pengju Zhang",
+        "Peter Martin"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2507.08184",
+      "citation_count": null,
+      "source": "arxiv",
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1,
+      "abstract": "Graph neural networks have shown remarkable performance in forecasting stock movements, which arises from learning complex inter-dependencies between stocks and intra-dynamics of stocks. Existing appr..."
+    },
+    {
+      "title": "MR-COSMO: Visual-Text Memory Recall and Direct CrOSs-MOdal Alignment Method for Query-Driven 3D Segmentation",
+      "year": 2025,
+      "authors": [
+        "Chade Li",
+        "Pengju Zhang",
+        "Yihong Wu"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2506.20991",
+      "citation_count": null,
+      "source": "arxiv",
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1,
+      "abstract": "The rapid advancement of vision-language models (VLMs) in 3D domains has accelerated research in text-query-guided point cloud processing, though existing methods underperform in point-level segmentat..."
+    },
+    {
+      "title": "SuperPlace: The Renaissance of Classical Feature Aggregation for Visual Place Recognition in the Era of Foundation Models",
+      "year": 2025,
+      "authors": [
+        "Bingxi Liu",
+        "Pengju Zhang",
+        "Li He",
+        "Hao Chen",
+        "Shiyi Guo",
+        "Yihong Wu",
+        "Jinqiang Cui",
+        "Hong Zhang"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2506.13073",
+      "citation_count": null,
+      "source": "arxiv",
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1,
+      "abstract": "Recent visual place recognition (VPR) approaches have leveraged foundation models (FM) and introduced novel aggregation techniques. However, these methods have failed to fully exploit key concepts of ..."
+    },
+    {
+      "title": "An Underwater, Fault-Tolerant, Laser-Aided Robotic Multi-Modal Dense SLAM System for Continuous Underwater In-Situ Observation",
+      "year": 2025,
+      "authors": [
+        "Yaming Ou",
+        "Junfeng Fan",
+        "Chao Zhou",
+        "Pengju Zhang",
+        "Zongyuan Shen",
+        "Yichen Fu",
+        "Xiaoyan Liu",
+        "Zengguang Hou"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2504.21826",
+      "citation_count": null,
+      "source": "arxiv",
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1,
+      "abstract": "Existing underwater SLAM systems are difficult to work effectively in texture-sparse and geometrically degraded underwater environments, resulting in intermittent tracking and sparse mapping. Therefor..."
+    },
+    {
+      "title": "Unveiling Hidden Vulnerabilities in Digital Human Generation via Adversarial Attacks",
+      "year": 2025,
+      "authors": [
+        "Zhiying Li",
+        "Yeying Jin",
+        "Fan Shen",
+        "Zhi Liu",
+        "Weibin Chen",
+        "Pengju Zhang",
+        "Xiaomei Zhang",
+        "Boyu Chen",
+        "Michael Shen",
+        "Kejian Wu",
+        "Zhaoxin Fan",
+        "Jin Dong"
+      ],
+      "journal": "arXiv",
+      "doi": "https://doi.org/10.1016/j.patcog.2025.112042",
+      "arxiv_id": "2504.17457",
+      "citation_count": null,
+      "source": "arxiv",
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1,
+      "abstract": "Expressive human pose and shape estimation (EHPS) is crucial for digital human generation, especially in applications like live streaming. While existing research primarily focuses on reducing estimat..."
+    },
+    {
+      "title": "DGOcc: Depth-aware Global Query-based Network for Monocular 3D Occupancy Prediction",
+      "year": 2025,
+      "authors": [
+        "Xu Zhao",
+        "Pengju Zhang",
+        "Bo Liu",
+        "Yihong Wu"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2504.07524",
+      "citation_count": null,
+      "source": "arxiv",
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1,
+      "abstract": "Monocular 3D occupancy prediction, aiming to predict the occupancy and semantics within interesting regions of 3D scenes from only 2D images, has garnered increasing attention recently for its vital r..."
+    },
+    {
+      "title": "Density-aware global-local attention network for point cloud segmentation",
+      "year": 2024,
+      "authors": [
+        "Chade Li",
+        "Pengju Zhang",
+        "Jiaming Zhang",
+        "Yihong Wu"
+      ],
+      "journal": "arXiv",
+      "doi": "https://doi.org/10.1016/j.imavis.2025.105822",
+      "arxiv_id": "2412.00489",
+      "citation_count": null,
+      "source": "arxiv",
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1,
+      "abstract": "3D point cloud segmentation has a wide range of applications in areas such as autonomous driving, augmented reality, virtual reality and digital twins. The point cloud data collected in real scenes of..."
+    },
+    {
+      "title": "1.5-Femtosecond Delay in Charge Transfer",
+      "year": 2024,
+      "authors": [
+        "Danylo T. Matselyukh",
+        "Florian Rott",
+        "Thomas Schnappinger",
+        "Pengju Zhang",
+        "Zheng Li",
+        "Jeremy O. Richardson",
+        "Regina de Vivie-Riedle",
+        "Hans Jakob Wörner"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2408.17402",
+      "citation_count": null,
+      "source": "arxiv",
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1,
+      "abstract": "The transfer of population between two intersecting quantum states is the most fundamental dynamical event that governs a broad variety of processes in physics, chemistry, biology and material science..."
+    },
+    {
+      "title": "Identity information based on human magnetocardiography signals",
+      "year": 2024,
+      "authors": [
+        "Pengju Zhang",
+        "Chenxi Sun",
+        "Jianwei Zhang",
+        "Hong Guo"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2403.13820",
+      "citation_count": null,
+      "source": "arxiv",
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1,
+      "abstract": "We have developed an individual identification system based on magnetocardiography (MCG) signals captured using optically pumped magnetometers (OPMs). Our system utilizes pattern recognition to analyz..."
+    },
+    {
+      "title": "Multi-relational Graph Diffusion Neural Network with Parallel Retention for Stock Trends Classification",
+      "year": 2024,
+      "authors": [
+        "Zinuo You",
+        "Pengju Zhang",
+        "Jin Zheng",
+        "John Cartlidge"
+      ],
+      "journal": "arXiv",
+      "doi": "https://doi.org/10.1109/ICASSP48485.2024.10447394",
+      "arxiv_id": "2401.05430",
+      "citation_count": null,
+      "source": "arxiv",
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1,
+      "abstract": "Stock trend classification remains a fundamental yet challenging task, owing to the intricate time-evolving dynamics between and within stocks. To tackle these two challenges, we propose a graph-based..."
     },
     {
       "title": "Experimentally resolving and decomposing the transfer of charge through a molecule on a single-femtosecond timescale",
@@ -946,6 +1198,27 @@
       "abstract": null
     },
     {
+      "title": "Exploiting Rich Syntax for Better Knowledge Base Question Answering",
+      "year": 2021,
+      "authors": [
+        "Pengju Zhang",
+        "Yonghui Jia",
+        "Muhua Zhu",
+        "Wenliang Chen",
+        "Min Zhang"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2107.07940",
+      "citation_count": null,
+      "source": "arxiv",
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1,
+      "abstract": "Recent studies on Knowledge Base Question Answering (KBQA) have shown great progress on this task via better question understanding. Previous works for encoding questions mainly focus on the word sequ..."
+    },
+    {
       "title": "Extreme-ultraviolet time-resolved photoelectron spectroscopy of the photoisomerisation dynamics of cis-stilbene in the gas and liquid phases",
       "year": 2020,
       "authors": null,
@@ -959,6 +1232,63 @@
       ],
       "source_count": 1,
       "abstract": null
+    },
+    {
+      "title": "Semi-Global Shape-aware Network",
+      "year": 2020,
+      "authors": [
+        "Pengju Zhang",
+        "Yihong Wu",
+        "Jiagang Zhu"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2012.09372",
+      "citation_count": null,
+      "source": "arxiv",
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1,
+      "abstract": "Non-local operations are usually used to capture long-range dependencies via aggregating global context to each position recently. However, most of the methods cannot preserve object shapes since they..."
+    },
+    {
+      "title": "Leveraging Local and Global Descriptors in Parallel to Search Correspondences for Visual Localization",
+      "year": 2020,
+      "authors": [
+        "Pengju Zhang",
+        "Yihong Wu",
+        "Bingxi Liu"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "2009.10891",
+      "citation_count": null,
+      "source": "arxiv",
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1,
+      "abstract": "Visual localization to compute 6DoF camera pose from a given image has wide applications such as in robotics, virtual reality, augmented reality, etc. Two kinds of descriptors are important for the vi..."
+    },
+    {
+      "title": "A New Loss Function for CNN Classifier Based on Pre-defined Evenly-Distributed Class Centroids",
+      "year": 2019,
+      "authors": [
+        "Qiuyu Zhu",
+        "Pengju Zhang",
+        "Xin Ye"
+      ],
+      "journal": "arXiv",
+      "doi": null,
+      "arxiv_id": "1904.06008",
+      "citation_count": null,
+      "source": "arxiv",
+      "sources": [
+        "arxiv"
+      ],
+      "source_count": 1,
+      "abstract": "With the development of convolutional neural networks (CNNs) in recent years, the network structure has become more and more complex and varied, and has achieved very good results in pattern recogniti..."
     },
     {
       "title": "Three-body fragmentation dynamics of OCS3+ induced by intermediate energy Ne4+ ion impact",
@@ -1052,11 +1382,12 @@
     }
   ],
   "statistics": {
-    "total": 60,
+    "total": 75,
     "by_source": {
-      "google_scholar": 54,
-      "openalex": 13
+      "arxiv": 16,
+      "openalex": 13,
+      "google_scholar": 54
     },
-    "unique": 60
+    "unique": 75
   }
 }

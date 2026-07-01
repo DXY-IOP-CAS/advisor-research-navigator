@@ -1,11 +1,11 @@
 ---
 affiliation: Institute of Physics, Chinese Academy of Sciences
 department: 超快物质科学中心
-source_updated: 2026-07-01 18:36
+source_updated: 2026-07-01 18:35
 orcid: https://orcid.org/0000-0001-7746-2113
 google_scholar_url: https://scholar.google.com/citations?hl=en&user=ls7XuGoAAAAJ
-run_timestamp: 2026-07-01 18:36
-run_archive: archive/20260701_183235/
+run_timestamp: 2026-07-01 18:35
+run_archive: archive/旧版脚本/
 ---
 
 # Pengju Zhang — 基础画像
@@ -14,8 +14,8 @@ run_archive: archive/20260701_183235/
 
 | 项目 | 内容 |
 |:-----|:------|
-| 生成时间 | 2026-07-01 18:36 |
-| 运行存档 | `archive/20260701_183235/` |
+| 生成时间 | 2026-07-01 18:35 |
+| 运行存档 | `archive/旧版脚本/` |
 | 总论文数 | 75 篇（去重合并后） |
 | GS 状态 | success |
 | OA 状态 | success |
