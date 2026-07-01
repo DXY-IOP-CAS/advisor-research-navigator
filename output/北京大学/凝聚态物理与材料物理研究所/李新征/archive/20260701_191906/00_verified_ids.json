@@ -1,0 +1,59 @@
+{
+  "pipeline": "phase1",
+  "phase": "A",
+  "timestamp": "20260701_191906",
+  "professor": {
+    "name_zh": "李新征",
+    "name_en": "Xin-Zheng Li",
+    "title": "北京大学博雅特聘教授 (Boya Distinguished Professor)",
+    "department": "凝聚态物理与材料物理研究所 (Institute of Condensed Matter and Material Physics)",
+    "school": "School of Physics, Peking University",
+    "email": "xzli@pku.edu.cn",
+    "email_domain": "pku.edu.cn",
+    "research_areas": [
+      "Path integral molecular dynamics (第一性原理路径积分分子动力学)",
+      "Nuclear quantum effects (核量子效应)",
+      "GW approximation (全电子GW计算)",
+      "Lee-Yang phase transition theory",
+      "Quantum tunneling (量子隧穿)",
+      "Solid-solid phase transitions (固固相变)",
+      "Electron-phonon coupling (电-声耦合)",
+      "Semi-classical dynamics (半经典动力学)"
+    ],
+    "biography": "Born July 1978 in Luoyang, Henan. BSc in Physics from Wuhan University (2000), MSc from Institute of Semiconductors CAS (2003), PhD from Fritz-Haber-Institut der Max-Planck-Gesellschaft (2008). Postdoc at UCL with Angelos Michaelides (2008-2011). Joined PKU as tenure-track associate professor in Feb 2012. Promoted to Boya Distinguished Professor (长江学者特聘教授) in 2020. 2016 achievement selected as China's Top 10 Scientific Advances. Awarded PKU Teaching Excellence Award (2025)."
+  },
+  "ids": {
+    "google_scholar": {
+      "id": "DY6sI4UAAAAJ",
+      "url": "https://scholar.google.com/citations?user=DY6sI4UAAAAJ",
+      "verification": "Email verified at pku.edu.cn on GS profile. GS profile shows 'Professor, School of Physics, Peking University' with verified email domain pku.edu.cn.",
+      "status": "verified"
+    },
+    "openalex": {
+      "id": "A5101563546",
+      "url": "https://openalex.org/authors/A5101563546",
+      "verification": "ORCID 0000-0003-0316-4257 linked. Works match computationally condensed matter physics (Lee-Yang zeros, path integral methods, quantum tunneling). 203 works, 5123 citations, h-index 35.",
+      "status": "verified"
+    },
+    "orcid": {
+      "id": "0000-0003-0316-4257",
+      "url": "https://orcid.org/0000-0003-0316-4257",
+      "verification": "Found in ACS publication metadata, matched with email xzli@pku.edu.cn. Confirmed by OpenAlex author record linkage.",
+      "status": "verified"
+    }
+  },
+  "cross_validation": {
+    "email_domain_match": "xzli@pku.edu.cn ✓ matches pku.edu.cn",
+    "gs_email_verified": true,
+    "gs_oa_orcid_consistent": true,
+    "notes": "All three IDs are consistent and point to the same scholar: Xin-Zheng Li at Peking University, School of Physics, Institute of Condensed Matter and Material Physics."
+  },
+  "sources": {
+    "official_website": "https://faculty.pku.edu.cn/lixinzheng/zh_CN/index.htm",
+    "pku_scholar_page": "http://scholar.pku.edu.cn/xzli",
+    "phy_pku_page": "https://www.phy.pku.edu.cn/xzli/info/1008/1069.htm",
+    "gs_url": "https://scholar.google.com/citations?user=DY6sI4UAAAAJ",
+    "openalex_url": "https://openalex.org/authors/A5101563546",
+    "orcid_url": "https://orcid.org/0000-0003-0316-4257"
+  }
+}

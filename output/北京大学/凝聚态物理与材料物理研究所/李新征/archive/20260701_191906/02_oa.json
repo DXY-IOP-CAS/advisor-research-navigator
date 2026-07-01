@@ -1,0 +1,3855 @@
+{
+  "pipeline": "phase1",
+  "source": "openalex",
+  "status": "success",
+  "error": null,
+  "professor": {
+    "name": "Xin-Zheng Li",
+    "affiliation": null,
+    "email_domain": null,
+    "gs_id": null,
+    "oa_id": "A5101563546",
+    "orcid": "https://orcid.org/0000-0003-0316-4257",
+    "h_index": 35,
+    "i10_index": null,
+    "total_citations": 5123
+  },
+  "papers": [
+    {
+      "title": "Field-selective criticality in 2D melting revealed by multi-field Lee-Yang zeros",
+      "year": 2026,
+      "authors": [
+        "Ling Liu",
+        "Fang Wang",
+        "Qi-Jun Ye",
+        "Xin-Zheng Li"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": "https://doi.org/10.48550/arxiv.2606.14075",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Field-selective criticality in 2D melting revealed by multi-field Lee-Yang zeros",
+      "year": 2026,
+      "authors": [
+        "L Y Liu",
+        "Fang-Cheng Wang",
+        "Qi-Jun Ye",
+        "Xin-Zheng Li"
+      ],
+      "journal": "ArXiv.org",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Tracking metastable phases by complex Lee-Yang zeros",
+      "year": 2026,
+      "authors": [
+        "Yi-Hua Dong",
+        "Ling Liu",
+        "Fang-Cheng Wang",
+        "Qi-Jun Ye",
+        "Xin-Zheng Li"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": "https://doi.org/10.48550/arxiv.2606.08004",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Permutation invariant multi-scale full quantum neural network wavefunction",
+      "year": 2026,
+      "authors": [
+        "Pengzhen Cai",
+        "Yubing Qian",
+        "Li Deng",
+        "Weizhong Fu",
+        "Lei Yang",
+        "Zhiyu Sun",
+        "Xin-Zheng Li",
+        "En-Ge Wang",
+        "Liangwen Chen",
+        "Weiluo Ren",
+        "Ji Chen"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": "https://doi.org/10.48550/arxiv.2603.12233",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Permutation invariant multi-scale full quantum neural network wavefunction",
+      "year": 2026,
+      "authors": [
+        "Pengzhen Cai",
+        "Yubing Qian",
+        "Li Deng",
+        "Weizhong Fu",
+        "Lei Yang",
+        "Zhiyu Sun",
+        "Xin-Zheng Li",
+        "En-Ge Wang",
+        "Liangwen Chen",
+        "Weiluo Ren",
+        "Ji Chen"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Surface hopping with nuclear quantum effects through path-integral coarse graining",
+      "year": 2025,
+      "authors": [
+        "Jia-Xi Zeng",
+        "Xin-Zheng Li",
+        "Wei Fang"
+      ],
+      "journal": "The Journal of Chemical Physics",
+      "doi": "https://doi.org/10.1063/5.0286954",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Three-dimensional porous MXene/POM film for high-performance electrochemical sensing",
+      "year": 2025,
+      "authors": [
+        "Yingyi Ma",
+        "Xinran Li",
+        "Shun Yao",
+        "Yu Si",
+        "Xin-Zheng Li",
+        "Zhihao Zhu",
+        "Kexin Liu",
+        "Shiyun Wang"
+      ],
+      "journal": "Microchemical Journal",
+      "doi": "https://doi.org/10.1016/j.microc.2025.116527",
+      "arxiv_id": null,
+      "citation_count": 2,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "rGO-based porous structure modified by PPy/β-CD for 3D electrochemical chiral sensor",
+      "year": 2025,
+      "authors": [
+        "Yingyi Ma",
+        "Yu Si",
+        "Shun Yao",
+        "Xinran Li",
+        "Xin-Zheng Li",
+        "Jingfang Li"
+      ],
+      "journal": "Biosensors and Bioelectronics",
+      "doi": "https://doi.org/10.1016/j.bios.2025.118263",
+      "arxiv_id": null,
+      "citation_count": 1,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Dendritic-honeycomb porous polyoxometalate/MXene films for supercapacitor applications",
+      "year": 2025,
+      "authors": [
+        "Xin-Zheng Li",
+        "Yingyi Ma",
+        "Xinran Li",
+        "Yu Si",
+        "Kexin Liu",
+        "Shiyun Wang",
+        "Zhihao Zhu",
+        "Jingfang Li"
+      ],
+      "journal": "Chemical Engineering Journal",
+      "doi": "https://doi.org/10.1016/j.cej.2025.169061",
+      "arxiv_id": null,
+      "citation_count": 7,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Classification and enumeration of solid-solid phase transition mechanisms",
+      "year": 2025,
+      "authors": [
+        "Fang-Cheng Wang",
+        "Qi-Jun Ye",
+        "Yucheng Zhu",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical review. B./Physical review. B",
+      "doi": "https://doi.org/10.1103/lw16-4gny",
+      "arxiv_id": null,
+      "citation_count": 1,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Dual-Analyte Detection of Dopamine and Folic Acid Using a 3D Honeycomb Structured Reduced Graphene Oxide/Polypyrrole-Polyoxometalate Porous Film",
+      "year": 2025,
+      "authors": [
+        "Yu Si",
+        "Junwang Liu",
+        "Yingyi Ma",
+        "Xinran Li",
+        "Xin-Zheng Li",
+        "Zhihao Zhu",
+        "Kexin Liu",
+        "Shiyun Wang"
+      ],
+      "journal": "Langmuir",
+      "doi": "https://doi.org/10.1021/acs.langmuir.5c03394",
+      "arxiv_id": null,
+      "citation_count": 3,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Determination of the melting temperature of hexagonal ice using Lee-Yang phase transition theory",
+      "year": 2025,
+      "authors": [
+        "Ling Liu",
+        "Yihua Dong",
+        "Qi-Jun Ye",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical review. B./Physical review. B",
+      "doi": "https://doi.org/10.1103/fr9q-df52",
+      "arxiv_id": null,
+      "citation_count": 1,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Spin-Density Functional Regularization for Singlet Diradicals",
+      "year": 2025,
+      "authors": [
+        "Yi Shi",
+        "Yuming Shi",
+        "Adam Wasserman",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Journal of Chemical Theory and Computation",
+      "doi": "https://doi.org/10.1021/acs.jctc.5c00942",
+      "arxiv_id": null,
+      "citation_count": 1,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "3D ordered porous PANI/CNT architecture via green self-assembly for high-performance flexible supercapacitors",
+      "year": 2025,
+      "authors": [
+        "Yingyi Ma",
+        "Xiaoting Liu",
+        "Yu Si",
+        "Xin-Zheng Li",
+        "Xinran Li",
+        "Jingfang Li"
+      ],
+      "journal": "Electrochimica Acta",
+      "doi": "https://doi.org/10.1016/j.electacta.2025.147192",
+      "arxiv_id": null,
+      "citation_count": 7,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Physiological response and comprehensive evaluation of pumpkin rootstock resources to salt stress",
+      "year": 2025,
+      "authors": [
+        "Weirong Luo",
+        "Junjun Liu",
+        "Haixia Zhou",
+        "Yaoguang Sun",
+        "Bihua Chen",
+        "Bihua Chen",
+        "Xin-Zheng Li",
+        "Shenshen Zhi",
+        "Yulong Wang"
+      ],
+      "journal": "Scientia Horticulturae",
+      "doi": "https://doi.org/10.1016/j.scienta.2025.114319",
+      "arxiv_id": null,
+      "citation_count": 1,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Unveiling interfacial dead layer in wurtzite ferroelectrics",
+      "year": 2025,
+      "authors": [
+        "Jinlin Wang",
+        "Yunqin Li",
+        "Rui Wang",
+        "Qi Liu",
+        "Haotian Ye",
+        "Ping Wang",
+        "Xifan Xu",
+        "Huaiyuan Yang",
+        "Fang Liu",
+        "Bowen Sheng",
+        "Liuyun Yang",
+        "Xiu‐Ju Yin",
+        "Yi Tong",
+        "Tao Wang",
+        "Wen‐Yi Tong",
+        "Xin-Zheng Li",
+        "Chun‐Gang Duan",
+        "Bo Shen",
+        "Xinqiang Wang"
+      ],
+      "journal": "Nature Communications",
+      "doi": "https://doi.org/10.1038/s41467-025-61291-2",
+      "arxiv_id": null,
+      "citation_count": 17,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Exciton insulators in two-dimensional systems",
+      "year": 2025,
+      "authors": [
+        "Huaiyuan Yang",
+        "Xi Dai",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Chinese Physics B",
+      "doi": "https://doi.org/10.1088/1674-1056/ade3ae",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Classification and enumeration of solid-solid phase transition mechanisms",
+      "year": 2025,
+      "authors": [
+        "Fang-Cheng Wang",
+        "Qi-Jun Ye",
+        "Yucheng Zhu",
+        "Xin-Zheng Li"
+      ],
+      "journal": "ArXiv.org",
+      "doi": "https://doi.org/10.48550/arxiv.2506.05105",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "The development and applications of semiclassical initial value representation, a promising tool for tackling quantum dynamics",
+      "year": 2025,
+      "authors": [
+        "Jia-Xi Zeng",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Computational Materials Today",
+      "doi": "https://doi.org/10.1016/j.commt.2025.100032",
+      "arxiv_id": null,
+      "citation_count": 4,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Bacillus velezensis HR6-1 enhances salt tolerance in tomato by increasing endogenous cytokinin content and improving ROS scavenging",
+      "year": 2025,
+      "authors": [
+        "Xiaojing Ma",
+        "Zhaopeng Ouyang",
+        "Hengbin Luo",
+        "Wenkai Shang",
+        "H. Ma",
+        "Mengmeng Zhu",
+        "Han Dong",
+        "Zhixin Guo",
+        "Xiaoxing Dong",
+        "Fengzhi Piao",
+        "Shunshan Shen",
+        "Xin-Zheng Li",
+        "Yong Wang",
+        "Tao Zhang"
+      ],
+      "journal": "Microbiological Research",
+      "doi": "https://doi.org/10.1016/j.micres.2025.128143",
+      "arxiv_id": null,
+      "citation_count": 18,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Comparative Transcriptome Analysis Reveals Differential Mechanisms of Soft Rot Resistance in Lettuce Grown Under White and Blue Light",
+      "year": 2025,
+      "authors": [
+        "Yong Wang",
+        "Xiaojing Ma",
+        "Wenkai Shang",
+        "Hengbin Luo",
+        "Longyu Wang",
+        "Kaile Sun",
+        "Han Dong",
+        "Guanghui An",
+        "Shunshan Shen",
+        "Zhixin Guo",
+        "Xiaoxing Dong",
+        "Xin-Zheng Li",
+        "Fengzhi Piao",
+        "Tao Zhang"
+      ],
+      "journal": "Food and Energy Security",
+      "doi": "https://doi.org/10.1002/fes3.70038",
+      "arxiv_id": null,
+      "citation_count": 2,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Scalable fabrication of flexible 3D PEDOT/rGO Scaffold for high-performance supercapacitors via a self-assembly method",
+      "year": 2024,
+      "authors": [
+        "Xiaoting Liu",
+        "Yingyi Ma",
+        "Yu Si",
+        "Xin-Zheng Li",
+        "Xinran Li",
+        "Jingfang Li"
+      ],
+      "journal": "Electrochimica Acta",
+      "doi": "https://doi.org/10.1016/j.electacta.2024.145276",
+      "arxiv_id": null,
+      "citation_count": 6,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Dynamic Changes and Correlation Analysis of Pumpkin Quality and Physiological Indicators during Postharvest Storage",
+      "year": 2024,
+      "authors": [
+        "Zhenyu Liu",
+        "Pengwei Wang",
+        "Zhenwei Liu",
+        "Li Sun",
+        "Xin-Zheng Li",
+        "Junjie Liu",
+        "Rongyao Xing",
+        "Xitian Zhang",
+        "Haoyu Deng",
+        "Yiming Zhang"
+      ],
+      "journal": "HortScience",
+      "doi": "https://doi.org/10.21273/hortsci18000-24",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Effect of exogenous melatonin on growth and antioxidant system of pumpkin seedlings under waterlogging stress",
+      "year": 2024,
+      "authors": [
+        "Zhenyu Liu",
+        "Li Sun",
+        "Zhenwei Liu",
+        "Xin-Zheng Li"
+      ],
+      "journal": "PeerJ",
+      "doi": "https://doi.org/10.7717/peerj.17927",
+      "arxiv_id": null,
+      "citation_count": 12,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "3D porous PEDOT/MXene scaffold toward high-performance supercapacitors",
+      "year": 2024,
+      "authors": [
+        "Yingyi Ma",
+        "Kaizheng Xu",
+        "Xiaoting Liu",
+        "Shun Yao",
+        "Xin-Zheng Li",
+        "Yu Si",
+        "Xinran Li"
+      ],
+      "journal": "Chemical Engineering Journal",
+      "doi": "https://doi.org/10.1016/j.cej.2024.154348",
+      "arxiv_id": null,
+      "citation_count": 34,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Band geometry induced high angular momentum excitonic superfluid in gapped chiral fermion systems",
+      "year": 2024,
+      "authors": [
+        "Huaiyuan Yang",
+        "Yuelin Shao",
+        "Yuanfeng Xu",
+        "Xi Dai",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical review. B./Physical review. B",
+      "doi": "https://doi.org/10.1103/physrevb.109.l201401",
+      "arxiv_id": null,
+      "citation_count": 4,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Semiclassical reaction rate constant of non-adiabatic system by means of initial value representation",
+      "year": 2024,
+      "authors": [
+        "Jia-Xi Zeng",
+        "Xin-Zheng Li"
+      ],
+      "journal": "AIP Advances",
+      "doi": "https://doi.org/10.1063/5.0200052",
+      "arxiv_id": null,
+      "citation_count": 3,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Characterization of the Fine-Scale Evolution of Damage in Shale under the Influence of Two-Way Stress Differences Based on CT Images and Fractal Theory—The Example of the Anba Dyke in the Wufeng–Longmaxi Formation",
+      "year": 2024,
+      "authors": [
+        "Baofeng Lan",
+        "Ruidong Yang",
+        "Zhonghu Wu",
+        "Haishen Jiang",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Fractal and Fractional",
+      "doi": "https://doi.org/10.3390/fractalfract8030142",
+      "arxiv_id": null,
+      "citation_count": 3,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Computer simulations of the dynamical processes",
+      "year": 2024,
+      "authors": [
+        "Xin-Zheng Li",
+        "ZHAO Jin",
+        "Sheng Meng",
+        "Gong Xin-Gao"
+      ],
+      "journal": "Zhongguo kexue. Wulixue Lixue Tianwenxue",
+      "doi": "https://doi.org/10.1360/sspma-2024-0051",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Spin-triplet topological excitonic insulators in two-dimensional materials",
+      "year": 2024,
+      "authors": [
+        "Huaiyuan Yang",
+        "Jiaxi Zeng",
+        "Yuelin Shao",
+        "Yuanfeng Xu",
+        "Xi Dai",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical review. B./Physical review. B",
+      "doi": "https://doi.org/10.1103/physrevb.109.075167",
+      "arxiv_id": null,
+      "citation_count": 19,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Crystal-Structure Matches in Solid-Solid Phase Transitions",
+      "year": 2024,
+      "authors": [
+        "Fang-Cheng Wang",
+        "Qi-Jun Ye",
+        "Yucheng Zhu",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical Review Letters",
+      "doi": "https://doi.org/10.1103/physrevlett.132.086101",
+      "arxiv_id": null,
+      "citation_count": 6,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Complex phase diagram and supercritical matter",
+      "year": 2024,
+      "authors": [
+        "Xiao-Yu Ouyang",
+        "Qi-Jun Ye",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical review. E",
+      "doi": "https://doi.org/10.1103/physreve.109.024118",
+      "arxiv_id": null,
+      "citation_count": 5,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "The connnotation and key research areas of the new applicaiton code &amp;ldquo;computational physics&amp;rdquo; of the National Natural Science Foundation of China",
+      "year": 2024,
+      "authors": [
+        "XiangWei JIANG",
+        "Xin-Zheng Li",
+        "Lei Wang",
+        "Qiang Liu",
+        "PeiGen NI",
+        "GuoXuan DONG",
+        "Yanming Ma",
+        "YuQiang MA",
+        "Wenhui Duan",
+        "HaiQing LIN",
+        "Zhong Fang",
+        "Xin-Gao Gong",
+        "Tao Xiang"
+      ],
+      "journal": "Zhongguo kexue. Wulixue Lixue Tianwenxue",
+      "doi": "https://doi.org/10.1360/sspma-2024-0012",
+      "arxiv_id": null,
+      "citation_count": 3,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Band Geometry Induced High-Angular Momentum Excitonic Superfluid in Gapped Chiral Fermion Systems",
+      "year": 2024,
+      "authors": [
+        "Huaiyuan Yang",
+        "Yuelin Shao",
+        "Xi Dai",
+        "Xin-Zheng Li"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": "https://doi.org/10.48550/arxiv.2401.04416",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Effects of Exogenous Strigolactone on Alleviating Waterlogging Stress of Pumpkin Seedlings",
+      "year": 2024,
+      "authors": [
+        "zhenyu Liu",
+        "Li Sun",
+        "Yiming Zhang",
+        "J. Liu",
+        "Chao Lv",
+        "Gongfang Xi",
+        "Ziqi Liu",
+        "Xin-Zheng Li"
+      ],
+      "journal": "SSRN Electronic Journal",
+      "doi": "https://doi.org/10.2139/ssrn.5035327",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Enhanced copper anticorrosion from Janus-doped bilayer graphene",
+      "year": 2023,
+      "authors": [
+        "Mengze Zhao",
+        "Zhibin Zhang",
+        "Wujun Shi",
+        "Yiwei Li",
+        "Chaowu Xue",
+        "Yuxiong Hu",
+        "Mingchao Ding",
+        "Mingchao Ding",
+        "Zhi Liu",
+        "Ying Fu",
+        "Can Liu",
+        "Muhong Wu",
+        "Zhongkai Liu",
+        "Xin-Zheng Li",
+        "Zhu‐Jun Wang",
+        "Kaihui Liu",
+        "Zhu‐Jun Wang",
+        "Kaihui Liu"
+      ],
+      "journal": "Nature Communications",
+      "doi": "https://doi.org/10.1038/s41467-023-43357-1",
+      "arxiv_id": null,
+      "citation_count": 57,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Determination of the preferred epitaxy for III-nitride semiconductors on wet-transferred graphene",
+      "year": 2023,
+      "authors": [
+        "Fang Liu",
+        "Tao Wang",
+        "Xin Gao",
+        "Huaiyuan Yang",
+        "Zhihong Zhang",
+        "Yucheng Guo",
+        "Ye Yuan",
+        "Zhen Huang",
+        "Jilin Tang",
+        "Bowen Sheng",
+        "Zhaoying Chen",
+        "Kaihui Liu",
+        "Bo Shen",
+        "Xin-Zheng Li",
+        "Hailin Peng",
+        "Xinqiang Wang"
+      ],
+      "journal": "Science Advances",
+      "doi": "https://doi.org/10.1126/sciadv.adf8484",
+      "arxiv_id": null,
+      "citation_count": 26,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Accurate calculation of tunneling splittings in water clusters using path-integral based methods",
+      "year": 2023,
+      "authors": [
+        "Yucheng Zhu",
+        "Shuo Yang",
+        "Jia-Xi Zeng",
+        "Wei Fang",
+        "Ling Jiang",
+        "Dong H. Zhang",
+        "Xin-Zheng Li"
+      ],
+      "journal": "The Journal of Chemical Physics",
+      "doi": "https://doi.org/10.1063/5.0146562",
+      "arxiv_id": null,
+      "citation_count": 4,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Crystal-Structure Matches in Solid-Solid Phase Transitions",
+      "year": 2023,
+      "authors": [
+        "Fang-Cheng Wang",
+        "Qi-Jun Ye",
+        "Yu-Cheng Zhu",
+        "Xin-Zheng Li"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": "https://doi.org/10.48550/arxiv.2305.05278",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Phonon transition across an isotopic interface",
+      "year": 2023,
+      "authors": [
+        "Ning Li",
+        "Ruochen Shi",
+        "Yifei Li",
+        "Ruishi Qi",
+        "Fachen Liu",
+        "Xiaowen Zhang",
+        "Zhetong Liu",
+        "Yuehui Li",
+        "Xiangdong Guo",
+        "Kaihui Liu",
+        "Ying Jiang",
+        "Xin-Zheng Li",
+        "Ji Chen",
+        "Lei Liu",
+        "Enge Wang",
+        "Peng Gao"
+      ],
+      "journal": "Nature Communications",
+      "doi": "https://doi.org/10.1038/s41467-023-38053-z",
+      "arxiv_id": null,
+      "citation_count": 22,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Simple and Ingenious Manner To Build Li-Rich Layered Materials with Surface Layered/Spinel Heterostructures and Li Deficiencies",
+      "year": 2023,
+      "authors": [
+        "Yanli Chen",
+        "Guanting Li",
+        "Ziqi Xie",
+        "Ping Huang",
+        "Xin-Zheng Li",
+        "Faqiang Li",
+        "Wenchao Yan"
+      ],
+      "journal": "Energy & Fuels",
+      "doi": "https://doi.org/10.1021/acs.energyfuels.3c00176",
+      "arxiv_id": null,
+      "citation_count": 4,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Donnan Effect-Engineered Covalent Organic Framework Membranes toward Size- and Charge-Based Precise Molecular Sieving",
+      "year": 2023,
+      "authors": [
+        "Yi-Xing Sun",
+        "Jing Zhao",
+        "Xin-Zheng Li",
+        "Han Jiang",
+        "Ya‐Juan Cai",
+        "Yang Xu",
+        "Yang Liu",
+        "Yibo Li",
+        "Zihao Yang",
+        "Ya-Ge Wu",
+        "Liye Chen",
+        "Jing‐Gang Gai"
+      ],
+      "journal": "ACS Applied Materials & Interfaces",
+      "doi": "https://doi.org/10.1021/acsami.3c02556",
+      "arxiv_id": null,
+      "citation_count": 47,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Spin-Triplet Topological Excitonic Insulators in Two-dimensional Materials",
+      "year": 2023,
+      "authors": [
+        "Huaiyuan Yang",
+        "Jiaxi Zeng",
+        "Yuelin Shao",
+        "Yuanfeng Xu",
+        "Xi Dai",
+        "Xin-Zheng Li"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": "https://doi.org/10.48550/arxiv.2304.00463",
+      "arxiv_id": null,
+      "citation_count": 1,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Complex phase diagram and supercritical matter",
+      "year": 2023,
+      "authors": [
+        "Xiao-Yu Ouyang",
+        "Qi-Jun Ye",
+        "Xin-Zheng Li"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": "https://doi.org/10.48550/arxiv.2303.16784",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Semiclassical Vibrational Spectroscopy of Real Molecular Systems by Means of Cross-Correlation Filter Diagonalization",
+      "year": 2023,
+      "authors": [
+        "Jia-Xi Zeng",
+        "Shuo Yang",
+        "Yucheng Zhu",
+        "Wei Fang",
+        "Ling Jiang",
+        "Enge Wang",
+        "Dong H. Zhang",
+        "Xin-Zheng Li"
+      ],
+      "journal": "The Journal of Physical Chemistry A",
+      "doi": "https://doi.org/10.1021/acs.jpca.3c00576",
+      "arxiv_id": null,
+      "citation_count": 12,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Mediating roles of perceived social support and sense of security in the relationship between negative life events and life satisfaction among left-behind children: A cross-sectional study",
+      "year": 2023,
+      "authors": [
+        "Na Liu",
+        "Xin-Zheng Li",
+        "Xuemei Ding",
+        "Haixia Liu",
+        "Xiaoli Zhang"
+      ],
+      "journal": "Frontiers in Psychology",
+      "doi": "https://doi.org/10.3389/fpsyg.2022.1100677",
+      "arxiv_id": null,
+      "citation_count": 17,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Research on Detection Methods and Applications of Natural Whitening Components in Cosmetics",
+      "year": 2023,
+      "authors": [
+        "Yanxi Liu",
+        "Xin-Zheng Li"
+      ],
+      "journal": "E3S Web of Conferences",
+      "doi": "https://doi.org/10.1051/e3sconf/202338504005",
+      "arxiv_id": null,
+      "citation_count": 1,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Graphitic carbon nitride-based materials for biomedical applications",
+      "year": 2023,
+      "authors": [
+        "Guangfu Liao",
+        "Li Zhang",
+        "Xin-Zheng Li",
+        "Baizeng Fang"
+      ],
+      "journal": "Elsevier eBooks",
+      "doi": "https://doi.org/10.1016/b978-0-12-823038-1.00011-8",
+      "arxiv_id": null,
+      "citation_count": 1,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Contributors",
+      "year": 2023,
+      "authors": [
+        "P. Abdul Rasheed",
+        "S. Anas",
+        "K.S. Anjumol",
+        "Nurul Affiqah Arzaee",
+        "Anchu Ashok",
+        "Baizeng Fang",
+        "Aziz Habibi‐Yangjeh",
+        "Jomon Joy",
+        "Ziyauddin Khan",
+        "Anand Kumar",
+        "Hian Kee Lee",
+        "Xin-Zheng Li",
+        "Guangfu Liao",
+        "Hanna J. Maria",
+        "Bijoy P. Mathew",
+        "Sneha Sabu Mathew",
+        "Suresh Mathew",
+        "Mohamad Firdaus Mohamad Noh",
+        "Nurul Aida Mohamed",
+        "Siti Nur Farhana Mohd Nasir",
+        "Mitra Mousavi",
+        "Sumina Namboorimadathil Backer",
+        "Inzamam Nawas Nawas Mumthas",
+        "Mohammad Qureshi",
+        "Javad Safaei",
+        "Tushar Kanta Sahu",
+        "T.V. Saranya",
+        "Prasad V. Sarma",
+        "P. Špatenka",
+        "P.R. Sruthi",
+        "Sze Chieh Tan",
+        "Mohd Asri Mat Teridi",
+        "Reny Thankam Thomas",
+        "Sabu Thomas",
+        "Marilyn Mary Xavier",
+        "Afdhal Yuda",
+        "Li Zhang"
+      ],
+      "journal": "Elsevier eBooks",
+      "doi": "https://doi.org/10.1016/b978-0-12-823038-1.09992-x",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Dynamic phase transition theory",
+      "year": 2022,
+      "authors": [
+        "Qi-Jun Ye",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Science China Physics Mechanics and Astronomy",
+      "doi": "https://doi.org/10.1007/s11433-022-2002-6",
+      "arxiv_id": null,
+      "citation_count": 6,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Torsional Tunneling Splitting in a Water Trimer",
+      "year": 2022,
+      "authors": [
+        "Yucheng Zhu",
+        "Shuo Yang",
+        "Jia-Xi Zeng",
+        "Wei Fang",
+        "Ling Jiang",
+        "Dong H. Zhang",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Journal of the American Chemical Society",
+      "doi": "https://doi.org/10.1021/jacs.2c09909",
+      "arxiv_id": null,
+      "citation_count": 28,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Review for \"Hot exciton effect in photoluminescence of monolayer transition metal dichalcogenide\"",
+      "year": 2022,
+      "authors": [
+        "Xin-Zheng Li"
+      ],
+      "journal": null,
+      "doi": "https://doi.org/10.1002/ntls.20220035/v1/review1",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Concerted versus stepwise mechanisms of cyclic proton transfer: Experiments, simulations, and current challenges",
+      "year": 2022,
+      "authors": [
+        "Yihan Cheng",
+        "Yucheng Zhu",
+        "Xin-Zheng Li",
+        "Wei Fang"
+      ],
+      "journal": "Chinese Physics B",
+      "doi": "https://doi.org/10.1088/1674-1056/ac98a5",
+      "arxiv_id": null,
+      "citation_count": 4,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Research of different scale materials for pesticide residue detection",
+      "year": 2022,
+      "authors": [
+        "Xin Lu",
+        "Xin-Zheng Li"
+      ],
+      "journal": null,
+      "doi": "https://doi.org/10.1201/9781003332657-64",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Electrochemical Synthesis of Hydrogen Peroxide Catalyzed by Carbon Nanotubes with Surface Co-N<sub><i>X</i></sub> Sites and Encapsulated Co Nanoparticles",
+      "year": 2022,
+      "authors": [
+        "Zhihui Xing",
+        "Wenlong Wang",
+        "Xin-Zheng Li",
+        "Kai Zhang",
+        "Lin Gan",
+        "Qian-Yuan Wu"
+      ],
+      "journal": "ACS Applied Materials & Interfaces",
+      "doi": "https://doi.org/10.1021/acsami.2c10148",
+      "arxiv_id": null,
+      "citation_count": 14,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Phonon transition across an isotopic interface",
+      "year": 2022,
+      "authors": [
+        "Ning Li",
+        "Ruochen Shi",
+        "Yifei Li",
+        "Ruishi Qi",
+        "Zhetong Liu",
+        "Fachen Liu",
+        "Yuehui Li",
+        "Xiaowen Zhang",
+        "Xiangdong Guo",
+        "Kaihui Liu",
+        "Ying Jiang",
+        "Xin-Zheng Li",
+        "Ji Chen",
+        "Lei Liu",
+        "Enge Wang",
+        "Peng Gao"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": "https://doi.org/10.48550/arxiv.2209.12193",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "A scenario for high-temperature excitonic insulators",
+      "year": 2022,
+      "authors": [
+        "Huaiyuan Yang",
+        "Xinqiang Wang",
+        "Xin-Zheng Li"
+      ],
+      "journal": "New Journal of Physics",
+      "doi": "https://doi.org/10.1088/1367-2630/ac81e4",
+      "arxiv_id": null,
+      "citation_count": 11,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Visualizing Eigen/Zundel cations and their interconversion in monolayer water on metal surfaces",
+      "year": 2022,
+      "authors": [
+        "Ye Tian",
+        "Jiani Hong",
+        "Duanyun Cao",
+        "Sifan You",
+        "Yizhi Song",
+        "Bowei Cheng",
+        "Zhichang Wang",
+        "Dong Guan",
+        "Xinmeng Liu",
+        "Zhengpu Zhao",
+        "Xin-Zheng Li",
+        "Limei Xu",
+        "Jing Guo",
+        "Ji Chen",
+        "Enge Wang",
+        "Ying Jiang"
+      ],
+      "journal": "Science",
+      "doi": "https://doi.org/10.1126/science.abo0823",
+      "arxiv_id": null,
+      "citation_count": 149,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Ultrafast charge transfer coupled to quantum proton motion at molecule/metal oxide interface",
+      "year": 2022,
+      "authors": [
+        "Weibin Chu",
+        "Shijing Tan",
+        "Qijing Zheng",
+        "Wei Fang",
+        "Yexin Feng",
+        "Oleg V. Prezhdo",
+        "Bing Wang",
+        "Xin-Zheng Li",
+        "Jin Zhao"
+      ],
+      "journal": "Science Advances",
+      "doi": "https://doi.org/10.1126/sciadv.abo2675",
+      "arxiv_id": null,
+      "citation_count": 58,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Visualizing Eigen/Zundel cations and their interconversion in monolayer water on metal surfaces",
+      "year": 2022,
+      "authors": [
+        "Tian Ye",
+        "Hong Jiani",
+        "Cao Duanyun",
+        "You Sifan",
+        "Song Yizhi",
+        "Cheng Bowei",
+        "Zhichang, Wang",
+        "Dong Guan",
+        "Xinmeng Liu",
+        "Zhao Zhengpu",
+        "Xin-Zheng Li",
+        "Limei Xu",
+        "Jing Guo",
+        "Ji Chen",
+        "Wang En-Ge",
+        "Ying Jiang"
+      ],
+      "journal": "Zenodo (CERN European Organization for Nuclear Research)",
+      "doi": "https://doi.org/10.5281/zenodo.6551026",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Dataset for abo0823",
+      "year": 2022,
+      "authors": [
+        "Ye Tian",
+        "Hong Jiani",
+        "Cao Duanyun",
+        "You Sifan",
+        "Song Yizhi",
+        "Cheng Bowei",
+        "Zhichang, Wang",
+        "Dong Guan",
+        "Xinmeng Liu",
+        "Zhao Zhengpu",
+        "Xin-Zheng Li",
+        "Limei Xu",
+        "Jing Guo",
+        "Ji Chen",
+        "Wang En-Ge",
+        "Ying Jiang"
+      ],
+      "journal": "Zenodo (CERN European Organization for Nuclear Research)",
+      "doi": "https://doi.org/10.5281/zenodo.6549870",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Visualizing Eigen/Zundel cations and their interconversion in monolayer water on metal surfaces",
+      "year": 2022,
+      "authors": [
+        "Tian Ye",
+        "Hong Jiani",
+        "Cao Duanyun",
+        "You Sifan",
+        "Song Yizhi",
+        "Cheng Bowei",
+        "Zhichang, Wang",
+        "Dong Guan",
+        "Xinmeng Liu",
+        "Zhao Zhengpu",
+        "Xin-Zheng Li",
+        "Limei Xu",
+        "Jing Guo",
+        "Ji Chen",
+        "Wang En-Ge",
+        "Ying Jiang"
+      ],
+      "journal": "Zenodo (CERN European Organization for Nuclear Research)",
+      "doi": "https://doi.org/10.5281/zenodo.6551025",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Visualizing Eigen/Zundel cations and their interconversion in monolayer water on metal surfaces",
+      "year": 2022,
+      "authors": [
+        "Tian Ye",
+        "Hong Jiani",
+        "Cao Duanyun",
+        "You Sifan",
+        "Song Yizhi",
+        "Cheng Bowei",
+        "Zhichang, Wang",
+        "Dong Guan",
+        "Xinmeng Liu",
+        "Zhao Zhengpu",
+        "Xin-Zheng Li",
+        "Limei Xu",
+        "Jing Guo",
+        "Ji Chen",
+        "Wang En-Ge",
+        "Ying Jiang"
+      ],
+      "journal": "Zenodo (CERN European Organization for Nuclear Research)",
+      "doi": "https://doi.org/10.5281/zenodo.6550801",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Dataset for abo0823",
+      "year": 2022,
+      "authors": [
+        "Tian Ye",
+        "Hong Jiani",
+        "Cao Duanyun",
+        "You Sifan",
+        "Song Yizhi",
+        "Cheng Bowei",
+        "Zhichang, Wang",
+        "Dong Guan",
+        "Xinmeng Liu",
+        "Zhao Zhengpu",
+        "Xin-Zheng Li",
+        "Limei Xu",
+        "Jing Guo",
+        "Ji Chen",
+        "Wang En-Ge",
+        "Ying Jiang"
+      ],
+      "journal": "Zenodo (CERN European Organization for Nuclear Research)",
+      "doi": "https://doi.org/10.5281/zenodo.6549871",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Visualizing Eigen/Zundel cations and their interconversion in monolayer water on metal surfaces",
+      "year": 2022,
+      "authors": [
+        "Tian Ye",
+        "Hong Jiani",
+        "Cao Duanyun",
+        "You Sifan",
+        "Song Yizhi",
+        "Cheng Bowei",
+        "Zhichang, Wang",
+        "Dong Guan",
+        "Xinmeng Liu",
+        "Zhao Zhengpu",
+        "Xin-Zheng Li",
+        "Limei Xu",
+        "Jing Guo",
+        "Ji Chen",
+        "Wang En-Ge",
+        "Ying Jiang"
+      ],
+      "journal": "Zenodo (CERN European Organization for Nuclear Research)",
+      "doi": "https://doi.org/10.5281/zenodo.6550800",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Nonperturbative <mml:math xmlns:mml=\"http://www.w3.org/1998/Math/MathML\"><mml:mi mathvariant=\"italic\">ab</mml:mi><mml:mo> </mml:mo><mml:mi mathvariant=\"italic\">initio</mml:mi></mml:math> approach for calculating the electrical conductivity of a liquid metal",
+      "year": 2022,
+      "authors": [
+        "Xiaowei Zhang",
+        "Hao Chen",
+        "Enge Wang",
+        "Junren Shi",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical review. B./Physical review. B",
+      "doi": "https://doi.org/10.1103/physrevb.105.155148",
+      "arxiv_id": null,
+      "citation_count": 4,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Erratum to “Accurate GW <sub>0</sub> band gaps and their phonon-induced renormalization in solids”",
+      "year": 2022,
+      "authors": [
+        "Tong Shen",
+        "Xiaowei Zhang",
+        "Min‐Ye Zhang",
+        "Hong Jiang",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Chinese Physics B",
+      "doi": "https://doi.org/10.1088/1674-1056/ac6578",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Engineering Interlayer Electron–Phonon Coupling in WS<sub>2</sub>/BN Heterostructures",
+      "year": 2022,
+      "authors": [
+        "Yifei Li",
+        "Xiaowei Zhang",
+        "Jinhuan Wang",
+        "Xiaoli Ma",
+        "Jinan Shi",
+        "Xiangdong Guo",
+        "Yonggang Zuo",
+        "Ruijie Li",
+        "Hao Hong",
+        "Ning Li",
+        "Kai Xu",
+        "Xinyu Huang",
+        "Huifeng Tian",
+        "Ying Yang",
+        "Zhixin Yao",
+        "PeiChi Liao",
+        "Xiao Li",
+        "Xiao Li",
+        "Junjie Guo",
+        "Yuang Huang",
+        "Peng Gao",
+        "Lifen Wang",
+        "Xiaoxia Yang",
+        "Qing Dai",
+        "Enge Wang",
+        "Kaihui Liu",
+        "Wu Zhou",
+        "Xiaohui Yu",
+        "Liangbo Liang",
+        "Ying Jiang",
+        "Xin-Zheng Li",
+        "Xin-Zheng Li",
+        "Lei Liu"
+      ],
+      "journal": "Nano Letters",
+      "doi": "https://doi.org/10.1021/acs.nanolett.1c04598",
+      "arxiv_id": null,
+      "citation_count": 21,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Determination of concerted or stepwise mechanism of hydrogen tunneling from isotope effects: Departure between experiment and theory",
+      "year": 2022,
+      "authors": [
+        "Yihan Cheng",
+        "Yucheng Zhu",
+        "Wei Kang",
+        "Xin-Zheng Li",
+        "Wei Fang"
+      ],
+      "journal": "The Journal of Chemical Physics",
+      "doi": "https://doi.org/10.1063/5.0085010",
+      "arxiv_id": null,
+      "citation_count": 11,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Dynamic phase transition theory",
+      "year": 2022,
+      "authors": [
+        "Qi-Jun Ye",
+        "Xin-Zheng Li"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": "https://doi.org/10.48550/arxiv.2201.08566",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Engineering of atomic-scale flexoelectricity at grain boundaries",
+      "year": 2022,
+      "authors": [
+        "Mei Wu",
+        "Xiaowei Zhang",
+        "Xiaomei Li",
+        "Ke Qu",
+        "Yuanwei Sun",
+        "Bo Han",
+        "Ruixue Zhu",
+        "Xiaoyue Gao",
+        "Jingmin Zhang",
+        "Kaihui Liu",
+        "Xuedong Bai",
+        "Xin-Zheng Li",
+        "Peng Gao",
+        "Xin-Zheng Li",
+        "Peng Gao"
+      ],
+      "journal": "Nature Communications",
+      "doi": "https://doi.org/10.1038/s41467-021-27906-0",
+      "arxiv_id": null,
+      "citation_count": 55,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "First-principles estimation of the superconducting transition temperature of a metallic hydrogen liquid",
+      "year": 2021,
+      "authors": [
+        "Hao Chen",
+        "Xiaowei Zhang",
+        "Xin-Zheng Li",
+        "Junren Shi"
+      ],
+      "journal": "Physical review. B./Physical review. B",
+      "doi": "https://doi.org/10.1103/physrevb.104.184516",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Exciton-polariton properties of hexagonal BN-based microcavity and their potential applications in BEC and superconductivity",
+      "year": 2021,
+      "authors": [
+        "Huaiyuan Yang",
+        "Xinqiang Wang",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical review. B./Physical review. B",
+      "doi": "https://doi.org/10.1103/physrevb.104.205307",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Phonon-mediated exciton relaxation in two-dimensional semiconductors: selection rules and relaxation pathways",
+      "year": 2021,
+      "authors": [
+        "Xiaowei Zhang",
+        "Kaichen Xie",
+        "Enge Wang",
+        "Ting Cao",
+        "Xin-Zheng Li"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": "https://doi.org/10.48550/arxiv.2110.08873",
+      "arxiv_id": null,
+      "citation_count": 4,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Accurate GW <sub>0</sub> band gaps and their phonon-induced renormalization in solids*",
+      "year": 2021,
+      "authors": [
+        "Tong Shen",
+        "Xiaowei Zhang",
+        "Min‐Ye Zhang",
+        "Hong Jiang",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Chinese Physics B",
+      "doi": "https://doi.org/10.1088/1674-1056/ac0041",
+      "arxiv_id": null,
+      "citation_count": 1,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Dynamic Nature of High-Pressure Ice VII",
+      "year": 2021,
+      "authors": [
+        "Qi-Jun Ye",
+        "Lin Zhuang",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical Review Letters",
+      "doi": "https://doi.org/10.1103/physrevlett.126.185501",
+      "arxiv_id": null,
+      "citation_count": 16,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Emerging polymeric carbon nitride Z-scheme systems for photocatalysis",
+      "year": 2021,
+      "authors": [
+        "Guangfu Liao",
+        "Chunxue Li",
+        "Xin-Zheng Li",
+        "Baizeng Fang"
+      ],
+      "journal": "Cell Reports Physical Science",
+      "doi": "https://doi.org/10.1016/j.xcrp.2021.100355",
+      "arxiv_id": null,
+      "citation_count": 212,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Structural and electronic properties of solid molecular hydrogen from many-electron theories",
+      "year": 2021,
+      "authors": [
+        "Ke Liao",
+        "Tong Shen",
+        "Xin-Zheng Li",
+        "Ali Alavi",
+        "Andreas Grüneis"
+      ],
+      "journal": "Physical review. B./Physical review. B",
+      "doi": "https://doi.org/10.1103/physrevb.103.054111",
+      "arxiv_id": null,
+      "citation_count": 6,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Structural phase transition and Goldstone-like mode in hexagonal <mml:math xmlns:mml=\"http://www.w3.org/1998/Math/MathML\"><mml:msub><mml:mrow><mml:mi>BaMnO</mml:mi></mml:mrow><mml:mn>3</mml:mn></mml:msub></mml:math>",
+      "year": 2021,
+      "authors": [
+        "Xuefeng Zhang",
+        "Qi-Jun Ye",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical review. B./Physical review. B",
+      "doi": "https://doi.org/10.1103/physrevb.103.024101",
+      "arxiv_id": null,
+      "citation_count": 3,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Ultrafast Charge Transfer Coupled to Quantum Proton Motion at Molecule/Metal Oxide Interface",
+      "year": 2021,
+      "authors": [
+        "Weibin Chu",
+        "Qijing Zheng",
+        "Wei Fan",
+        "Yexin Feng",
+        "Oleg V. Prezhdo",
+        "Xin-Zheng Li",
+        "Jin Zhao"
+      ],
+      "journal": "SSRN Electronic Journal",
+      "doi": "https://doi.org/10.2139/ssrn.3917160",
+      "arxiv_id": null,
+      "citation_count": 1,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "UV-LED/P25-based photocatalysis for effective degradation of isothiazolone biocide",
+      "year": 2020,
+      "authors": [
+        "Xin-Zheng Li",
+        "Zhiming Li",
+        "Zhihui Xing",
+        "Zhi‐Min Song",
+        "Bei Ye",
+        "Zheng‐Ming Wang",
+        "Qian‐Yuan Wu"
+      ],
+      "journal": "Frontiers of Environmental Science & Engineering",
+      "doi": "https://doi.org/10.1007/s11783-020-1379-x",
+      "arxiv_id": null,
+      "citation_count": 21,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Numerical analysis on formation and transition of white-eye square superlattice patterns in dielectric barrier discharge system",
+      "year": 2020,
+      "authors": [
+        "Xin-Zheng Li",
+        "Zhan-Guo Bai",
+        "Yan Li",
+        "Zhiwei Ni"
+      ],
+      "journal": "Modern Physics Letters B",
+      "doi": "https://doi.org/10.1142/s0217984921500688",
+      "arxiv_id": null,
+      "citation_count": 3,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Transient Spectral Fluctuations of Single Molecules Revealed using an Optical Antenna",
+      "year": 2020,
+      "authors": [
+        "Te Wen",
+        "Xiaowei Zhang",
+        "Yuqing Cheng",
+        "Weidong Zhang",
+        "Lulu Ye",
+        "Hai Lin",
+        "Xin-Zheng Li",
+        "Qihuang Gong",
+        "Guowei Lü"
+      ],
+      "journal": "The Journal of Physical Chemistry C",
+      "doi": "https://doi.org/10.1021/acs.jpcc.0c05328",
+      "arxiv_id": null,
+      "citation_count": 1,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Influence of high-energy local orbitals and electron-phonon interactions on the band gaps and optical absorption spectra of hexagonal boron nitride",
+      "year": 2020,
+      "authors": [
+        "Tong Shen",
+        "Xiaowei Zhang",
+        "Honghui Shang",
+        "Min‐Ye Zhang",
+        "Xinqiang Wang",
+        "Enge Wang",
+        "Hong Jiang",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical review. B./Physical review. B",
+      "doi": "https://doi.org/10.1103/physrevb.102.045117",
+      "arxiv_id": null,
+      "citation_count": 17,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "General Decomposition Pathway of Organic–Inorganic Hybrid Perovskites through an Intermediate Superstructure and its Suppression Mechanism",
+      "year": 2020,
+      "authors": [
+        "Shulin Chen",
+        "Ying Zhang",
+        "Xiaowei Zhang",
+        "Jinjin Zhao",
+        "Zewen Zhao",
+        "Xiao Su",
+        "Ze Hua",
+        "Jingmin Zhang",
+        "Jian Cao",
+        "Jicai Feng",
+        "Xiao Wang",
+        "Xin-Zheng Li",
+        "Junlei Qi",
+        "Jiangyu Li",
+        "Peng Gao"
+      ],
+      "journal": "Advanced Materials",
+      "doi": "https://doi.org/10.1002/adma.202001107",
+      "arxiv_id": null,
+      "citation_count": 72,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Origins of fast diffusion of water dimers on surfaces",
+      "year": 2020,
+      "authors": [
+        "Wei Fang",
+        "Ji Chen",
+        "Philipp Pedevilla",
+        "Xin-Zheng Li",
+        "Jeremy O. Richardson",
+        "Angelos Michaelides"
+      ],
+      "journal": "Nature Communications",
+      "doi": "https://doi.org/10.1038/s41467-020-15377-8",
+      "arxiv_id": null,
+      "citation_count": 66,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Discriminating High-Pressure Water Phases Using Rare-Event Determined Ionic Dynamical Properties*",
+      "year": 2020,
+      "authors": [
+        "Lin Zhuang",
+        "Qi-Jun Ye",
+        "Ding Pan",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Chinese Physics Letters",
+      "doi": "https://doi.org/10.1088/0256-307x/37/4/043101",
+      "arxiv_id": null,
+      "citation_count": 8,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Quantum paraelectricity of <mml:math xmlns:mml=\"http://www.w3.org/1998/Math/MathML\"><mml:mrow><mml:msub><mml:mi>BaFe</mml:mi><mml:mn>12</mml:mn></mml:msub><mml:msub><mml:mi mathvariant=\"normal\">O</mml:mi><mml:mn>19</mml:mn></mml:msub></mml:mrow></mml:math>",
+      "year": 2020,
+      "authors": [
+        "Xuefeng Zhang",
+        "Qi-Jun Ye",
+        "Hongjun Xiang",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical review. B./Physical review. B",
+      "doi": "https://doi.org/10.1103/physrevb.101.104102",
+      "arxiv_id": null,
+      "citation_count": 11,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Atomic imaging of edge structure and growth of a two-dimensional hexagonal ice",
+      "year": 2020,
+      "authors": [
+        "Runze Ma",
+        "Duanyun Cao",
+        "Chongqin Zhu",
+        "Ye Tian",
+        "Jinbo Peng",
+        "Jing Guo",
+        "Ji Chen",
+        "Xin-Zheng Li",
+        "Joseph S. Francisco",
+        "Xiao Cheng Zeng",
+        "Limei Xu",
+        "Enge Wang",
+        "Ying Jiang"
+      ],
+      "journal": "RePEc: Research Papers in Economics",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Probing two-dimensional ices with scanning probe microscopy",
+      "year": 2020,
+      "authors": [
+        "Ye Tian",
+        "Runze Ma",
+        "Duanyun Cao",
+        "Chongqin Zhu",
+        "Jinbo Peng",
+        "Jing Guo",
+        "Ji Chen",
+        "Xin-Zheng Li",
+        "J Urbano Francisco",
+        "Xiao Mei Zeng",
+        "Limei Xu",
+        "Enge Wang",
+        "Ying Jiang"
+      ],
+      "journal": "Bulletin of the American Physical Society",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Atomic imaging of the edge structure and growth of a two-dimensional hexagonal ice",
+      "year": 2020,
+      "authors": [
+        "Runze Ma",
+        "Duanyun Cao",
+        "Chongqin Zhu",
+        "Ye Tian",
+        "Jinbo Peng",
+        "Jing Guo",
+        "Ji Chen",
+        "Xin-Zheng Li",
+        "Joseph S. Francisco",
+        "Xiao Cheng Zeng",
+        "Li-Mei Xu",
+        "En-Ge Wang",
+        "Ying Jiang"
+      ],
+      "journal": "Nature",
+      "doi": "https://doi.org/10.1038/s41586-019-1853-4",
+      "arxiv_id": null,
+      "citation_count": 264,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "High-loaded single Cu atoms decorated on N-doped graphene for boosting Fenton-like catalysis under neutral pH",
+      "year": 2020,
+      "authors": [
+        "Qian‐Yuan Wu",
+        "Jin Wang",
+        "Zhiwei Wang",
+        "Yalan Xu",
+        "Zhihui Xing",
+        "Xinyang Zhang",
+        "Yuntao Guan",
+        "Guangfu Liao",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Journal of Materials Chemistry A",
+      "doi": "https://doi.org/10.1039/d0ta04943c",
+      "arxiv_id": null,
+      "citation_count": 159,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Correction: High-loaded single Cu atoms decorated on N-doped graphene for boosting Fenton-like catalysis under neutral pH",
+      "year": 2020,
+      "authors": [
+        "Qian‐Yuan Wu",
+        "Jin Wang",
+        "Zhiwei Wang",
+        "Yalan Xu",
+        "Zhihui Xing",
+        "Xinyang Zhang",
+        "Yuntao Guan",
+        "Guangfu Liao",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Journal of Materials Chemistry A",
+      "doi": "https://doi.org/10.1039/d0ta90157a",
+      "arxiv_id": null,
+      "citation_count": 1,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Quantum dynamics simulations: combining path integral nuclear dynamics and real-time TDDFT",
+      "year": 2019,
+      "authors": [
+        "Peiwei You",
+        "Jiyu Xu",
+        "Chao Lian",
+        "Cui Zhang",
+        "Xin-Zheng Li",
+        "Enge Wang",
+        "Sheng Meng"
+      ],
+      "journal": "Electronic Structure",
+      "doi": "https://doi.org/10.1088/2516-1075/ab58fc",
+      "arxiv_id": null,
+      "citation_count": 9,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "The phonon-related effective Hamiltonian method for displacive ferroelectric materials",
+      "year": 2019,
+      "authors": [
+        "Qi-Jun Ye",
+        "Xuefeng Zhang",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Electronic Structure",
+      "doi": "https://doi.org/10.1088/2516-1075/ab58c0",
+      "arxiv_id": null,
+      "citation_count": 2,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "A comparative study using state-of-the-art electronic structure theories on solid hydrogen phases under high pressures",
+      "year": 2019,
+      "authors": [
+        "Ke Liao",
+        "Xin-Zheng Li",
+        "Ali Alavi",
+        "Andreas Grüneis"
+      ],
+      "journal": "npj Computational Materials",
+      "doi": "https://doi.org/10.1038/s41524-019-0243-7",
+      "arxiv_id": null,
+      "citation_count": 26,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "GaN‐on‐Si(100): Epitaxy of Single‐Crystalline GaN Film on CMOS‐Compatible Si(100) Substrate Buffered by Graphene (Adv. Funct. Mater. 42/2019)",
+      "year": 2019,
+      "authors": [
+        "Yuxia Feng",
+        "Xuelin Yang",
+        "Zhihong Zhang",
+        "Duan Kang",
+        "Jie Zhang",
+        "Kaihui Liu",
+        "Xin-Zheng Li",
+        "Jianfei Shen",
+        "Fang Liu",
+        "Tao Wang",
+        "Panfeng Ji",
+        "Fujun Xu",
+        "Ning Tang",
+        "Tongjun Yu",
+        "Xinqiang Wang",
+        "Dapeng Yu",
+        "Weikun Ge",
+        "Bo Shen"
+      ],
+      "journal": "Advanced Functional Materials",
+      "doi": "https://doi.org/10.1002/adfm.201970293",
+      "arxiv_id": null,
+      "citation_count": 2,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Advances in Atomic Force Microscopy: Weakly Perturbative Imaging of the Interfacial Water",
+      "year": 2019,
+      "authors": [
+        "Duanyun Cao",
+        "Yizhi Song",
+        "Jinbo Peng",
+        "Runze Ma",
+        "Jing Guo",
+        "Ji Chen",
+        "Xin-Zheng Li",
+        "Ying Jiang",
+        "Enge Wang",
+        "Limei Xu"
+      ],
+      "journal": "Frontiers in Chemistry",
+      "doi": "https://doi.org/10.3389/fchem.2019.00626",
+      "arxiv_id": null,
+      "citation_count": 15,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Transparent proton transport through a two-dimensional nanomesh material",
+      "year": 2019,
+      "authors": [
+        "Jiyu Xu",
+        "Hongyu Jiang",
+        "Yutian Shen",
+        "Xin-Zheng Li",
+        "E. G. Wang",
+        "Sheng Meng"
+      ],
+      "journal": "Nature Communications",
+      "doi": "https://doi.org/10.1038/s41467-019-11899-y",
+      "arxiv_id": null,
+      "citation_count": 82,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "From a Liquid to a Crystal without Going through a First-Order Phase Transition: Determining the Free Energy of Melting with Glassy Intermediates",
+      "year": 2019,
+      "authors": [
+        "Lin Zhuang",
+        "Rui Wang",
+        "Gerrick E. Lindberg",
+        "Hongyi Hu",
+        "Xin-Zheng Li",
+        "Feng Wang"
+      ],
+      "journal": "The Journal of Physical Chemistry B",
+      "doi": "https://doi.org/10.1021/acs.jpcb.9b06840",
+      "arxiv_id": null,
+      "citation_count": 4,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Chemistry of cation hydration and conduction in a skeletal muscle ryanodine receptor",
+      "year": 2019,
+      "authors": [
+        "Zhaolong Wu",
+        "Congcong Liu",
+        "Hua Yu",
+        "Duan Kang",
+        "Yinping Ma",
+        "Xue-Mei Li",
+        "Xue-Mei Li",
+        "Lei Zhang",
+        "Chun Chieh Fan",
+        "Xin-Zheng Li",
+        "Xin-Zheng Li",
+        "Chen Song",
+        "Changcheng Yin",
+        "Youdong Mao"
+      ],
+      "journal": "bioRxiv (Cold Spring Harbor Laboratory)",
+      "doi": "https://doi.org/10.1101/732172",
+      "arxiv_id": null,
+      "citation_count": 1,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Epitaxy of Single‐Crystalline GaN Film on CMOS‐Compatible Si(100) Substrate Buffered by Graphene",
+      "year": 2019,
+      "authors": [
+        "Yuxia Feng",
+        "Xuelin Yang",
+        "Zhihong Zhang",
+        "Duan Kang",
+        "Jie Zhang",
+        "Kaihui Liu",
+        "Xin-Zheng Li",
+        "Jianfei Shen",
+        "Fang Liu",
+        "Tao Wang",
+        "Panfeng Ji",
+        "Fujun Xu",
+        "Ning Tang",
+        "Tongjun Yu",
+        "Xinqiang Wang",
+        "Dapeng Yu",
+        "Weikun Ge",
+        "Bo Shen"
+      ],
+      "journal": "Advanced Functional Materials",
+      "doi": "https://doi.org/10.1002/adfm.201905056",
+      "arxiv_id": null,
+      "citation_count": 83,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Single ion hydrates under the SPM tip",
+      "year": 2019,
+      "authors": [
+        "Jinbo Peng",
+        "Duanyun Cao",
+        "Zhili He",
+        "Jing Guo",
+        "Prokop Hapala",
+        "Runze Ma",
+        "Bowei Cheng",
+        "Ji Chen",
+        "Wen Xie",
+        "Xin-Zheng Li",
+        "Pavel Jelı́nek",
+        "Limei Xu",
+        "Yi Qin Gao",
+        "Enge Wang",
+        "Ying Jiang"
+      ],
+      "journal": "Bulletin of the American Physical Society",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Superconductivity of Liquids",
+      "year": 2019,
+      "authors": [
+        "Huiying Liu",
+        "Ying Yuan",
+        "Donghao Liu",
+        "Xin-Zheng Li",
+        "Junren Shi"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "The quantum nature of hydrogen",
+      "year": 2019,
+      "authors": [
+        "Wei Fang",
+        "Ji Chen",
+        "Yexin Feng",
+        "Xin-Zheng Li",
+        "Angelos Michaelides"
+      ],
+      "journal": "International Reviews in Physical Chemistry",
+      "doi": "https://doi.org/10.1080/0144235x.2019.1558623",
+      "arxiv_id": null,
+      "citation_count": 35,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "The quantum nature of hydrogen",
+      "year": 2018,
+      "authors": [
+        "Wei Fang",
+        "Ji Chen",
+        "Yexin Feng",
+        "Xin-Zheng Li",
+        "Angelos Michaelides"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": "https://doi.org/10.48550/arxiv.1812.07848",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Selective phenol hydrogenation under mild condition over Pd catalysts supported on Al2O3 and SiO2",
+      "year": 2018,
+      "authors": [
+        "Xin-Zheng Li",
+        "Ling Cheng",
+        "Xingyi Wang"
+      ],
+      "journal": "Research on Chemical Intermediates",
+      "doi": "https://doi.org/10.1007/s11164-018-3687-3",
+      "arxiv_id": null,
+      "citation_count": 14,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Liquid phase hydrodechlorination of chlorinated aromatics at lower temperature on highly defective Pd sites",
+      "year": 2018,
+      "authors": [
+        "Xin-Zheng Li",
+        "Zhonghao Jin",
+        "Qiguang Dai",
+        "Xingyi Wang"
+      ],
+      "journal": "Research on Chemical Intermediates",
+      "doi": "https://doi.org/10.1007/s11164-018-3670-z",
+      "arxiv_id": null,
+      "citation_count": 4,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Atomic scale insights into structure instability and decomposition pathway of methylammonium lead iodide perovskite",
+      "year": 2018,
+      "authors": [
+        "Shulin Chen",
+        "Xiaowei Zhang",
+        "Jinjin Zhao",
+        "Ying Zhang",
+        "Guoli Kong",
+        "Qian Li",
+        "Ning Li",
+        "Yue Yu",
+        "Ningan Xu",
+        "Jingmin Zhang",
+        "Kaihui Liu",
+        "Qing Zhao",
+        "Jian Cao",
+        "Jicai Feng",
+        "Xin-Zheng Li",
+        "Junlei Qi",
+        "Dapeng Yu",
+        "Jiangyu Li",
+        "Peng Gao"
+      ],
+      "journal": "Nature Communications",
+      "doi": "https://doi.org/10.1038/s41467-018-07177-y",
+      "arxiv_id": null,
+      "citation_count": 222,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Proton Migration in Hybrid Lead Iodide Perovskites: From Classical Hopping to Deep Quantum Tunneling",
+      "year": 2018,
+      "authors": [
+        "Yexin Feng",
+        "Yicheng Zhao",
+        "Wenke Zhou",
+        "Qi Li",
+        "Wissam A. Saidi",
+        "Qing Zhao",
+        "Xin-Zheng Li"
+      ],
+      "journal": "The Journal of Physical Chemistry Letters",
+      "doi": "https://doi.org/10.1021/acs.jpclett.8b02929",
+      "arxiv_id": null,
+      "citation_count": 26,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "<i>Ab initio</i> investigation on the experimental observation of metallic hydrogen",
+      "year": 2018,
+      "authors": [
+        "Xiaowei Zhang",
+        "Enge Wang",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical review. B./Physical review. B",
+      "doi": "https://doi.org/10.1103/physrevb.98.134110",
+      "arxiv_id": null,
+      "citation_count": 14,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Ferroelectric Problem beyond the Conventional Scaling Law",
+      "year": 2018,
+      "authors": [
+        "Qi-Jun Ye",
+        "Zhiyuan Liu",
+        "Yexin Feng",
+        "Peng Gao",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical Review Letters",
+      "doi": "https://doi.org/10.1103/physrevlett.121.135702",
+      "arxiv_id": null,
+      "citation_count": 16,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Publisher Correction: The effect of hydration number on the interfacial transport of sodium ions",
+      "year": 2018,
+      "authors": [
+        "Jinbo Peng",
+        "Duanyun Cao",
+        "Zhili He",
+        "Jing Guo",
+        "Prokop Hapala",
+        "Runze Ma",
+        "Bowei Cheng",
+        "Ji Chen",
+        "Wen Xie",
+        "Xin-Zheng Li",
+        "Pavel Jelı́nek",
+        "Limei Xu",
+        "Yi Qin Gao",
+        "Enge Wang",
+        "Ying Jiang"
+      ],
+      "journal": "Nature",
+      "doi": "https://doi.org/10.1038/s41586-018-0473-8",
+      "arxiv_id": null,
+      "citation_count": 3,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Hydrogenation–dechlorination of 2-chloro-4,6-dinitroresorcinol over Pd/C catalysts",
+      "year": 2018,
+      "authors": [
+        "Xin-Zheng Li",
+        "Feng Qin",
+        "Qiguang Dai",
+        "Shijie Shao",
+        "Xingyi Wang"
+      ],
+      "journal": "Research on Chemical Intermediates",
+      "doi": "https://doi.org/10.1007/s11164-018-3477-y",
+      "arxiv_id": null,
+      "citation_count": 11,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "The strengths and limitations of effective centroid force models explored by studying isotopic effects in liquid water",
+      "year": 2018,
+      "authors": [
+        "Ying Yuan",
+        "Jicun Li",
+        "Xin-Zheng Li",
+        "Feng Wang"
+      ],
+      "journal": "The Journal of Chemical Physics",
+      "doi": "https://doi.org/10.1063/1.5027433",
+      "arxiv_id": null,
+      "citation_count": 6,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "The effect of hydration number on the interfacial transport of sodium ions",
+      "year": 2018,
+      "authors": [
+        "Jinbo Peng",
+        "Duanyun Cao",
+        "Zhili He",
+        "Jing Guo",
+        "Prokop Hapala",
+        "Runze Ma",
+        "Bowei Cheng",
+        "Ji Chen",
+        "Wen Jun Xie",
+        "Xin-Zheng Li",
+        "Pavel Jelı́nek",
+        "Limei Xu",
+        "Yi Qin Gao",
+        "Enge Wang",
+        "Ying Jiang"
+      ],
+      "journal": "Nature",
+      "doi": "https://doi.org/10.1038/s41586-018-0122-2",
+      "arxiv_id": null,
+      "citation_count": 360,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Demand-Supply Balance Analysis of AgriculturalOrganic Waste Recycling in NorthernHenan Province, China",
+      "year": 2018,
+      "authors": [
+        "Qingsheng Zhou",
+        "Xin-Zheng Li",
+        "Chunling Yang",
+        "Yufei Zhao"
+      ],
+      "journal": "Polish Journal of Environmental Studies",
+      "doi": "https://doi.org/10.15244/pjoes/79818",
+      "arxiv_id": null,
+      "citation_count": 3,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Numerical investigation on antispiral and antitarget wave in reaction diffusion system",
+      "year": 2018,
+      "authors": [
+        "Ni Zhi-Wei",
+        "Xin-Zheng Li",
+        "Bai Zhan-Guo",
+        "Yan Li"
+      ],
+      "journal": "Acta Physica Sinica",
+      "doi": "https://doi.org/10.7498/aps.67.20180864",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "The collective and quantum nature of proton transfer in the cyclic water tetramer on NaCl(001)",
+      "year": 2017,
+      "authors": [
+        "Yexin Feng",
+        "Zhichang Wang",
+        "Jing Guo",
+        "Ji Chen",
+        "Enge Wang",
+        "Ying Jiang",
+        "Xin-Zheng Li"
+      ],
+      "journal": "The Journal of Chemical Physics",
+      "doi": "https://doi.org/10.1063/1.5004737",
+      "arxiv_id": null,
+      "citation_count": 21,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Hydrogenation Facilitates Proton Transfer through Two-Dimensional Honeycomb Crystals",
+      "year": 2017,
+      "authors": [
+        "Yexin Feng",
+        "Ji Chen",
+        "Wei Fang",
+        "Enge Wang",
+        "Angelos Michaelides",
+        "Xin-Zheng Li"
+      ],
+      "journal": "The Journal of Physical Chemistry Letters",
+      "doi": "https://doi.org/10.1021/acs.jpclett.7b02820",
+      "arxiv_id": null,
+      "citation_count": 77,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Atomic-scale investigation of nuclear quantum effects of surface water: Experiments and theory",
+      "year": 2017,
+      "authors": [
+        "Jing Guo",
+        "Xin-Zheng Li",
+        "Jinbo Peng",
+        "Enge Wang",
+        "Ying Jiang"
+      ],
+      "journal": "Progress in Surface Science",
+      "doi": "https://doi.org/10.1016/j.progsurf.2017.11.001",
+      "arxiv_id": null,
+      "citation_count": 46,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Hydrogen-Bond Symmetrization of <i>δ</i> -AlOOH",
+      "year": 2017,
+      "authors": [
+        "Duan Kang",
+        "Yexin Feng",
+        "Ying Yuan",
+        "Qi-Jun Ye",
+        "Feng Zhu",
+        "Haoyan Huo",
+        "Xin-Zheng Li",
+        "Xiang Wu"
+      ],
+      "journal": "Chinese Physics Letters",
+      "doi": "https://doi.org/10.1088/0256-307x/34/10/108301",
+      "arxiv_id": null,
+      "citation_count": 9,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Simultaneous Deep Tunneling and Classical Hopping for Hydrogen Diffusion on Metals",
+      "year": 2017,
+      "authors": [
+        "Wei Fang",
+        "Jeremy O. Richardson",
+        "Ji Chen",
+        "Xin-Zheng Li",
+        "Angelos Michaelides"
+      ],
+      "journal": "Physical Review Letters",
+      "doi": "https://doi.org/10.1103/physrevlett.119.126001",
+      "arxiv_id": null,
+      "citation_count": 70,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Identifying the Ground State Geometry of a MoN<sub>2</sub> Sheet through a Global Structure Search and Its Tunable p-Electron Half-Metallicity",
+      "year": 2017,
+      "authors": [
+        "Cunzhi Zhang",
+        "Junyi Liu",
+        "Haoming Shen",
+        "Xin-Zheng Li",
+        "Qiang Sun"
+      ],
+      "journal": "Chemistry of Materials",
+      "doi": "https://doi.org/10.1021/acs.chemmater.7b01606",
+      "arxiv_id": null,
+      "citation_count": 52,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Computer Simulations of Molecules and Condensed Matter",
+      "year": 2017,
+      "authors": [
+        "Xin-Zheng Li",
+        "Enge Wang"
+      ],
+      "journal": "Peking University-World Scientific advanced physics series/Peking University-World Scientific advance physics series",
+      "doi": "https://doi.org/10.1142/10718",
+      "arxiv_id": null,
+      "citation_count": 3,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Pristine graphene as a catalyst in reactions with organics containing C=O bonds",
+      "year": 2017,
+      "authors": [
+        "Xiaozhi Xu",
+        "Yuanan Liu",
+        "Zhiyuan Liu",
+        "Fen Ke",
+        "Chenfang Lin",
+        "Kaihui Liu",
+        "Xia Guo",
+        "Zhaohui Zhang",
+        "Xin-Zheng Li",
+        "Zonghai Hu"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": "https://doi.org/10.48550/arxiv.1707.05607",
+      "arxiv_id": null,
+      "citation_count": 2,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Correlation study between mental health status and stress, coping style and perceived social support in students with foreign nursing specialty",
+      "year": 2017,
+      "authors": [
+        "Xiaoli Zhang",
+        "Xin-Zheng Li",
+        "Baohua Cui",
+        "Yu Zhang",
+        "C. Hao"
+      ],
+      "journal": "Zhonghua yixue jiaoyu tansuo zazhi",
+      "doi": "https://doi.org/10.3760/cma.j.issn.2095-1485.2017.06.023",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Hydrogenation Facilitates Proton Transfer Through Two-Dimensional Crystals",
+      "year": 2017,
+      "authors": [
+        "Yexin Feng",
+        "Ji Chen",
+        "Enge Wang",
+        "Angelos Michaelides",
+        "Xin-Zheng Li"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 1,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Hydrogenation Facilitates Proton Transfer Through Two-Dimensional Honeycomb Crystals",
+      "year": 2017,
+      "authors": [
+        "Yexin Feng",
+        "Ji Chen",
+        "Wei Fang",
+        "Enge Wang",
+        "Angelos Michaelides",
+        "Xin-Zheng Li"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": "https://doi.org/10.48550/arxiv.1704.00914",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Quantum nature of protons in water probed by scanning tunneling microscopy and spectroscopy",
+      "year": 2017,
+      "authors": [
+        "Jing Guo",
+        "Jing‐Tao Lü",
+        "Yexin Feng",
+        "Ji Chen",
+        "Jinbo Peng",
+        "Zeren Lin",
+        "Xiangzhi Meng",
+        "Zhichang Wang",
+        "Xin-Zheng Li",
+        "Enge Wang",
+        "Ying Jiang"
+      ],
+      "journal": "Bulletin of the American Physical Society",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Correction: Corrigendum: Real-space imaging of interfacial water with submolecular resolution",
+      "year": 2017,
+      "authors": [
+        "Jing Guo",
+        "Xiangzhi Meng",
+        "Ji Chen",
+        "Jinbo Peng",
+        "Jiming Sheng",
+        "Xin-Zheng Li",
+        "Limei Xu",
+        "Junren Shi",
+        "Enge Wang",
+        "Ying Jiang"
+      ],
+      "journal": "Nature Materials",
+      "doi": "https://doi.org/10.1038/nmat4844",
+      "arxiv_id": null,
+      "citation_count": 4,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Hydrogen induced contrasting modes of initial nucleations of graphene on transition metal surfaces",
+      "year": 2017,
+      "authors": [
+        "Yexin Feng",
+        "Ke‐Qiu Chen",
+        "Xin-Zheng Li",
+        "Enge Wang",
+        "Lixin Zhang"
+      ],
+      "journal": "The Journal of Chemical Physics",
+      "doi": "https://doi.org/10.1063/1.4974178",
+      "arxiv_id": null,
+      "citation_count": 5,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Light Driving and Monitoring Growth of Single Gold Nanorods",
+      "year": 2016,
+      "authors": [
+        "Yingbo He",
+        "Yuqing Cheng",
+        "Jingyi Zhao",
+        "Xin-Zheng Li",
+        "Qihuang Gong",
+        "Guowei Lü"
+      ],
+      "journal": "The Journal of Physical Chemistry C",
+      "doi": "https://doi.org/10.1021/acs.jpcc.6b04029",
+      "arxiv_id": null,
+      "citation_count": 16,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "The quantum nature of the superconducting hydrogen sulfide at finite temperatures",
+      "year": 2016,
+      "authors": [
+        "Ying Yuan",
+        "Yexin Feng",
+        "Lifeng Bian",
+        "Dong‐Bo Zhang",
+        "Xin-Zheng Li"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": "https://doi.org/10.48550/arxiv.1607.02348",
+      "arxiv_id": null,
+      "citation_count": 1,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Inverse Temperature Dependence of Nuclear Quantum Effects in DNA Base Pairs",
+      "year": 2016,
+      "authors": [
+        "Wei Fang",
+        "Ji Chen",
+        "Mariana Rossi",
+        "Yexin Feng",
+        "Xin-Zheng Li",
+        "Angelos Michaelides"
+      ],
+      "journal": "The Journal of Physical Chemistry Letters",
+      "doi": "https://doi.org/10.1021/acs.jpclett.6b00777",
+      "arxiv_id": null,
+      "citation_count": 75,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Nuclear quantum effects of hydrogen bonds probed by tip-enhanced inelastic electron tunneling",
+      "year": 2016,
+      "authors": [
+        "Jing Guo",
+        "Jing‐Tao Lü",
+        "Yexin Feng",
+        "Ji Chen",
+        "Jinbo Peng",
+        "Zeren Lin",
+        "Xiangzhi Meng",
+        "Zhichang Wang",
+        "Xin-Zheng Li",
+        "Enge Wang",
+        "Ying Jiang"
+      ],
+      "journal": "Science",
+      "doi": "https://doi.org/10.1126/science.aaf2042",
+      "arxiv_id": null,
+      "citation_count": 166,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Numerical investigation on oscillatory Turing patterns in a two-layer coupled reaction–diffusion system",
+      "year": 2016,
+      "authors": [
+        "Xin-Zheng Li",
+        "Zhan-Guo Bai",
+        "Yan Li",
+        "Kun Zhao"
+      ],
+      "journal": "Modern Physics Letters B",
+      "doi": "https://doi.org/10.1142/s0217984916500858",
+      "arxiv_id": null,
+      "citation_count": 3,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Electronic Structure and optical Properties of Wurtzite CdSe Ouantum Ellipsoid",
+      "year": 2016,
+      "authors": [
+        "Xia Jian-Bai",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Journal of Semiconductors",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "<i>Ab initio</i> path-integral molecular dynamics and the quantum nature of hydrogen bonds",
+      "year": 2016,
+      "authors": [
+        "Yexin Feng",
+        "Ji Chen",
+        "Xin-Zheng Li",
+        "Enge Wang"
+      ],
+      "journal": "Chinese Physics B",
+      "doi": "https://doi.org/10.1088/1674-1056/25/1/013104",
+      "arxiv_id": null,
+      "citation_count": 6,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Lattice-Polarity-Driven Epitaxy of Hexagonal Semiconductor Nanowires",
+      "year": 2015,
+      "authors": [
+        "Ping Wang",
+        "Ying Yuan",
+        "Chao Zhao",
+        "Xinqiang Wang",
+        "Xiantong Zheng",
+        "Xin Rong",
+        "Tao Wang",
+        "Bowen Sheng",
+        "Qingxiao Wang",
+        "Yongqiang Zhang",
+        "Lifeng Bian",
+        "Xuelin Yang",
+        "Fujun Xu",
+        "Zhixin Qin",
+        "Xin-Zheng Li",
+        "Xixiang Zhang",
+        "Bo Shen"
+      ],
+      "journal": "Nano Letters",
+      "doi": "https://doi.org/10.1021/acs.nanolett.5b04726",
+      "arxiv_id": null,
+      "citation_count": 38,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Applications of path-integral molecular dynamics simulations to phase transition problems",
+      "year": 2015,
+      "authors": [
+        "Xin-Zheng Li",
+        "YeXin FENG",
+        "Ji CHEN",
+        "Enge Wang"
+      ],
+      "journal": "Chinese Science Bulletin (Chinese Version)",
+      "doi": "https://doi.org/10.1360/n972015-00136",
+      "arxiv_id": null,
+      "citation_count": 1,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Structural determination of argon trimer",
+      "year": 2015,
+      "authors": [
+        "Xiguo Xie",
+        "Chengyin Wu",
+        "Ying Yuan",
+        "Xin-Zheng Li",
+        "Cong Wu",
+        "Peng Wang",
+        "Yongkai Deng",
+        "Yunquan Liu",
+        "Qihuang Gong"
+      ],
+      "journal": "AIP Advances",
+      "doi": "https://doi.org/10.1063/1.4932041",
+      "arxiv_id": null,
+      "citation_count": 6,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Anisotropic magnetotransport and exotic longitudinal linear magnetoresistance in<mml:math xmlns:mml=\"http://www.w3.org/1998/Math/MathML\"><mml:mrow><mml:mi>WT</mml:mi><mml:msub><mml:mi mathvariant=\"normal\">e</mml:mi><mml:mn>2</mml:mn></mml:msub></mml:mrow></mml:math>crystals",
+      "year": 2015,
+      "authors": [
+        "Yanfei Zhao",
+        "Haiwen Liu",
+        "Jiaqiang Yan",
+        "Wei An",
+        "Jun Liu",
+        "Xi Zhang",
+        "Huichao Wang",
+        "Yi Liu",
+        "Hua Jiang",
+        "Qing Li",
+        "Yong Wang",
+        "Xin-Zheng Li",
+        "David Mandrus",
+        "X. C. Xie",
+        "Minghu Pan",
+        "Jian Wang"
+      ],
+      "journal": "Physical Review B",
+      "doi": "https://doi.org/10.1103/physrevb.92.041104",
+      "arxiv_id": null,
+      "citation_count": 194,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Supercritical phenomenon of hydrogen beyond the liquid–liquid phase transition",
+      "year": 2015,
+      "authors": [
+        "Renzhong Li",
+        "Ji Chen",
+        "Xin-Zheng Li",
+        "Enge Wang",
+        "Limei Xu"
+      ],
+      "journal": "New Journal of Physics",
+      "doi": "https://doi.org/10.1088/1367-2630/17/6/063023",
+      "arxiv_id": null,
+      "citation_count": 14,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Numerical simulation and analysis of complex patterns in a two-layer coupled reaction diffusion system",
+      "year": 2015,
+      "authors": [
+        "Xin-Zheng Li",
+        "Zhan-Guo Bai",
+        "Yan Li",
+        "Yafeng He",
+        "Kun Zhao"
+      ],
+      "journal": "Chinese Physics B",
+      "doi": "https://doi.org/10.1088/1674-1056/24/4/048201",
+      "arxiv_id": null,
+      "citation_count": 2,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Probing the Hydrogen Bond Strength at Single Bond Limit",
+      "year": 2015,
+      "authors": [
+        "Jing Guo",
+        "L u Jing-Tao",
+        "Ji Chen",
+        "Jinbo Peng",
+        "Xiangzhi Meng",
+        "Zhichang Wang",
+        "Xin-Zheng Li",
+        "Enge Wang",
+        "Ying Jiang"
+      ],
+      "journal": "Bulletin of the American Physical Society",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "High-resolution imaging of interfacial water: from water monomer to two-dimensional ice",
+      "year": 2015,
+      "authors": [
+        "Ying Jiang",
+        "Jing Guo",
+        "Xiangzhi Meng",
+        "Ji Chen",
+        "Jinbo Peng",
+        "Jiming Sheng",
+        "Limei Xu",
+        "Xin-Zheng Li",
+        "Enge Wang"
+      ],
+      "journal": "Bulletin of the American Physical Society",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Direct visualization of concerted proton tunneling in a water nanocluster",
+      "year": 2015,
+      "authors": [
+        "Xiangzhi Meng",
+        "Jing Guo",
+        "Jinbo Peng",
+        "Ji Chen",
+        "Zhichang Wang",
+        "Junren Shi",
+        "Xin-Zheng Li",
+        "Enge Wang",
+        "Ying Jiang"
+      ],
+      "journal": "Bulletin of the American Physical Society",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 1,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Direct visualization of concerted proton tunnelling in a water nanocluster",
+      "year": 2015,
+      "authors": [
+        "Xiangzhi Meng",
+        "Jing Guo",
+        "Jinbo Peng",
+        "Ji Chen",
+        "Zhichang Wang",
+        "Junren Shi",
+        "Xin-Zheng Li",
+        "Enge Wang",
+        "Ying Jiang"
+      ],
+      "journal": "Nature Physics",
+      "doi": "https://doi.org/10.1038/nphys3225",
+      "arxiv_id": null,
+      "citation_count": 178,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Nuclear quantum effects on the high pressure melting of dense lithium",
+      "year": 2015,
+      "authors": [
+        "Yexin Feng",
+        "Ji Chen",
+        "Dario Alfè",
+        "Xin-Zheng Li",
+        "Enge Wang"
+      ],
+      "journal": "The Journal of Chemical Physics",
+      "doi": "https://doi.org/10.1063/1.4907752",
+      "arxiv_id": null,
+      "citation_count": 28,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Luminance Conversion Property of Er and Yb Doped KZnF<sub>3</sub>Nanocrystal Synthesized by Hydrothermal Method",
+      "year": 2015,
+      "authors": [
+        "Weidong Lai",
+        "Xin-Zheng Li",
+        "Lu Han",
+        "Huiqing Liu",
+        "Yingjuan Chen",
+        "Pingguang Duan",
+        "Xiaowei Li"
+      ],
+      "journal": "International Journal of Photoenergy",
+      "doi": "https://doi.org/10.1155/2015/376202",
+      "arxiv_id": null,
+      "citation_count": 2,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "A fully quantum description of the free-energy in high pressure hydrogen",
+      "year": 2015,
+      "authors": [
+        "Ji Chen",
+        "Feng Ye-Xin",
+        "Xin-Zheng Li",
+        "Wang En-Ge"
+      ],
+      "journal": "Acta Physica Sinica",
+      "doi": "https://doi.org/10.7498/aps.64.183101",
+      "arxiv_id": null,
+      "citation_count": 1,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Evidence of Type-II Band Alignment in III-nitride Semiconductors: Experimental and theoretical investigation for In0.17Al0.83N/GaN heterostructures",
+      "year": 2014,
+      "authors": [
+        "Jiaming Wang",
+        "Fujun Xu",
+        "Xia Zhang",
+        "Wei An",
+        "Xin-Zheng Li",
+        "Jie Song",
+        "Weikun Ge",
+        "Guang-Shan Tian",
+        "Jing Lü",
+        "Xinqiang Wang",
+        "Ning Tang",
+        "Zhijian Yang",
+        "Wei Li",
+        "Weiying Wang",
+        "Peng Jin",
+        "Yonghai Chen",
+        "Bo Shen"
+      ],
+      "journal": "Scientific Reports",
+      "doi": "https://doi.org/10.1038/srep06521",
+      "arxiv_id": null,
+      "citation_count": 25,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Direct observation of ordered configurations of hydrogen adatoms on graphene",
+      "year": 2014,
+      "authors": [
+        "Chenfang Lin",
+        "Yexin Feng",
+        "Yingdong Xiao",
+        "Michael Duerr",
+        "Xiangqian Huang",
+        "Xiaozhi Xu",
+        "Ruguang Zhao",
+        "Enge Wang",
+        "Xin-Zheng Li",
+        "Zonghai Hu"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": "https://doi.org/10.48550/arxiv.1409.1647",
+      "arxiv_id": null,
+      "citation_count": 3,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Systematic investigation on topological properties of layered GaS and GaSe under strain",
+      "year": 2014,
+      "authors": [
+        "Wei An",
+        "Feng Wu",
+        "Hong Jiang",
+        "Guang-Shan Tian",
+        "Xin-Zheng Li"
+      ],
+      "journal": "The Journal of Chemical Physics",
+      "doi": "https://doi.org/10.1063/1.4893346",
+      "arxiv_id": null,
+      "citation_count": 30,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "On the room-temperature phase diagram of high pressure hydrogen: An <i>ab initio</i> molecular dynamics perspective and a diffusion Monte Carlo study",
+      "year": 2014,
+      "authors": [
+        "Ji Chen",
+        "Xinguo Ren",
+        "Xin-Zheng Li",
+        "Dario Alfè",
+        "Enge Wang"
+      ],
+      "journal": "The Journal of Chemical Physics",
+      "doi": "https://doi.org/10.1063/1.4886075",
+      "arxiv_id": null,
+      "citation_count": 23,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "An unconventional bilayer ice structure on a NaCl(001) film",
+      "year": 2014,
+      "authors": [
+        "Ji Chen",
+        "Jing Guo",
+        "Xiangzhi Meng",
+        "Jinbo Peng",
+        "Jiming Sheng",
+        "Limei Xu",
+        "Ying Jiang",
+        "Xin-Zheng Li",
+        "Enge Wang"
+      ],
+      "journal": "Nature Communications",
+      "doi": "https://doi.org/10.1038/ncomms5056",
+      "arxiv_id": null,
+      "citation_count": 82,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Nature of proton transport in a water-filled carbon nanotube and in liquid water",
+      "year": 2014,
+      "authors": [
+        "Ji Chen",
+        "Xin-Zheng Li",
+        "Qianfan Zhang",
+        "Angelos Michaelides",
+        "Enge Wang"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": "https://doi.org/10.48550/arxiv.1404.7280",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Real-space imaging of interfacial water with submolecular resolution",
+      "year": 2014,
+      "authors": [
+        "Jing Guo",
+        "Xiangzhi Meng",
+        "Ji Chen",
+        "Jinbo Peng",
+        "Jiming Sheng",
+        "Xin-Zheng Li",
+        "Limei Xu",
+        "Junren Shi",
+        "Enge Wang",
+        "Ying Jiang"
+      ],
+      "journal": "Nature Materials",
+      "doi": "https://doi.org/10.1038/nmat3848",
+      "arxiv_id": null,
+      "citation_count": 217,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Stable Salt–Water Cluster Structures Reflect the Delicate Competition between Ion–Water and Water–Water Interactions",
+      "year": 2014,
+      "authors": [
+        "Chengwen Liu",
+        "Feng Wang",
+        "Lijiang Yang",
+        "Xin-Zheng Li",
+        "Wei‐Jun Zheng",
+        "Yi Qin Gao"
+      ],
+      "journal": "The Journal of Physical Chemistry B",
+      "doi": "https://doi.org/10.1021/jp408439j",
+      "arxiv_id": null,
+      "citation_count": 46,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Interfacial Polycondensation Synthesis of Optically Sensitive Polyurea Microcapsule",
+      "year": 2014,
+      "authors": [
+        "Weidong Lai",
+        "Xin-Zheng Li",
+        "Huiqing Liu",
+        "Lu Han",
+        "Yajun Zhao",
+        "Xiaowei Li"
+      ],
+      "journal": "Journal of Chemistry",
+      "doi": "https://doi.org/10.1155/2014/597578",
+      "arxiv_id": null,
+      "citation_count": 9,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Numerical analysis on multi-armed spiral patterns in gas discharge system",
+      "year": 2014,
+      "authors": [
+        "Bai Zhan-Guo",
+        "Xin-Zheng Li",
+        "Yan Li",
+        "Kun Zhao"
+      ],
+      "journal": "Acta Physica Sinica",
+      "doi": "https://doi.org/10.7498/aps.63.228201",
+      "arxiv_id": null,
+      "citation_count": 4,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Quantum simulation of low-temperature metallic liquid hydrogen",
+      "year": 2013,
+      "authors": [
+        "Ji Chen",
+        "Xin-Zheng Li",
+        "Qianfan Zhang",
+        "Matt Probert",
+        "Chris J. Pickard",
+        "R. J. Needs",
+        "Angelos Michaelides",
+        "Enge Wang"
+      ],
+      "journal": "Nature Communications",
+      "doi": "https://doi.org/10.1038/ncomms3064",
+      "arxiv_id": null,
+      "citation_count": 95,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Low-temperature metallic liquid hydrogen: an ab-initio path-integral molecular dynamics perspective",
+      "year": 2013,
+      "authors": [
+        "Ji Chen",
+        "Xin-Zheng Li",
+        "Qianfan Zhang",
+        "Matt Probert",
+        "Chris J. Pickard",
+        "R. J. Needs",
+        "Angelos Michaelides",
+        "Enge Wang"
+      ],
+      "journal": "Bulletin of the American Physical Society",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Classical and quantum ordering of protons in cold solid hydrogen under megabar pressures",
+      "year": 2013,
+      "authors": [
+        "Xin-Zheng Li",
+        "Brent Walker",
+        "Matt Probert",
+        "Chris J. Pickard",
+        "R. J. Needs",
+        "Angelos Michaelides"
+      ],
+      "journal": "Journal of Physics Condensed Matter",
+      "doi": "https://doi.org/10.1088/0953-8984/25/8/085402",
+      "arxiv_id": null,
+      "citation_count": 30,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Nature of proton transport in a water-filled carbon nanotube and in liquid water",
+      "year": 2013,
+      "authors": [
+        "Ji Chen",
+        "Xin-Zheng Li",
+        "Qianfan Zhang",
+        "Angelos Michaelides",
+        "Enge Wang"
+      ],
+      "journal": "Physical Chemistry Chemical Physics",
+      "doi": "https://doi.org/10.1039/c3cp50218j",
+      "arxiv_id": null,
+      "citation_count": 69,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Photochromic Characteristic of Cationic Photoinitiator and Fluorane Dye System Microencapsulated in Sub-micrometre Scale",
+      "year": 2013,
+      "authors": [
+        "Weidong Lai",
+        "Yingjuan Chen",
+        "Xin-Zheng Li",
+        "Wen An",
+        "Xiaowei Li"
+      ],
+      "journal": "Journal of Photopolymer Science and Technology",
+      "doi": "https://doi.org/10.2494/photopolymer.26.453",
+      "arxiv_id": null,
+      "citation_count": 3,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Complex Turing patterns in two-layer non-linearly coupling reaction diffusion systems",
+      "year": 2013,
+      "authors": [
+        "Xin-Zheng Li",
+        "Bai Zhan-Guo",
+        "Yan Li",
+        "Kun Zhao",
+        "He Ya-Feng"
+      ],
+      "journal": "Acta Physica Sinica",
+      "doi": "https://doi.org/10.7498/aps.62.220503",
+      "arxiv_id": null,
+      "citation_count": 2,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "FHI-gap: A code based on the all-electron augmented plane wave method",
+      "year": 2012,
+      "authors": [
+        "Hong Jiang",
+        "Ricardo I. Gómez-Abal",
+        "Xin-Zheng Li",
+        "Christian Meisenbichler",
+        "Claudia Draxl",
+        "Matthias Scheffler"
+      ],
+      "journal": "Computer Physics Communications",
+      "doi": "https://doi.org/10.1016/j.cpc.2012.09.018",
+      "arxiv_id": null,
+      "citation_count": 72,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Optimizing Rank of Landscape Planning Works of Urban Wetland Park",
+      "year": 2012,
+      "authors": [
+        "Qiao Li-fang",
+        "Yichuan Zhang",
+        "Anguo Qi",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Journal of Northeast Agricultural University (English edition)",
+      "doi": "https://doi.org/10.1016/s1006-8104(13)60028-8",
+      "arxiv_id": null,
+      "citation_count": 2,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Impact of widely used approximations to the<i>G</i><sub>0</sub><i>W</i><sub>0</sub>method: an all-electron perspective",
+      "year": 2012,
+      "authors": [
+        "Xin-Zheng Li",
+        "Ricardo I. Gómez-Abal",
+        "Hong Jiang",
+        "Claudia Draxl",
+        "Matthias Scheffler"
+      ],
+      "journal": "New Journal of Physics",
+      "doi": "https://doi.org/10.1088/1367-2630/14/2/023006",
+      "arxiv_id": null,
+      "citation_count": 48,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "The technology of concrete slurry-supported excavation pile construction",
+      "year": 2012,
+      "authors": [
+        "Xin-Zheng Li"
+      ],
+      "journal": null,
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "[Study on the transient and steady state property of fluorescence of free radical photoinitiator].",
+      "year": 2011,
+      "authors": [
+        "Xin-Zheng Li",
+        "Xiaowei Li",
+        "Weidong Lai",
+        "Bing Bai",
+        "Wen Ting An"
+      ],
+      "journal": "PubMed",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 1,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Edge extraction of CT medical image based on wavelet transform algorithm",
+      "year": 2011,
+      "authors": [
+        "Xiaojun Wang",
+        "Xin-Zheng Li",
+        "Weidong Lai"
+      ],
+      "journal": "Proceedings of SPIE, the International Society for Optical Engineering/Proceedings of SPIE",
+      "doi": "https://doi.org/10.1117/12.902431",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Notice of Retraction: Evaluation of Trace Element Levels of Some Medicinal Herbs in China",
+      "year": 2011,
+      "authors": [
+        "Wenxiu Fan",
+        "Fangkun Zhu",
+        "Li Qu",
+        "Xin-Zheng Li"
+      ],
+      "journal": null,
+      "doi": "https://doi.org/10.1109/icbbe.2011.5781522",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Quantum nature of the hydrogen bond",
+      "year": 2011,
+      "authors": [
+        "Xin-Zheng Li",
+        "Brent Walker",
+        "Angelos Michaelides"
+      ],
+      "journal": "Proceedings of the National Academy of Sciences",
+      "doi": "https://doi.org/10.1073/pnas.1016653108",
+      "arxiv_id": null,
+      "citation_count": 459,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Quantum nature of the proton in water-hydroxyl overlayers on metal surfaces",
+      "year": 2011,
+      "authors": [
+        "Angelos Michaelides",
+        "Xin-Zheng Li",
+        "Matt Probert",
+        "Ali Alavi"
+      ],
+      "journal": "Bulletin of the American Physical Society",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "The quantum nature of the hydrogen bond: insight from path-integral molecular dynamics",
+      "year": 2011,
+      "authors": [
+        "Brent Walker",
+        "Xin-Zheng Li",
+        "Angelos Michaelides"
+      ],
+      "journal": "Bulletin of the American Physical Society",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "A study on heat sensitive characteristics of microcapsules coating layer with hidden color dyes",
+      "year": 2011,
+      "authors": [
+        "Xin-Zheng Li"
+      ],
+      "journal": "China Pulp & Paper Industry",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Remote sensing image denoising based on watershed and Bayesian estimation threshold wavelet algorithm",
+      "year": 2011,
+      "authors": [
+        "Xiaojun Wang",
+        "Xin-Zheng Li",
+        "Weidong Lai"
+      ],
+      "journal": "Energy Procedia",
+      "doi": "https://doi.org/10.1016/j.egypro.2011.10.947",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Quantum Nature of the Proton in Water-Hydroxyl Overlayers on Metal Surfaces",
+      "year": 2010,
+      "authors": [
+        "Xin-Zheng Li",
+        "Matt Probert",
+        "Ali Alavi",
+        "Angelos Michaelides"
+      ],
+      "journal": "Physical Review Letters",
+      "doi": "https://doi.org/10.1103/physrevlett.104.066102",
+      "arxiv_id": null,
+      "citation_count": 127,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Image density property of optical information recording microcapsule material",
+      "year": 2009,
+      "authors": [
+        "Weidong Lai",
+        "Xiaowei Li",
+        "Xin-Zheng Li",
+        "Guangsheng Fu"
+      ],
+      "journal": "Proceedings of SPIE, the International Society for Optical Engineering/Proceedings of SPIE",
+      "doi": "https://doi.org/10.1117/12.830801",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Image-formation Property Based on Thermosensitive Color-reaction and Photo-sensitive Polymerization in Sub-micrometer Microcapsules",
+      "year": 2009,
+      "authors": [
+        "Weidong Lai",
+        "Guangsheng Fu",
+        "Xin-Zheng Li",
+        "Xiaowei Li"
+      ],
+      "journal": "Journal of Photopolymer Science and Technology",
+      "doi": "https://doi.org/10.2494/photopolymer.22.261",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Comparison on photosynthetic characteristics of different pumpkin variety in different weather",
+      "year": 2009,
+      "authors": [
+        "Xin-Zheng Li"
+      ],
+      "journal": "Guangdong nongye kexue",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Influence of the Core-Valence Interaction and of the Pseudopotential Approximation on the Electron Self-Energy in Semiconductors",
+      "year": 2008,
+      "authors": [
+        "Ricardo I. Gómez-Abal",
+        "Xin-Zheng Li",
+        "Matthias Scheffler",
+        "Claudia Draxl"
+      ],
+      "journal": "Physical Review Letters",
+      "doi": "https://doi.org/10.1103/physrevlett.101.106404",
+      "arxiv_id": null,
+      "citation_count": 117,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "All electron G0W0 code based on FP-(L)APW+lo and applications",
+      "year": 2008,
+      "authors": [
+        "Xin-Zheng Li"
+      ],
+      "journal": "Refubium (Universitätsbibliothek der Freien Universität Berlin)",
+      "doi": "https://doi.org/10.17169/refubium-13390",
+      "arxiv_id": null,
+      "citation_count": 2,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "[Effect of different sensitization on the photoelectron time action in AgCl emulsion].",
+      "year": 2007,
+      "authors": [
+        "Weidong Lai",
+        "Xin-Zheng Li",
+        "Xiaoli Jiang",
+        "Xiaodong Tian",
+        "Xiaowei Li"
+      ],
+      "journal": "PubMed",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Results from 100 h electrolysis testing of NiFe2O4 based cermet as inert anode in aluminum reduction",
+      "year": 2006,
+      "authors": [
+        "Yanqing Lai",
+        "Zhongliang Tian",
+        "Jie Li",
+        "Shao-long YE",
+        "Xin-Zheng Li",
+        "Yexiang Liu"
+      ],
+      "journal": "Transactions of Nonferrous Metals Society of China",
+      "doi": "https://doi.org/10.1016/s1003-6326(06)60362-2",
+      "arxiv_id": null,
+      "citation_count": 18,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "[Study on cadmium absorption in pumpkin by atomic absorption spectrophotometry].",
+      "year": 2006,
+      "authors": [
+        "Zhen-Xia Li",
+        "Yong-dong Sun",
+        "Bi-Hua Chen",
+        "Xin-Zheng Li",
+        "Hong Liu"
+      ],
+      "journal": "PubMed",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 3,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Effect of metallic phase species on the corrosion resistance of 17M/(10NiO-NiFe2O4) cermet inert anode of aluminum electrolysis",
+      "year": 2006,
+      "authors": [
+        "Yanqing Lai",
+        "Xin-Zheng Li",
+        "Jie Li",
+        "Zhongliang Tian",
+        "Gang Zhang",
+        "Yexiang Liu"
+      ],
+      "journal": "Journal of Central South University of Technology",
+      "doi": "https://doi.org/10.1007/s11771-006-0128-z",
+      "arxiv_id": null,
+      "citation_count": 10,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "[Determination of trace elements in pumpkin by FAAS].",
+      "year": 2006,
+      "authors": [
+        "Wenxiu Fan",
+        "Xin-Zheng Li",
+        "Rui-jun Jing"
+      ],
+      "journal": "PubMed",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 3,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Improved Approach of Natural Image Segmentation",
+      "year": 2006,
+      "authors": [
+        "Xin-Zheng Li",
+        "Jianqiang Yi"
+      ],
+      "journal": "Jisuanji yingyong yanjiu",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "[Spectrometric determination of trace elements in pagoda flower].",
+      "year": 2005,
+      "authors": [
+        "Wenxiu Fan",
+        "Xin-Zheng Li"
+      ],
+      "journal": "PubMed",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 1,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Motion vision for mobile robot localization",
+      "year": 2005,
+      "authors": [
+        "Zhiguang Zhong",
+        "Jianqiang Yi",
+        "Dongbin Zhao",
+        "Yiping Hong",
+        "Xin-Zheng Li"
+      ],
+      "journal": null,
+      "doi": "https://doi.org/10.1109/icarcv.2004.1468834",
+      "arxiv_id": null,
+      "citation_count": 8,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "[Effects of chemical sensitization on photoelectron time-resolved spectrum].",
+      "year": 2005,
+      "authors": [
+        "Xiaowei Li",
+        "Xin-Zheng Li",
+        "Weidong Lai",
+        "Xiaoli Jiang",
+        "Xiaodong Tian",
+        "Shaopeng Yang",
+        "Fu Guang-Sheng"
+      ],
+      "journal": "PubMed",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "Robust depth estimation for mobile robot navigation",
+      "year": 2005,
+      "authors": [
+        "Zhiguang Zhong",
+        "Jianqiang Yi",
+        "Dongbin Zhao",
+        "Yiping Hong",
+        "Xin-Zheng Li"
+      ],
+      "journal": null,
+      "doi": "https://doi.org/10.1109/icima.2004.1384341",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "The effect of sensitization time on the decay of photoelectron in AgBrI T-grain emulsion",
+      "year": 2005,
+      "authors": [
+        "Xin-Zheng Li",
+        "Zhiqiang Liu",
+        "Weidong Lai",
+        "Wei Zhang",
+        "Xiaowei Li"
+      ],
+      "journal": "Proceedings of SPIE, the International Society for Optical Engineering/Proceedings of SPIE",
+      "doi": "https://doi.org/10.1117/12.574293",
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "One of The Ways to Actualize Industrialization of Inert Anode—Aluminum Electrolysis at Low Temperature",
+      "year": 2005,
+      "authors": [
+        "Xin-Zheng Li"
+      ],
+      "journal": "Non-ferrous Mining and Metallurgy",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "A Distribution Network Design Approach with Good Point Set Based on Genetic Algorithm",
+      "year": 2005,
+      "authors": [
+        "Xin-Zheng Li"
+      ],
+      "journal": "Logistics Technology",
+      "doi": null,
+      "arxiv_id": null,
+      "citation_count": 0,
+      "source": "openalex",
+      "abstract": null
+    },
+    {
+      "title": "The electron trap effect of the sulfur + gold sensitization center on the photoelectron behaviors",
+      "year": 2004,
+      "authors": [
+        "Xiaowei Li",
+        "Xin-Zheng Li",
+        "Jiang Xiao-Li",
+        "Wei Yu",
+        "Tian Xiao-Dong",
+        "Yang Shao-Peng",
+        "Fu Guang-Sheng",
+        "河北大学物理科学与技术学院；保定 071002"
+      ],
+      "journal": "Acta Physica Sinica",
+      "doi": "https://doi.org/10.7498/aps.53.2019",
+      "arxiv_id": null,
+      "citation_count": 1,
+      "source": "openalex",
+      "abstract": null
+    }
+  ],
+  "metadata": {
+    "works_count": 203,
+    "fetched_count": 200
+  }
+}
