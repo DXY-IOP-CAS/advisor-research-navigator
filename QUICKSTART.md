@@ -25,7 +25,6 @@ pilot-test/
 │   ├── step5_arxiv.py       # arXiv 预印本
 │   ├── step6_merge.py       # 多源合并去重
 │   ├── render_profile.py    # 论文表格渲染
-│   ├── merge_tables.py      # AI 叙事 + 脚本表格合并
 │   ├── verify_profile.py    # 质量门控验证
 │   ├── archive_previous.py  # 自动存档旧版产出
 │   └── utils.py             # 共享工具库
@@ -45,7 +44,7 @@ pilot-test/
 ```
 阶段 A（AI 主导）：读官网 + MCP 搜 GS/ORCID → 邮箱验证 → verified_ids.json
 阶段 B（脚本执行）：step2_gs / step3_openalex / step5_arxiv / step6_merge
-阶段 C（脚本+AI）：render_profile → AI 叙事 → merge_tables → verify_profile
+阶段 C（脚本+AI）：render_profile → AI Edit 叙事填充 → verify_profile
 ```
 
 ## 注意事项

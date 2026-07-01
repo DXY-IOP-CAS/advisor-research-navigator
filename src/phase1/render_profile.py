@@ -111,6 +111,7 @@ def generate(data: dict, output_path: str, stage_config: list = None,
     L(f"source_updated: {ts}")
     L(f'orcid: {prof.get("orcid", "")}')
     L(f"google_scholar_url: https://scholar.google.com/citations?hl=en&user={prof.get('gs_id', '')}")
+    L(f'openalex_id: {prof.get("oa_id", "")}')
     L(f"run_timestamp: {ts}")
     L(f"run_archive: archive/{ts_dir}/")
     L("---")

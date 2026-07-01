@@ -8,7 +8,7 @@
 
 | 路径 | 用途 |
 |:-----|:------|
-| `src/phase1/` | 阶段 1 Python 脚本（step2_gs / step3_openalex / step5_arxiv / step6_merge / render_profile / merge_tables / verify_profile / archive_previous / utils） |
+| `src/phase1/` | 阶段 1 Python 脚本（step2_gs / step3_openalex / step5_arxiv / step6_merge / render_profile / verify_profile / archive_previous / utils） |
 | `src/phase1/pipeline.md` | 阶段 1 技术执行文档（单一事实源） |
 | `.claude/skills/research-advisor/` | Claude Code Skill 入口 |
 | `output/` | 导师画像产出 |
