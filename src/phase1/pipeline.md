@@ -394,9 +394,11 @@ python src/phase1/step6_merge.py \
 
 # 阶段 C（脚本渲染 + AI 润色）
 python src/phase1/render_profile.py "$PROF/archive/$TIMESTAMP/04_merged.json" \
-  -o "$PROF/01_基础画像.md"
-# render_profile.py 生成论文表格 + 运行统计。
-# AI 在脚本输出基础上补充：学术履历表、研究方向描述、合作网络、公开信息。
+  -o "$PROF/01_基础画像.md" --department "超快物质科学中心"
+# render_profile.py 生成：论文表格（含超链接列）+ 运行统计 + 分阶段结构。
+# AI 补充：学术履历表、研究方向描述、每阶段叙事、合作网络、公开信息。
+# 每阶段表格前必须有一段话说明该阶段的研究主题和方向变化。
+# 禁止"报菜名"——列出论文的目的是展示研究方向演变，不是单纯的数据堆砌。
 
 echo "$TIMESTAMP" > "$PROF/latest.txt"
 ```

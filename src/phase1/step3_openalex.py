@@ -23,7 +23,7 @@ from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from utils import write_output
+from utils import write_output, retry
 
 logging.basicConfig(level=logging.WARNING, format="%(levelname)s: %(message)s")
 logger = logging.getLogger("step3_openalex")
@@ -32,6 +32,8 @@ BASE_URL = "https://api.openalex.org"
 WORKS_FILTER = "filter=authorships.author.id"
 
 
+@retry(max_retries=3, delay=2.0, backoff=2.0,
+       retryable_exceptions=(HTTPError, URLError, OSError, TimeoutError))
 def _fetch_json(url: str, email: Optional[str] = None) -> Optional[Dict[str, Any]]:
     headers = {"Accept": "application/json"}
     if email:
@@ -41,11 +43,12 @@ def _fetch_json(url: str, email: Optional[str] = None) -> Optional[Dict[str, Any
         with urlopen(req, timeout=30) as resp:
             return json.loads(resp.read().decode())
     except HTTPError as e:
+        if 500 <= e.code < 600:
+            raise  # retry on 5xx
         logger.error(f"HTTP {e.code}: {url}")
         return None
-    except URLError as e:
-        logger.error(f"Network error: {e.reason}")
-        return None
+    except (URLError, OSError, TimeoutError):
+        raise  # retry on network errors
     except json.JSONDecodeError:
         logger.error(f"Invalid JSON from {url}")
         return None

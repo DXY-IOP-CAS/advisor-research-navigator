@@ -57,8 +57,22 @@ def mark_source_tag(sources: list) -> str:
     return "+".join(tags)
 
 
+def paper_link(paper: dict) -> str:
+    """生成论文的超链接 markdown。优先 DOI，其次 arXiv。"""
+    doi = paper.get("doi")
+    if doi:
+        clean = doi.strip()
+        if clean.startswith("http"):
+            return f"[DOI]({clean})"
+        return f"[DOI](https://doi.org/{clean})"
+    aid = paper.get("arxiv_id")
+    if aid:
+        return f"[arXiv](https://arxiv.org/abs/{aid})"
+    return "—"
+
+
 def generate(data: dict, output_path: str, stage_config: list = None,
-              department: str = "") -> str:
+              department: str = "", stage_descriptions: dict = None) -> str:
     prof = data.get("professor", {})
     papers = data.get("papers", [])
     stats = data.get("statistics", {})
@@ -150,17 +164,22 @@ def generate(data: dict, output_path: str, stage_config: list = None,
 
         L(f"### 4.{stage_idx} {stage_name}")
         L("")
+        # Stage narrative (from --stage-desc or AI enrichment placeholder)
+        if stage_descriptions and stage_name in stage_descriptions:
+            L(stage_descriptions[stage_name])
+            L("")
         L(f"论文数：{len(stage_papers)} 篇")
         L("")
-        L("| # | 年份 | 标题 | 期刊 | 引用 | 来源 |")
-        L("|:-:|:----:|:-----|:-----|:----:|:-----|")
+        L("| # | 年份 | 标题 | 期刊 | 引用 | 来源 | 链接 |")
+        L("|:-:|:----:|:-----|:-----|:----:|:-----|:-----|")
         for i, p in enumerate(stage_papers, 1):
             title = (p.get("title") or "")[:100]
             journal = (p.get("journal") or "")[:40] or "—"
             cites = p.get("citation_count") or "—"
             tag = mark_source_tag(p.get("sources", []))
+            link = paper_link(p)
             y = p.get("year") or "—"
-            L(f"| {i} | {y} | {title} | {journal} | {cites} | {tag} |")
+            L(f"| {i} | {y} | {title} | {journal} | {cites} | {tag} | {link} |")
         L("")
         stage_idx += 1
 
@@ -192,6 +211,7 @@ def main() -> None:
     parser.add_argument("--output", "-o", default="01_基础画像.md", help="输出路径")
     parser.add_argument("--stages", help="学术阶段配置 JSON 文件")
     parser.add_argument("--department", "-d", default="", help="部门/实验室名称")
+    parser.add_argument("--stage-desc", help="阶段描述 JSON 文件（{阶段名: 描述}）")
     args = parser.parse_args()
 
     stage_config = None
@@ -199,6 +219,11 @@ def main() -> None:
         with open(args.stages, "r", encoding="utf-8") as f:
             stage_config = json.load(f)
 
+    stage_descriptions = None
+    if args.stage_desc:
+        with open(args.stage_desc, "r", encoding="utf-8") as f:
+            stage_descriptions = json.load(f)
+
     data = load_merged(args.merged_json)
-    generate(data, args.output, stage_config, args.department)
+    generate(data, args.output, stage_config, args.department, stage_descriptions)
     print(f"✅ {len(data.get('papers', []))} papers → {args.output}", file=sys.stderr)

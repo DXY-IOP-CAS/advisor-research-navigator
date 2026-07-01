@@ -1,0 +1,41 @@
+{
+  "name": "张鹏举",
+  "name_en": "Pengju Zhang",
+  "institution": "中科院物理所",
+  "department": "超快物质科学中心",
+  "gs_id": "ls7XuGoAAAAJ",
+  "oa_id": "A5000914228",
+  "orcid": "0000-0002-0463-3476",
+  "email_domain": "@iphy.ac.cn",
+  "homepage_url": "https://edu.iphy.ac.cn/?q=detail_teacher&id=6368",
+  "identity_verified": true,
+  "identity_evidence": "GS email domain @iphy.ac.cn matches official homepage email pengju.zhang@iphy.ac.cn",
+  "discipline": {
+    "primary": "atomic_molecular_optical",
+    "arxiv_categories": [
+      "physics.atom-ph",
+      "physics.optics"
+    ]
+  },
+  "public_notes": [
+    {
+      "source": "官网",
+      "url": "https://edu.iphy.ac.cn/?q=detail_teacher&id=6368",
+      "note": "中科院物理所特聘研究员，博士生导师，超快物质科学中心"
+    },
+    {
+      "source": "UCAS教师页",
+      "url": "https://people.ucas.ac.cn/~0052353",
+      "note": "个人简介、研究方向、招生信息"
+    },
+    {
+      "source": "LinkedIn",
+      "url": "https://linkedin.com/in/pengju-zhang-45b828194",
+      "note": "Professor at IOP CAS"
+    }
+  ],
+  "known_issues": [
+    "OA author ID A5000914228 appears to be a contaminated profile mixing multiple Pengju Zhang researchers. Affiliation shown as North Sichuan Medical University, not IOP CAS. OA data should be used with caution.",
+    "ORCID 0000-0002-0463-3476 confirmed from paper metadata with iphy.ac.cn email, but ORCID record has no public data. OpenAlex does not index this ORCID."
+  ]
+}
