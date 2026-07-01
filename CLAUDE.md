@@ -1,38 +1,33 @@
 # pilot-test CLAUDE.md
 
-新窗口第一步：读 `QUICKSTART.md`（5 分钟理解全流程）。
+新窗口第一步：读 `QUICKSTART.md`。
 
 ---
 
 ## 一句话
 
-导师研究方向调研工具。用户输入姓名+机构+官网URL → 四阶段流水线（基础画像→领域脉络→论文定位→学习讲义）产出 Markdown 文档到 `output/<机构>/<部门>/<姓名>/`。
+导师研究方向调研工具。用户输入姓名+机构+官网URL → 四阶段流水线产出 Markdown 文档到 `output/<机构>/<部门>/<姓名>/`。
 
-## 当前状态
+## 项目状态
 
-- **阶段 1（基础画像）**：已实现并经过多轮迭代测试
+- **阶段 1**：已实现，详见 `src/phase1/pipeline.md`
 - **阶段 2-4**：待设计
 
-## 阶段 1 核心设计
+## 可用 Skills
 
-- **GS 永远是论文列表主源**，OpenAlex 只做元数据补充（对中文作者 OA 覆盖仅 22-38%）
-- **GS 邮箱校验是身份金标准**——匹配官网 email 即确认身份，不执行多余的"身份验证阶段"
-- **先广搜再深挖**——Step 2 广域搜索找 profile 链接，Step 3+ 深度专业检索
-- **论文按学术履历阶段分组**（机构变了就是新阶段），不是按引用数排序
+`.claude/skills/` 下已安装以下技能。**启动任何任务前阅读 `using-superpowers`**，它会指引如何调用其他技能。
+
+| Skill | 何时使用 |
+|:------|:---------|
+| `using-superpowers` | 任何任务开始前（必读） |
+| `brainstorming` | 需求不明确时，先厘清再动手 |
+| `writing-plans` | 任务复杂度 > 5 分钟时，先拆计划 |
+| `test-driven-development` | 修改代码逻辑时，先写测试 |
+| `systematic-debugging` | 排查 bug 时 |
+| `verification-before-completion` | 声称完成前验证 |
 
 ## 关键规则
 
-- **防幻觉**：涉及论文数据先搜验证再写，末尾标来源 URL
-- **缺失优于编造**：找不到的字段标 `[未找到]`
-- **双源才标已验证**：单一来源标"仅X来源"
-- **Git 纪律**：做重要改动前先 commit
-
-## 联网搜索
-
-搜索分工（读 00-phase.md 有详细说明）：
-- 广域搜索（Step 2）：用 MCP 搜 Serper/Exa/Tavily
-- 深度检索（Step 3-6）：直接用脚本调 API（无额外 key 需要）
-
-## 脚本
-
-`src/phase1/` 下 6 个 pipeline 脚本（step1–step6 + utils），详见 `QUICKSTART.md`。
+- 来源必标 URL，缺失标 `[未找到]`
+- 每次重要改动前 commit
+- 每次改动后跑 `python src/phase1/run_all.py`（如存在）
