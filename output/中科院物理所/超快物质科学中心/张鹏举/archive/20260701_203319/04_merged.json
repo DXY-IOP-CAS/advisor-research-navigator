@@ -40,8 +40,8 @@
       "citation_count": 2,
       "source": "google_scholar",
       "sources": [
-        "arxiv",
         "openalex",
+        "arxiv",
         "google_scholar"
       ],
       "source_count": 3,
@@ -1055,8 +1055,8 @@
   "statistics": {
     "total": 60,
     "by_source": {
-      "arxiv": 1,
       "openalex": 13,
+      "arxiv": 1,
       "google_scholar": 54
     },
     "unique": 60

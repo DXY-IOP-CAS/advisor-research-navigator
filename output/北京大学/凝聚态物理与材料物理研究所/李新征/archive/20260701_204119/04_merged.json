@@ -24,6 +24,316 @@
   },
   "papers": [
     {
+      "title": "Quantum simulation of low-temperature metallic liquid hydrogen",
+      "year": 2013,
+      "authors": [
+        "Ji Chen",
+        "Xin-Zheng Li",
+        "Qianfan Zhang",
+        "Matt Probert",
+        "Chris J. Pickard",
+        "R. J. Needs",
+        "Angelos Michaelides",
+        "Enge Wang"
+      ],
+      "journal": "Nature Communications",
+      "doi": "https://doi.org/10.1038/ncomms3064",
+      "arxiv_id": "1212.4554",
+      "citation_count": 95,
+      "source": "google_scholar",
+      "sources": [
+        "google_scholar",
+        "openalex",
+        "arxiv"
+      ],
+      "source_count": 3,
+      "abstract": "Experiments and computer simulations have shown that the melt-ing temperature of solid hydrogen drops with pressure above about 65 GPa, suggesting that a liquid state might exist at low temperatures. ..."
+    },
+    {
+      "title": "Inverse Temperature Dependence of Nuclear Quantum Effects in DNA Base Pairs",
+      "year": 2016,
+      "authors": [
+        "Wei Fang",
+        "Ji Chen",
+        "Mariana Rossi",
+        "Yexin Feng",
+        "Xin-Zheng Li",
+        "Angelos Michaelides"
+      ],
+      "journal": "The Journal of Physical Chemistry Letters",
+      "doi": "https://doi.org/10.1021/acs.jpclett.6b00777",
+      "arxiv_id": "1611.06250",
+      "citation_count": 75,
+      "source": "google_scholar",
+      "sources": [
+        "google_scholar",
+        "openalex",
+        "arxiv"
+      ],
+      "source_count": 3,
+      "abstract": "Despite the inherently quantum mechanical nature of hydrogen bonding, it is unclear how nuclear quantum effects (NQEs) alter the strengths of hydrogen bonds. With this in mind, we use ab initio path i..."
+    },
+    {
+      "title": "The quantum nature of hydrogen",
+      "year": 2019,
+      "authors": [
+        "Wei Fang",
+        "Ji Chen",
+        "Yexin Feng",
+        "Xin-Zheng Li",
+        "Angelos Michaelides"
+      ],
+      "journal": "International Reviews in Physical Chemistry",
+      "doi": "https://doi.org/10.1080/0144235x.2019.1558623",
+      "arxiv_id": "1812.07848",
+      "citation_count": 35,
+      "source": "google_scholar",
+      "sources": [
+        "google_scholar",
+        "openalex",
+        "arxiv"
+      ],
+      "source_count": 3,
+      "abstract": "Hydrogen is the most abundant element in the universe. It is also the lightest and as such the most quantum of the elements, in the sense that quantum tunnelling, quantum delocalisation, and zero-poin..."
+    },
+    {
+      "title": "Classical and quantum ordering of protons in cold solid hydrogen under megabar pressures",
+      "year": 2013,
+      "authors": [
+        "Xin-Zheng Li",
+        "Brent Walker",
+        "Matt Probert",
+        "Chris J. Pickard",
+        "R. J. Needs",
+        "Angelos Michaelides"
+      ],
+      "journal": "Journal of Physics Condensed Matter",
+      "doi": "https://doi.org/10.1088/0953-8984/25/8/085402",
+      "arxiv_id": "1302.0062",
+      "citation_count": 30,
+      "source": "google_scholar",
+      "sources": [
+        "google_scholar",
+        "openalex",
+        "arxiv"
+      ],
+      "source_count": 3,
+      "abstract": "A combination of state-of-the-art theoretical methods has been used to obtain an atomic-level picture of classical and quantum ordering of protons in cold high-pressure solid hydro-gen. We focus mostl..."
+    },
+    {
+      "title": "A comparative study using state-of-the-art electronic structure theories on solid hydrogen phases under high pressures",
+      "year": 2019,
+      "authors": [
+        "Ke Liao",
+        "Xin-Zheng Li",
+        "Ali Alavi",
+        "Andreas Grüneis"
+      ],
+      "journal": "npj Computational Materials",
+      "doi": "https://doi.org/10.1038/s41524-019-0243-7",
+      "arxiv_id": "2004.06775",
+      "citation_count": 26,
+      "source": "google_scholar",
+      "sources": [
+        "google_scholar",
+        "openalex",
+        "arxiv"
+      ],
+      "source_count": 3,
+      "abstract": "Identifying the atomic structure and properties of solid hydrogen under high pressures is a long-standing problem of high-pressure physics with far-reaching significance in planetary and materials sci..."
+    },
+    {
+      "title": "Phonon transition across an isotopic interface",
+      "year": 2023,
+      "authors": [
+        "Ning Li",
+        "Ruochen Shi",
+        "Yifei Li",
+        "Ruishi Qi",
+        "Fachen Liu",
+        "Xiaowen Zhang",
+        "Zhetong Liu",
+        "Yuehui Li",
+        "Xiangdong Guo",
+        "Kaihui Liu",
+        "Ying Jiang",
+        "Xin-Zheng Li",
+        "Ji Chen",
+        "Lei Liu",
+        "Enge Wang",
+        "Peng Gao"
+      ],
+      "journal": "Nature Communications",
+      "doi": "https://doi.org/10.1038/s41467-023-38053-z",
+      "arxiv_id": "2209.12193",
+      "citation_count": 22,
+      "source": "google_scholar",
+      "sources": [
+        "google_scholar",
+        "openalex",
+        "arxiv"
+      ],
+      "source_count": 3,
+      "abstract": "Natural materials usually consist of isotopic mixtures, for which different isotopic ratios can lead to distinct material properties such as thermal conductivity and nucleation process. However, the k..."
+    },
+    {
+      "title": "Spin-triplet topological excitonic insulators in two-dimensional materials",
+      "year": 2024,
+      "authors": [
+        "Huaiyuan Yang",
+        "Jiaxi Zeng",
+        "Yuelin Shao",
+        "Yuanfeng Xu",
+        "Xi Dai",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical review. B./Physical review. B",
+      "doi": "https://doi.org/10.1103/physrevb.109.075167",
+      "arxiv_id": "2304.00463",
+      "citation_count": 19,
+      "source": "google_scholar",
+      "sources": [
+        "google_scholar",
+        "openalex",
+        "arxiv"
+      ],
+      "source_count": 3,
+      "abstract": "Quantum spin-hall insulator (QSHI) processes nontrivial topology. We notice that the electronic structures of some particular QSHIs are favorable for realization of excitonic insulators (EIs). Using f..."
+    },
+    {
+      "title": "Influence of high-energy local orbitals and electron-phonon interactions on the band gaps and optical absorption spectra of hexagonal boron nitride",
+      "year": 2020,
+      "authors": [
+        "Tong Shen",
+        "Xiaowei Zhang",
+        "Honghui Shang",
+        "Min‐Ye Zhang",
+        "Xinqiang Wang",
+        "Enge Wang",
+        "Hong Jiang",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical review. B./Physical review. B",
+      "doi": "https://doi.org/10.1103/physrevb.102.045117",
+      "arxiv_id": "2003.12704",
+      "citation_count": 17,
+      "source": "google_scholar",
+      "sources": [
+        "google_scholar",
+        "openalex",
+        "arxiv"
+      ],
+      "source_count": 3,
+      "abstract": "We report $ab$ $initio$ band diagram and optical absorption spectra of hexagonal boron nitride ($h$-BN), focusing on unravelling how the completeness of basis set for $GW$ calculations and how electro..."
+    },
+    {
+      "title": "Dynamic Nature of High-Pressure Ice VII",
+      "year": 2021,
+      "authors": [
+        "Qi-Jun Ye",
+        "Lin Zhuang",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical Review Letters",
+      "doi": "https://doi.org/10.1103/physrevlett.126.185501",
+      "arxiv_id": "2011.00875",
+      "citation_count": 16,
+      "source": "google_scholar",
+      "sources": [
+        "google_scholar",
+        "openalex",
+        "arxiv"
+      ],
+      "source_count": 3,
+      "abstract": "Starting from Shannon's definition of dynamic entropy, we proposed a simple theory to describe the transition between different rare event related dynamic states in condensed matters, and used it to i..."
+    },
+    {
+      "title": "Ferroelectric Problem beyond the Conventional Scaling Law",
+      "year": 2018,
+      "authors": [
+        "Qi-Jun Ye",
+        "Zhiyuan Liu",
+        "Yexin Feng",
+        "Peng Gao",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical Review Letters",
+      "doi": "https://doi.org/10.1103/physrevlett.121.135702",
+      "arxiv_id": "1805.05055",
+      "citation_count": 16,
+      "source": "google_scholar",
+      "sources": [
+        "google_scholar",
+        "openalex",
+        "arxiv"
+      ],
+      "source_count": 3,
+      "abstract": "Ferroelectric (FE) size effects against the scaling law were reported recently in ultrathin group-IV monochalcogenides, and extrinsic effects (e.g. defects and lattice strains) were often resorted to...."
+    },
+    {
+      "title": "<i>Ab initio</i> investigation on the experimental observation of metallic hydrogen",
+      "year": 2018,
+      "authors": [
+        "Xiaowei Zhang",
+        "Enge Wang",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical review. B./Physical review. B",
+      "doi": "https://doi.org/10.1103/physrevb.98.134110",
+      "arxiv_id": "1805.01625",
+      "citation_count": 14,
+      "source": "google_scholar",
+      "sources": [
+        "google_scholar",
+        "openalex",
+        "arxiv"
+      ],
+      "source_count": 3,
+      "abstract": "The optical spectra of hydrogen at $\\sim$500 GPa were studied theoretically using a combination of \\emph{ab initio} methods. Among the four most competitive structures, i.e. C2/c-24, Cmca-12, Cmca-4, ..."
+    },
+    {
+      "title": "Crystal-Structure Matches in Solid-Solid Phase Transitions",
+      "year": 2024,
+      "authors": [
+        "Fang-Cheng Wang",
+        "Qi-Jun Ye",
+        "Yucheng Zhu",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical Review Letters",
+      "doi": "https://doi.org/10.1103/physrevlett.132.086101",
+      "arxiv_id": "2305.05278",
+      "citation_count": 6,
+      "source": "google_scholar",
+      "sources": [
+        "google_scholar",
+        "openalex",
+        "arxiv"
+      ],
+      "source_count": 3,
+      "abstract": "The exploration of solid-solid phase transition suffers from the uncertainty of how atoms in two crystal structures match. We devised a theoretical framework to describe and classify crystal-structure..."
+    },
+    {
+      "title": "Dynamic phase transition theory",
+      "year": 2022,
+      "authors": [
+        "Qi-Jun Ye",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Science China Physics Mechanics and Astronomy",
+      "doi": "https://doi.org/10.1007/s11433-022-2002-6",
+      "arxiv_id": "2201.08566",
+      "citation_count": 6,
+      "source": "google_scholar",
+      "sources": [
+        "google_scholar",
+        "openalex",
+        "arxiv"
+      ],
+      "source_count": 3,
+      "abstract": "Thermodynamic conventions suffer from describing dynamical distinctions, especially when the structural and energetic changes induced by localized rare events are insignificant. By using the ensemble ..."
+    },
+    {
       "title": "Structural and electronic properties of solid molecular hydrogen from many-electron theories",
       "year": 2021,
       "authors": [
@@ -40,8 +350,8 @@
       "source": "google_scholar",
       "sources": [
         "google_scholar",
-        "arxiv",
-        "openalex"
+        "openalex",
+        "arxiv"
       ],
       "source_count": 3,
       "abstract": "We study the structural and electronic properties of phase III of solid hydrogen using accurate many-electron theories and compare to state-of-the-art experimental findings. The atomic structures of p..."
@@ -63,11 +373,34 @@
       "source": "google_scholar",
       "sources": [
         "google_scholar",
-        "arxiv",
-        "openalex"
+        "openalex",
+        "arxiv"
       ],
       "source_count": 3,
       "abstract": "We study the exciton condensation in the heterostructures where the electron layer and hole layer formed by gapped chiral Fermion (GCF) systems are separately gated. High-angular momentum such as p- a..."
+    },
+    {
+      "title": "Phonon-mediated exciton relaxation in two-dimensional semiconductors: selection rules and relaxation pathways",
+      "year": 2021,
+      "authors": [
+        "Xiaowei Zhang",
+        "Kaichen Xie",
+        "Enge Wang",
+        "Ting Cao",
+        "Xin-Zheng Li"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": "https://doi.org/10.48550/arxiv.2110.08873",
+      "arxiv_id": "2110.08873",
+      "citation_count": 4,
+      "source": "google_scholar",
+      "sources": [
+        "google_scholar",
+        "openalex",
+        "arxiv"
+      ],
+      "source_count": 3,
+      "abstract": "Exciton-phonon coupling (ExPC) is crucial for energy relaxation in semiconductors, yet the first-principles calculation of such coupling remains challenging, especially for low-dimensional systems. He..."
     },
     {
       "title": "Direct observation of ordered configurations of hydrogen adatoms on graphene",
@@ -91,8 +424,8 @@
       "source": "google_scholar",
       "sources": [
         "google_scholar",
-        "arxiv",
-        "openalex"
+        "openalex",
+        "arxiv"
       ],
       "source_count": 3,
       "abstract": "Ordered configurations of hydrogen adatoms on graphene have long been proposed, calculated and searched for. Here we report direct observation of several ordered configurations of H adatoms on graphen..."
@@ -113,33 +446,78 @@
       "source": "google_scholar",
       "sources": [
         "google_scholar",
-        "arxiv",
-        "openalex"
+        "openalex",
+        "arxiv"
       ],
       "source_count": 3,
       "abstract": "Crystal-structure match (CSM), the atom-to-atom correspondence between two crystalline phases, is used extensively to describe solid-solid phase transition (SSPT) mechanisms. However, existing computa..."
     },
     {
-      "title": "Field-selective criticality in 2D melting revealed by multi-field Lee-Yang zeros",
+      "title": "Tracking metastable phases by complex Lee-Yang zeros",
       "year": 2026,
       "authors": [
+        "Yi-Hua Dong",
         "Ling Liu",
-        "Fang Wang",
+        "Fang-Cheng Wang",
         "Qi-Jun Ye",
         "Xin-Zheng Li"
       ],
       "journal": "arXiv (Cornell University)",
-      "doi": "https://doi.org/10.48550/arxiv.2606.14075",
-      "arxiv_id": "2606.14075",
+      "doi": "https://doi.org/10.48550/arxiv.2606.08004",
+      "arxiv_id": "2606.08004",
       "citation_count": 0,
       "source": "google_scholar",
       "sources": [
         "google_scholar",
-        "arxiv",
-        "openalex"
+        "openalex",
+        "arxiv"
       ],
       "source_count": 3,
-      "abstract": "How a two-dimensional solid melts remains unsettled after 60 years of study, as theory, model systems, simulations, and atomic-resolution experiments continue to suggest conflicting scenarios. The sam..."
+      "abstract": "Metastable phases (MPs) are energetically unfavorable states typically suppressed in equilibrium phase diagrams. Rather than remaining ''hidden'', we show that they exist in the complex plane of therm..."
+    },
+    {
+      "title": "Exciton-polariton properties of hexagonal BN-based microcavity and their potential applications in BEC and superconductivity",
+      "year": 2021,
+      "authors": [
+        "Huaiyuan Yang",
+        "Xinqiang Wang",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical review. B./Physical review. B",
+      "doi": "https://doi.org/10.1103/physrevb.104.205307",
+      "arxiv_id": "2107.14376",
+      "citation_count": 0,
+      "source": "google_scholar",
+      "sources": [
+        "google_scholar",
+        "openalex",
+        "arxiv"
+      ],
+      "source_count": 3,
+      "abstract": "Microcavity exciton-polaritons are two-dimensional bosonic quasiparticles composed by excitons and photons. Using model Hamiltonian with parameters generated from ab initio density-functional theory a..."
+    },
+    {
+      "title": "Nature of proton transport in a water-filled carbon nanotube and in liquid water",
+      "year": 2014,
+      "authors": [
+        "Ji Chen",
+        "Xin-Zheng Li",
+        "Qianfan Zhang",
+        "Angelos Michaelides",
+        "Enge Wang"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": "https://doi.org/10.48550/arxiv.1404.7280",
+      "arxiv_id": "1404.7280",
+      "citation_count": 0,
+      "source": "google_scholar",
+      "sources": [
+        "google_scholar",
+        "openalex",
+        "arxiv"
+      ],
+      "source_count": 3,
+      "abstract": "Proton transport (PT) in bulk liquid water and within a thin water-filled carbon nanotube has been examined with ab initio pathintegral molecular dynamics (PIMD). Barrierless proton transfer is observ..."
     },
     {
       "title": "Quantum nature of the hydrogen bond",
@@ -226,6 +604,39 @@
       ],
       "source_count": 2,
       "abstract": null
+    },
+    {
+      "title": "Anisotropic magnetotransport and exotic longitudinal linear magnetoresistance in<mml:math xmlns:mml=\"http://www.w3.org/1998/Math/MathML\"><mml:mrow><mml:mi>WT</mml:mi><mml:msub><mml:mi mathvariant=\"normal\">e</mml:mi><mml:mn>2</mml:mn></mml:msub></mml:mrow></mml:math>crystals",
+      "year": 2015,
+      "authors": [
+        "Yanfei Zhao",
+        "Haiwen Liu",
+        "Jiaqiang Yan",
+        "Wei An",
+        "Jun Liu",
+        "Xi Zhang",
+        "Huichao Wang",
+        "Yi Liu",
+        "Hua Jiang",
+        "Qing Li",
+        "Yong Wang",
+        "Xin-Zheng Li",
+        "David Mandrus",
+        "X. C. Xie",
+        "Minghu Pan",
+        "Jian Wang"
+      ],
+      "journal": "Physical Review B",
+      "doi": "https://doi.org/10.1103/physrevb.92.041104",
+      "arxiv_id": "1502.04465",
+      "citation_count": 194,
+      "source": "openalex",
+      "sources": [
+        "openalex",
+        "arxiv"
+      ],
+      "source_count": 2,
+      "abstract": "WTe2 semimetal, as a typical layered transition-metal dichalcogenide, has recently attracted much attention due to the extremely large, non-saturating parabolic magnetoresistance in perpendicular fiel..."
     },
     {
       "title": "Direct visualization of concerted proton tunnelling in a water nanocluster",
@@ -336,31 +747,6 @@
       "abstract": null
     },
     {
-      "title": "Quantum simulation of low-temperature metallic liquid hydrogen",
-      "year": 2013,
-      "authors": [
-        "Ji Chen",
-        "Xin-Zheng Li",
-        "Qianfan Zhang",
-        "Matt Probert",
-        "Chris J. Pickard",
-        "R. J. Needs",
-        "Angelos Michaelides",
-        "Enge Wang"
-      ],
-      "journal": "Nature Communications",
-      "doi": "https://doi.org/10.1038/ncomms3064",
-      "arxiv_id": null,
-      "citation_count": 95,
-      "source": "google_scholar",
-      "sources": [
-        "google_scholar",
-        "openalex"
-      ],
-      "source_count": 2,
-      "abstract": null
-    },
-    {
       "title": "Transparent proton transport through a two-dimensional nanomesh material",
       "year": 2019,
       "authors": [
@@ -410,27 +796,27 @@
       "abstract": null
     },
     {
-      "title": "Inverse Temperature Dependence of Nuclear Quantum Effects in DNA Base Pairs",
-      "year": 2016,
+      "title": "Hydrogenation Facilitates Proton Transfer through Two-Dimensional Honeycomb Crystals",
+      "year": 2017,
       "authors": [
-        "Wei Fang",
-        "Ji Chen",
-        "Mariana Rossi",
         "Yexin Feng",
-        "Xin-Zheng Li",
-        "Angelos Michaelides"
+        "Ji Chen",
+        "Wei Fang",
+        "Enge Wang",
+        "Angelos Michaelides",
+        "Xin-Zheng Li"
       ],
       "journal": "The Journal of Physical Chemistry Letters",
-      "doi": "https://doi.org/10.1021/acs.jpclett.6b00777",
-      "arxiv_id": null,
-      "citation_count": 75,
-      "source": "google_scholar",
+      "doi": "https://doi.org/10.1021/acs.jpclett.7b02820",
+      "arxiv_id": "1704.00914",
+      "citation_count": 77,
+      "source": "openalex",
       "sources": [
-        "google_scholar",
-        "openalex"
+        "openalex",
+        "arxiv"
       ],
       "source_count": 2,
-      "abstract": null
+      "abstract": "Recent experiments have triggered a debate about the ability of protons to transfer through individual layers of graphene and hexagonal boron nitride (h-BN). However, calculations have shown that the ..."
     },
     {
       "title": "General Decomposition Pathway of Organic–Inorganic Hybrid Perovskites through an Intermediate Superstructure and its Suppression Mechanism",
@@ -682,28 +1068,6 @@
       "abstract": null
     },
     {
-      "title": "The quantum nature of hydrogen",
-      "year": 2019,
-      "authors": [
-        "Wei Fang",
-        "Ji Chen",
-        "Yexin Feng",
-        "Xin-Zheng Li",
-        "Angelos Michaelides"
-      ],
-      "journal": "International Reviews in Physical Chemistry",
-      "doi": "https://doi.org/10.1080/0144235x.2019.1558623",
-      "arxiv_id": null,
-      "citation_count": 35,
-      "source": "google_scholar",
-      "sources": [
-        "google_scholar",
-        "openalex"
-      ],
-      "source_count": 2,
-      "abstract": null
-    },
-    {
       "title": "Systematic investigation on topological properties of layered GaS and GaSe under strain",
       "year": 2014,
       "authors": [
@@ -715,29 +1079,6 @@
       ],
       "journal": "The Journal of Chemical Physics",
       "doi": "https://doi.org/10.1063/1.4893346",
-      "arxiv_id": null,
-      "citation_count": 30,
-      "source": "google_scholar",
-      "sources": [
-        "google_scholar",
-        "openalex"
-      ],
-      "source_count": 2,
-      "abstract": null
-    },
-    {
-      "title": "Classical and quantum ordering of protons in cold solid hydrogen under megabar pressures",
-      "year": 2013,
-      "authors": [
-        "Xin-Zheng Li",
-        "Brent Walker",
-        "Matt Probert",
-        "Chris J. Pickard",
-        "R. J. Needs",
-        "Angelos Michaelides"
-      ],
-      "journal": "Journal of Physics Condensed Matter",
-      "doi": "https://doi.org/10.1088/0953-8984/25/8/085402",
       "arxiv_id": null,
       "citation_count": 30,
       "source": "google_scholar",
@@ -828,27 +1169,6 @@
       "abstract": null
     },
     {
-      "title": "A comparative study using state-of-the-art electronic structure theories on solid hydrogen phases under high pressures",
-      "year": 2019,
-      "authors": [
-        "Ke Liao",
-        "Xin-Zheng Li",
-        "Ali Alavi",
-        "Andreas Grüneis"
-      ],
-      "journal": "npj Computational Materials",
-      "doi": "https://doi.org/10.1038/s41524-019-0243-7",
-      "arxiv_id": null,
-      "citation_count": 26,
-      "source": "google_scholar",
-      "sources": [
-        "google_scholar",
-        "openalex"
-      ],
-      "source_count": 2,
-      "abstract": null
-    },
-    {
       "title": "Proton Migration in Hybrid Lead Iodide Perovskites: From Classical Hopping to Deep Quantum Tunneling",
       "year": 2018,
       "authors": [
@@ -907,39 +1227,6 @@
       "abstract": null
     },
     {
-      "title": "Phonon transition across an isotopic interface",
-      "year": 2023,
-      "authors": [
-        "Ning Li",
-        "Ruochen Shi",
-        "Yifei Li",
-        "Ruishi Qi",
-        "Fachen Liu",
-        "Xiaowen Zhang",
-        "Zhetong Liu",
-        "Yuehui Li",
-        "Xiangdong Guo",
-        "Kaihui Liu",
-        "Ying Jiang",
-        "Xin-Zheng Li",
-        "Ji Chen",
-        "Lei Liu",
-        "Enge Wang",
-        "Peng Gao"
-      ],
-      "journal": "Nature Communications",
-      "doi": "https://doi.org/10.1038/s41467-023-38053-z",
-      "arxiv_id": null,
-      "citation_count": 22,
-      "source": "google_scholar",
-      "sources": [
-        "google_scholar",
-        "openalex"
-      ],
-      "source_count": 2,
-      "abstract": null
-    },
-    {
       "title": "The collective and quantum nature of proton transfer in the cyclic water tetramer on NaCl(001)",
       "year": 2017,
       "authors": [
@@ -955,96 +1242,6 @@
       "doi": "https://doi.org/10.1063/1.5004737",
       "arxiv_id": null,
       "citation_count": 21,
-      "source": "google_scholar",
-      "sources": [
-        "google_scholar",
-        "openalex"
-      ],
-      "source_count": 2,
-      "abstract": null
-    },
-    {
-      "title": "Spin-triplet topological excitonic insulators in two-dimensional materials",
-      "year": 2024,
-      "authors": [
-        "Huaiyuan Yang",
-        "Jiaxi Zeng",
-        "Yuelin Shao",
-        "Yuanfeng Xu",
-        "Xi Dai",
-        "Xin-Zheng Li"
-      ],
-      "journal": "Physical review. B./Physical review. B",
-      "doi": "https://doi.org/10.1103/physrevb.109.075167",
-      "arxiv_id": null,
-      "citation_count": 19,
-      "source": "google_scholar",
-      "sources": [
-        "google_scholar",
-        "openalex"
-      ],
-      "source_count": 2,
-      "abstract": null
-    },
-    {
-      "title": "Influence of high-energy local orbitals and electron-phonon interactions on the band gaps and optical absorption spectra of hexagonal boron nitride",
-      "year": 2020,
-      "authors": [
-        "Tong Shen",
-        "Xiaowei Zhang",
-        "Honghui Shang",
-        "Min‐Ye Zhang",
-        "Xinqiang Wang",
-        "Enge Wang",
-        "Hong Jiang",
-        "Xin-Zheng Li"
-      ],
-      "journal": "Physical review. B./Physical review. B",
-      "doi": "https://doi.org/10.1103/physrevb.102.045117",
-      "arxiv_id": null,
-      "citation_count": 17,
-      "source": "google_scholar",
-      "sources": [
-        "google_scholar",
-        "openalex"
-      ],
-      "source_count": 2,
-      "abstract": null
-    },
-    {
-      "title": "Dynamic Nature of High-Pressure Ice VII",
-      "year": 2021,
-      "authors": [
-        "Qi-Jun Ye",
-        "Lin Zhuang",
-        "Xin-Zheng Li"
-      ],
-      "journal": "Physical Review Letters",
-      "doi": "https://doi.org/10.1103/physrevlett.126.185501",
-      "arxiv_id": null,
-      "citation_count": 16,
-      "source": "google_scholar",
-      "sources": [
-        "google_scholar",
-        "openalex"
-      ],
-      "source_count": 2,
-      "abstract": null
-    },
-    {
-      "title": "Ferroelectric Problem beyond the Conventional Scaling Law",
-      "year": 2018,
-      "authors": [
-        "Qi-Jun Ye",
-        "Zhiyuan Liu",
-        "Yexin Feng",
-        "Peng Gao",
-        "Xin-Zheng Li"
-      ],
-      "journal": "Physical Review Letters",
-      "doi": "https://doi.org/10.1103/physrevlett.121.135702",
-      "arxiv_id": null,
-      "citation_count": 16,
       "source": "google_scholar",
       "sources": [
         "google_scholar",
@@ -1259,46 +1456,6 @@
       "abstract": null
     },
     {
-      "title": "Crystal-Structure Matches in Solid-Solid Phase Transitions",
-      "year": 2024,
-      "authors": [
-        "Fang-Cheng Wang",
-        "Qi-Jun Ye",
-        "Yucheng Zhu",
-        "Xin-Zheng Li"
-      ],
-      "journal": "Physical Review Letters",
-      "doi": "https://doi.org/10.1103/physrevlett.132.086101",
-      "arxiv_id": null,
-      "citation_count": 6,
-      "source": "google_scholar",
-      "sources": [
-        "google_scholar",
-        "openalex"
-      ],
-      "source_count": 2,
-      "abstract": null
-    },
-    {
-      "title": "Dynamic phase transition theory",
-      "year": 2022,
-      "authors": [
-        "Qi-Jun Ye",
-        "Xin-Zheng Li"
-      ],
-      "journal": "Science China Physics Mechanics and Astronomy",
-      "doi": "https://doi.org/10.1007/s11433-022-2002-6",
-      "arxiv_id": null,
-      "citation_count": 6,
-      "source": "google_scholar",
-      "sources": [
-        "google_scholar",
-        "openalex"
-      ],
-      "source_count": 2,
-      "abstract": null
-    },
-    {
       "title": "Structural determination of argon trimer",
       "year": 2015,
       "authors": [
@@ -1410,26 +1567,26 @@
       "abstract": null
     },
     {
-      "title": "Phonon-mediated exciton relaxation in two-dimensional semiconductors: selection rules and relaxation pathways",
-      "year": 2021,
+      "title": "Nonperturbative <mml:math xmlns:mml=\"http://www.w3.org/1998/Math/MathML\"><mml:mi mathvariant=\"italic\">ab</mml:mi><mml:mo> </mml:mo><mml:mi mathvariant=\"italic\">initio</mml:mi></mml:math> approach for calculating the electrical conductivity of a liquid metal",
+      "year": 2022,
       "authors": [
         "Xiaowei Zhang",
-        "Kaichen Xie",
+        "Hao Chen",
         "Enge Wang",
-        "Ting Cao",
+        "Junren Shi",
         "Xin-Zheng Li"
       ],
-      "journal": "arXiv (Cornell University)",
-      "doi": "https://doi.org/10.48550/arxiv.2110.08873",
-      "arxiv_id": null,
+      "journal": "Physical review. B./Physical review. B",
+      "doi": "https://doi.org/10.1103/physrevb.105.155148",
+      "arxiv_id": "2201.06103",
       "citation_count": 4,
-      "source": "google_scholar",
+      "source": "openalex",
       "sources": [
-        "google_scholar",
-        "openalex"
+        "openalex",
+        "arxiv"
       ],
       "source_count": 2,
-      "abstract": null
+      "abstract": "We propose a non-perturbative $ab$ $initio$ approach to calculate the electrical conductivity of a liquid metal. Our approach is based on the Kubo formula and the theory of electron-phonon coupling (E..."
     },
     {
       "title": "Correction: Corrigendum: Real-space imaging of interfacial water with submolecular resolution",
@@ -1457,6 +1614,27 @@
       ],
       "source_count": 2,
       "abstract": null
+    },
+    {
+      "title": "Quantum disorder induced by nuclear tunneling in lattice",
+      "year": 2025,
+      "authors": [
+        "Yu-Cheng Zhu",
+        "Jia-Xi Zeng",
+        "Qi-Jun Ye",
+        "Xin-Zheng Li"
+      ],
+      "journal": "Physical Review Letters 134 (24), 246401, 2025",
+      "doi": "https://doi.org/10.1103/9gkl-w2lm",
+      "arxiv_id": "2501.08801",
+      "citation_count": 3,
+      "source": "google_scholar",
+      "sources": [
+        "google_scholar",
+        "arxiv"
+      ],
+      "source_count": 2,
+      "abstract": "Lattice degrees of freedom (DoFs) may induce quantum disorder (QD) when nuclear tunneling outvies long-range order, but conventional phonon theory is incapable of describing such QD phases. Here we de..."
     },
     {
       "title": "Semiclassical reaction rate constant of non-adiabatic system by means of initial value representation",
@@ -1760,17 +1938,16 @@
       "abstract": null
     },
     {
-      "title": "Tracking metastable phases by complex Lee-Yang zeros",
+      "title": "Field-selective criticality in 2D melting revealed by multi-field Lee-Yang zeros",
       "year": 2026,
       "authors": [
-        "Yi-Hua Dong",
         "Ling Liu",
-        "Fang-Cheng Wang",
+        "Fang Wang",
         "Qi-Jun Ye",
         "Xin-Zheng Li"
       ],
       "journal": "arXiv (Cornell University)",
-      "doi": "https://doi.org/10.48550/arxiv.2606.08004",
+      "doi": "https://doi.org/10.48550/arxiv.2606.14075",
       "arxiv_id": null,
       "citation_count": 0,
       "source": "google_scholar",
@@ -1780,6 +1957,34 @@
       ],
       "source_count": 2,
       "abstract": null
+    },
+    {
+      "title": "Permutation invariant multi-scale full quantum neural network wavefunction",
+      "year": 2026,
+      "authors": [
+        "Pengzhen Cai",
+        "Yubing Qian",
+        "Li Deng",
+        "Weizhong Fu",
+        "Lei Yang",
+        "Zhiyu Sun",
+        "Xin-Zheng Li",
+        "En-Ge Wang",
+        "Liangwen Chen",
+        "Weiluo Ren",
+        "Ji Chen"
+      ],
+      "journal": "arXiv (Cornell University)",
+      "doi": "https://doi.org/10.48550/arxiv.2603.12233",
+      "arxiv_id": "2603.12233",
+      "citation_count": 0,
+      "source": "openalex",
+      "sources": [
+        "openalex",
+        "arxiv"
+      ],
+      "source_count": 2,
+      "abstract": "Solving the intricate quantum behavior of interacting particles is key to unlocking the mysteries of condensed matter, but capturing their complex correlations across different scales remains a monume..."
     },
     {
       "title": "First-principles estimation of the superconducting transition temperature of a metallic hydrogen liquid",
@@ -1792,26 +1997,6 @@
       ],
       "journal": "Physical review. B./Physical review. B",
       "doi": "https://doi.org/10.1103/physrevb.104.184516",
-      "arxiv_id": null,
-      "citation_count": 0,
-      "source": "google_scholar",
-      "sources": [
-        "google_scholar",
-        "openalex"
-      ],
-      "source_count": 2,
-      "abstract": null
-    },
-    {
-      "title": "Exciton-polariton properties of hexagonal BN-based microcavity and their potential applications in BEC and superconductivity",
-      "year": 2021,
-      "authors": [
-        "Huaiyuan Yang",
-        "Xinqiang Wang",
-        "Xin-Zheng Li"
-      ],
-      "journal": "Physical review. B./Physical review. B",
-      "doi": "https://doi.org/10.1103/physrevb.104.205307",
       "arxiv_id": null,
       "citation_count": 0,
       "source": "google_scholar",
@@ -1933,28 +2118,6 @@
       "abstract": null
     },
     {
-      "title": "Nature of proton transport in a water-filled carbon nanotube and in liquid water",
-      "year": 2014,
-      "authors": [
-        "Ji Chen",
-        "Xin-Zheng Li",
-        "Qianfan Zhang",
-        "Angelos Michaelides",
-        "Enge Wang"
-      ],
-      "journal": "arXiv (Cornell University)",
-      "doi": "https://doi.org/10.48550/arxiv.1404.7280",
-      "arxiv_id": null,
-      "citation_count": 0,
-      "source": "google_scholar",
-      "sources": [
-        "google_scholar",
-        "openalex"
-      ],
-      "source_count": 2,
-      "abstract": null
-    },
-    {
       "title": "Low-temperature metallic liquid hydrogen: an ab-initio path-integral molecular dynamics perspective",
       "year": 2013,
       "authors": [
@@ -2036,38 +2199,6 @@
       "abstract": null
     },
     {
-      "title": "Anisotropic magnetotransport and exotic longitudinal linear magnetoresistance in<mml:math xmlns:mml=\"http://www.w3.org/1998/Math/MathML\"><mml:mrow><mml:mi>WT</mml:mi><mml:msub><mml:mi mathvariant=\"normal\">e</mml:mi><mml:mn>2</mml:mn></mml:msub></mml:mrow></mml:math>crystals",
-      "year": 2015,
-      "authors": [
-        "Yanfei Zhao",
-        "Haiwen Liu",
-        "Jiaqiang Yan",
-        "Wei An",
-        "Jun Liu",
-        "Xi Zhang",
-        "Huichao Wang",
-        "Yi Liu",
-        "Hua Jiang",
-        "Qing Li",
-        "Yong Wang",
-        "Xin-Zheng Li",
-        "David Mandrus",
-        "X. C. Xie",
-        "Minghu Pan",
-        "Jian Wang"
-      ],
-      "journal": "Physical Review B",
-      "doi": "https://doi.org/10.1103/physrevb.92.041104",
-      "arxiv_id": null,
-      "citation_count": 194,
-      "source": "openalex",
-      "sources": [
-        "openalex"
-      ],
-      "source_count": 1,
-      "abstract": null
-    },
-    {
       "title": "High-loaded single Cu atoms decorated on N-doped graphene for boosting Fenton-like catalysis under neutral pH",
       "year": 2020,
       "authors": [
@@ -2118,28 +2249,6 @@
       "source": "google_scholar",
       "sources": [
         "google_scholar"
-      ],
-      "source_count": 1,
-      "abstract": null
-    },
-    {
-      "title": "Hydrogenation Facilitates Proton Transfer through Two-Dimensional Honeycomb Crystals",
-      "year": 2017,
-      "authors": [
-        "Yexin Feng",
-        "Ji Chen",
-        "Wei Fang",
-        "Enge Wang",
-        "Angelos Michaelides",
-        "Xin-Zheng Li"
-      ],
-      "journal": "The Journal of Physical Chemistry Letters",
-      "doi": "https://doi.org/10.1021/acs.jpclett.7b02820",
-      "arxiv_id": null,
-      "citation_count": 77,
-      "source": "openalex",
-      "sources": [
-        "openalex"
       ],
       "source_count": 1,
       "abstract": null
@@ -2443,21 +2552,6 @@
       "abstract": null
     },
     {
-      "title": "Ab initio investigation on the experimental observation of metallic hydrogen",
-      "year": 2018,
-      "authors": null,
-      "journal": "arXiv preprint arXiv:1805.01625, 2018",
-      "doi": null,
-      "arxiv_id": null,
-      "citation_count": 18,
-      "source": "google_scholar",
-      "sources": [
-        "google_scholar"
-      ],
-      "source_count": 1,
-      "abstract": null
-    },
-    {
       "title": "Results from 100 h electrolysis testing of NiFe2O4 based cermet as inert anode in aluminum reduction",
       "year": 2006,
       "authors": [
@@ -2567,25 +2661,6 @@
       ],
       "journal": "Research on Chemical Intermediates",
       "doi": "https://doi.org/10.1007/s11164-018-3687-3",
-      "arxiv_id": null,
-      "citation_count": 14,
-      "source": "openalex",
-      "sources": [
-        "openalex"
-      ],
-      "source_count": 1,
-      "abstract": null
-    },
-    {
-      "title": "<i>Ab initio</i> investigation on the experimental observation of metallic hydrogen",
-      "year": 2018,
-      "authors": [
-        "Xiaowei Zhang",
-        "Enge Wang",
-        "Xin-Zheng Li"
-      ],
-      "journal": "Physical review. B./Physical review. B",
-      "doi": "https://doi.org/10.1103/physrevb.98.134110",
       "arxiv_id": null,
       "citation_count": 14,
       "source": "openalex",
@@ -2932,27 +3007,6 @@
       "abstract": null
     },
     {
-      "title": "Nonperturbative <mml:math xmlns:mml=\"http://www.w3.org/1998/Math/MathML\"><mml:mi mathvariant=\"italic\">ab</mml:mi><mml:mo> </mml:mo><mml:mi mathvariant=\"italic\">initio</mml:mi></mml:math> approach for calculating the electrical conductivity of a liquid metal",
-      "year": 2022,
-      "authors": [
-        "Xiaowei Zhang",
-        "Hao Chen",
-        "Enge Wang",
-        "Junren Shi",
-        "Xin-Zheng Li"
-      ],
-      "journal": "Physical review. B./Physical review. B",
-      "doi": "https://doi.org/10.1103/physrevb.105.155148",
-      "arxiv_id": null,
-      "citation_count": 4,
-      "source": "openalex",
-      "sources": [
-        "openalex"
-      ],
-      "source_count": 1,
-      "abstract": null
-    },
-    {
       "title": "From a Liquid to a Crystal without Going through a First-Order Phase Transition: Determining the Free Energy of Melting with Glassy Intermediates",
       "year": 2019,
       "authors": [
@@ -3010,21 +3064,6 @@
       "source": "openalex",
       "sources": [
         "openalex"
-      ],
-      "source_count": 1,
-      "abstract": null
-    },
-    {
-      "title": "Quantum disorder induced by nuclear tunneling in lattice",
-      "year": 2025,
-      "authors": null,
-      "journal": "Physical Review Letters 134 (24), 246401, 2025",
-      "doi": null,
-      "arxiv_id": null,
-      "citation_count": 3,
-      "source": "google_scholar",
-      "sources": [
-        "google_scholar"
       ],
       "source_count": 1,
       "abstract": null
@@ -3678,33 +3717,6 @@
       "source": "google_scholar",
       "sources": [
         "google_scholar"
-      ],
-      "source_count": 1,
-      "abstract": null
-    },
-    {
-      "title": "Permutation invariant multi-scale full quantum neural network wavefunction",
-      "year": 2026,
-      "authors": [
-        "Pengzhen Cai",
-        "Yubing Qian",
-        "Li Deng",
-        "Weizhong Fu",
-        "Lei Yang",
-        "Zhiyu Sun",
-        "Xin-Zheng Li",
-        "En-Ge Wang",
-        "Liangwen Chen",
-        "Weiluo Ren",
-        "Ji Chen"
-      ],
-      "journal": "arXiv (Cornell University)",
-      "doi": "https://doi.org/10.48550/arxiv.2603.12233",
-      "arxiv_id": null,
-      "citation_count": 0,
-      "source": "openalex",
-      "sources": [
-        "openalex"
       ],
       "source_count": 1,
       "abstract": null
@@ -4552,12 +4564,12 @@
     }
   ],
   "statistics": {
-    "total": 204,
+    "total": 203,
     "by_source": {
       "google_scholar": 111,
-      "arxiv": 5,
-      "openalex": 174
+      "openalex": 174,
+      "arxiv": 26
     },
-    "unique": 204
+    "unique": 203
   }
 }

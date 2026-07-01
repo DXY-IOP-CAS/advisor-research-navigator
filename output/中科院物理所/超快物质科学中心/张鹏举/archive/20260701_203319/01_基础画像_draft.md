@@ -1,28 +1,26 @@
 ---
 affiliation: Institute of Physics, Chinese Academy of Sciences
 department: 超快物质科学中心
-tags: [超快科学, 阿秒物理, 强场物理, 液体水动力学]
 source_updated: 2026-07-01 20:36
 orcid: https://orcid.org/0000-0001-7746-2113
-openalex_id: A5000914228
 google_scholar_url: https://scholar.google.com/citations?hl=en&user=ls7XuGoAAAAJ
 run_timestamp: 2026-07-01 20:36
-run_archive: archive/20260701_203319/
+run_archive: archive/latest/
 ---
 
-# 张鹏举 (Pengju Zhang) — 基础画像
+# Pengju Zhang — 基础画像
 
 ## 运行信息
 
 | 项目 | 内容 |
 |:-----|:------|
 | 生成时间 | 2026-07-01 20:36 |
-| 运行存档 | `archive/20260701_203319/` |
-| 总论文数 | 58 篇（过滤后，OA 错位剔除 2 篇） |
+| 运行存档 | `archive/latest/` |
+| 总论文数 | 60 篇（合并后），60 篇（过滤后） |
 | GS 状态 | success |
 | OA 状态 | success |
 | arXiv 状态 | success |
-| 身份验证 | 已验证（email @iphy.ac.cn 匹配官网） |
+| 身份验证 | 已验证（email @iphy.ac.cn） |
 
 ---
 
@@ -30,66 +28,22 @@ run_archive: archive/20260701_203319/
 
 | 字段 | 内容 |
 |:-----|:------|
-| 中文姓名 | 张鹏举 |
-| 英文姓名 | Pengju Zhang |
-| 职称 | 特聘研究员 / 博士生导师 |
-| 机构 | 中国科学院物理研究所，超快物质科学中心 |
-| 邮箱 | pengju.zhang@iphy.ac.cn |
-| Google Scholar | [ls7XuGoAAAAJ](https://scholar.google.com/citations?hl=en&user=ls7XuGoAAAAJ) |
-| OpenAlex | [A5000914228](https://openalex.org/authors/A5000914228) |
-| ORCID | [0000-0001-7746-2113](https://orcid.org/0000-0001-7746-2113) |
-
-来源：[IPHY 官网](https://edu.iphy.ac.cn/?q=detail_teacher&id=6368)、[GS 邮箱验证](https://scholar.google.com/citations?hl=en&user=ls7XuGoAAAAJ)
-
----
-
-## 2. 学术履历
-
-### 教育经历
-
-| 起止 | 学位 | 专业 | 机构 |
-|:----|:----|:----|:-----|
-| 2003–2007 | 学士 | 应用物理学 | 河北大学 |
-| 2007–2010 | 硕士 | 原子、分子物理 | 中国科学院近代物理研究所 |
-| 2010–2013 | 博士 | 原子、分子物理 | 中国科学院近代物理研究所 |
-
-### 工作经历
-
-| 起止 | 职称 | 机构 |
-|:----|:----|:-----|
-| 2024–至今 | 特聘研究员 | 中国科学院物理研究所，超快物质科学中心 |
-| 2021–2024 | 资深研究员 | 苏黎世联邦理工学院 (ETH Zurich) |
-| 2018–2021 | 博士后研究员 | 苏黎世联邦理工学院 (ETH Zurich) |
-| 2016–2018 | 副研究员 | 中国科学院近代物理研究所 |
-| 2013–2016 | 博士后研究员 | 日本理化学研究所 (RIKEN) |
-
-### 学术兼职
-
-- 青年编委：*Ultrafast Science* (AAAS 期刊)、*Photonics Insights*
-- 审稿人：CPL、CPB、PRX、PRL、PRA、APL、JPB、Physica Scripta
-
-来源：[IPHY 官网](https://edu.iphy.ac.cn/?q=detail_teacher&id=6368)、[UCAS 教师页](https://people.ucas.ac.cn/~0052353)
-
----
-
-## 3. 研究方向
-
-张鹏举的核心研究方向围绕**超快激发态动力学**展开——利用超快激光结合高次谐波产生 (HHG) 和外场调控手段，在电子及核的本征运动时间尺度内观察并描述其运动规律。具体分为四个方向：
-
-1. **桌面式阿秒光源研制**：开发新型便携高重频阿秒光源，推进阿秒技术从大型装置向实验室桌面的转变
-2. **原子、分子的电子态相干动力学**：利用阿秒瞬态吸收光谱和时间分辨光电子能谱研究原子分子中的电子相干运动和电荷转移
-3. **液体水的电子态结构和超快非绝热化学反应动力学**：主导发展了液相时间分辨光电子能谱技术，直接探测液体水中的电子动力学，是该领域的开拓者之一
-4. **关联电子材料的阿秒电子动力学表征与操控**：将阿秒时间分辨技术拓展到强关联电子材料体系
-
-来源：[IPHY 官网](https://edu.iphy.ac.cn/?q=detail_teacher&id=6368)
+| 姓名 | Pengju Zhang |
+| 机构 | Institute of Physics, Chinese Academy of Sciences |
+| 邮箱 | ...@@iphy.ac.cn |
+| GS ID | ls7XuGoAAAAJ |
+| OA ID | A5000914228 |
+| ORCID | https://orcid.org/0000-0001-7746-2113 |
 
 ---
 
 ## 4. 全部论文（按学术履历阶段分组）
 
+<!-- 下方 4.x 节标题由 AI 渲染时填写。每节用 1-2 句话说明该阶段的研究主题，再列论文表格 -->
+
 ### 4.1 2007–2010 硕士阶段：电子碰撞电离动力学
 
-硕士期间在中科院近代物理所从事电子-原子碰撞实验，研究 (e, 2e) 反应中的反冲离子动量谱和激光诱导击穿光谱技术。
+<!-- AI 渲染：1-2 句话说明该阶段的研究主题和方向变化。不写评价。 -->
 
 论文数：6 篇
 
@@ -104,9 +58,9 @@ run_archive: archive/20260701_203319/
 
 ### 4.2 2010–2013 博士阶段：离子-原子碰撞物理
 
-博士期间系统研究了中高能离子/电子与原子分子碰撞中的多电子过程，包括 transfer ionization、single-electron capture、interatomic Coulombic decay 等机制。以第一作者在 PRA、JCP 等期刊发表多篇论文。
+<!-- AI 渲染：1-2 句话说明该阶段的研究主题和方向变化。不写评价。 -->
 
-论文数：15 篇
+论文数：11 篇
 
 | # | 年份 | 标题 | 期刊 | 引用 | 来源 |
 |:-:|:----:|:-----|:-----|:----:|:-----|
@@ -124,9 +78,9 @@ run_archive: archive/20260701_203319/
 
 ### 4.3 2013–2016 博士后 (RIKEN)：团簇动力学
 
-在 RIKEN 从事团簇碎裂和离子碰撞动力学研究，利用符合测量技术探索氩团簇的解离机制和高电荷态离子碰撞中的多电子过程。
+<!-- AI 渲染：1-2 句话说明该阶段的研究主题和方向变化。不写评价。 -->
 
-论文数：7 篇
+论文数：9 篇
 
 | # | 年份 | 标题 | 期刊 | 引用 | 来源 |
 |:-:|:----:|:-----|:-----|:----:|:-----|
@@ -142,7 +96,7 @@ run_archive: archive/20260701_203319/
 
 ### 4.4 2016–2018 副研究员 (IMP)：ICD 与分子碎裂
 
-回到中科院近代物理所担任副研究员，独立开展团簇内原子间库仑衰变 (ICD) 和分子碎裂动力学研究，将 ICD 研究从原子拓展到团簇体系。
+<!-- AI 渲染：1-2 句话说明该阶段的研究主题和方向变化。不写评价。 -->
 
 论文数：7 篇
 
@@ -158,7 +112,7 @@ run_archive: archive/20260701_203319/
 
 ### 4.5 2018–2024 ETH Zurich：阿秒科学与液相超快动力学
 
-在 ETH Zurich 的 Hans Jakob Worner 组从事阿秒谱学和液相超快动力学研究，是职业生涯最重要的转型期——从碰撞物理全面转向超快激光和阿秒科学。主导搭建了液相高次谐波装置，在液体水的光电子能谱、ICD 动力学、超快异构化反应等方向取得系列突破。以 (共同) 通讯/第一作者在 *Nature Photonics*、*Nature Chemistry*、*Nature Communications*、*PRL*、*Science Advances* 等期刊发表多篇论文。
+<!-- AI 渲染：1-2 句话说明该阶段的研究主题和方向变化。不写评价。 -->
 
 论文数：18 篇
 
@@ -185,7 +139,7 @@ run_archive: archive/20260701_203319/
 
 ### 4.6 2024–至今 独立研究 (IOP)：阿秒光源与前沿应用
 
-2024 年加入中科院物理所超快物质科学中心，组建独立课题组。研究聚焦于：新型桌面阿秒光源开发、液体水/溶液体系的阿秒时间分辨光电子能谱应用、以及固体材料中的孤立阿秒脉冲产生。2025-2026 年在 *Nature Photonics*、*Nature Communications*、*Physical Review Research* 等发表多篇高水平论文。
+<!-- AI 渲染：1-2 句话说明该阶段的研究主题和方向变化。不写评价。 -->
 
 论文数：7 篇
 
@@ -203,60 +157,6 @@ run_archive: archive/20260701_203319/
 - Convenient DNA Hydrogel Synthesis via Self‐Templated Primer‐Driven Isothermal Amplification
 - Calibration of Frequency Shift System of Wind Imaging Interferometer
 -->
-## 5. 影响力指标
-
-| 指标 | 数值 | 来源 |
-|:----|:----|:-----|
-| h-index | 15 | GS（OpenAlex: 未获取） |
-| i10-index | 20 | GS |
-| 总引用数 | 732 | GS（2026-07-01） |
-| 论文总数 | 58（合并去重后） | 三源合并 |
-| 多源验证论文 | 7 篇（12.1%） | DOI/标题匹配 |
-
-来源：[GS](https://scholar.google.com/citations?hl=en&user=ls7XuGoAAAAJ)
-
----
-
-## 6. 合作网络
-
-### 核心合作者（≥3 篇合著）
-
-| 合作者 | 机构 | 合著论文数 |
-|:------|:-----|:---------:|
-| Hans Jakob Worner | ETH Zurich | 多篇（核心导师/Boss） |
-| Conaill Perry | ETH Zurich | 2+ |
-| Tran Trung Luu | ETH Zurich | 2+ |
-| Joel Trester | ETH Zurich | 1+ |
-| Petr Slavicek | 捷克查理大学 | 2+ |
-| Sheng Meng (孟胜) | 中科院物理所 | 2+ |
-| Zhongkui Huang (黄忠魁) | 中科院近物所 | 2+ |
-
-### 主要合作机构
-
-- ETH Zurich (2018–2024，主要研究阶段)
-- RIKEN (日本，2013–2016)
-- 中国科学院近代物理研究所 (2007–2018)
-- 中国科学院物理研究所 (2024–至今)
-- 捷克查理大学 (理论合作)
-
-来源：OpenAlex 和 GS 合著者统计
-
----
-
-## 7. 公开信息
-
-| 类型 | 链接 | 说明 |
-|:----|:-----|:-----|
-| IPHY 教师页 | [详情页](https://edu.iphy.ac.cn/?q=detail_teacher&id=6368) | 官方介绍 |
-| UCAS 教师页 | [个人信息页](https://people.ucas.ac.cn/~0052353) | 国科大教师信息 |
-| LinkedIn | [pengju-zhang-45b828194](https://linkedin.com/in/pengju-zhang-45b828194) | 职业社交 |
-| 科学网博客 | [zhangpengju](https://blog.sciencenet.cn/u/zhangpengju) | 科研博客 |
-| ResearchGate | 通过 GS 或 ORCID 可关联 | — |
-
-来源：Web Search 多源发现
-
----
-
 ## 8. 数据质量说明
 
 | 数据源 | 状态 | 论文数 | 说明 |
@@ -267,22 +167,3 @@ run_archive: archive/20260701_203319/
 | 合并 | ✅ | 58 | 去重后唯一数（多源论文在各源计数中重复计算） |
 
 多源交叉验证 7 篇（12.1%）
-
----
-
-## 9. 来源说明
-
-| 数据源 | 用途 | 状态 | 未启用原因 |
-|:-------|:-----|:----:|:----------|
-| 官网 (IPHY) | 身份验证、研究方向、履历 | ✅ 成功 | — |
-| Google Scholar | 论文列表主源 | ✅ 成功 | — |
-| OpenAlex | 元数据补充 (DOI/期刊/作者) | ✅ 成功 | — |
-| arXiv | 预印本补充 | ✅ 成功 | — |
-| UCAS 教师页 | 履历交叉验证 | ✅ 成功 | — |
-| Semantic Scholar | TLDR 摘要 | ⛔ 未启用 | 可选步骤，当前未运行 |
-| ORCID | 身份标识 | ✅ 已确认 | — |
-| CNKI/万方 | 中文学位论文 | ⛔ 未启用 | 需授权 |
-
-**论文覆盖说明**：GS profile 是学者本人维护的论文列表，对张鹏举的英文论文覆盖最全。OpenAlex 对中文学者覆盖约 22-38%（Zheng et al. 2025），16 篇（22.5%）论文仅 GS 来源。如有遗漏，请提供补充链接。
-
-**来源标 URL**：每条外部信息来源 URL 已在各节中标注。

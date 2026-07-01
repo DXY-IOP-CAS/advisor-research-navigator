@@ -1,0 +1,45 @@
+{
+  "pipeline": "phase1",
+  "step": "verify",
+  "status": "confirmed",
+  "timestamp": "2026-07-01 20:33:19",
+  "professor": {
+    "name_cn": "张鹏举",
+    "name_en": "Pengju Zhang",
+    "email": "pengju.zhang@iphy.ac.cn",
+    "email_domain": "iphy.ac.cn",
+    "affiliation": "中国科学院物理研究所",
+    "department": "超快物质科学中心",
+    "position": "特聘研究员/博士生导师",
+    "gs_id": "ls7XuGoAAAAJ",
+    "oa_id": "A5000914228",
+    "orcid": "0000-0001-7746-2113",
+    "gs_email_verified": true,
+    "gs_email_domain": "iphy.ac.cn",
+    "source_url": "https://edu.iphy.ac.cn/?q=detail_teacher&id=6368"
+  },
+  "verification": {
+    "email_match": true,
+    "gs_email_domain_matches_website": true,
+    "source": "GS profile email (iphy.ac.cn) matches website email (iphy.ac.cn)"
+  },
+  "education": [
+    {"degree": "BS", "field": "应用物理学", "institution": "河北大学", "start": 2003, "end": 2007},
+    {"degree": "MS", "field": "原子、分子物理", "institution": "中国科学院近代物理研究所", "start": 2007, "end": 2010},
+    {"degree": "PhD", "field": "原子、分子物理", "institution": "中国科学院近代物理研究所", "start": 2010, "end": 2013}
+  ],
+  "career": [
+    {"position": "博士后研究员", "institution": "日本理化学研究所(RIKEN)", "start": 2013, "end": 2016},
+    {"position": "副研究员", "institution": "中国科学院近代物理研究所", "start": 2016, "end": 2018},
+    {"position": "博士后&资深研究员", "institution": "苏黎世联邦理工学院(ETH Zurich)", "start": 2018, "end": 2024},
+    {"position": "特聘研究员", "institution": "中国科学院物理研究所", "start": 2024, "end": null}
+  ],
+  "research_directions": [
+    "桌面式阿秒光源研制",
+    "原子分子电子态相干动力学",
+    "液体水电子态结构与超快非绝热化学反应动力学",
+    "关联电子材料的阿秒电子动力学表征与操控"
+  ],
+  "discipline": "atomic_molecular_optical",
+  "arxiv_categories": ["physics.atom-ph", "physics.optics"]
+}
