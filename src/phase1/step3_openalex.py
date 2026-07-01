@@ -135,11 +135,18 @@ def fetch(oa_id: str, email: Optional[str] = None, max_pages: int = 50) -> dict:
         batch = data.get("results", [])
         works.extend(batch)
         cursor = data.get("meta", {}).get("next_cursor")
-        # 限速：有真实 email 时 10 req/s，无 email 时 ~1 req/s
-        if email and "@" in email and "." in email.split("@")[1]:
-            time.sleep(0.1)  # polite pool: 10 req/s
+        # 限速：真实邮箱（标准 TLD）→ 10 req/s；其他 → 1 req/s
+        # 排除保留域名 example.com / example.org / test.com 等
+        domain_ok = False
+        if email and "@" in email:
+            domain = email.split("@")[1].lower()
+            reserved = {"example.com", "example.org", "example.net", "test.com", "localhost"}
+            if domain not in reserved and "." in domain and len(domain) >= 4:
+                domain_ok = True
+        if domain_ok:
+            time.sleep(0.1)
         else:
-            time.sleep(1.0)  # anonymous: ~1 req/s
+            time.sleep(1.0)
 
     last_insts = profile.get("last_known_institutions") or []
 
