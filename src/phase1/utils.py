@@ -86,6 +86,26 @@ def arxiv_id_match(id1: Optional[str], id2: Optional[str]) -> bool:
     return strip_arxiv_version(id1) == strip_arxiv_version(id2)
 
 
+# ── OA 错位论文过滤 ───────────────────────────────────────────────────
+
+OA_POLLUTION_KEYWORDS = [
+    "dna hydrogel", "veterinary", "livestock", "agriculture",
+    "wind imaging interferometer", "atmospheric remote sensing",
+    "soil moisture", "plant science", "biomass",
+    "marine biology", "fishery", "veterinary medicine",
+]
+
+def is_oa_pollution(title: str) -> bool:
+    """检测论文标题是否是 OpenAlex 错位的（同名不同领域）。
+
+    返回 True = 疑似错位（应剔除）
+    """
+    if not title:
+        return False
+    t = title.lower()
+    return any(kw in t for kw in OA_POLLUTION_KEYWORDS)
+
+
 # ── 标题模糊匹配 ─────────────────────────────────────────────────────
 
 def title_match(t1: str, t2: str) -> bool:

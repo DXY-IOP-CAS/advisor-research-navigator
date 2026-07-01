@@ -41,6 +41,9 @@ import sys
 from datetime import datetime
 from collections import defaultdict
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from utils import write_output, is_oa_pollution
+
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger("render_profile")
 
@@ -167,12 +170,24 @@ def generate(data: dict, output_path: str, stage_config: list = None,
     # 4. 论文列表（按学术履历阶段分组）
     L("## 4. 全部论文（按学术履历阶段分组）")
     L("")
-    L("**硬规则**：以下列出该导师的全部论文，不允许省略。每篇论文一行。")
+    L("<!-- 下方 4.x 节标题由 AI 渲染时填写。每节用 1-2 句话说明该阶段的研究主题，再列论文表格 -->")
     L("")
+
+    # OA 错位论文过滤（剔除明显错位的论文）
+    filtered_papers = []
+    removed_titles = []
+    for p in papers:
+        title = p.get("title", "")
+        sources = set(p.get("sources", []))
+        # 仅过滤 OA 独有且标题命中错位关键词的论文
+        if sources == {"openalex"} and is_oa_pollution(title):
+            removed_titles.append(title)
+            continue
+        filtered_papers.append(p)
 
     # Group by career stage
     stages = defaultdict(list)
-    for p in papers:
+    for p in filtered_papers:
         y = p.get("year")
         if y and isinstance(y, int):
             stage = compute_career_stages(y, stage_config)
@@ -199,6 +214,9 @@ def generate(data: dict, output_path: str, stage_config: list = None,
         if stage_descriptions and stage_name in stage_descriptions:
             L(stage_descriptions[stage_name])
             L("")
+        else:
+            L(f"<!-- AI 渲染：1-2 句话说明该阶段的研究主题和方向变化。不写评价。 -->")
+            L("")
         L(f"论文数：{len(stage_papers)} 篇")
         L("")
         L("| # | 年份 | 标题 | 期刊 | 引用 | 来源 | 链接 |")
@@ -213,6 +231,13 @@ def generate(data: dict, output_path: str, stage_config: list = None,
             L(f"| {i} | {y} | {title} | {journal} | {cites} | {tag} | {link} |")
         L("")
         stage_idx += 1
+
+    # 标注被剔除的错位论文
+    if removed_titles:
+        L("<!-- 已被剔除的 OA 错位论文（同名不同人，不计入本导师）：")
+        for t in removed_titles:
+            L(f"- {t}")
+        L("-->")
 
     # 8. 数据质量说明
     L("## 8. 数据质量说明")
