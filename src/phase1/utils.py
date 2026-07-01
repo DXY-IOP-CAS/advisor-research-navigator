@@ -75,6 +75,27 @@ def doi_match(doi1: Optional[str], doi2: Optional[str]) -> bool:
     return clean_doi(doi1) == clean_doi(doi2)
 
 
+# ── 来源标记 ──────────────────────────────────────────────────────────
+
+def mark_source_tag(sources: list) -> str:
+    """将 source 列表转为短标签字符串。
+
+    来源映射：google_scholar → GS, openalex → OA, arxiv → arXiv
+    多个源用 + 连接。空列表返回 "—"。
+    """
+    if not sources:
+        return "—"
+    s = set(sources)
+    tags = []
+    if "google_scholar" in s:
+        tags.append("GS")
+    if "openalex" in s:
+        tags.append("OA")
+    if "arxiv" in s:
+        tags.append("arXiv")
+    return "+".join(tags)
+
+
 # ── arXiv ID 比对 ────────────────────────────────────────────────────
 
 def strip_arxiv_version(arxiv_id: str) -> str:

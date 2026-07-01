@@ -42,7 +42,7 @@ from datetime import datetime
 from collections import defaultdict
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from utils import write_output, is_oa_pollution
+from utils import write_output, is_oa_pollution, mark_source_tag
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger("render_profile")
@@ -68,20 +68,6 @@ def compute_career_stages(year: int, stages: list = None) -> str:
     # 默认：每 5 年一段
     decade = (year // 5) * 5
     return f"{decade}–{decade + 4}"
-
-
-def mark_source_tag(sources: list) -> str:
-    if not sources:
-        return "—"
-    s = set(sources)
-    tags = []
-    if "google_scholar" in s:
-        tags.append("GS")
-    if "openalex" in s:
-        tags.append("OA")
-    if "arxiv" in s:
-        tags.append("arXiv")
-    return "+".join(tags)
 
 
 def paper_link(paper: dict) -> str:

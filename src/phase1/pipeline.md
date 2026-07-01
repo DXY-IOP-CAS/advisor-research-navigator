@@ -1,10 +1,47 @@
 # phase1 pipeline.md — 阶段 1 技术实现文档
 
-**版本**：v2.0（完整重写）
+**版本**：v3.0
 **对应**：计划书第 2 章（工具设计）的技术落地
-**目标读者**：实施此流水线的研究者、维护者
+**目标读者**：实施此流水线的研究者、维护者、AI Agent
+
+## 目录
+
+- §0 全流程总览
+- §1 文件清单
+- §2 通用数据模式
+- §3 阶段 A：广域搜索 + 身份确认
+- §4 阶段 B：脚本数据获取
+- §5 阶段 C：渲染画像
+- §6 端到端 CLI 演示
+- §7 AI 质量门检查清单
+- §8 错误处理
+- §9 存档策略
+- §10 已知问题与限制
+- §11 测试覆盖
+- §12 版本记录
 
 ---
+
+## 11. 测试覆盖
+
+所有核心逻辑都有单元测试，**纯逻辑、零网络依赖**。
+
+```
+src/phase1/tests/
+├── test_utils.py        ← 19 个：标题归一化、DOI/arXiv 比对、标题匹配、OA 错位过滤
+├── test_schema.py       ← 19 个：Paper/Professor/SourceOutput/MergedOutput dataclass + validation
+├── test_errors.py       ← 13 个：Phase1Error 子类层级、report_source_status、suggest_remediation
+├── test_merge.py        ← 15 个：clean_doi/strip_arxiv_version/mark_source_tag/_pick/merge_professors/PROF_PRIORITY
+└── run_all.py           ← 一键跑所有测试
+```
+
+总计 **66 个测试**。运行：
+
+```bash
+python src/phase1/tests/run_all.py
+```
+
+修改代码后必须跑测试验证。AI 修改完任何 `*.py` 后也应跑一次。
 
 ## 0. 全流程总览
 
