@@ -52,10 +52,14 @@ def _scholarly_to_paper(pub: dict) -> dict:
     year = int(year_raw) if year_raw and str(year_raw).isdigit() else None
     citation_text = (bib.get("citation") or "").strip()
 
+    # GS 不分离作者列表，但 scholarly 的 bib["author"] 含 "Name1 and Name2" 字符串
+    authors_raw = bib.get("author")
+    authors = [a.strip() for a in authors_raw.split(" and ")] if authors_raw else None
+
     return {
         "title": title,
         "year": year,
-        "authors": None,
+        "authors": authors,
         "journal": citation_text or None,
         "doi": None,
         "arxiv_id": None,
