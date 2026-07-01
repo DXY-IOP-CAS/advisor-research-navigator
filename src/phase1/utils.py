@@ -114,6 +114,12 @@ OA_POLLUTION_KEYWORDS = [
     "wind imaging interferometer", "atmospheric remote sensing",
     "soil moisture", "plant science", "biomass",
     "marine biology", "fishery", "veterinary medicine",
+    # 凝聚态/拓扑类（被 OpenAlex 错误合并到超快/激光研究者中）
+    "weyl semimetal", "kagome", "chern insulator",
+    "quantum spin liquid", "supercurrent density",
+    "nodal line", "berry curvature", "anomalous hall",
+    "flat band", "dirac cone", "magnetic kagome",
+    "kondo lattice", "pyrochlore", "topological superconductor",
 ]
 
 def is_oa_pollution(title: str) -> bool:

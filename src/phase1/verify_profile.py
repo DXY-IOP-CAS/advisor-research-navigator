@@ -86,7 +86,7 @@ def verify(profile_path: str, merged_path: str = None) -> int:
     stages = re.split(r"\n### 4\.\d+ ", content)
     stages_with_narrative = 0
     for s in stages[1:]:  # 跳过第一节前的部分
-        head = s[:200]
+        head = s[:500]
         has_table = bool(re.search(r"\| # \| 年份", head))
         if has_table:
             stages_with_narrative += 1
