@@ -135,6 +135,7 @@ def scrape_profile(user_id: str,
     """爬取 GS profile 的全部论文 + 引用指标。
 
     自动分页，直到某页无结果或超过 max_pages。
+    检测到 GS 封锁（403/CAPTCHA）时返回 blocked=True。
 
     Args:
         user_id: GS profile ID。
@@ -142,10 +143,11 @@ def scrape_profile(user_id: str,
         delay: 页间延迟（秒）。
 
     Returns:
-        {"works": [...], "metrics": {...}}
+        {"works": [...], "metrics": {...}, "blocked": bool}
     """
     all_papers: List[Dict[str, Any]] = []
     metrics: Dict[str, Any] = {}
+    blocked = False
 
     for page in range(max_pages):
         start = page * 20
@@ -153,7 +155,8 @@ def scrape_profile(user_id: str,
 
         html = fetch_page(user_id, start)
         if not html:
-            logger.warning(f"Failed to fetch page {page + 1}, stopping")
+            blocked = True
+            logger.warning(f"GS appears to be blocking this request (page {page + 1})")
             break
 
         # 第一页还解析引用指标
@@ -177,7 +180,7 @@ def scrape_profile(user_id: str,
         time.sleep(delay)
 
     logger.info(f"Total: {len(all_papers)} papers from GS profile")
-    return {"works": all_papers, "metrics": metrics}
+    return {"works": all_papers, "metrics": metrics, "blocked": blocked}
 
 
 def main() -> None:
@@ -204,6 +207,7 @@ def main() -> None:
     output = {
         "source": "google_scholar",
         "user_id": args.user_id,
+        "blocked": result.get("blocked", False),
         "works_count": len(result["works"]),
         "works": result["works"],
         "metrics": result["metrics"],

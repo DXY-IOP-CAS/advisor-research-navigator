@@ -61,6 +61,14 @@ python scripts/gs_scraper.py {gs_id} --output phase1_gs.json --pages 3 --delay 2
 
 输出：论文标题 + 年份 + 引用数 + metrics（h-index、总引用、i10-index）。
 
+**GS 封锁检测**：检查输出中的 `blocked` 字段。如果 `blocked: true`，说明 GS 封锁了请求。此时降级到 OpenAlex 做主源：
+
+```bash
+python scripts/openalex_works.py {openalex_id} --output phase1_oa.json
+```
+
+同时画像首段标注"Google Scholar 暂时无法访问（IP 被封锁），论文数据来自 OpenAlex + arXiv，覆盖可能不完整。更换网络环境或稍后重试可恢复。"
+
 **GS 不存在时**：降级到 OpenAlex 做主源（覆盖预期 ≤ 50%）。画像首段标注"未找到该学者的 Google Scholar profile。OpenAlex 对中文作者覆盖不完整（Zheng et al. 2025），论文列表可能不完整。建议提供 GS 链接。"
 
 ### Step 4: OpenAlex 元数据补充（不是论文列表源）
