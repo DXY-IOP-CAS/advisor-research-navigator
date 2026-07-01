@@ -267,7 +267,5 @@ def main() -> None:
             stage_descriptions = json.load(f)
 
     data = load_merged(args.merged_json)
-    args.output = os.path.abspath(args.output)
-    args.output = os.path.normpath(args.output)
     generate(data, args.output, stage_config, args.department, stage_descriptions)
     print(f"✅ {len(data.get('papers', []))} papers → {args.output}", file=sys.stderr)
