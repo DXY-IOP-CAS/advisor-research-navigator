@@ -143,7 +143,7 @@ def _parse_xml(xml_text: str) -> list:
     return papers
 
 
-def search(author_name: str, max_results: int = 50,
+def search(author_name: str, max_results: int = 200,
            delay: float = 3.0, categories: Optional[str] = None) -> dict:
     """按作者名搜索 arXiv。返回统一 SOURCE_OUTPUT 格式。
 
@@ -202,7 +202,7 @@ def _empty_result(author_name: str, reason: str) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser(description="arXiv 预印本搜索")
     parser.add_argument("author_name", help="作者姓名拼音（下划线分隔，如 Zhang_Pengju）")
-    parser.add_argument("--max-results", "-n", type=int, default=50)
+    parser.add_argument("--max-results", "-n", type=int, default=200)
     parser.add_argument("--categories", "-c", help="arXiv 分类过滤，如 'physics'")
     parser.add_argument("--output", "-o", help="输出 JSON 文件")
     parser.add_argument("--verbose", "-v", action="store_true")

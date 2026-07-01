@@ -150,6 +150,7 @@ def score_oa_noise(paper: dict, confirmed_papers: list) -> int:
     """
     authors = set(paper.get("authors") or [])
     venue = _strip_venue(paper.get("journal") or "")
+    institutions = set(paper.get("institutions") or [])
     score = 0
 
     for cp in confirmed_papers:
@@ -163,6 +164,13 @@ def score_oa_noise(paper: dict, confirmed_papers: list) -> int:
         for cp in confirmed_papers:
             cp_venue = _strip_venue(cp.get("journal") or "")
             if venue == cp_venue:
+                score += 1
+                break
+
+    if institutions:
+        for cp in confirmed_papers:
+            cp_institutions = set(cp.get("institutions") or [])
+            if institutions & cp_institutions:
                 score += 1
                 break
 

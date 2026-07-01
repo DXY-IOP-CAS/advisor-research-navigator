@@ -100,6 +100,11 @@ def _normalize_oa_paper(paper: Dict[str, Any]) -> Dict[str, Any]:
             a.get("author", {}).get("display_name")
             for a in (paper.get("authorships") or [])
         ] or None,
+        "institutions": [
+            inst.get("display_name")
+            for a in (paper.get("authorships") or [])
+            for inst in (a.get("institutions") or [])
+        ] or None,
         "journal": source.get("display_name"),
         "doi": doi,
         "arxiv_id": None,
