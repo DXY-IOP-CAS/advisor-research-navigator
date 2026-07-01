@@ -56,8 +56,10 @@
     "semantic_scholar": {
       "type": "rest_api",
       "base_url": "https://api.semanticscholar.org/graph/v1",
-      "auth": "api_key_optional",
-      "rate_limit": "100 req/5min no key; higher with key",
+      "auth": "api_key_optional_env:S2_API_KEY",
+      "rate_limit": "100 req/5min no key; 1 req/s with free key",
+      "how_to_get_key": "https://www.semanticscholar.org/product/api#api-key (免费申请)",
+      "key_usefulness": "TLDR 摘要填充，建议配置",
       "endpoints": {
         "author_search": "GET /author/search?query={name}&fields=name,affiliations,paperCount,externalIds",
         "author_papers": "GET /author/{id}/papers?fields=title,tldr,year,citationCount,externalIds,venue"

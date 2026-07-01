@@ -154,14 +154,27 @@ def main() -> None:
         epilog="示例: python scripts/s2_enrich.py openalex.json --output s2.json",
     )
     parser.add_argument("input_files", nargs="+", help="输入 JSON 文件（openalex/arxiv 输出）")
-    parser.add_argument("--api-key", help="Semantic Scholar API key（可选）")
+    parser.add_argument("--api-key",
+                        default=os.environ.get("S2_API_KEY"),
+                        help="Semantic Scholar API key（默认取 S2_API_KEY 环境变量）")
     parser.add_argument("--output", "-o", help="输出 JSON 文件")
-    parser.add_argument("--delay", type=float, default=1.0, help="请求间隔（秒）")
+    parser.add_argument("--delay", type=float, default=None,
+                        help="请求间隔（秒）。无 key 时默认 1.0，有 key 时默认 0.2")
     parser.add_argument("--verbose", "-v", action="store_true", help="详细日志")
     args = parser.parse_args()
 
     if args.verbose:
         logging.getLogger().setLevel(logging.INFO)
+
+    # 自动适配 delay
+    if args.delay is None:
+        args.delay = 0.2 if args.api_key else 1.0
+
+    if args.api_key:
+        logger.info(f"S2 API key detected, delay={args.delay}s")
+    else:
+        logger.info(f"No S2 API key, delay={args.delay}s (install key: set S2_API_KEY or --api-key)")
+        logger.info("Get a free key at: https://www.semanticscholar.org/product/api#api-key")
 
     # 从所有输入文件收集 DOI
     all_dois: List[str] = []

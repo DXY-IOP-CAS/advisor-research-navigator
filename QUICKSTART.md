@@ -44,17 +44,32 @@ Step 8: 输出 9 节画像到 项目/导师/<姓名>/01_基础画像.md
 
 ## 可用脚本
 
-| 脚本 | 用途 | 必选 |
-|:-----|:------|:----:|
-| `gs_scraper.py` | GS profile 论文列表 + h-index | ✅ |
-| `openalex_works.py` | OA 作者 works 拉取 | ✅ |
-| `oa_enrich.py` | OA 标题搜索补充元数据 | ✅ |
-| `arxiv_preprints.py` | arXiv 预印本搜索 | ✅ |
-| `paper_merger.py` | 多源合并去重 | ✅ |
-| `paper_utils.py` | 共享工具库 | ✅ |
-| `discipline_classifier.py` | 学科分类 | ✅ |
-| `s2_enrich.py` | S2 TLDR 批量（需 API key） | ❌ 可选 |
-| `identity_resolver.py` | 已废弃（Phase 0 删除） | ❌ |
+| 脚本 | 用途 | 必选 | API Key |
+|:-----|:------|:----:|:--------|
+| `gs_scraper.py` | GS profile 论文列表 + h-index | ✅ | 无 |
+| `openalex_works.py` | OA 作者 works 拉取 | ✅ | 无（加 email 提限速） |
+| `oa_enrich.py` | OA 标题搜索补充元数据 | ✅ | 无 |
+| `arxiv_preprints.py` | arXiv 预印本搜索 | ✅ | 无 |
+| `paper_merger.py` | 多源合并去重 | ✅ | 无 |
+| `paper_utils.py` | 共享工具库 | ✅ | 无 |
+| `discipline_classifier.py` | 学科分类 | ✅ | 无 |
+| `s2_enrich.py` | S2 TLDR 批量填充 | ⚠️ 推荐 | `S2_API_KEY`（免费申请） |
+| `identity_resolver.py` | 已废弃 | ❌ | — |
+
+## API Key 配置
+
+| Key | 获取地址 | 用途 | 免费额度 |
+|:----|:---------|:-----|:---------|
+| `S2_API_KEY` | https://www.semanticscholar.org/product/api#api-key | TLDR 摘要填充，有 key 时 delay=0.2s，无 key 时 1.0s | 免费 |
+| OpenAlex email | 你自己的 email | polite pool 10 req/s | 无限 |
+
+设置方式：
+```bash
+# PowerShell
+$env:S2_API_KEY = "your_key_here"
+# Bash
+export S2_API_KEY="your_key_here"
+```
 
 ## 核心原则
 
