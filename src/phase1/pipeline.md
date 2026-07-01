@@ -377,20 +377,20 @@ TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 PROF="output/中科院物理所/超快物质科学中心/张鹏举"
 mkdir -p "$PROF/archive/$TIMESTAMP"
 
-python src/phase1/step2_gs.py {gs_id} -o "$PROF/archive/$TIMESTAMP/gs.json"
+python src/phase1/step2_gs.py {gs_id} -o "$PROF/archive/$TIMESTAMP/01_gs.json"
 # AI 检查 gs.json → 通过则继续，不通过则标记
 
-python src/phase1/step3_openalex.py {oa_id} -o "$PROF/archive/$TIMESTAMP/oa.json"
+python src/phase1/step3_openalex.py {oa_id} -o "$PROF/archive/$TIMESTAMP/02_oa.json"
 # AI 检查 oa.json
 
-python src/phase1/step5_arxiv.py "{姓名拼音}" -o "$PROF/archive/$TIMESTAMP/arxiv.json"
+python src/phase1/step5_arxiv.py "{姓名拼音}" -o "$PROF/archive/$TIMESTAMP/03_arxiv.json"
 # AI 检查 arxiv.json
 
 python src/phase1/step6_merge.py \
-  "$PROF/archive/$TIMESTAMP/gs.json" \
-  "$PROF/archive/$TIMESTAMP/oa.json" \
-  "$PROF/archive/$TIMESTAMP/arxiv.json" \
-  -o "$PROF/archive/$TIMESTAMP/merged.json"
+  "$PROF/archive/$TIMESTAMP/01_gs.json" \
+  "$PROF/archive/$TIMESTAMP/02_oa.json" \
+  "$PROF/archive/$TIMESTAMP/03_arxiv.json" \
+  -o "$PROF/archive/$TIMESTAMP/04_merged.json"
 
 # 阶段 C（AI 做：读 merged.json → 写画像）
 # 画像写 $PROF/01_基础画像.md
@@ -411,12 +411,11 @@ output/<机构>/<部门>/<姓名>/
 ├── latest.txt
 └── archive/
     ├── 20260701_153000/          # 每次运行的完整快照
-    │   ├── verified_ids.json
-    │   ├── gs.json
-    │   ├── oa.json
-    │   ├── arxiv.json
-    │   ├── merged.json
-    │   └── 01_基础画像.md
+    │   ├── 00_verified_ids.json
+    │   ├── 01_gs.json
+    │   ├── 02_oa.json
+    │   ├── 03_arxiv.json
+    │   └── 04_merged.json
     ├── 20260702_091500/          # 下一次运行
     └── ...
 ```
@@ -455,13 +454,11 @@ output/<机构>/<部门>/<姓名>/
 ├── latest.txt                    # 内容：最新存档目录名
 └── archive/
     └── <YYYYMMDD_HHMMSS>/        # 一次运行的完整快照
-        ├── verified_ids.json
-        ├── discipline.json
-        ├── gs.json
-        ├── oa.json
-        ├── arxiv.json
-        ├── merged.json
-        ├── 01_基础画像.md         # 存档中也保留一份（历史记录一致性）
+        ├── 00_verified_ids.json
+        ├── 01_gs.json
+        ├── 02_oa.json
+        ├── 03_arxiv.json
+        ├── 04_merged.json
         └── ...
 ```
 
@@ -475,12 +472,11 @@ output/中科院物理所/
         ├── latest.txt
         └── archive/
             └── 20260701_155452/
-                ├── verified_ids.json   # 阶段 A 身份信息
-                ├── gs.json             # GS 56 篇
-                ├── oa.json             # OA 14 篇
-                ├── arxiv.json          # arXiv 16 篇
-                ├── merged.json         # 合并 75 篇
-                └── 01_基础画像.md       # 最终画像
+                ├── 00_verified_ids.json
+                ├── 01_gs.json             # GS 56 篇
+                ├── 02_oa.json             # OA 14 篇
+                ├── 03_arxiv.json          # arXiv 16 篇
+                └── 04_merged.json         # 合并 75 篇
 ```
 
 ---
