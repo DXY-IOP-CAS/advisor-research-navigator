@@ -43,19 +43,30 @@ def load_gs_papers(path: str) -> List[Dict[str, Any]]:
     return papers
 
 
-def search_title(title: str, delay: float = 0.2) -> Optional[Dict[str, Any]]:
-    """在 OpenAlex 中按标题搜索，返回最佳匹配的元数据。"""
+def search_title(title: str, delay: float = 0.1, max_retries: int = 3) -> Optional[Dict[str, Any]]:
+    """在 OpenAlex 中按标题搜索，返回最佳匹配的元数据。
+
+    遇到 5xx 错误时自动重试（OA 偶尔返回 503/504）。
+    """
     url = f"{OA_BASE}/works?search={quote(title)}&per_page=5"
-    try:
-        req = Request(url, headers={"Accept": "application/json"})
-        with urlopen(req, timeout=15) as resp:
-            data = json.loads(resp.read().decode())
-    except HTTPError as e:
-        logger.debug(f"HTTP {e.code} for title: {title[:40]}")
-        return None
-    except Exception as e:
-        logger.debug(f"Error searching '{title[:40]}': {e}")
-        return None
+
+    for attempt in range(max_retries):
+        try:
+            req = Request(url, headers={"Accept": "application/json"})
+            with urlopen(req, timeout=15) as resp:
+                data = json.loads(resp.read().decode())
+            break  # 成功则跳出重试循环
+        except HTTPError as e:
+            if 500 <= e.code < 600 and attempt < max_retries - 1:
+                wait = (attempt + 1) * 2
+                logger.warning(f"OA {e.code} for '{title[:30]}', retry {attempt+1}/{max_retries} after {wait}s")
+                time.sleep(wait)
+                continue
+            logger.debug(f"HTTP {e.code} for title: {title[:40]}")
+            return None
+        except Exception as e:
+            logger.debug(f"Error searching '{title[:40]}': {e}")
+            return None
 
     results = data.get("results", [])
     if not results:

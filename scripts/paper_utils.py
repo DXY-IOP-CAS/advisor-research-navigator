@@ -132,6 +132,14 @@ def merge_paper_entries(entries: List[Dict[str, Any]]) -> Dict[str, Any]:
         "sources": sources,
         "source_count": len(set(sources)),
     }
+    # 兜底：如果所有优先级源都没有 title，用任意源的原始标题
+    if not merged["title"]:
+        for e in entries:
+            raw = e.get("title") or e.get("original_title")
+            if raw:
+                merged["title"] = raw
+                merged["title_fallback"] = True
+                break
     return merged
 
 

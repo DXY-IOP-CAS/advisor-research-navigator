@@ -116,7 +116,11 @@ def merge_groups(groups: Dict[int, List[Dict[str, Any]]]) -> List[Dict[str, Any]
     merged: List[Dict[str, Any]] = []
     for group_id, entries in groups.items():
         m = paper_utils.merge_paper_entries(entries)
-        if m and m.get("title"):
+        if m:
+            # GS 截断标题时保留原文本，不静默丢弃
+            if not m.get("title"):
+                m["title"] = m.get("original_title") or "[截断标题]"
+                m["title_truncated"] = True
             merged.append(m)
 
     # 排序：共证源数多优先 → 引用数高优先 → 年份新优先
