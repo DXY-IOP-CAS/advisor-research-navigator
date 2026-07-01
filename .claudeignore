@@ -1,0 +1,24 @@
+# .claudeignore — 减少加载的无关文件，提升上下文质量
+
+# 缓存和临时文件
+.cache/
+cache/
+__pycache__/
+*.pyc
+
+# Git
+.git/
+
+# 存档（旧版本记录，新窗口不读）
+存档/
+
+# 测试产出（仅用于验证，不贡献逻辑）
+项目/导师/*/*_v*.md
+
+# 大型数据文件
+*.json
+*.zip
+*.tar.gz
+
+# node_modules（如果有）
+node_modules/
