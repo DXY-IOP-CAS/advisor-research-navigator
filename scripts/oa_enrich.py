@@ -120,7 +120,7 @@ def main() -> None:
     )
     parser.add_argument("input", help="GS scraper 输出的 JSON 文件")
     parser.add_argument("--output", "-o", help="输出 JSON 文件")
-    parser.add_argument("--delay", type=float, default=0.3, help="请求间隔（秒）")
+    parser.add_argument("--delay", type=float, default=0.1, help="请求间隔（秒），OA polite pool 允许 10 req/s")
     parser.add_argument("--verbose", "-v", action="store_true", help="详细日志")
     args = parser.parse_args()
 

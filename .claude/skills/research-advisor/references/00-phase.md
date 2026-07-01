@@ -8,6 +8,8 @@
 
 ## 阶段 1：深调研 + 基础画像
 
+**性能提示**：Step 1（官网抓取）、Step 2（广域搜索）、Step 3（GS 爬取）三者互相独立，可用 sub-agent 并行执行以缩短总耗时。Step 4（OA 元数据补充）依赖 Step 3 的 GS 标题列表。oa_enrich.py 默认 delay=0.1s（OA polite pool 支持 10 req/s）。
+
 ### Step 1: 抓官网 + 学科识别
 
 用 Bash（curl）或 MCP fetch 读用户给的 URL。提取：
