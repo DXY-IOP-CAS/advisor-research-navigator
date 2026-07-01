@@ -124,6 +124,11 @@ def generate(data: dict, output_path: str, stage_config: list = None,
     L("---")
     L("")
 
+    # 写入 filtered_papers 和 removed_titles 的逻辑在下面
+    # 这里提前声明
+    filtered_papers = []
+    removed_titles = []
+
     # Title + Run info
     L(f"# {prof.get('name', '')} — 基础画像")
     L("")
@@ -133,7 +138,7 @@ def generate(data: dict, output_path: str, stage_config: list = None,
     L("|:-----|:------|")
     L(f"| 生成时间 | {ts} |")
     L(f"| 运行存档 | `archive/{ts_dir}/` |")
-    L(f"| 总论文数 | {len(papers)} 篇（去重合并后） |")
+    L(f"| 总论文数 | {len(papers)} 篇（合并后），{len(filtered_papers) if filtered_papers else len(papers)} 篇（过滤后） |")
     L(f"| GS 状态 | {src_status.get('google_scholar', 'N/A')} |")
     L(f"| OA 状态 | {src_status.get('openalex', 'N/A')} |")
     L(f"| arXiv 状态 | {src_status.get('arxiv', 'N/A')} |")
@@ -230,18 +235,25 @@ def generate(data: dict, output_path: str, stage_config: list = None,
             L(f"- {t}")
         L("-->")
 
-    # 8. 数据质量说明
+    # 8. 数据质量说明（按过滤后的论文统计）
     L("## 8. 数据质量说明")
     L("")
     L("| 数据源 | 状态 | 论文数 | 说明 |")
     L("|:-------|:----:|:------:|:-----|")
-    gs_papers = len([p for p in papers if "google_scholar" in set(p.get("sources", []))])
-    oa_papers = len([p for p in papers if "openalex" in set(p.get("sources", []))])
-    arxiv_papers = len([p for p in papers if "arxiv" in set(p.get("sources", []))])
+    gs_papers = len([p for p in filtered_papers if "google_scholar" in set(p.get("sources", []))])
+    oa_papers = len([p for p in filtered_papers if "openalex" in set(p.get("sources", []))])
+    arxiv_papers = len([p for p in filtered_papers if "arxiv" in set(p.get("sources", []))])
+    total_unique = len(filtered_papers)
     L(f"| Google Scholar | {src_status.get('google_scholar', '?')} | {gs_papers} | h-index {prof.get('h_index')}, 引用 {prof.get('total_citations')} |")
     L(f"| OpenAlex | {src_status.get('openalex', '?')} | {oa_papers} | 元数据补充（DOI/期刊/作者） |")
     L(f"| arXiv | {src_status.get('arxiv', '?')} | {arxiv_papers} | 预印本（同名噪声已过滤） |")
-    L(f"| 合并 | ✅ | {len(papers)} | 多源交叉验证 {cross_count} 篇（{cross_pct}%） |")
+    L(f"| 合并 | ✅ | {total_unique} | 去重后唯一数（多源论文在各源计数中重复计算） |")
+    L("")
+    # 交叉验证统计
+    cross_count = sum(1 for p in filtered_papers if p.get("source_count", 0) > 1)
+    cross_pct = round(cross_count / max(total_unique, 1) * 100, 1)
+    if cross_count:
+        L(f"多源交叉验证 {cross_count} 篇（{cross_pct}%）")
     L("")
 
     # Save
