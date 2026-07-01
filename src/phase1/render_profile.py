@@ -43,7 +43,10 @@ from collections import defaultdict
 from typing import Optional
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from utils import write_output, is_oa_pollution, mark_source_tag
+from utils import (
+    write_output, is_oa_pollution, mark_source_tag,
+    format_markdown_table, make_paper_link, source_tag,
+)
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger("render_profile")
@@ -71,21 +74,9 @@ def compute_career_stages(year: int, stages: list = None) -> str:
     return f"{decade}–{decade + 4}"
 
 
-def paper_url(paper: dict) -> Optional[str]:
-    """返回论文的外部链接 URL。优先 DOI，其次 arXiv。
-
-    返回值直接拼接到标题 markdown 链接中。
-    """
-    doi = paper.get("doi")
-    if doi:
-        clean = doi.strip()
-        if clean.startswith("http"):
-            return clean
-        return f"https://doi.org/{clean}"
-    aid = paper.get("arxiv_id")
-    if aid:
-        return f"https://arxiv.org/abs/{aid}"
-    return None
+def paper_url(paper: dict) -> str:
+    """已弃用。请使用 utils.make_paper_link。保留向后兼容。"""
+    return make_paper_link(paper)
 
 
 def generate(data: dict, output_path: str, stage_config: list = None,
@@ -138,7 +129,7 @@ def generate(data: dict, output_path: str, stage_config: list = None,
     L("|:-----|:------|")
     L(f"| 生成时间 | {ts} |")
     L(f"| 运行存档 | `archive/{ts_dir}/` |")
-    L(f"| 总论文数 | {len(papers)} 篇（合并后），{len(filtered_papers) if filtered_papers else len(papers)} 篇（过滤后） |")
+    L(f"| 总论文数 | {len(papers)} 篇（合并后）|")
     L(f"| GS 状态 | {src_status.get('google_scholar', 'N/A')} |")
     L(f"| OA 状态 | {src_status.get('openalex', 'N/A')} |")
     L(f"| arXiv 状态 | {src_status.get('arxiv', 'N/A')} |")
@@ -214,17 +205,18 @@ def generate(data: dict, output_path: str, stage_config: list = None,
             L("")
         L(f"论文数：{len(stage_papers)} 篇")
         L("")
-        L("| # | 年份 | 标题 | 期刊 | 引用 | 来源 |")
-        L("|:-:|:----:|:-----|:-----|:----:|:-----|")
+        headers = ["#", "年份", "标题", "期刊", "引用", "来源"]
+        rows = []
         for i, p in enumerate(stage_papers, 1):
-            title = (p.get("title") or "")[:100]
-            url = paper_url(p)
-            title_display = f"[{title}]({url})" if url else title
+            title_display = make_paper_link(p)
             journal = (p.get("journal") or "")[:40] or "—"
             cites = p.get("citation_count") or "—"
-            tag = mark_source_tag(p.get("sources", []))
+            tag = source_tag(p.get("sources", []))
             y = p.get("year") or "—"
-            L(f"| {i} | {y} | {title_display} | {journal} | {cites} | {tag} |")
+            rows.append([str(i), str(y), title_display, journal, str(cites), tag])
+        table = format_markdown_table(headers, rows)
+        for line in table.split("\n"):
+            L(line)
         L("")
         stage_idx += 1
 
