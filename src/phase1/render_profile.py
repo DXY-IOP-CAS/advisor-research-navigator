@@ -59,12 +59,11 @@ def load_merged(path: str) -> dict:
 
 
 def compute_career_stages(year: int, stages: list = None) -> str:
-    """根据年份推断学术阶段。
+    """根据学术履历阶段匹配论文。
 
-    如果提供了 stages 配置（从 verified_ids.json 的 career_stages 读取），
-    用配置中的年份区间匹配。
-    如果没有 stages 配置，返回"全部论文"（统一桶）。
-    AI 在叙事补充时必须根据 §2 学术履历重新拆分为真实阶段。
+    从 verified_ids.json 的 career_stages 读取阶段配置（博士/博后/独立等）。
+    每篇论文的发表年份落入哪个阶段就归入哪组。
+    无 stages 配置时返回 None（外部处理）。
     """
     if stages:
         for s in stages:
@@ -72,8 +71,7 @@ def compute_career_stages(year: int, stages: list = None) -> str:
             end = s.get("end", 9999)
             if start <= year <= end:
                 return s.get("name", f"{start}–{end}")
-    # 无 config → 全部归入一个桶，AI 按履历拆分
-    return "全部论文"
+    return None
 
 
 def paper_url(paper: dict) -> str:
@@ -183,7 +181,7 @@ def generate(data: dict, output_path: str, stage_config: list = None,
         y = p.get("year")
         if y and isinstance(y, int):
             stage = compute_career_stages(y, stage_config)
-            stages[stage].append(p)
+            stages[stage if stage else "其他阶段"].append(p)
         else:
             stages["未知年份"].append(p)
 

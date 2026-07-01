@@ -76,6 +76,21 @@ Tier 4: 信息综合判断
   - GS profile 找不到 → 跳过 GS，直接走 OpenAlex + arXiv
   - OA ID 找不到 → 跳过 OA
   - 都找不到 → 标注"所有数据源均不可用"
+
+### 学术阶段配置（Phase A 完成前必须）
+
+身份锁定完成后，从官网简历/履历中提取学术生涯阶段：
+
+```json
+[
+  {"name": "博士阶段（2007–2013，中科院近代物理所）", "start": 2007, "end": 2013},
+  {"name": "博后阶段（2013–2018，RIKEN）", "start": 2013, "end": 2018},
+  {"name": "独立阶段（2018–至今，ETH Zurich / 中科院物理所）", "start": 2018, "end": 2026}
+]
+```
+
+保存为 `career_stages.json`，与 `verified_ids.json` 一起存入 `archive/<timestamp>/`。
+阶段配置直接决定了论文表格如何按学术生涯分组——每篇论文按出版年份落入对应阶段。
 ```
 
 ---
@@ -215,7 +230,8 @@ python src/phase1/step6_merge.py \
 python src/phase1/render_profile.py \
   "$PROF/archive/$TIMESTAMP/04_merged.json" \
   -o "$PROF/01_基础画像.md" \
-  --department "超快物质科学中心"
+  --department "超快物质科学中心" \
+  --stages "$PROF/archive/$TIMESTAMP/career_stages.json"
 
 echo "$TIMESTAMP" > "$PROF/latest.txt"
 ```
