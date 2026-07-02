@@ -43,7 +43,8 @@ def e(*args, **kwargs):
 
 def run(prof_path: str, gs_id: str = "", oa_id: str = "",
         orcid: str = "", email: str = "", categories: str = "",
-        department: str = "", stages_file: str = "") -> int:
+        department: str = "", stages_file: str = "",
+        name_pinyin: str = "") -> int:
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
     base = f"output/{prof_path}"
     archive = f"{base}/archive/{ts}"
@@ -106,17 +107,17 @@ def run(prof_path: str, gs_id: str = "", oa_id: str = "",
                        "metadata": None}, f)
 
     # 6. arXiv: step4（ORCID 精确匹配）→ 失败回退 step5（au: 搜索）
+    name_cn = os.path.basename(prof_path)
+    name_arxiv = name_pinyin or name_cn  # step5 需要拼音，没给就传中文
     if orcid:
-        name_hint = os.path.basename(prof_path)
-        ret = e("step4_arxiv_id.py", orcid, "--name", name_hint,
+        ret = e("step4_arxiv_id.py", orcid, "--name", name_cn,
                 "-o", f"{archive}/03_arxiv.json")
         if ret != 0:
             print("  ⏬ STEP4 失败，回退到 STEP5", file=sys.stderr)
             orcid = ""  # 标记回退
     if not orcid:
-        name_hint = os.path.basename(prof_path)
         cat_args = ["-c", categories] if categories else []
-        e("step5_arxiv.py", name_hint, *cat_args,
+        e("step5_arxiv.py", name_arxiv, *cat_args,
           "-o", f"{archive}/03_arxiv.json")
 
     # 7. Step 6: 合并
@@ -172,6 +173,7 @@ def main():
     parser.add_argument("--categories", "-c", help="arXiv 学科分类，如 'physics.atom-ph physics.optics'")
     parser.add_argument("--department", "-d", help="部门/实验室名称")
     parser.add_argument("--stages", help="career_stages.json 路径（默认从输出目录自动查找）")
+    parser.add_argument("--name-pinyin", help="姓名拼音（姓_名），arXiv 搜索用，如 Zhang_Pengju。不传则用中文名搜（不推荐）")
     args = parser.parse_args()
 
     sys.exit(run(
@@ -183,6 +185,7 @@ def main():
         categories=args.categories or "",
         department=args.department or "",
         stages_file=args.stages or "",
+        name_pinyin=args.name_pinyin or "",
     ))
 
 

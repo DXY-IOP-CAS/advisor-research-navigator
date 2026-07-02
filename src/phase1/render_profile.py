@@ -30,7 +30,7 @@ render_profile.py — 从 merged.json 按模板生成 01_基础画像.md
 
 可选参数：
   --stages career_stages.json   学术阶段配置
-  --stage-desc stage_desc.json  阶段叙事描述
+  --run-timestamp TS
 
 依赖：标准库
 """
@@ -278,7 +278,6 @@ def main() -> None:
     parser.add_argument("--output", "-o", default="01_基础画像.md", help="输出路径")
     parser.add_argument("--stages", help="学术阶段配置 JSON 文件")
     parser.add_argument("--department", "-d", default="", help="部门/实验室名称")
-    parser.add_argument("--stage-desc", help="阶段描述 JSON 文件（{阶段名: 描述}）")
     parser.add_argument("--run-timestamp", help="当前运行的时间戳（如 20260702_024857），用于 frontmatter 中指向 archive 目录")
     args = parser.parse_args()
 
@@ -288,9 +287,6 @@ def main() -> None:
             stage_config = json.load(f)
 
     stage_descriptions = None
-    if args.stage_desc:
-        with open(args.stage_desc, "r", encoding="utf-8") as f:
-            stage_descriptions = json.load(f)
 
     data = load_merged(args.merged_json)
     generate(data, args.output, stage_config, args.department, stage_descriptions, args.run_timestamp)
