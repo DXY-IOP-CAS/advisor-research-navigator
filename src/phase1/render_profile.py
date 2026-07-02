@@ -83,12 +83,13 @@ def paper_url(paper: dict) -> str:
 
 
 def _is_enriched_stages(stages: list) -> bool:
-    """判断 career_stages 是否含 institution/position/direction 字段。
+    """所有阶段都有 institution/position/direction → 自动生成 §2。
 
-    新格式包含这些字段 → render_profile 自动生成 §2 学术履历。
-    旧格式只有 name/start/end → 留占位符给 AI 写。
+    任一阶段缺 institution 就回退到旧占位符（避免混用格式导致表格缺列）。
     """
-    return any(s.get("institution") for s in (stages or []))
+    if not stages:
+        return False
+    return all(s.get("institution") for s in stages)
 
 
 def render_career_timeline(stages: list) -> str:
