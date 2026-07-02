@@ -257,7 +257,9 @@ def verify(profile_path: str, merged_path: str = None) -> int:
             continue
         source_cell = cells[5]
         source_plain = re.sub(r"\s+", "", source_cell)
-        if source_plain in ("OA", "arXiv"):
+        is_single_source_external = source_plain.startswith("OA") or source_plain.startswith("arXiv")
+        is_manually_checked = "已核查" in source_cell or "人工核查" in source_cell
+        if is_single_source_external and not is_manually_checked:
             title = re.sub(r"\[(.+?)\]\(.+?\)", r"\1", cells[2])
             unvetted_single_source.append(title)
     check(len(unvetted_single_source) == 0,

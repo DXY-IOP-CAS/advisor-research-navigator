@@ -244,6 +244,35 @@ affiliation: 测试机构
         self.assertEqual(verify_profile.FAIL, result)
         self.assertIn("单源 OA/arXiv 论文需人工核查", buf.getvalue())
 
+    def test_verify_profile_fails_when_single_source_row_is_only_pending_review(self):
+        profile_path = self._write_profile(
+            self._valid_profile().replace(
+                "| 1 | 2010 | [Paper A](https://doi.org/10.1000/a) | Journal | 1 | GS |",
+                "| 1 | 2010 | [Paper A](https://doi.org/10.1000/a) | Journal | 1 | OA（待核查） |",
+            )
+        )
+
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            result = verify_profile.verify(profile_path)
+
+        self.assertEqual(verify_profile.FAIL, result)
+        self.assertIn("单源 OA/arXiv 论文需人工核查", buf.getvalue())
+
+    def test_verify_profile_allows_single_source_row_after_manual_review(self):
+        profile_path = self._write_profile(
+            self._valid_profile().replace(
+                "| 1 | 2010 | [Paper A](https://doi.org/10.1000/a) | Journal | 1 | GS |",
+                "| 1 | 2010 | [Paper A](https://doi.org/10.1000/a) | Journal | 1 | OA（已核查） |",
+            )
+        )
+
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            result = verify_profile.verify(profile_path)
+
+        self.assertEqual(verify_profile.PASS, result)
+
 
 if __name__ == "__main__":
     unittest.main()
