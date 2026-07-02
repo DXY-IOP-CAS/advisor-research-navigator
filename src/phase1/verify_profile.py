@@ -37,6 +37,18 @@ def verify(profile_path: str, merged_path: str = None) -> int:
     parts = profile_path.replace("\\", "/").split("/")
     md_idx = next((i for i, p in enumerate(parts) if p.endswith(".md")), -1)
     path_depth = md_idx  # output/<...>/ 的层级数
+
+    # 0b. 常见路径错误：中科院物理所 直接作为第一级（缺 中国科学院大学）
+    try:
+        inst_idx = next(i for i, p in enumerate(parts) if "中科院物理所" in p)
+        if inst_idx is not None and (inst_idx >= len(parts) - 3 or inst_idx == md_idx - 3):
+            # e.g. output/中科院物理所/... — 缺 中国科学院大学 层
+            check("中国科学院大学" in parts,
+                  f"路径层级：output/中国科学院大学/中科院物理所/...（当前第一级是 {parts[md_idx - 3] if md_idx >= 3 else '?'}，缺少大学层）",
+                  errors)
+    except StopIteration:
+        pass
+
     if path_depth < 4:
         check(False,
               f"输出路径层级不规范：{profile_path}。"

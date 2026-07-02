@@ -17,7 +17,9 @@
 所有输出路径按以下规范自动推导，AI 不手写路径字符串。
 
 - prof 根目录：`output/<大学>/<学院所>/<部门>/<姓名>/` — 只放最终产出
-- archive：`{prof_root}/archive/<timestamp>/` — 放全部中间产物（JSON、配置）
+- 例：中国科学院大学/中科院物理所/超快物质科学中心/张鹏举/
+- **注意：中科院物理所的第一级不是"中科院物理所"，是"中国科学院大学"。** 路径应为 `output/中国科学院大学/中科院物理所/...`，不是 `output/中科院物理所/...`。
+- archive：`{prof_root}/archive/<timestamp>/` — 放全部中间产物
 - `latest.txt`：`{prof_root}/latest.txt` — 记录最新时间戳
 - **career_stages.json 和 verified_ids.json 放在 archive/ 下，不在 prof 根目录**
 
