@@ -201,7 +201,29 @@ step6_merge 的输出，在 SOURCE_OUTPUT 基础上增加：
 
 ## 4 阶段 B — CLI 执行
 
-### 完整运行示例
+### 推荐：统一入口（run.py）
+
+`run.py` 自动串联阶段 B + 阶段 C 的全部步骤。推荐大多数场景使用。
+
+```bash
+python src/phase1/run.py "中科院物理所/超快物质科学中心/张鹏举" \
+  --gs-id ls7XuGoAAAAJ \
+  --oa-id A5048473780 \
+  --email your@real.com \
+  --orcid 0000-0002-0463-3476 \
+  --categories "physics.atom-ph physics.optics" \
+  --department "超快物质科学中心"
+```
+
+自动完成：
+1. 存档旧版产出 → 2. 建 archive/ 目录 → 3. 校验 career_stages.json
+4. GS 采集 → 5. OA 采集 → 6. arXiv（ORCID 精确匹配 / au: 回退）
+7. 三源合并去重 → 8. 画像渲染（含 --run-timestamp）
+9. 更新 latest.txt → 10. verify_profile 自动检查
+
+各参数均可选。无 GS/OA ID 时自动跳过对应步骤，写入空的源文件。
+
+### 手动逐步骤执行（排查问题时用）
 
 ```bash
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
