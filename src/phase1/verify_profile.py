@@ -249,6 +249,21 @@ def verify(profile_path: str, merged_path: str = None) -> int:
     table_headers = re.findall(r"^\| # \| 年份 \| 标题 \| 期刊 \| 引用 \| 来源 \|", content, re.MULTILINE)
     check(len(table_headers) >= 1, "论文表格表头为 6 列（#、年份、标题、期刊、引用、来源）", errors)
 
+    paper_table_rows = re.findall(r"^\| \d+ \| \d{4} \| .+ \|$", content, re.MULTILINE)
+    unvetted_single_source = []
+    for row in paper_table_rows:
+        cells = [c.strip() for c in row.strip("|").split("|")]
+        if len(cells) < 6:
+            continue
+        source_cell = cells[5]
+        source_plain = re.sub(r"\s+", "", source_cell)
+        if source_plain in ("OA", "arXiv"):
+            title = re.sub(r"\[(.+?)\]\(.+?\)", r"\1", cells[2])
+            unvetted_single_source.append(title)
+    check(len(unvetted_single_source) == 0,
+          f"单源 OA/arXiv 论文需人工核查（发现 {len(unvetted_single_source)} 行，例：{unvetted_single_source[:3]}）",
+          errors)
+
     # 9b. 论文表格行宽不过长（超过 400 字符的行会破坏 markdown 表格渲染）
     table_lines = [l for l in content.split("\n") if l.startswith("| ") and l.count("|") >= 4]
     long_lines = [len(l) for l in table_lines if len(l) > 400]
