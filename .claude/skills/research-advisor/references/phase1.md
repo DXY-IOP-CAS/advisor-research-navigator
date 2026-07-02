@@ -14,32 +14,6 @@
 
 ## 执行规则
 
-### 路径由脚本构造（AI 不碰路径字符串）
-
-不要手动 `mkdir`。不要手动拼路径。用 `phase1_init.py` 自动创建：
-
-```bash
-python src/phase1/phase1_init.py \
-  --university 中国科学院大学 \
-  --institute 中科院物理所 \
-  --department 超快物质科学中心 \
-  --name 张鹏举
-```
-
-脚本自动：
-- 建 `output/中国科学院大学/中科院物理所/超快物质科学中心/张鹏举/`
-- 建 `archive/<timestamp>/`
-- 写 `latest.txt`
-- 输出 archive 路径供后续步骤使用
-
-后续所有 step 脚本用 `--archive-dir` 参数，传入上面输出的路径即可。
-- `latest.txt`：`{prof_root}/latest.txt` — 记录最新时间戳
-- **career_stages.json 和 verified_ids.json 放在 archive/ 下，不在 prof 根目录**
-
-如果手动执行，每个 step 脚本都接受 `--archive-dir` 参数替代 `-o`。AI 只需传 `--archive-dir <archive路径>`，文件名由脚本自动拼接。
-
-如果使用 run.py，传 `--university --institute --department --name` 结构化参数，路径自动构造。
-
 ### 广度搜索步骤（Phase A 按此顺序执行）
 
 MCP 搜索各平台，找到 ID 后填入 `verified_ids.json`：
