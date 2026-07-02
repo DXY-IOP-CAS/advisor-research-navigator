@@ -150,6 +150,22 @@ def verify(profile_path: str, merged_path: str = None) -> int:
     ]
     check(len(source_rows) > 0, f"§9 验证来源表至少 1 行（{len(source_rows)} 行）", errors)
 
+    section9_bullets = [
+        line for line in section9.splitlines()
+        if re.match(r"^\s*[-*]\s+", line)
+    ]
+    check(len(section9_bullets) == 0,
+          f"§9 验证来源不用列表格式（发现 {len(section9_bullets)} 行）",
+          errors)
+
+    unverified_rows = [
+        line for line in source_rows
+        if "未验证" in line or "linkedin.com" in line.lower()
+    ]
+    check(len(unverified_rows) == 0,
+          f"§9 验证来源不含未验证来源（发现 {len(unverified_rows)} 行）",
+          errors)
+
     check(not re.search(r"^## 4\..+\n\n\n+### 4\.\d+", content, re.MULTILINE),
           "§4 大标题后没有多余空行",
           errors)
