@@ -92,9 +92,18 @@ python src/phase1/step3_openalex.py A5000914228 --email you@example.com -o 02_oa
 
 | 端点 | 用途 |
 |:-----|:------|
-| `GET /api/query?search_query=au:{name}&sortBy=submittedDate&max_results=50` | 按作者搜 |
+| `GET /api/query?search_query=au:{query}&sortBy=submittedDate&max_results=200` | 按作者搜（au 支持 AND/OR 组合） |
+| `https://arxiv.org/a/{ORCID}.atom2` | 按 ORCID 获取精确论文列表（零噪声，opt-in 机制） |
 
-**用法**（已封装为 step5_arxiv.py）：
+### 精确匹配（优先）
+
+如果已确认 ORCID，访问 `https://arxiv.org/a/{ORCID}.atom2` 返回该作者在 arXiv 上的所有论文。这是最精确的方式（零噪声），但需要作者已将 ORCID 关联到 arXiv 账号（opt-in 机制）。
+
+### au: 搜索（精确匹配失败时使用）
+
+step5_arxiv.py 自动将 `姓_名`（如 `Zhang_Pengju`）拆分为 `au:Zhang+AND+au:Pengju`，搜索作者字段同时出现姓和名的论文。
+
+**用法**：
 
 ```bash
 python src/phase1/step5_arxiv.py "Zhang_Pengju" -c "physics.atom-ph physics.optics" -o 03_arxiv.json
@@ -102,12 +111,21 @@ python src/phase1/step5_arxiv.py "Zhang_Pengju" -c "physics.atom-ph physics.opti
 
 `-c` 参数传 arXiv 学科分类（来自 step1_discipline 输出），用于减少同名噪声。
 
-**限速**：≥3 秒间隔。响应格式：Atom XML。
+**限速**：≥3 秒间隔。响应格式：Atom XML。不支持按 ORCID/DOI 搜索。
 
-**已知问题**：
-- `au:` 搜索只按作者名匹配，返回结果中大量同名干扰
-- 同名噪声在合并步骤（step6_merge.py）通过 DOI/标题匹配自动过滤
-- 最终画像中仅保留与 GS/OA 已确认论文匹配的 arXiv 条目
+### arXiv 论文过滤流程
+
+1. step6_merge.py 按 DOI/arXiv ID/标题 与 GS/OA 匹配，匹配上的合并
+2. render_profile.py 对 arXiv-only 论文做门控：
+   - **有 DOI** → 保留（可能是尚未被 GS 收录的预印本）
+   - **无 DOI** → 过滤（无其他源交叉验证，视为同名噪声）
+3. 渲染时在 "剔除论文" 注释中记录被过滤的 arXiv-only 标题
+
+### 已知问题
+
+- `au:` 搜索只按作者名文本匹配，同名干扰率高
+- arXiv author identifier 是 opt-in 机制，不是所有作者都有
+- `<arxiv:affiliation>` 字段极少出现，格式不统一，**不可用于机构过滤**
 
 ---
 

@@ -14,9 +14,12 @@ render_profile.py — 从 merged.json 按模板生成 01_基础画像.md
 功能：
   1. 读取 merged.json，生成包含全部论文表格的结构化画像
   2. 论文按学术履历阶段分组（从 --stages 文件或 5 年默认段）
-  3. 每篇论文附带 DOI/arXiv 超链接
-  4. 头部嵌入运行统计（时间戳、各源状态、论文总数）
-  5. 支持 --department 和 --stage-desc 参数定制内容
+  3. 内联过滤：
+     - OA 独有论文：通过合著者+期刊+机构网络评分（< 1 分过滤）
+     - arXiv 独有论文：无 DOI 则过滤（无法交叉验证）
+  4. 每篇论文附带 DOI/arXiv 超链接
+  5. 头部嵌入运行统计（时间戳、各源状态、论文总数）
+  6. 支持 --department 和 --stage-desc 参数定制内容
 
   脚本不写的内容（由 AI 渲染后补充）：
   - 学术履历表格     - 研究方向描述    - 合作网络
@@ -171,8 +174,13 @@ def generate(data: dict, output_path: str, stage_config: list = None,
         if sources == {"openalex"}:
             score = score_oa_noise(p, gs_or_multi)
             if score < 1:
-                removed_titles.append(title)
+                removed_titles.append(f"[OA 噪声] {title}")
                 continue
+        # arXiv 独有论文过滤：无 DOI 的 arXiv-only 论文无法交叉验证，视为同名噪声
+        # 有 DOI 的 arXiv-only 论文保留（可能是尚未被 GS 收录的预印本）
+        if sources == {"arxiv"} and not p.get("doi"):
+            removed_titles.append(f"[arXiv 无 DOI] {title}")
+            continue
         filtered_papers.append(p)
 
     # Group by career stage

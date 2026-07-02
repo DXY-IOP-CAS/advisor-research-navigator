@@ -20,13 +20,14 @@ step6_merge.py — 多源合并去重 + 教授信息合并
 处理逻辑：
   1. 教授信息合并（按字段优先级：GS > OA，详见 PROF_PRIORITY 表）
   2. 论文去重（P0:DOI → P1:arXiv ID → P2:归一化标题）
-  3. 字段择优（引用数: OA > GS；期刊名: OA > GS）
+  3. 字段择优（引用数: OA > GS；期刊名: OA > GS；institutions: 仅 OA）
   4. 多源交叉验证标记（source_count/sources）
 
 特点：
   - 不读任何缓存，每次全新合并
   - 教授信息：GS 占 h-index/i10-index/引用数，OA 占 DOI/ORCID
-  - arXiv 噪声通过 DOI/标题匹配 GS/OA 自动过滤
+  - arXiv 噪声由 render_profile.py 过滤（arXiv-only 无 DOI 视为噪声）
+  - 合并层保留 institutions 字段（来自 OA），供 render_profile 做机构网络过滤
   - 排序：多源验证优先 → 引用数高优先 → 年份新优先
 
 用法：
@@ -162,6 +163,7 @@ FIELD_PRIORITY = {
     "title": ["openalex", "google_scholar", "arxiv"],
     "year": ["openalex", "arxiv", "google_scholar"],
     "authors": ["openalex", "arxiv"],
+    "institutions": ["openalex"],
     "journal": ["openalex", "google_scholar", "arxiv"],
     "doi": ["openalex", "arxiv"],
     "arxiv_id": ["arxiv", "openalex"],
@@ -193,6 +195,7 @@ def merge_paper_group(entries: List[tuple]) -> dict:
         "title": _pick(papers_only, "title"),
         "year": _pick(papers_only, "year"),
         "authors": _pick(papers_only, "authors"),
+        "institutions": _pick(papers_only, "institutions"),
         "journal": _pick(papers_only, "journal"),
         "doi": _pick(papers_only, "doi"),
         "arxiv_id": _pick(papers_only, "arxiv_id"),

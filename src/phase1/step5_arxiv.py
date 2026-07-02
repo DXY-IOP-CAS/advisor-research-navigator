@@ -5,11 +5,13 @@ step5_arxiv.py — arXiv 预印本搜索
 流水线位置：阶段 B 第三步。与 step2/step3 并行执行。
 
 数据流：
-  [Phase A] 广域搜索确认姓名拼音；step1 输出 arXiv 分类
+  [Phase A] 广域搜索确认姓名拼音 + ORCID；step1 输出 arXiv 分类
       ↓
   [本脚本] → 03_arxiv.json
       ↓
   [step6_merge.py] 与 GS/OA 合并去重
+      ↓
+  [render_profile.py] arXiv-only 无 DOI → 过滤
 
 输出格式（统一 SOURCE_OUTPUT）：
   {
@@ -19,11 +21,11 @@ step5_arxiv.py — arXiv 预印本搜索
     "papers": [{ title, year, authors, journal, doi, arxiv_id, abstract }, ...]
   }
 
-特点：
-  - au: 搜索按姓名匹配，返回结果中同名噪声率高（常见中文名可达 80%+）
-  - 加 -c 参数传 arXiv 学科分类（来自 step1_discipline.py 输出）可降低噪声
-  - 噪声过滤由 step6_merge.py 通过 DOI/标题匹配 GS/OA 已确认论文完成
-  - arXiv 要求 ≥3 秒请求间隔
+查询策略：
+  - 输入格式：`姓_名`（下划线分隔，如 Zhang_Pengju）
+  - 自动拆为 `au:Zhang+AND+au:Pengju`，AND 组合搜索作者字段中同时出现姓和名的论文
+  - 加 -c 参数传 arXiv 学科分类降低噪声，多个分类分别查询（cat: 用 AND 语义）
+  - 噪声过滤：render_profile.py 对 arXiv-only 无 DOI 论文直接过滤
 
 用法：
   python src/phase1/step5_arxiv.py "Zhang_Pengju" -c "physics.atom-ph" -o output/<机构>/<部门>/<姓名>/archive/<timestamp>/03_arxiv.json
@@ -143,6 +145,22 @@ def _parse_xml(xml_text: str) -> list:
     return papers
 
 
+def _build_arxiv_author_query(author_name: str) -> str:
+    """将 `姓_名` 格式转为 arXiv 兼容的 au: 查询。
+
+    arXiv 作者字段存的是 "Pengju Zhang"（名在前姓在后，空格分隔）。
+    下划线分隔的 "Zhang_Pengju" 不能直接传入 au:，因为下划线不会被拆成空格。
+
+    策略：拆成姓和名，用 AND 组合搜索作者字段中同时出现两者的论文。
+    """
+    parts = author_name.split("_")
+    if len(parts) >= 2:
+        last = quote(parts[0], safe="")
+        first = quote("_".join(parts[1:]), safe="")
+        return f"au:{last}+AND+au:{first}"
+    return f"au:{quote(author_name, safe='')}"
+
+
 def search(author_name: str, max_results: int = 200,
            delay: float = 3.0, categories: Optional[str] = None) -> dict:
     """按作者名搜索 arXiv。返回统一 SOURCE_OUTPUT 格式。
@@ -151,7 +169,7 @@ def search(author_name: str, max_results: int = 200,
     因为 arXiv API 的 cat: 过滤器用 AND 语义，
     传多个分类一起查会要求论文同时属于所有分类，几乎永远返回 0。
     """
-    encoded_name = quote(author_name, safe='')
+    author_query = _build_arxiv_author_query(author_name)
     cat_list = categories.split() if categories else []
 
     all_papers = {}
@@ -159,7 +177,7 @@ def search(author_name: str, max_results: int = 200,
     if cat_list:
         # 每个分类单独查
         for cat in cat_list:
-            q = f"au:{encoded_name}+AND+cat:{cat}"
+            q = f"{author_query}+AND+cat:{cat}"
             xml_text = _query_arxiv(q, max_results, delay)
             if xml_text:
                 for p in _parse_xml(xml_text):
@@ -167,8 +185,7 @@ def search(author_name: str, max_results: int = 200,
                     all_papers[dedup_key] = p
     else:
         # 无分类过滤
-        q = f"au:{encoded_name}"
-        xml_text = _query_arxiv(q, max_results, delay)
+        xml_text = _query_arxiv(author_query, max_results, delay)
         if xml_text:
             for p in _parse_xml(xml_text):
                 dedup_key = (p.get("title", ""), p.get("arxiv_id", ""))
