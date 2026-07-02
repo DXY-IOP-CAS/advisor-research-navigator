@@ -29,7 +29,8 @@
 
 MCP 搜索各平台，找到 ID 后填入 `verified_ids.json`：
 
-1. **Google Scholar**：MCP 搜"姓名 + 机构 + Google Scholar" → 找到 GS profile → 提取 GS ID
+1. **建 archive 目录**：Phase A 第一步先建 `archive/<timestamp>/`。之后所有阶段文件（verified_ids.json、career_stages.json 等）直接写进 archive/。**prof 根目录只放最终产出**。
+2. **Google Scholar**：MCP 搜"姓名 + 机构 + Google Scholar" → 找到 GS profile → 提取 GS ID
 2. **OpenAlex**：MCP 搜"姓名 + OpenAlex" 或用 ORCID 反查 → 找到 OA 作者 ID
 3. **ORCID**：官网如有 ORCID 直接使用，否则 MCP 搜"姓名 + ORCID"
 4. **交叉验证**：邮箱域名匹配（T1）、ORCID（T2）、论文指纹（T3）、综合判断（T4）

@@ -18,8 +18,8 @@ verify_profile.py 才是最终质量门控。
 退出码：始终 0（仅警告，不阻塞流程）
 """
 
+import argparse
 import json
-import re
 import sys
 
 PASS, FAIL = 0, 1

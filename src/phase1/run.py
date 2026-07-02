@@ -204,7 +204,7 @@ def main():
         parser.error("必须提供 prof_path 或 --university + --name")
 
     sys.exit(run(
-        prof_path=args.prof_path,
+        prof_path=prof_path,
         gs_id=args.gs_id or "",
         oa_id=args.oa_id or "",
         orcid=args.orcid or "",
