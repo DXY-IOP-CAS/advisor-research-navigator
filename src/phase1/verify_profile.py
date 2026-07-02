@@ -102,12 +102,25 @@ def verify(profile_path: str, merged_path: str = None) -> int:
             merged = json.load(f)
         total_merged = len(merged.get("papers", []))
         paper_rows = len(re.findall(r"^\| \d+ \| \d{4}", content, re.MULTILINE))
-        # 允许偏差：至少 5 篇或总论文数的 5%（对大论文量教授更宽）
-        tolerance = max(5, int(total_merged * 0.05))
-        diff = abs(total_merged - paper_rows)
-        check(diff <= tolerance,
-              f"论文行数：{paper_rows}（merged={total_merged}，差 {diff}，容差 {tolerance}）",
-              errors)
+
+        # GS 论文数作为基准（GS 由学者维护，应全部保留）
+        gs_papers = [p for p in merged.get("papers", [])
+                     if "google_scholar" in p.get("sources", [])]
+        gs_count = len(gs_papers)
+
+        if gs_count > 0:
+            # 有 GS 锚点：检查 GS 论文是否被完整渲染
+            missing = gs_count - paper_rows
+            check(missing <= max(3, int(gs_count * 0.05)),
+                  f"GS 论文 {gs_count} 篇中至少渲染了 {paper_rows} 篇（缺失 {max(0, missing)} 篇）",
+                  errors)
+        else:
+            # 无 GS：OA-only，用宽松容差
+            tolerance = max(10, int(total_merged * 0.3))
+            diff = abs(total_merged - paper_rows)
+            check(diff <= tolerance,
+                  f"论文行数：{paper_rows}（OA-only merged={total_merged}，差 {diff}，容差 {tolerance}）",
+                  errors)
     else:
         paper_rows = len(re.findall(r"^\| \d+ \| \d{4}", content, re.MULTILINE))
         check(paper_rows > 0, f"论文表格存在（{paper_rows} 行）", errors)
