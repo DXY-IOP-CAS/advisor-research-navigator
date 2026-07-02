@@ -22,9 +22,9 @@ PASS, FAIL = 0, 1
 
 def check(condition: bool, message: str, errors: list):
     if condition:
-        print(f"  ✅ {message}")
+        print(f"  [OK] {message}")
     else:
-        print(f"  ❌ {message}")
+        print(f"  [FAIL] {message}")
         errors.append(message)
 
 
@@ -161,10 +161,10 @@ def verify(profile_path: str, merged_path: str = None) -> int:
     # 汇总
     print()
     if errors:
-        print(f"❌ {len(errors)} 项检查未通过")
+        print(f"[FAIL] {len(errors)} 项检查未通过")
         return FAIL
     else:
-        print("✅ 全部检查通过")
+        print("[OK] 全部检查通过")
         return PASS
 
 

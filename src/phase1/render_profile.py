@@ -172,14 +172,20 @@ def generate(data: dict, output_path: str, stage_config: list = None,
     removed_titles = []
     gs_or_multi = [p for p in papers if "google_scholar" in p.get("sources", [])
                    or p.get("source_count", 0) > 1]
+    no_gs_anchor = not gs_or_multi and len(papers) > 0
     for p in papers:
         title = p.get("title", "")
         sources = set(p.get("sources", []))
         if sources == {"openalex"}:
-            score = score_oa_noise(p, gs_or_multi)
-            if score < 1:
-                removed_titles.append(f"[OA 噪声] {title}")
-                continue
+            if no_gs_anchor:
+                # 没有 GS 锚点 → 跳过 OA 噪声过滤，保留全部论文
+                # 所有论文标记"未验证"但保留在正文中
+                p["_no_gs_anchor"] = True
+            else:
+                score = score_oa_noise(p, gs_or_multi)
+                if score < 1:
+                    removed_titles.append(f"[OA 噪声] {title}")
+                    continue
         # arXiv 独有论文过滤：无 DOI 的 arXiv-only 论文无法交叉验证，视为同名噪声
         # 有 DOI 的 arXiv-only 论文保留（可能是尚未被 GS 收录的预印本）
         if sources == {"arxiv"} and not p.get("doi"):
@@ -242,6 +248,11 @@ def generate(data: dict, output_path: str, stage_config: list = None,
         for t in removed_titles:
             L(f"- {t}")
         L("-->")
+    elif no_gs_anchor:
+        L("<!-- 未找到 Google Scholar 档案。以下论文全部来自 OpenAlex，未经合著者/期刊网络过滤。"
+          "OpenAlex 作者 ID A5100349721 聚合了多位同名学者的论文，包括部分非物理领域论文。"
+          "建议人工检查论文列表，剔除明显不相关的条目。 -->")
+        L("")
 
     # 8. 数据质量说明（按过滤后的论文统计）
     L("## 8. 数据质量说明")
