@@ -104,6 +104,22 @@ def paper_url(paper: dict) -> str:
     return make_paper_link(paper)
 
 
+def _shorten_markdown_link(link_text: str, max_text_len: int = 80) -> str:
+    """截断 markdown 链接的显示文本，保留 URL。
+
+    "[Very Long Paper Title...](https://doi.org/xxx)"  →  "[Very Long Paper Ti…](https://doi.org/xxx)"
+    纯文本超出长度也截断。
+    """
+    m = re.match(r"^\[(.+?)\]\((https?://.+)\)$", link_text)
+    if m:
+        text, url = m.group(1), m.group(2)
+        if len(text) > max_text_len:
+            return f"[{text[:max_text_len-1]}…]({url})"
+        return link_text
+    # 纯文本回退
+    return (link_text[:max_text_len-1] + "…") if len(link_text) > max_text_len else link_text
+
+
 def _is_enriched_stages(stages: list) -> bool:
     """所有阶段都有 institution/position/direction → 自动生成 §2。
 
@@ -315,7 +331,7 @@ def generate(data: dict, output_path: str, stage_config: list = None,
         headers = ["#", "年份", "标题", "期刊", "引用", "来源"]
         rows = []
         for i, p in enumerate(stage_papers, 1):
-            title_display = make_paper_link(p)
+            title_display = _shorten_markdown_link(make_paper_link(p))
             journal = (p.get("journal") or "")[:40] or "—"
             cites = p.get("citation_count") or "—"
             tag = source_tag(p.get("sources", []))

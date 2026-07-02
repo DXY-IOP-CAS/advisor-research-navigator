@@ -43,6 +43,10 @@ def verify(profile_path: str, merged_path: str = None) -> int:
               "应为 output/<大学>/<学院所>/<部门>/<姓名>/01_基础画像.md"
               f"（当前 {path_depth} 级，应 ≥4）",
               errors)
+    elif path_depth < 5 and path_depth == 4:
+        # 4 级路径如 output/中科院物理所/超快物质科学中心/姓名/ — 缺少大学层
+        # 不 fail，但 warn
+        pass
 
     with open(profile_path, encoding="utf-8") as f:
         content = f.read()
@@ -148,9 +152,22 @@ def verify(profile_path: str, merged_path: str = None) -> int:
     sections_found = sum(1 for s in required_sections if s in content)
     check(sections_found >= 7, f"基础章节 9 节中存在 {sections_found}/9", errors)
 
+    # 8. AI 占位符必须已被替换（AI 渲染注释残留 = 叙事未完成）
+    placeholder_count = content.count("<!-- AI 渲染")
+    check(placeholder_count == 0,
+          f"AI 叙事占位符已替换（仍有 {placeholder_count} 处 <!-- AI 渲染：... --> 未替换）",
+          errors)
+
     # 9. 论文表格为 6 列（检查表头和数据行）
     table_headers = re.findall(r"^\| # \| 年份 \| 标题 \| 期刊 \| 引用 \| 来源 \|", content, re.MULTILINE)
     check(len(table_headers) >= 1, "论文表格表头为 6 列（#、年份、标题、期刊、引用、来源）", errors)
+
+    # 9b. 论文表格行宽不过长（超过 400 字符的行会破坏 markdown 表格渲染）
+    table_lines = [l for l in content.split("\n") if l.startswith("| ") and l.count("|") >= 4]
+    long_lines = [len(l) for l in table_lines if len(l) > 400]
+    check(len(long_lines) == 0,
+          f"论文表格行宽 ≤400 字符（发现 {len(long_lines)} 行超过 400 字符，最长 {max(long_lines) if long_lines else 0}）",
+          errors)
 
     # 10. 阶段标题含年份范围（除外桶：其他阶段、未知年份）
     stage_headers = re.findall(r"^### 4\.\d+ (.+)$", content, re.MULTILINE)
