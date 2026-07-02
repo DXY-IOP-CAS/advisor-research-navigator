@@ -151,23 +151,36 @@ def verify(profile_path: str, merged_path: str = None) -> int:
     table_headers = re.findall(r"^\| # \| 年份 \| 标题 \| 期刊 \| 引用 \| 来源 \|", content, re.MULTILINE)
     check(len(table_headers) >= 1, "论文表格表头为 6 列（#、年份、标题、期刊、引用、来源）", errors)
 
-    # 9b. 阶段标题必须是学术阶段描述（不能是纯年份）
+    # 10. 阶段标题含年份范围（除外桶：其他阶段、未知年份）
     stage_headers = re.findall(r"^### 4\.\d+ (.+)$", content, re.MULTILINE)
-    bare_stages = [s for s in stage_headers if not re.search(r"[一-鿿]", s)]
-    check(len(bare_stages) == 0,
-          f"阶段标题含中文描述（发现 {len(bare_stages)} 个无中文的阶段：{bare_stages[:5]}）",
+    bare_years = [s for s in stage_headers
+                  if s not in ("其他阶段", "未知年份")
+                  and not re.search(r"\d{4}.*\d{4}", s)]
+    check(len(bare_years) == 0,
+          f"阶段标题含年份范围（发现 {len(bare_years)} 个无年份的阶段：{bare_years[:5]}）",
           errors)
 
-    # 10. 无重复论文标题（去重失败检测）
-    titles = re.findall(r"^\| \d+ \| \d{4} \| (.+?) \|", content, re.MULTILINE)
-    seen = set()
+    # 11. 无重复论文标题
     dupes = set()
-    for t in titles:
-        # 提取 markdown 链接中的纯文本标题，用完整标题去重（不截断）
-        plain = re.sub(r"\[(.+?)\]\(.+?\)", r"\1", t).strip().lower()
-        if plain in seen:
-            dupes.add(t)
-        seen.add(plain)
+    if merged_path:
+        # 从 merged.json 检测（比从 markdown 文本更准确，避免截断/格式干扰）
+        with open(merged_path, encoding="utf-8") as f:
+            merged = json.load(f)
+        seen = set()
+        for p in merged.get("papers", []):
+            plain = (p.get("title") or "").strip().lower()
+            if plain in seen:
+                dupes.add(p.get("title", ""))
+            seen.add(plain)
+    else:
+        # 备用：从 markdown 文本提取
+        titles = re.findall(r"^\| \d+ \| \d{4} \| (.+?) \|", content, re.MULTILINE)
+        seen = set()
+        for t in titles:
+            plain = re.sub(r"\[(.+?)\]\(.+?\)", r"\1", t).strip().lower()
+            if plain in seen:
+                dupes.add(t)
+            seen.add(plain)
     check(len(dupes) == 0, f"无重复论文标题（发现 {len(dupes)} 篇重复：{list(dupes)[:3]}）", errors)
 
     # 汇总
@@ -199,7 +212,8 @@ FIX_MAP = {
     "有超链接": "确认论文有 DOI 或 arXiv 链接",
     "基础章节": "补充缺失的章节（§3/§5/§6/§7）",
     "重复论文标题": "去重，保留唯一版本",
-    "阶段标题": "在 career_stages.json 的 name 字段中添加中文",
+    "阶段标题含年份": "重新运行 render_profile（--stages career_stages.json 含 start/end 即可自动生成年份范围）",
+    "无中文的阶段": "在 career_stages.json 的 name 字段中添加中文描述",
     "输出路径": "路径层级应为 output/<大学>/<学院所>/<部门>/<姓名>/01_基础画像.md。\n                → 重新生成：python src/phase1/run.py --university 中国科学院大学 --institute 中科院物理所 --department 部门 --name 姓名",
 }
 

@@ -316,15 +316,6 @@ def generate(data: dict, output_path: str, stage_config: list = None,
         rows = []
         for i, p in enumerate(stage_papers, 1):
             title_display = make_paper_link(p)
-            # 截断过长的标题（超过 80 字符的部分截断，避免 markdown 表格不可读）
-            short_title = re.sub(r"(\[).{81,}(]\(https?://)",
-                                 lambda m: m.group(1) + m.group(0)[1:79] + "…" + m.group(2),
-                                 title_display)
-            if short_title == title_display:
-                # 也尝试截断无 URL 的纯文本标题
-                title_display = (title_display[:78] + "…") if len(title_display) > 80 else title_display
-            else:
-                title_display = short_title
             journal = (p.get("journal") or "")[:40] or "—"
             cites = p.get("citation_count") or "—"
             tag = source_tag(p.get("sources", []))
