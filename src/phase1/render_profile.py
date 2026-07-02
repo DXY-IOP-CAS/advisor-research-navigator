@@ -49,7 +49,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from utils import (
     write_output, mark_source_tag,
     format_markdown_table, make_paper_link, source_tag,
-    score_oa_noise,
+    score_oa_noise, ProfDirResolver,
 )
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
@@ -426,13 +426,24 @@ def generate(data: dict, output_path: str, stage_config: list = None,
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="从 merged.json 生成基础画像")
-    parser.add_argument("merged_json", help="04_merged.json 路径")
+    parser.add_argument("merged_json", nargs="?",
+                        help="04_merged.json 路径（不传时从 --prof-dir 或 --archive-dir 自动查找）")
     parser.add_argument("--output", "-o", default="01_基础画像.md", help="输出路径")
     parser.add_argument("--stages", help="学术阶段配置 JSON 文件（不传则从 archive 自动查找）")
     parser.add_argument("--archive-dir", help="archive 目录路径（自动查找 career_stages.json、merged.json 等）")
+    parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 latest.txt 自动推导 archive_dir 和 merged.json")
     parser.add_argument("--department", "-d", default="", help="部门/实验室名称")
     parser.add_argument("--run-timestamp", help="当前运行的时间戳（如 20260702_024857），用于 frontmatter 中指向 archive 目录")
     args = parser.parse_args()
+
+    # prof-dir 优先于 archive-dir
+    if args.prof_dir and not args.archive_dir:
+        resolver = ProfDirResolver(args.prof_dir)
+        args.archive_dir = resolver.archive_dir
+        if not args.archive_dir:
+            parser.error(f"--prof-dir {args.prof_dir} 下找不到 latest.txt，请先跑 phase1_init.py")
+    if args.prof_dir and not args.output:
+        args.output = os.path.join(args.prof_dir, "01_基础画像.md")
 
     stage_config = None
     stages_path = args.stages
@@ -441,6 +452,14 @@ def main() -> None:
     if stages_path and os.path.exists(stages_path):
         with open(stages_path, "r", encoding="utf-8") as f:
             stage_config = json.load(f)
+
+    # archive-dir 自动推导 merged.json 路径
+    if not args.merged_json and args.archive_dir:
+        candidate = os.path.join(args.archive_dir, "04_merged.json")
+        if os.path.exists(candidate):
+            args.merged_json = candidate
+    if not args.merged_json or not os.path.exists(args.merged_json):
+        parser.error("找不到 merged.json。传位置参数或 --archive-dir/--prof-dir")
 
     stage_descriptions = None
 

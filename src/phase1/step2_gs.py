@@ -38,7 +38,7 @@ import sys
 import os
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from utils import write_output
+from utils import write_output, ProfDirResolver
 
 logging.basicConfig(level=logging.WARNING, format="%(levelname)s: %(message)s")
 logger = logging.getLogger("step2_gs")
@@ -111,9 +111,15 @@ def main() -> None:
     parser.add_argument("gs_id", help="Google Scholar profile ID")
     parser.add_argument("--output", "-o", help="输出 JSON 文件")
     parser.add_argument("--archive-dir", help="archive 目录（自动设置输出路径）")
+    parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 latest.txt 自动推导 archive_dir")
     parser.add_argument("--verbose", "-v", action="store_true")
     args = parser.parse_args()
 
+    # prof-dir 优先于 archive-dir；AI 不必手动拼路径
+    if args.prof_dir and not args.archive_dir:
+        args.archive_dir = ProfDirResolver(args.prof_dir).archive_dir
+        if not args.archive_dir:
+            parser.error(f"--prof-dir {args.prof_dir} 下找不到 latest.txt，请先跑 phase1_init.py")
     if args.archive_dir and not args.output:
         args.output = os.path.join(args.archive_dir, "01_gs.json")
 
