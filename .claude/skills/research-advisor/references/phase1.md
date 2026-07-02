@@ -14,25 +14,25 @@
 
 ## 执行规则
 
-### 路径规范（禁止硬编码，第一条必读）
+### 路径由脚本构造（AI 不碰路径字符串）
 
-输出目录层级必须如下。不要猜，不要从网址推断——直接套这个模板：
+不要手动 `mkdir`。不要手动拼路径。用 `phase1_init.py` 自动创建：
 
-```
-output/<大学>/<学院所>/<部门>/<姓名>/
-```
-
-**中科院物理所的正确路径**（不是 `output/中科院物理所/...`）:
-
-```
-output/中国科学院大学/中科院物理所/超快物质科学中心/张鹏举/
-            ^^^^^^^^         ^^^^^^^^          ^^^^^^^^    ^^^^^^
-            大学层          学院所层            部门层      姓名
+```bash
+python src/phase1/phase1_init.py \
+  --university 中国科学院大学 \
+  --institute 中科院物理所 \
+  --department 超快物质科学中心 \
+  --name 张鹏举
 ```
 
-`archive/<timestamp>/` 下放全部中间文件。prof 根目录只放最终产出（`01_基础画像.md`）。
+脚本自动：
+- 建 `output/中国科学院大学/中科院物理所/超快物质科学中心/张鹏举/`
+- 建 `archive/<timestamp>/`
+- 写 `latest.txt`
+- 输出 archive 路径供后续步骤使用
 
-**常见错误**：把 `中科院物理所` 放在第一层。中科院物理所的上级大学是中国科学院大学，不是它自己。
+后续所有 step 脚本用 `--archive-dir` 参数，传入上面输出的路径即可。
 - `latest.txt`：`{prof_root}/latest.txt` — 记录最新时间戳
 - **career_stages.json 和 verified_ids.json 放在 archive/ 下，不在 prof 根目录**
 

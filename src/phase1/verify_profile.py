@@ -32,24 +32,12 @@ def check(condition: bool, message: str, errors: list):
 def verify(profile_path: str, merged_path: str = None) -> int:
     errors = []
 
-    # 0. 路径规范：output/<大学>/<学院所>/<部门>/<姓名>/01_基础画像.md
-    #    至少 3 级目录 + 文件名
+    # 0. 路径规范：output/<大学>/[学院所]/[部门]/<姓名>/01_基础画像.md
+    #    phase1_init.py 强制这一格式。verify 检查路径深度做兜底。
     parts = profile_path.replace("\\", "/").split("/")
     md_idx = next((i for i, p in enumerate(parts) if p.endswith(".md")), -1)
-    path_depth = md_idx  # output/<...>/ 的层级数
-
-    # 0b. 常见路径错误：中科院物理所 直接作为第一级（缺 中国科学院大学）
-    try:
-        inst_idx = next(i for i, p in enumerate(parts) if "中科院物理所" in p)
-        if inst_idx is not None and (inst_idx >= len(parts) - 3 or inst_idx == md_idx - 3):
-            # e.g. output/中科院物理所/... — 缺 中国科学院大学 层
-            check("中国科学院大学" in parts,
-                  f"路径层级：output/中国科学院大学/中科院物理所/...（当前第一级是 {parts[md_idx - 3] if md_idx >= 3 else '?'}，缺少大学层）",
-                  errors)
-    except StopIteration:
-        pass
-
-    if path_depth < 4:
+    path_depth = md_idx  # output/<...>/ 的层级数（不含文件名）
+    if path_depth < 3:
         check(False,
               f"输出路径层级不规范：{profile_path}。"
               "应为 output/<大学>/<学院所>/<部门>/<姓名>/01_基础画像.md"
@@ -255,9 +243,9 @@ FIX_MAP = {
     "有超链接": "确认论文有 DOI 或 arXiv 链接",
     "基础章节": "补充缺失的章节（§3/§5/§6/§7）",
     "重复论文标题": "去重，保留唯一版本",
-    "阶段标题含年份": "重新运行 render_profile（--stages career_stages.json 含 start/end 即可自动生成年份范围）",
+    "进度标题含年份": "重新运行 render_profile（--stages career_stages.json 含 start/end 即可自动生成年份范围）",
     "无中文的阶段": "在 career_stages.json 的 name 字段中添加中文描述",
-    "输出路径": "路径层级应为 output/<大学>/<学院所>/<部门>/<姓名>/01_基础画像.md。\n                → 重新生成：python src/phase1/run.py --university 中国科学院大学 --institute 中科院物理所 --department 部门 --name 姓名",
+    "输出路径": "用 phase1_init.py 重建：python src/phase1/phase1_init.py --university 中国科学院大学 --institute 中科院物理所 --department 部门 --name 姓名",
 }
 
 
