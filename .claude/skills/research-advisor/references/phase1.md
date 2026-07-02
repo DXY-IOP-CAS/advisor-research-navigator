@@ -1,6 +1,56 @@
-# 阶段 1 — AI 叙事规范与硬约束
+# 阶段 1 — AI 执行规则与叙事规范
 
-> 技术执行细节（CLI 命令、数据格式、质量门）详见 `src/phase1/pipeline.md`。本文件只包含 AI 在执行阶段 1 时必须遵守的叙事规范和硬约束。
+> 技术执行细节（CLI 命令、数据格式、质量门）详见 `src/phase1/pipeline.md`。本文件只包含 AI 在执行阶段 1 时必须遵守的流程规则和叙事规范。
+
+## 执行规则
+
+### 路径规范（禁止硬编码）
+
+所有输出路径按以下规范自动推导，AI 不手写路径字符串。
+
+- prof 根目录：`output/<大学>/<学院所>/<部门>/<姓名>/` — 只放最终产出
+- archive：`{prof_root}/archive/<timestamp>/` — 放全部中间产物（JSON、配置）
+- `latest.txt`：`{prof_root}/latest.txt` — 记录最新时间戳
+- **career_stages.json 和 verified_ids.json 放在 archive/ 下，不在 prof 根目录**
+
+如果手动执行，每个 step 脚本都接受 `--archive-dir` 参数替代 `-o`。AI 只需传 `--archive-dir <archive路径>`，文件名由脚本自动拼接。
+
+如果使用 run.py，传 `--university --institute --department --name` 结构化参数，路径自动构造。
+
+### 广度搜索步骤（Phase A 按此顺序执行）
+
+MCP 搜索各平台，找到 ID 后填入 `verified_ids.json`：
+
+1. **Google Scholar**：MCP 搜"姓名 + 机构 + Google Scholar" → 找到 GS profile → 提取 GS ID
+2. **OpenAlex**：MCP 搜"姓名 + OpenAlex" 或用 ORCID 反查 → 找到 OA 作者 ID
+3. **ORCID**：官网如有 ORCID 直接使用，否则 MCP 搜"姓名 + ORCID"
+4. **交叉验证**：邮箱域名匹配（T1）、ORCID（T2）、论文指纹（T3）、综合判断（T4）
+5. **填写 verified_ids.json**：记录所有 ID、验证层级、来源 URL。存入 archive/<ts>/00_verified_ids.json
+6. **填写 career_stages.json**：从官网履历提取阶段，每一个（时间+机构+职位）变化独立为一段。存入 archive/<ts>/career_stages.json
+
+### 验证卡模板（verified_ids.json 格式）
+
+```json
+{
+  "name": "学者姓名",
+  "name_pinyin": "Xing_Ming",
+  "ids": {
+    "gs_id": "GS_ID",
+    "oa_id": "OA_ID",
+    "orcid": "ORCID"
+  },
+  "verification": {
+    "tier": "T1|T2|T3|T4",
+    "email_domain": "邮箱域名",
+    "gs_email_verified": true
+  },
+  "sources": {
+    "gs_url": "https://scholar.google.com/...",
+    "oa_url": "https://openalex.org/...",
+    "orcid_url": "https://orcid.org/..."
+  }
+}
+```
 
 ## 叙事规范
 

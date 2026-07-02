@@ -218,24 +218,30 @@ step6_merge 的输出，在 SOURCE_OUTPUT 基础上增加：
 `run.py` 自动串联阶段 B + 阶段 C 的全部步骤。推荐大多数场景使用。
 
 ```bash
-python src/phase1/run.py "中科院物理所/超快物质科学中心/张鹏举" \
+python src/phase1/run.py \
+  --university "中国科学院大学" \
+  --institute "中科院物理所" \
+  --department "超快物质科学中心" \
+  --name "张鹏举" \
   --gs-id ls7XuGoAAAAJ \
   --oa-id A5048473780 \
   --email your@real.com \
   --orcid 0000-0002-0463-3476 \
-  --categories "physics.atom-ph physics.optics" \
-  --department "超快物质科学中心"
+  --categories "physics.atom-ph physics.optics"
 ```
 
 自动完成：
-1. 存档旧版产出 → 2. 建 archive/ 目录 → 3. 校验 career_stages.json
+1. 存档旧版产出 → 2. 建 archive/<ts>/ 目录 → 3. 校验 career_stages.json
 4. GS 采集 → 5. OA 采集 → 6. arXiv（ORCID 精确匹配 / au: 回退）
-7. 三源合并去重 → 8. 画像渲染（含 --run-timestamp）
-9. 更新 latest.txt → 10. verify_profile 自动检查
+7. 三源合并去重 → 8. 画像渲染 → 9. verify 检查
 
-各参数均可选。无 GS/OA ID 时自动跳过对应步骤，写入空的源文件。
+各参数均可选。无 GS/OA ID 时自动跳过对应步骤。
 
-### 手动逐步骤执行（排查问题时用）
+也可传结构化参数（--university + --name，替代 prof_path）让工具自动拼接路径。兼容旧用法（单 prof_path 参数）。
+
+### 手动逐步骤执行（用 --archive-dir 简化路径）
+
+所有 step 脚本都支持 `--archive-dir` 参数——AI 只需传递 archive 目录路径，输出的文件名和中间文件查找由脚本自动完成。
 
 ```bash
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
@@ -243,39 +249,36 @@ PROF="output/中科院物理所/超快物质科学中心/张鹏举"
 mkdir -p "$PROF/archive/$TIMESTAMP"
 
 # — 将 Phase A 产出存入 archive —
-# verified_ids.json 和 career_stages.json 由 AI 在 Phase A 创建
+# career_stages.json 和 verified_ids.json 存在 archive/ 下，不在 prof 根目录
 cp "$PROF/verified_ids.json" "$PROF/archive/$TIMESTAMP/00_verified_ids.json" 2>/dev/null || true
 cp "$PROF/career_stages.json" "$PROF/archive/$TIMESTAMP/career_stages.json" 2>/dev/null || true
-# 校验 career_stages.json 格式
-python src/phase1/validate_career_stages.py "$PROF/archive/$TIMESTAMP/career_stages.json" || echo "⚠️ 无 career_stages，论文将按"其他阶段"归并"
+python src/phase1/validate_career_stages.py "$PROF/archive/$TIMESTAMP/career_stages.json"
 
-# step2: Google Scholar（需要 GS ID）
-python src/phase1/step2_gs.py ls7XuGoAAAAJ \
-  -o "$PROF/archive/$TIMESTAMP/01_gs.json"
+# 每步用 --archive-dir 替代 -o，自动输出到 archive/<ts>/01_gs.json 等
+python src/phase1/step2_gs.py ls7XuGoAAAAJ --archive-dir "$PROF/archive/$TIMESTAMP"
 
-# step3: OpenAlex（需要 OpenAlex ID，请用真实邮箱避免限速）
-python src/phase1/step3_openalex.py A5000914228 \
-  --email your@real.com \
-  -o "$PROF/archive/$TIMESTAMP/02_oa.json"
+python src/phase1/step3_openalex.py A5000914228 --email your@real.com --archive-dir "$PROF/archive/$TIMESTAMP"
 
-# step4（可选）: arXiv 精确匹配（需 ORCID，opt-in 机制）
-python src/phase1/step4_arxiv_id.py "0000-0002-0463-3476" \
-  --name "Zhang_Pengju" \
-  -o "$PROF/archive/$TIMESTAMP/03_arxiv.json" \
-|| {
-  # step4 失败时回退到 step5（au: 搜索）
-  python src/phase1/step5_arxiv.py "Zhang_Pengju" \
-    -c "physics.atom-ph physics.optics" \
-    -o "$PROF/archive/$TIMESTAMP/03_arxiv.json"
-}
+# step4（ORCID 精确匹配）→ 失败回退 step5
+python src/phase1/step4_arxiv_id.py "0000-0002-0463-3476" --name "Zhang_Pengju" --archive-dir "$PROF/archive/$TIMESTAMP" \
+  || python src/phase1/step5_arxiv.py "Zhang_Pengju" -c "physics.atom-ph physics.optics" --archive-dir "$PROF/archive/$TIMESTAMP"
 
-# step6: 三源合并去重（或四源：GS + OA + arXiv + step4 已含在 arXiv 中）
-python src/phase1/step6_merge.py \
-  "$PROF/archive/$TIMESTAMP/01_gs.json" \
-  "$PROF/archive/$TIMESTAMP/02_oa.json" \
-  "$PROF/archive/$TIMESTAMP/03_arxiv.json" \
-  -o "$PROF/archive/$TIMESTAMP/04_merged.json"
+# step6 用 --archive-dir 自动读 01+02+03 文件
+python src/phase1/step6_merge.py --archive-dir "$PROF/archive/$TIMESTAMP" -o "$PROF/archive/$TIMESTAMP/04_merged.json"
+
+# render 用 --archive-dir 自动找 career_stages.json（或显式传 --stages）
+python src/phase1/render_profile.py \
+  "$PROF/archive/$TIMESTAMP/04_merged.json" \
+  -o "$PROF/01_基础画像.md" \
+  --department "超快物质科学中心" \
+  --archive-dir "$PROF/archive/$TIMESTAMP"
+
+echo "$TIMESTAMP" > "$PROF/latest.txt"
 ```
+
+**路径规范**：prof 根目录（`output/<大学>/<学院所>/<部门>/<姓名>/`）只放最终产出（01_基础画像.md、后续阶段产出）。中间文件（step 输出 JSON、career_stages.json、verified_ids.json）全部放在 `archive/<ts>/` 下。
+
+**ProfDirResolver**（`utils.py`）：脚本内部用 `ProfDirResolver(prof_dir)` 自动解析所有路径——从 `latest.txt` 读取时间戳、拼接 `archive/<ts>/`、定位 каждого文件。
 
 ### 依赖
 
