@@ -10,7 +10,7 @@
   "name_pinyin": "Xing_Ming",
   "ids": {
     "gs_id": "GS profile ID（不含 ?hl=zh 等参数）",
-    "oa_id": "OA Author ID（如 A5000914228）",
+    "oa_id": "OA Author ID（如 A5000000000）",
     "orcid": "0000-0000-0000-0000（含连字符）"
   },
   "verification": {

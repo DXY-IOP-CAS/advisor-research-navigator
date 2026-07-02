@@ -9,7 +9,7 @@ AI 不要手动 mkdir。用此脚本自动创建标准目录结构。
     --university 中国科学院大学 \
     --institute 中科院物理所 \
     --department 超快物质科学中心 \
-    --name 张鹏举
+    --name 王示例
 
 输出：
   1. 创建 output/<大学>/<学院所>/<部门>/<姓名>/ 目录
@@ -38,7 +38,7 @@ def main():
     parser.add_argument("--university", required=True, help="大学（如 中国科学院大学）")
     parser.add_argument("--institute", default="", help="学院/研究所（如 中科院物理所）")
     parser.add_argument("--department", default="", help="部门（如 超快物质科学中心）")
-    parser.add_argument("--name", required=True, help="学者姓名（如 张鹏举）")
+    parser.add_argument("--name", required=True, help="学者姓名（如 王示例）")
     args = parser.parse_args()
 
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")

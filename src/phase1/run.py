@@ -6,11 +6,11 @@ run.py — 阶段 1 统一入口脚本。
 自动处理：存档旧版 → 建目录 → 采集 → 合并 → 渲染 → 验证。
 
 用法（常规）：
-  python src/phase1/run.py "中科院物理所/超快物质科学中心/张鹏举" \
-    --gs-id ls7XuGoAAAAJ \
+  python src/phase1/run.py "中科院物理所/超快物质科学中心/王示例" \
+    --gs-id XXXXXXXXAAAAJ \
     --oa-id A5048473780 \
     --email your@real.com \
-    --orcid 0000-0002-0463-3476 \
+    --orcid 0000-0000-0000-0000 \
     --categories "physics.atom-ph physics.optics"
 
 用法（最少参数，无 GS/OA 时）：
@@ -181,7 +181,7 @@ def run(prof_path: str, gs_id: str = "", oa_id: str = "",
 def main():
     parser = argparse.ArgumentParser(description="Phase 1 统一入口")
     parser.add_argument("prof_path", nargs="?", default="",
-                        help="output 下的学者路径，如 中科院物理所/超快物质科学中心/张鹏举。"
+                        help="output 下的学者路径，如 中科院物理所/超快物质科学中心/王示例。"
                              "不传时用 --university/--name 自动构造。")
     parser.add_argument("--university", help="大学/上级机构（如 中国科学院大学）")
     parser.add_argument("--institute", help="学院/研究所（如 中科院物理所）")
@@ -193,7 +193,7 @@ def main():
     parser.add_argument("--categories", "-c", help="arXiv 学科分类，如 'physics.atom-ph physics.optics'")
     parser.add_argument("--department", "-d", help="部门/实验室名称")
     parser.add_argument("--stages", help="career_stages.json 路径（默认从输出目录自动查找）")
-    parser.add_argument("--name-pinyin", help="姓名拼音（姓_名），arXiv 搜索用，如 Zhang_Pengju。不传则用中文名搜（不推荐）")
+    parser.add_argument("--name-pinyin", help="姓名拼音（姓_名），arXiv 搜索用，如 Wang_Shili。不传则用中文名搜（不推荐）")
     args = parser.parse_args()
 
     # 路径构建：优先结构化参数，回退到 prof_path

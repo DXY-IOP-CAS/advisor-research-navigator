@@ -9,7 +9,7 @@ archive_previous.py — 运行前自动存档已有产出。
 
 用法（在阶段 A 开始前调用）：
   python src/phase1/archive_previous.py "北京大学/物理学院/凝聚态物理与材料物理研究所/李新征"
-  python src/phase1/archive_previous.py "中国科学院大学/中科院物理所/超快物质科学中心/张鹏举"
+  python src/phase1/archive_previous.py "中国科学院大学/中科院物理所/超快物质科学中心/王示例"
 """
 
 import argparse

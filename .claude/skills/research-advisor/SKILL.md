@@ -49,7 +49,7 @@ python src/phase1/phase1_init.py \
   --university "中国科学院大学" \
   --institute "中科院物理所" \
   --department "超快物质科学中心" \
-  --name "张鹏举"
+  --name "王示例"
 ```
 
 脚本输出 `archive/<ts>/` 路径。后续所有 step 都用 `--prof-dir`（脚本自动推导 archive_dir），**不要拼路径字符串**。

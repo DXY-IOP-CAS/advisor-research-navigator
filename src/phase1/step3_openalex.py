@@ -181,7 +181,7 @@ def fetch(oa_id: str, email: Optional[str] = None, max_pages: int = 50) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="OpenAlex 数据获取")
-    parser.add_argument("oa_id", help="OpenAlex Author ID（如 A5000914228）")
+    parser.add_argument("oa_id", help="OpenAlex Author ID（如 A5000000000）")
     parser.add_argument("--email", help="Polite pool email")
     parser.add_argument("--output", "-o", help="输出 JSON 文件")
     parser.add_argument("--archive-dir", help="archive 目录（自动设置输出路径）")

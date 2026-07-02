@@ -22,13 +22,13 @@ step5_arxiv.py — arXiv 预印本搜索
   }
 
 查询策略：
-  - 输入格式：`姓_名`（下划线分隔，如 Zhang_Pengju）
-  - 自动拆为 `au:Zhang+AND+au:Pengju`，AND 组合搜索作者字段中同时出现姓和名的论文
+  - 输入格式：`姓_名`（下划线分隔，如 Wang_Shili）
+  - 自动拆为 `au:Wang+AND+au:Shili`，AND 组合搜索作者字段中同时出现姓和名的论文
   - 加 -c 参数传 arXiv 学科分类降低噪声，多个分类分别查询（cat: 用 AND 语义）
   - 噪声过滤：render_profile.py 对 arXiv-only 无 DOI 论文直接过滤
 
 用法：
-  python src/phase1/step5_arxiv.py "Zhang_Pengju" -c "physics.atom-ph" -o output/<机构>/<部门>/<姓名>/archive/<timestamp>/03_arxiv.json
+  python src/phase1/step5_arxiv.py "Wang_Shili" -c "physics.atom-ph" -o output/<机构>/<部门>/<姓名>/archive/<timestamp>/03_arxiv.json
 
 依赖：标准库
 """
@@ -156,8 +156,8 @@ def _parse_xml(xml_text: str) -> list:
 def _build_arxiv_author_query(author_name: str) -> str:
     """将 `姓_名` 格式转为 arXiv 兼容的 au: 查询。
 
-    arXiv 作者字段存的是 "Pengju Zhang"（名在前姓在后，空格分隔）。
-    下划线分隔的 "Zhang_Pengju" 不能直接传入 au:，因为下划线不会被拆成空格。
+    arXiv 作者字段存的是 "Shili Wang"（名在前姓在后，空格分隔）。
+    下划线分隔的 "Wang_Shili" 不能直接传入 au:，因为下划线不会被拆成空格。
 
     策略：拆成姓和名，用 AND 组合搜索作者字段中同时出现两者的论文。
     """
@@ -236,7 +236,7 @@ def _empty_result(author_name: str, reason: str) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="arXiv 预印本搜索")
-    parser.add_argument("author_name", help="作者姓名拼音（下划线分隔，如 Zhang_Pengju）")
+    parser.add_argument("author_name", help="作者姓名拼音（下划线分隔，如 Wang_Shili）")
     parser.add_argument("--max-results", "-n", type=int, default=200)
     parser.add_argument("--categories", "-c", help="arXiv 分类过滤，如 'physics'")
     parser.add_argument("--output", "-o", help="输出 JSON 文件")

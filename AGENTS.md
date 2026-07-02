@@ -10,13 +10,12 @@
 |:-----|:------|
 | `src/phase1/` | 阶段 1 Python 脚本（step2_gs / step3_openalex / step5_arxiv / step6_merge / render_profile / verify_profile / archive_previous / utils） |
 | `src/phase1/pipeline.md` | 阶段 1 技术执行文档（单一事实源） |
-| `.Codex/skills/research-advisor/` | Codex Skill 入口 |
+| `.agents/skills/` | Codex/其他 CLI Skill 入口（NTFS junction → `.claude/skills/`，同一份内容，不重复维护） |
 | `output/` | 导师画像产出 |
 | `archive/` | 旧版存档（只写不读） |
 
 ## 硬约束
 
-- 每一次都必须使用 Superpowers skills 的相应部分能力。
 - 来源必标 URL，缺失标 `[未找到]`
 - 不做导师评价（匹配度、推荐意见等）
 - 每次重要改动前 commit

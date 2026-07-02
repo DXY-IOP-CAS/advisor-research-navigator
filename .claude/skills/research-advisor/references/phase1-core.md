@@ -85,7 +85,7 @@ python src/phase1/verify_profile.py --prof-dir "output/..."
 
 ### 姓名格式
 
-统一格式：`中文名 (英文名)`，如 `张鹏举 (Pengju Zhang)`。
+统一格式：`中文名 (英文名)`，如 `王示例 (Shili Wang)`。
 
 ### §2 学术履历
 

@@ -24,8 +24,8 @@ step4_arxiv_id.py — arXiv Author Identifier 精确获取。
   }
 
 用法：
-  python src/phase1/step4_arxiv_id.py "0000-0002-0463-3476" -o 03_arxiv.json
-  python src/phase1/step4_arxiv_id.py "0000-0002-0463-3476" --name "Zhang_Pengju" -o 03_arxiv.json
+  python src/phase1/step4_arxiv_id.py "0000-0000-0000-0000" -o 03_arxiv.json
+  python src/phase1/step4_arxiv_id.py "0000-0000-0000-0000" --name "Wang_Shili" -o 03_arxiv.json
 
 依赖：标准库
 """
@@ -119,7 +119,7 @@ def fetch_by_orcid(orcid: str, name_hint: str = "",
     Parameters
     ----------
     orcid : str
-        ORCID 标识符（含连字符的完整格式，如 0000-0002-0463-3476）
+        ORCID 标识符（含连字符的完整格式，如 0000-0000-0000-0000）
     name_hint : str
         可选的姓名拼音（姓_名），用于日志和占位，不影响搜索
     delay : float
@@ -214,7 +214,7 @@ def fetch_by_orcid(orcid: str, name_hint: str = "",
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="arXiv Author Identifier Feed 精确获取")
-    parser.add_argument("orcid", help="ORCID（含连字符，如 0000-0002-0463-3476）")
+    parser.add_argument("orcid", help="ORCID（含连字符，如 0000-0000-0000-0000）")
     parser.add_argument("--name", "-n", help="姓名拼音（姓_名），用于日志")
     parser.add_argument("--output", "-o", help="输出 JSON 文件")
     parser.add_argument("--archive-dir", help="archive 目录（自动设置输出路径）")

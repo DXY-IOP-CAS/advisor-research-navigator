@@ -18,7 +18,7 @@
 **用法**（已封装为 step2_gs.py）：
 
 ```bash
-python src/phase1/step2_gs.py ls7XuGoAAAAJ -o 01_gs.json
+python src/phase1/step2_gs.py XXXXXXXXAAAAJ -o 01_gs.json
 ```
 
 **限制**：
@@ -52,7 +52,7 @@ python src/phase1/step2_gs.py ls7XuGoAAAAJ -o 01_gs.json
 **用法**（已封装为 step3_openalex.py）：
 
 ```bash
-python src/phase1/step3_openalex.py A5000914228 --email you@example.com -o 02_oa.json
+python src/phase1/step3_openalex.py A5000000000 --email you@example.com -o 02_oa.json
 ```
 
 **限速**：polite pool 10 req/s（带 email），无 email 约 1 req/s。
@@ -101,12 +101,12 @@ python src/phase1/step3_openalex.py A5000914228 --email you@example.com -o 02_oa
 
 ### au: 搜索（精确匹配失败时使用）
 
-step5_arxiv.py 自动将 `姓_名`（如 `Zhang_Pengju`）拆分为 `au:Zhang+AND+au:Pengju`，搜索作者字段同时出现姓和名的论文。
+step5_arxiv.py 自动将 `姓_名`（如 `Wang_Shili`）拆分为 `au:Wang+AND+au:Shili`，搜索作者字段同时出现姓和名的论文。
 
 **用法**：
 
 ```bash
-python src/phase1/step5_arxiv.py "Zhang_Pengju" -c "physics.atom-ph physics.optics" -o 03_arxiv.json
+python src/phase1/step5_arxiv.py "Wang_Shili" -c "physics.atom-ph physics.optics" -o 03_arxiv.json
 ```
 
 `-c` 参数传 arXiv 学科分类（来自 step1_discipline 输出），用于减少同名噪声。

@@ -222,11 +222,11 @@ python src/phase1/run.py \
   --university "中国科学院大学" \
   --institute "中科院物理所" \
   --department "超快物质科学中心" \
-  --name "张鹏举" \
-  --gs-id ls7XuGoAAAAJ \
+  --name "王示例" \
+  --gs-id XXXXXXXXAAAAJ \
   --oa-id A5048473780 \
   --email your@real.com \
-  --orcid 0000-0002-0463-3476 \
+  --orcid 0000-0000-0000-0000 \
   --categories "physics.atom-ph physics.optics"
 ```
 
@@ -245,7 +245,7 @@ python src/phase1/run.py \
 
 ```bash
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-PROF="output/中科院物理所/超快物质科学中心/张鹏举"
+PROF="output/中科院物理所/超快物质科学中心/王示例"
 mkdir -p "$PROF/archive/$TIMESTAMP"
 
 # — 将 Phase A 产出存入 archive —
@@ -255,13 +255,13 @@ cp "$PROF/career_stages.json" "$PROF/archive/$TIMESTAMP/career_stages.json" 2>/d
 python src/phase1/validate_career_stages.py "$PROF/archive/$TIMESTAMP/career_stages.json"
 
 # 每步用 --archive-dir 替代 -o，自动输出到 archive/<ts>/01_gs.json 等
-python src/phase1/step2_gs.py ls7XuGoAAAAJ --archive-dir "$PROF/archive/$TIMESTAMP"
+python src/phase1/step2_gs.py XXXXXXXXAAAAJ --archive-dir "$PROF/archive/$TIMESTAMP"
 
-python src/phase1/step3_openalex.py A5000914228 --email your@real.com --archive-dir "$PROF/archive/$TIMESTAMP"
+python src/phase1/step3_openalex.py A5000000000 --email your@real.com --archive-dir "$PROF/archive/$TIMESTAMP"
 
 # step4（ORCID 精确匹配）→ 失败回退 step5
-python src/phase1/step4_arxiv_id.py "0000-0002-0463-3476" --name "Zhang_Pengju" --archive-dir "$PROF/archive/$TIMESTAMP" \
-  || python src/phase1/step5_arxiv.py "Zhang_Pengju" -c "physics.atom-ph physics.optics" --archive-dir "$PROF/archive/$TIMESTAMP"
+python src/phase1/step4_arxiv_id.py "0000-0000-0000-0000" --name "Wang_Shili" --archive-dir "$PROF/archive/$TIMESTAMP" \
+  || python src/phase1/step5_arxiv.py "Wang_Shili" -c "physics.atom-ph physics.optics" --archive-dir "$PROF/archive/$TIMESTAMP"
 
 # step6 用 --archive-dir 自动读 01+02+03 文件
 python src/phase1/step6_merge.py --archive-dir "$PROF/archive/$TIMESTAMP" -o "$PROF/archive/$TIMESTAMP/04_merged.json"
@@ -419,7 +419,7 @@ output/
 └── 中国科学院大学/
     └── 中科院物理所/
         └── 超快物质科学中心/
-            └── 张鹏举/
+            └── 王示例/
 ```
 
 ### 个人目录内容

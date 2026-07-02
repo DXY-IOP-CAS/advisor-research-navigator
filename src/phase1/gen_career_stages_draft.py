@@ -31,8 +31,20 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from utils import ProfDirResolver
 
 
-def generate_draft(merged_path: str) -> dict:
-    """从 merged.json 读论文年份范围 + professor 字段，生成空骨架。"""
+DRAFT_HINT = (
+    "脚本从 merged.json 读论文年份范围 + 机构（来自 professor.affiliation）。"
+    "AI 必须根据官网履历扩展 stages 数组：每一（时间+机构+职位）变化独立一段。"
+    "完成后用 validate_career_stages.py 校验。"
+)
+
+
+def generate_draft(merged_path: str) -> list:
+    """从 merged.json 读论文年份范围 + professor 字段，生成空骨架。
+
+    返回顶层 list——与 render_profile.py / validate_career_stages.py 的
+    schema 一致（两者都直接 `for s in stages` 遍历顶层数组，不认识
+    {"stages": [...]} 的 dict 包裹格式，传 dict 会在 render 阶段崩溃）。
+    """
     with open(merged_path, encoding="utf-8") as f:
         data = json.load(f)
     papers = data.get("papers", [])
@@ -44,24 +56,16 @@ def generate_draft(merged_path: str) -> dict:
         start, end = 0, 0
 
     prof = data.get("professor", {})
-    draft = {
-        "stages": [
-            {
-                "name": "[未命名]",
-                "start": start,
-                "end": end,
-                "institution": prof.get("affiliation", "[未填]"),
-                "position": "[未填]",
-                "direction": "[未填]",
-            }
-        ],
-        "_hint": (
-            "脚本从 merged.json 读论文年份范围 + 机构（来自 professor.affiliation）。"
-            "AI 必须根据官网履历扩展 stages 数组：每一（时间+机构+职位）变化独立一段。"
-            "完成后用 validate_career_stages.py 校验。"
-        ),
-    }
-    return draft
+    return [
+        {
+            "name": "[未命名]",
+            "start": start,
+            "end": end,
+            "institution": prof.get("affiliation", "[未填]"),
+            "position": "[未填]",
+            "direction": "[未填]",
+        }
+    ]
 
 
 def main():
@@ -87,10 +91,10 @@ def main():
     with open(args.output, "w", encoding="utf-8") as f:
         json.dump(draft, f, ensure_ascii=False, indent=2)
 
-    s = draft["stages"][0]
+    s = draft[0]
     print(f"✅ [career_stages_draft] {s['start']}-{s['end']} ({s['institution']}) "
           f"→ {args.output}", file=sys.stderr)
-    print(f"   {draft['_hint']}", file=sys.stderr)
+    print(f"   {DRAFT_HINT}", file=sys.stderr)
 
 
 if __name__ == "__main__":
