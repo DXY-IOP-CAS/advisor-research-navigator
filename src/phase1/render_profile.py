@@ -51,6 +51,7 @@ from utils import (
     format_markdown_table, make_paper_link, source_tag,
     score_oa_noise, ProfDirResolver,
 )
+from career_stages import normalize_stage_config
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 logger = logging.getLogger("render_profile")
@@ -156,6 +157,7 @@ def render_career_timeline(stages: list) -> str:
 def generate(data: dict, output_path: str, stage_config: list = None,
               department: str = "", stage_descriptions: dict = None,
               run_timestamp: str = "") -> str:
+    stage_config = normalize_stage_config(stage_config)
     prof = data.get("professor", {})
     papers = data.get("papers", [])
     stats = data.get("statistics", {})
@@ -451,7 +453,7 @@ def main() -> None:
         stages_path = os.path.join(args.archive_dir, "career_stages.json")
     if stages_path and os.path.exists(stages_path):
         with open(stages_path, "r", encoding="utf-8") as f:
-            stage_config = json.load(f)
+            stage_config = normalize_stage_config(json.load(f))
 
     # archive-dir 自动推导 merged.json 路径
     if not args.merged_json and args.archive_dir:

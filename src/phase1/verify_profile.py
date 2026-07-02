@@ -32,6 +32,23 @@ def check(condition: bool, message: str, errors: list):
         errors.append(message)
 
 
+def _has_mixed_name_format(value: str) -> bool:
+    value = (value or "").strip()
+    has_chinese = bool(re.search(r"[一-鿿]", value))
+    has_english = bool(re.search(r"[a-zA-Z]", value))
+    has_paren = "(" in value or "（" in value
+    return has_chinese and has_english and has_paren
+
+
+def _extract_section(content: str, heading_pattern: str) -> str:
+    match = re.search(heading_pattern, content, re.MULTILINE)
+    if not match:
+        return ""
+    rest = content[match.end():]
+    next_heading = re.search(r"\n##\s+\d+\.", rest)
+    return rest[:next_heading.start()] if next_heading else rest
+
+
 def verify(profile_path: str, merged_path: str = None) -> int:
     errors = []
 
@@ -89,8 +106,7 @@ def verify(profile_path: str, merged_path: str = None) -> int:
         t = title.group(1).strip()
         has_chinese = bool(re.search(r"[一-鿿]", t))
         has_english = bool(re.search(r"[a-zA-Z]", t))
-        has_paren = "(" in t or "（" in t
-        if has_chinese and has_english and has_paren:
+        if _has_mixed_name_format(t):
             check(True, f"名字格式正确（中英混合）：「{t}」", errors)
         elif has_chinese and has_english:
             check(False,
@@ -106,6 +122,37 @@ def verify(profile_path: str, merged_path: str = None) -> int:
                   errors)
     else:
         check(False, "有标题行（# 中文名 (English Name) — 基础画像）", errors)
+
+    identity_section = _extract_section(content, r"^## 1\.\s*身份标识\s*$")
+    identity_name = re.search(r"^\|\s*姓名\s*\|\s*(.+?)\s*\|", identity_section, re.MULTILINE)
+    if identity_name:
+        name_value = identity_name.group(1).strip()
+        check(_has_mixed_name_format(name_value),
+              f"§1 姓名字段为中英混合格式：{name_value}",
+              errors)
+    else:
+        check(False, "§1 姓名字段存在", errors)
+
+    identity_email = re.search(r"^\|\s*邮箱\s*\|\s*(.+?)\s*\|", identity_section, re.MULTILINE)
+    if identity_email:
+        email_value = identity_email.group(1).strip()
+        check("@@" not in email_value,
+              f"§1 邮箱字段无双 @：{email_value}",
+              errors)
+
+    section9 = _extract_section(content, r"^## 9\.\s*验证来源\s*$")
+    source_rows = [
+        line for line in section9.splitlines()
+        if line.startswith("|")
+        and not re.match(r"^\|\s*:?-+", line)
+        and "来源" not in line
+        and "URL" not in line
+    ]
+    check(len(source_rows) > 0, f"§9 验证来源表至少 1 行（{len(source_rows)} 行）", errors)
+
+    check(not re.search(r"^## 4\..+\n\n\n+### 4\.\d+", content, re.MULTILINE),
+          "§4 大标题后没有多余空行",
+          errors)
 
     # 3. 论文表格行数（如果提供了 merged.json）
     if merged_path:

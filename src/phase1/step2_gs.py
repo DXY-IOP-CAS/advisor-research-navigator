@@ -36,12 +36,30 @@ import argparse
 import logging
 import sys
 import os
+import re
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from utils import write_output, ProfDirResolver
 
 logging.basicConfig(level=logging.WARNING, format="%(levelname)s: %(message)s")
 logger = logging.getLogger("step2_gs")
+
+
+def normalize_email_domain(value: str) -> str:
+    """Normalize scholarly email_domain into a bare domain.
+
+    scholarly can return display text or malformed truncations such as
+    "...@@iphy.ac.cn". Downstream renderers already prepend "...@", so this
+    function must return only "iphy.ac.cn".
+    """
+    if not value:
+        return None
+    text = str(value).strip().lower()
+    text = text.replace("verified email at", " ")
+    if "@" in text:
+        text = text.split("@")[-1]
+    matches = re.findall(r"[a-z0-9-]+(?:\.[a-z0-9-]+)+", text)
+    return matches[-1] if matches else text.strip(" .@")
 
 
 def _scholarly_to_paper(pub: dict) -> dict:
@@ -93,7 +111,7 @@ def scrape(gs_id: str) -> dict:
         "professor": {
             "name": filled.get("name"),
             "affiliation": filled.get("affiliation"),
-            "email_domain": filled.get("email_domain"),
+            "email_domain": normalize_email_domain(filled.get("email_domain")),
             "gs_id": gs_id,
             "oa_id": None,
             "orcid": None,

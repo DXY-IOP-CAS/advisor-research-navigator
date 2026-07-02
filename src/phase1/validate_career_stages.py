@@ -20,7 +20,11 @@ verify_profile.py 才是最终质量门控。
 
 import argparse
 import json
+import os
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from career_stages import normalize_stage_config
 
 PASS, FAIL = 0, 1
 
@@ -38,11 +42,12 @@ def validate(path: str) -> int:
     # 1. JSON 合法 + 根元素是数组
     try:
         with open(path, "r", encoding="utf-8") as f:
-            stages = json.load(f)
+            raw_stages = json.load(f)
     except (json.JSONDecodeError, FileNotFoundError) as e:
         print(f"  [WARN] JSON 读写失败：{e}")
         return PASS
 
+    stages = normalize_stage_config(raw_stages)
     check(isinstance(stages, list), "根元素是数组", warns)
     if not isinstance(stages, list):
         print(f"\n  {len(warns)} 项警告")
