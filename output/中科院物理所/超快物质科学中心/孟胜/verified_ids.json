@@ -1,0 +1,26 @@
+{
+  "pipeline": "phase1",
+  "version": "1.0",
+  "verification": {
+    "status": "verified",
+    "tier": 1,
+    "method": "email_domain_match",
+    "details": "GS profile shows 'Verified email at iphy.ac.cn', official website email is smeng@iphy.ac.cn. Domain match confirmed."
+  },
+  "ids": {
+    "google_scholar": "xS_tjsgAAAAJ",
+    "openalex": "A5100650302",
+    "orcid": "0000-0002-1553-1432",
+    "email": "smeng@iphy.ac.cn",
+    "website_personal": "https://everest.iphy.ac.cn/",
+    "website_official": "https://edu.iphy.ac.cn/?q=detail_teacher&id=752"
+  },
+  "identity": {
+    "name_zh": "孟胜",
+    "name_en": "Sheng Meng",
+    "institution": "中科院物理所 (Institute of Physics, Chinese Academy of Sciences)",
+    "department": "超快物质科学中心 / 表面物理国家重点实验室",
+    "position": "研究员 / 课题组长 / 国科大岗位教授",
+    "title": "表面物理国家重点实验室主任"
+  }
+}
