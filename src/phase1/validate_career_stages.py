@@ -83,6 +83,17 @@ def validate(path: str) -> int:
         name_has_cn = bool(re.search(r"[一-鿿]", s.get("name", "")))
         check(name_has_cn, f"{prefix}：名称含中文描述", errors)
 
+        # 4b. institution/position/direction（新格式校验，任一项出现就全员检查）
+        if s.get("institution") or s.get("position") or s.get("direction"):
+            check(isinstance(s.get("institution"), str) and s["institution"].strip() != "",
+                  f"{prefix}：institution 存在且非空", errors)
+            check(isinstance(s.get("position"), str) and s["position"].strip() != "",
+                  f"{prefix}：position 存在且非空", errors)
+            check(isinstance(s.get("direction"), str) and s["direction"].strip() != "",
+                  f"{prefix}：direction 存在且非空", errors)
+            dir_has_cn = bool(re.search(r"[一-鿿]", s.get("direction", "")))
+            check(dir_has_cn, f"{prefix}：direction 含中文描述", errors)
+
         # 5. start <= end
         check(start <= end, f"{prefix}：{start} ≤ {end}（年份区间不反向）", errors)
 

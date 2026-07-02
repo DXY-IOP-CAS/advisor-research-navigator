@@ -82,6 +82,38 @@ def paper_url(paper: dict) -> str:
     return make_paper_link(paper)
 
 
+def _is_enriched_stages(stages: list) -> bool:
+    """判断 career_stages 是否含 institution/position/direction 字段。
+
+    新格式包含这些字段 → render_profile 自动生成 §2 学术履历。
+    旧格式只有 name/start/end → 留占位符给 AI 写。
+    """
+    return any(s.get("institution") for s in (stages or []))
+
+
+def render_career_timeline(stages: list) -> str:
+    """从 career_stages 生成 §2 学术履历表格。
+
+    career_stages.json 是唯一事实源。渲染时直接读它生成表格，
+    AI 不再需要手动 Edit §2 内容。
+    """
+    lines = []
+    L = lines.append
+    L("## 2. 学术履历")
+    L("")
+    L("| 时间 | 机构 | 职位 | 方向 |")
+    L("|:-----|:-----|:-----|:------|")
+    for s in stages:
+        start = s.get("start", "")
+        end = s.get("end", "")
+        period = f"{start}–{end}" if end and end < 9999 else f"{start}–至今"
+        L(f"| {period} | {s.get('institution', '')} | {s.get('position', '')} | {s.get('direction', '')} |")
+    L("")
+    L("---")
+    L("")
+    return "\n".join(lines)
+
+
 def generate(data: dict, output_path: str, stage_config: list = None,
               department: str = "", stage_descriptions: dict = None,
               run_timestamp: str = "") -> str:
@@ -157,6 +189,28 @@ def generate(data: dict, output_path: str, stage_config: list = None,
     L(f'| GS ID | {prof.get("gs_id", "")} |')
     L(f'| OA ID | {prof.get("oa_id", "")} |')
     L(f'| ORCID | {prof.get("orcid", "")} |')
+    L("")
+    L("---")
+    L("")
+
+    # 2. 学术履历（从 career_stages 生成）
+    if _is_enriched_stages(stage_config):
+        L(render_career_timeline(stage_config))
+    else:
+        L("## 2. 学术履历")
+        L("")
+        L("| 时间 | 机构 | 职位 | 方向 |")
+        L("|:-----|:-----|:-----|:------|")
+        L("")
+        L("<!-- AI 渲染：从官网履历逐条填写，按从旧到新排序，教育→工作。每行含时间、机构、职位、方向。-->")
+        L("")
+        L("---")
+        L("")
+
+    # 3. 研究方向
+    L("## 3. 研究方向")
+    L("")
+    L("<!-- AI 渲染：1 段总体概述 + 3-4 个具体方向。不做评价。每个专业术语首次出现时解释。 -->")
     L("")
     L("---")
     L("")
@@ -254,6 +308,30 @@ def generate(data: dict, output_path: str, stage_config: list = None,
           "建议人工检查论文列表，剔除明显不相关的条目。 -->")
         L("")
 
+    # 5. 合作网络（占位，AI 填充）
+    L("## 5. 合作网络")
+    L("")
+    L("<!-- AI 渲染：列出高频合作者（姓名 + 机构 + 合作方向），每条带来源超链接。 -->")
+    L("")
+    L("---")
+    L("")
+
+    # 6. 公开信息（占位，AI 填充）
+    L("## 6. 公开信息")
+    L("")
+    L("<!-- AI 渲染：列出新闻/采访/讲座/获奖/学术兼职等，每条带超链接。 -->")
+    L("")
+    L("---")
+    L("")
+
+    # 7. 引用与影响力分析（占位，AI 填充）
+    L("## 7. 引用与影响力分析")
+    L("")
+    L("<!-- AI 渲染：总引用数、h-index、i10-index、单篇最高引用、近 3 年论文数等。 -->")
+    L("")
+    L("---")
+    L("")
+
     # 8. 数据质量说明（按过滤后的论文统计）
     L("## 8. 数据质量说明")
     L("")
@@ -273,6 +351,17 @@ def generate(data: dict, output_path: str, stage_config: list = None,
     cross_pct = round(cross_count / max(total_unique, 1) * 100, 1)
     if cross_count:
         L(f"多源交叉验证 {cross_count} 篇（{cross_pct}%）")
+    L("")
+
+    # 9. 验证来源（占位，AI 填充）
+    L("## 9. 验证来源")
+    L("")
+    L("| 来源 | URL | 状态 |")
+    L("|:-----|:----|:------|")
+    L("")
+    L("<!-- AI 渲染：列出官网、GS、ORCID、OpenAlex 等源链接，标注验证状态。 -->")
+    L("")
+    L("---")
     L("")
 
     # Save
@@ -302,3 +391,7 @@ def main() -> None:
     data = load_merged(args.merged_json)
     generate(data, args.output, stage_config, args.department, stage_descriptions, args.run_timestamp)
     print(f"✅ {len(data.get('papers', []))} papers → {args.output}", file=sys.stderr)
+
+
+if __name__ == "__main__":
+    main()
