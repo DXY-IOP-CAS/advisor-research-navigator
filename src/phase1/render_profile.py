@@ -412,14 +412,18 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="从 merged.json 生成基础画像")
     parser.add_argument("merged_json", help="04_merged.json 路径")
     parser.add_argument("--output", "-o", default="01_基础画像.md", help="输出路径")
-    parser.add_argument("--stages", help="学术阶段配置 JSON 文件")
+    parser.add_argument("--stages", help="学术阶段配置 JSON 文件（不传则从 archive 自动查找）")
+    parser.add_argument("--archive-dir", help="archive 目录路径（自动查找 career_stages.json、merged.json 等）")
     parser.add_argument("--department", "-d", default="", help="部门/实验室名称")
     parser.add_argument("--run-timestamp", help="当前运行的时间戳（如 20260702_024857），用于 frontmatter 中指向 archive 目录")
     args = parser.parse_args()
 
     stage_config = None
-    if args.stages:
-        with open(args.stages, "r", encoding="utf-8") as f:
+    stages_path = args.stages
+    if not stages_path and args.archive_dir:
+        stages_path = os.path.join(args.archive_dir, "career_stages.json")
+    if stages_path and os.path.exists(stages_path):
+        with open(stages_path, "r", encoding="utf-8") as f:
             stage_config = json.load(f)
 
     stage_descriptions = None

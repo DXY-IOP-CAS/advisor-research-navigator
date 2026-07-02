@@ -217,8 +217,12 @@ def main() -> None:
     parser.add_argument("orcid", help="ORCID（含连字符，如 0000-0002-0463-3476）")
     parser.add_argument("--name", "-n", help="姓名拼音（姓_名），用于日志")
     parser.add_argument("--output", "-o", help="输出 JSON 文件")
+    parser.add_argument("--archive-dir", help="archive 目录（自动设置输出路径）")
     parser.add_argument("--verbose", "-v", action="store_true")
     args = parser.parse_args()
+    if args.archive_dir and not args.output:
+        args.output = os.path.join(args.archive_dir, "03_arxiv.json")
+
 
     if args.verbose:
         logging.getLogger().setLevel(logging.INFO)

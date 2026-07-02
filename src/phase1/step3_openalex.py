@@ -184,8 +184,12 @@ def main() -> None:
     parser.add_argument("oa_id", help="OpenAlex Author ID（如 A5000914228）")
     parser.add_argument("--email", help="Polite pool email")
     parser.add_argument("--output", "-o", help="输出 JSON 文件")
+    parser.add_argument("--archive-dir", help="archive 目录（自动设置输出路径）")
     parser.add_argument("--verbose", "-v", action="store_true")
     args = parser.parse_args()
+    if args.archive_dir and not args.output:
+        args.output = os.path.join(args.archive_dir, "02_oa.json")
+
 
     if args.verbose:
         logging.getLogger().setLevel(logging.INFO)

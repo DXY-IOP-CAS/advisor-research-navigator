@@ -14,6 +14,7 @@ verify_profile.py — 画像质量自动门控。
 
 import argparse
 import json
+import os
 import re
 import sys
 
@@ -222,9 +223,14 @@ def main():
     parser = argparse.ArgumentParser(description="画像质量自动门控")
     parser.add_argument("profile", help="01_基础画像.md 路径")
     parser.add_argument("--merged", help="04_merged.json 路径（校验论文行数）")
+    parser.add_argument("--archive-dir", help="archive 目录路径（自动查找 merged.json）")
     args = parser.parse_args()
 
-    result = verify(args.profile, args.merged)
+    merged_path = args.merged
+    if not merged_path and args.archive_dir:
+        merged_path = os.path.join(args.archive_dir, "04_merged.json")
+
+    result = verify(args.profile, merged_path)
     sys.exit(result)
 
 

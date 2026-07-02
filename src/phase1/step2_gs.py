@@ -110,8 +110,16 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="GS 数据获取（scholarly 封装）")
     parser.add_argument("gs_id", help="Google Scholar profile ID")
     parser.add_argument("--output", "-o", help="输出 JSON 文件")
+    parser.add_argument("--archive-dir", help="archive 目录（自动设置输出路径）")
+    parser.add_argument("--archive-dir", help="archive 目录（自动设置输出路径）")
     parser.add_argument("--verbose", "-v", action="store_true")
     args = parser.parse_args()
+    if args.archive_dir and not args.output:
+        args.output = os.path.join(args.archive_dir, "01_gs.json")
+
+
+    if args.archive_dir and not args.output:
+        args.output = os.path.join(args.archive_dir, "01_gs.json")
 
     if args.verbose:
         logging.getLogger().setLevel(logging.INFO)

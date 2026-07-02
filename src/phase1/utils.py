@@ -428,4 +428,52 @@ def norm_url(url: str) -> str:
 
 # ── 源标记（别名） ──
 
+# 路径解析（所有 step 脚本共享）
+
+class ProfDirResolver:
+    """从 prof_dir（output/.../姓名/）自动解析所有路径。
+
+    AI 只需传入 prof_dir，timestamp 从 latest.txt 读取或通过 --ts 指定。
+    """
+    OUTPUT_NAMES = {1: "01_gs.json", 2: "02_oa.json",
+                    3: "03_arxiv.json", 4: "04_merged.json"}
+
+    def __init__(self, prof_dir: str, ts: str = None):
+        self.prof_dir = prof_dir.rstrip('/').rstrip('')
+        self.ts = ts or self._read_latest()
+
+    def _read_latest(self) -> str:
+        path = os.path.join(self.prof_dir, 'latest.txt')
+        if os.path.exists(path):
+            with open(path, encoding='utf-8') as f:
+                return f.read().strip()
+        return ''
+
+    @property
+    def archive_dir(self) -> str:
+        return os.path.join(self.prof_dir, 'archive', self.ts) if self.ts else ''
+
+    def output_path(self, step_num: int) -> str:
+        name = self.OUTPUT_NAMES.get(step_num)
+        return os.path.join(self.archive_dir, name) if name else ''
+
+    @property
+    def merged_path(self) -> str:
+        return self.output_path(4)
+
+    @property
+    def profile_path(self) -> str:
+        return os.path.join(self.prof_dir, '01_基础画像.md')
+
+    @property
+    def stages_path(self) -> str:
+        return os.path.join(self.archive_dir, 'career_stages.json')
+
+    @property
+    def verified_ids_path(self) -> str:
+        return os.path.join(self.archive_dir, '00_verified_ids.json')
+
+
+
+
 source_tag = mark_source_tag

@@ -277,15 +277,27 @@ def merge(source_paths: List[str]) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="多源合并去重")
-    parser.add_argument("input_files", nargs="+", help="统一格式的 JSON 源文件")
+    parser.add_argument("input_files", nargs="*", help="统一格式的 JSON 源文件（不传时从 --archive-dir 读取）")
     parser.add_argument("--output", "-o", help="输出 JSON 文件")
+    parser.add_argument("--archive-dir", help="archive 目录路径（自动读取 01_gs/02_oa/03_arxiv.json）")
     parser.add_argument("--verbose", "-v", action="store_true")
     args = parser.parse_args()
 
     if args.verbose:
         logging.getLogger().setLevel(logging.INFO)
 
-    result = merge(args.input_files)
+    files = args.input_files
+    if not files and args.archive_dir:
+        files = [
+            os.path.join(args.archive_dir, n)
+            for n in ("01_gs.json", "02_oa.json", "03_arxiv.json")
+            if os.path.exists(os.path.join(args.archive_dir, n))
+        ]
+    if not files:
+        logger.error("没有输入文件。传 input_files 或 --archive-dir")
+        sys.exit(1)
+
+    result = merge(files)
     write_output(result, args.output)
 
     if args.output:
