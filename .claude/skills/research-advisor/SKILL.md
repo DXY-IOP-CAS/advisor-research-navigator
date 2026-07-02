@@ -54,6 +54,14 @@ python src/phase1/phase1_init.py \
 
 脚本输出 `archive/<ts>/` 路径。后续所有 step 都用 `--prof-dir`（脚本自动推导 archive_dir），**不要拼路径字符串**。
 
+## 端到端测试输入规范
+
+如果本次会话是「端到端测试」（用户给姓名+机构+URL，没别的），遵守 [`../../END_TO_END_TEST.md`](../../END_TO_END_TEST.md)：
+- 用户只给基础信息，不要找用户要更多
+- 自主通过 MCP 获取 email / GS ID / OA ID / ORCID / 论文列表
+- 自主决定降级路径（按本文件 §自主决策）
+- 基础信息不够 → 记录 Harness 缺口到 `archive/<日期>_harness_缺口/`，回头优化 Harness
+
 ## 阶段 1 五步流程
 
 1. **Phase A 身份锁定**：MCP 搜官网/GS/OA/ORCID → 交叉验证 → 写 `verified_ids.json` + `career_stages.json`（schema 见 `phase1-templates.md`）
@@ -61,6 +69,39 @@ python src/phase1/phase1_init.py \
 3. **Phase C 渲染**：`render_profile.py --prof-dir ...` 生成 `01_基础画像.md` 骨架
 4. **AI 填充叙事**：用 Edit 替换 `<!-- AI 渲染：... -->` 占位符（详见 `phase1-anti-patterns.md`）
 5. **verify 门控**：`verify_profile.py --prof-dir ...`，全部 [OK] 才能声称完成（详见 `phase1-recovery.md`）
+
+## 自主决策：MCP 搜索 + 降级
+
+**用户输入只有姓名+机构+官网 URL。其余信息（email、GS ID、论文列表）由你自主获取。**
+
+### MCP 搜索策略（按此顺序）
+
+1. **官网**：MCP fetch（Exa / Tavily）读 URL → 提取 email、履历、ORCID、研究方向
+2. **Google Scholar**：MCP 搜 `"{英文名}" "{机构英文名}" Google Scholar` → 提取 GS ID
+3. **OpenAlex**：MCP 搜 `"{英文名}" OpenAlex` → 提取 OA Author ID
+4. **ORCID**：官网有就直接用，否则 MCP 搜 `"{英文名}" ORCID`
+5. **arXiv 学科分类**：根据研究方向推断（如凝聚态 → `cond-mat.str-el`），参考 `references/01-data-sources.md`
+
+**遇到 MCP 工具失败**：换另一个 MCP 工具（Exa → Tavily → Serper），不要反复重试同一个。具体工具选择见 `references/01-data-sources.md`。
+
+### 数据源降级（自主决定）
+
+| 失败情况 | 降级路径 |
+|:--------|:--------|
+| 官网打不开 | 跳过官网 fet ch，直接从 GS / OA / arXiv 推断身份 |
+| GS 找不到 / 被封 | 走 OpenAlex + arXiv，画像开篇标注「未找到 GS profile，论文覆盖可能不完整」 |
+| OA 找不到 | 只用 GS + arXiv |
+| ORCID 没有 | 跳过 step4_arxiv_id.py，直接 step5_arxiv.py `au:` 搜索 |
+| 所有 API 都失败 | 终止并报告，不假装跑通 |
+
+**降级结果必须在 verified_ids.json 的 `verification.tier` 标注（T1/T2/T3/T4），并在画像 §9 验证来源列出来源 URL（缺失标 `[未找到]`）。**
+
+### 不要做的事
+
+- ❌ 找用户要更多信息（email、GS ID、JSON 草案）—— 你的任务是从基础信息出发自主获取
+- ❌ 在 prompt 提示降级路径——按本页规则自主判断
+- ❌ 评价导师（匹配度、推荐意见等）—— 客观描述，不评价
+- ❌ 跳过 verify 就声称完成—— verify 9/9 必须通过
 
 ## 何时调用 Superpowers skills
 
