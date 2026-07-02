@@ -1,6 +1,6 @@
 # phase1 Pipeline — 完整技术文档
 
-**版本**：v5.0（单文件完整版）
+**版本**：v6.0（对齐 Harness 哲学 + 阶段 C 重写 + 学术阶段 enriched 格式）
 
 ---
 
@@ -21,22 +21,26 @@ python src/phase1/archive_previous.py "<学校>/<学院>/<部门>/<姓名>"
 ```
 用户输入（姓名 + 机构 + 官网 URL）
     │
-阶段 A（AI 主导）—— 身份锁定
-  Step 1: 官网抓取 → 提取 name, email, institution
+阶段 A（AI 主导）—— 身份锁定 + 阶段配置
+  Step 1: 官网抓取 → 提取 name, email, institution，履历
   Step 2: MCP 搜 GS/ORCID → 跨源身份锁定（见下方协议）
     → verified_ids.json
+  Step 3: 官网履历 → career_stages.json（含 institution/position/direction）
+  Step 4: step1_discipline → arXiv 学科分类
     │
 阶段 B（脚本执行）—— 数据采集
-  step2_gs:   scholarly 取 Google Scholar 论文
-  step3_openalex: OpenAlex API 论文 + 元数据
-  step5_arxiv:  arXiv 预印本
-  step6_merge:  三源合并去重 + 噪声过滤
+  run.py（推荐）或手动：
+    step2_gs:       scholarly 取 Google Scholar 论文
+    step3_openalex:  OpenAlex API 论文 + 元数据
+    step4_arxiv_id:  ORCID → arXiv 精确匹配（零噪声）
+      └─失败→ step5_arxiv:  arXiv au: 搜索
+    step6_merge:     三源合并去重 + 噪声过滤
     │
-阶段 C（脚本 + AI 协作）—— 画像生成
-  render_profile.py → 论文表格渲染
-  AI 补充：学术履历、研究方向叙事、合作网络、公开信息
-  verify_profile.py → 全部 10 项检查通过后声称完成
-  → 01_基础画像.md
+阶段 C（脚本渲染 + AI 叙事 + verify 循环）
+  render_profile.py → 骨架（§1/§2/§4/§8 自动，§3/§5/§6/§7/§9 占位）
+  AI Edit → 填充叙事段落
+  verify_profile.py → 9 项检查，未通过则回 AI Edit 再验
+  ⇒ 通过后：01_基础画像.md
 ```
 
 ### 身份锁定协议（Phase A 核心）
@@ -46,19 +50,18 @@ python src/phase1/archive_previous.py "<学校>/<学院>/<部门>/<姓名>"
 锁定流程按信任等级降序执行：
 
 ```
-Tier 1: ORCID 匹配
-  → 如果官网或搜索结果提供 ORCID，直接用 ORCID 查 GS/OA
-  → ORCID 是持久唯一标识，匹配即锁定
-  → 信任度：最高
-
-Tier 2: 机构邮箱验证
+Tier 1: 机构邮箱验证
   → 找到 GS profile → 检查 email_domain 是否匹配官网域名
   → 例：官网邮箱 @iphy.ac.cn → GS 显示 "Verified email at iphy.ac.cn" → 锁定
-  → 信任度：极高
-  → GS profile 锁定后，该 profile 内所有论文视为已验证
+  → 信任度：最高（金标准）
+  → GS profile 锁定后，该 profile 内所有论文视为已验证，跳过同名过滤
+
+Tier 2: ORCID 匹配
+  → 如果官网或 OpenAlex 提供 ORCID，用 ORCID 交叉验证 GS/OA
+  → ORCID 是持久唯一标识，匹配即锁定
 
 Tier 3: 论文指纹 + 合著者网络
-  → GS profile 无邮箱或邮箱不匹配时：
+  → GS profile 无邮箱或邮箱不匹配 + 无 ORCID 时：
     a) 检查 GS profile 中是否有至少 3 篇论文与官网 CV 或 OA profile 匹配
        (DOI/标题/年份 三重确认)
     b) 检查合著者网络：这些论文的合著者是否与官网一致
@@ -90,19 +93,28 @@ arXiv author identifier 是 opt-in 机制，不是所有作者都有。ORCID 关
 
 ### 学术阶段配置（Phase A 完成前必须）
 
-身份锁定完成后，从官网简历/履历中提取学术生涯阶段：
+身份锁定完成后，从官网简历/履历中提取学术生涯阶段。**每个（时间 + 机构 + 职位）变化是一个独立阶段。**
+
+推荐格式（含 institution/position/direction，render_profile 自动据此生成 §2 履历表）：
 
 ```json
 [
-  {"name": "博士阶段（2007–2013，中科院近代物理所）", "start": 2007, "end": 2013},
-  {"name": "博后阶段（2013–2018，RIKEN）", "start": 2013, "end": 2018},
-  {"name": "独立阶段（2018–至今，ETH Zurich / 中科院物理所）", "start": 2018, "end": 2026}
+  {"name": "博士阶段", "start": 2007, "end": 2013,
+   "institution": "中科院近代物理所", "position": "博士研究生",
+   "direction": "原子分子碰撞动力学"},
+  {"name": "博后阶段", "start": 2013, "end": 2018,
+   "institution": "RIKEN", "position": "博士后研究员",
+   "direction": "原子分子碰撞动力学"},
+  {"name": "独立阶段", "start": 2018, "end": 2026,
+   "institution": "ETH Zurich / 中科院物理所", "position": "特聘研究员",
+   "direction": "超快光谱学 / 阿秒科学"}
 ]
 ```
 
+兼容旧格式（仅 name/start/end）。无 institution/position/direction 时，§2 履历表留占位符给 AI 手写。
+
 保存为 `career_stages.json`，与 `verified_ids.json` 一起存入 `archive/<timestamp>/`。
-阶段配置直接决定了论文表格如何按学术生涯分组——每篇论文按出版年份落入对应阶段。
-```
+建议运行 `validate_career_stages.py` 做快速自检（可选，不阻塞流程）。
 
 ---
 
@@ -280,6 +292,13 @@ python src/phase1/step6_merge.py \
 
 ### 脚本渲染
 
+`render_profile.py` 自动生成：
+- §1 身份标识（从 merged.json professor 字段）
+- §2 学术履历表（从 career_stages.json 渲染，仅 enriched 格式）
+- §4 论文分组表格（按 career_stages 年份切分，6 列含超链接）
+- §8 数据质量统计
+- §3/§5/§6/§7/§9 占位符（AI Edit 填充）
+
 ```bash
 python src/phase1/render_profile.py \
   "$PROF/archive/$TIMESTAMP/04_merged.json" \
@@ -287,23 +306,27 @@ python src/phase1/render_profile.py \
   --department "超快物质科学中心" \
   --stages "$PROF/archive/$TIMESTAMP/career_stages.json" \
   --run-timestamp "$TIMESTAMP"
-
-echo "$TIMESTAMP" > "$PROF/latest.txt"
 ```
-
-`render_profile.py` 负责：
-- 生成论文表格（含 DOI / arXiv 超链接）
-- 按年份分组、统计运行指标
 
 ### AI 叙事补充（脚本完成后）
 
-`render_profile.py` 输出骨架后，AI 补充以下内容：
+AI 只通过 Edit 替换占位符，不 Write 覆盖文件、不改论文表格行：
 
-1. **学术履历表** — 教育背景、职位变迁
-2. **研究方向描述** — 精炼概括核心研究主题
-3. **每阶段叙事** — 按年份或主题说明研究演变，不报菜名，讲清楚研究问题
-4. **合作网络** — 高频合作者、代表性合作
-5. **公开信息** — 获奖、学术兼职、项目等
+1. **§3 研究方向描述** — 精炼概括核心研究主题，每个专业术语首次出现时解释
+2. **§4 每阶段叙事** — 1-2 句话说明该阶段的研究主题和方向变化
+3. **§5 合作网络** — 高频合作者、代表性合作
+4. **§6 公开信息** — 获奖、学术兼职、项目等
+5. **§7 引用影响力** — 总引用、h-index、近 3 年统计
+6. **§9 验证来源** — 官网、GS、ORCID、OpenAlex 等源链接 + 验证状态
+
+### verify 门控（最终检查）
+
+```bash
+python src/phase1/verify_profile.py "$PROF/01_基础画像.md" \
+  --merged "$PROF/archive/$TIMESTAMP/04_merged.json"
+```
+
+9 项检查全部通过才算完成。未通过时，AI 看具体哪项失败 + 修复指引 → 修复 → 重新渲染 → 再验。
 
 ---
 
@@ -331,12 +354,11 @@ echo "$TIMESTAMP" > "$PROF/latest.txt"
 
 ### 渲染门
 
+- [ ] `verify_profile.py --merged` 全部 9 项通过？
 - [ ] 全部论文逐一列出（无"以下见完整列表"、"代表性论文"、"关键论文"等省略表述）
 - [ ] 每阶段表格前有叙事段落说明研究主题
-- [ ] 每篇论文有外部超链接
 - [ ] 不做导师评价（匹配度、推荐意见等禁止出现）
-- [ ] **§9 验证来源存在**（列出官网、GS、ORCID、OpenAlex 等源链接）
-- [ ] **无重复论文标题**（同一篇论文不应在表格中出现两次）
+- [ ] **无重复论文标题**（verify 会检测，0 篇才通过）
 
 ### 表格格式规范
 
@@ -402,6 +424,8 @@ output/
 ```
 <姓名>/
 ├── 01_基础画像.md            # 最终画像（render_profile + AI 叙事）
+├── career_stages.json        # 学术阶段配置（AI 在 Phase A 创建）
+├── verified_ids.json         # 身份验证记录
 ├── latest.txt                # 最新运行 timestamp
 └── archive/<timestamp>/      # 一次运行的全部数据快照
     ├── 00_verified_ids.json  # 身份验证结果
@@ -409,7 +433,7 @@ output/
     ├── 02_oa.json            # OpenAlex 原始数据
     ├── 03_arxiv.json         # arXiv 原始数据
     ├── 04_merged.json        # 三源合并结果
-    └── 01_基础画像_draft.md  # render_profile 初始渲染（AI 补充前的半成品）
+    └── career_stages.json    # 阶段配置（渲染时通过 --stages 引用）
 ```
 
 ### 自动存档机制
@@ -430,8 +454,9 @@ python src/phase1/archive_previous.py "<学校>/<学院>/<部门>/<姓名>"
 |:-----|:-----|:------|
 | OpenAlex 对中文学者覆盖 22-38% | OA 论文数量少 | 以 Google Scholar 为主源 |
 | OpenAlex 消歧错误（h-index / affiliation 错位） | OA 数据不可靠 | merge 层以 GS 覆盖 OA |
-| arXiv 同名噪声 80%+ | arXiv 返回大量无关结果 | `-c` 分类过滤 + merge 层筛选 |
+| arXiv 同名噪声 80%+ | arXiv 返回大量无关结果 | `-c` 分类过滤 + arXiv-only 无 DOI 过滤 |
 | Google Scholar 不返回 DOI | DOI 字段缺失 | OpenAlex 补充 |
+| 无 GS 锚点时 OA 污染无自动检测 | 画像可能包含同名不同人的论文 | render_profile 标注"未经网络过滤"，AI 逐篇核查标题是否属于该研究方向 |
 
 ---
 
