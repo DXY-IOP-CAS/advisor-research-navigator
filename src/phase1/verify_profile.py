@@ -162,10 +162,33 @@ def verify(profile_path: str, merged_path: str = None) -> int:
     print()
     if errors:
         print(f"[FAIL] {len(errors)} 项检查未通过")
+        print()
+        print("  下一步修复指引：")
+        for e in errors:
+            fix = next((f for k, f in FIX_MAP.items() if k in e), None)
+            if fix:
+                print(f"  - 「{e}」→ {fix}")
+            else:
+                print(f"  - 「{e}」→ 检查 §/节号是否正确，或重新运行 render 后 Edit")
         return FAIL
     else:
         print("[OK] 全部检查通过")
         return PASS
+
+
+FIX_MAP = {
+    "禁止关键词": "删除包含这些词的句子",
+    "frontmatter": "确保文件以 --- 开头，第二个 --- 后有换行",
+    "表格内部无空行": "删除表格行之间的空行",
+    "名字格式": "改为 '中文名 (English Name) — 基础画像' 格式",
+    "论文行数": "merged JSON 有变化，重新渲染",
+    "学术履历": "运行 render_profile 重新生成（含 --stages parameter）",
+    "叙事": "检查阶段表格前的叙事是否存在",
+    "有超链接": "确认论文有 DOI 或 arXiv 链接",
+    "基础章节": "补充缺失的章节（§3/§5/§6/§7）",
+    "重复论文标题": "去重，保留唯一版本",
+    "阶段标题": "在 career_stages.json 的 name 字段中添加中文",
+}
 
 
 def main():

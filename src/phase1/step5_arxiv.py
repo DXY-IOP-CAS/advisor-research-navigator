@@ -201,6 +201,16 @@ def search(author_name: str, max_results: int = 200,
 
     papers = list(all_papers.values())
     status = "success" if papers else "empty"
+
+    # 0 篇时：检测是否因中文名导致 arXiv 搜不到
+    if status == "empty" and any("一" <= c <= "鿿" for c in author_name):
+        logger.warning(
+            "arXiv 返回 0 篇。姓名含中文字符，arXiv 只支持拼音。\n"
+            "  → 重试：python src/phase1/step5_arxiv.py \"Li_Yutong\" "
+            f"-c \"{' '.join(cat_list)}\" -o <output_path>\n"
+            "  → 或传给 run.py 的 --name-pinyin 参数"
+        )
+
     return {
         "pipeline": "phase1",
         "source": "arxiv",
