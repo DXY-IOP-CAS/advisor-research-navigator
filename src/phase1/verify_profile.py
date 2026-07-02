@@ -83,21 +83,29 @@ def verify(profile_path: str, merged_path: str = None) -> int:
                     break
     check(not blank_within_table, "论文表格内部无空行", errors)
 
-    # 2. 名字格式：中文 (English) 或纯英文
+    # 2. 名字格式：硬约束——必须是「中文名 (English Name)」中英混合
     title = re.search(r"^# (.+)[–—―]+\s*基础画像$", content, re.MULTILINE)
     if title:
         t = title.group(1).strip()
         has_chinese = bool(re.search(r"[一-鿿]", t))
         has_english = bool(re.search(r"[a-zA-Z]", t))
-        if has_chinese and has_english:
-            ok = bool(re.search(r"[一-鿿].+[(（][a-zA-Z]", t))
-            check(ok, f"名字格式正确：「{t}」", errors)
-        elif has_chinese and not has_english:
-            check(True, f"纯中文名：「{t}」", errors)
+        has_paren = "(" in t or "（" in t
+        if has_chinese and has_english and has_paren:
+            check(True, f"名字格式正确（中英混合）：「{t}」", errors)
+        elif has_chinese and has_english:
+            check(False,
+                  f"名字格式：当前「{t}」含中英文但缺括号。应改为「中文名 (English Name)」",
+                  errors)
+        elif has_chinese:
+            check(False,
+                  f"名字格式：当前纯中文「{t}」。应加英文名 →「中文名 (English Name)」",
+                  errors)
         else:
-            check(True, f"纯英文名：「{t}」", errors)
+            check(False,
+                  f"名字格式：当前纯英文「{t}」。硬约束要求中英混合 →「中文名 (English Name)」",
+                  errors)
     else:
-        check(False, "有标题行（# 姓名 — 基础画像）", errors)
+        check(False, "有标题行（# 中文名 (English Name) — 基础画像）", errors)
 
     # 3. 论文表格行数（如果提供了 merged.json）
     if merged_path:
