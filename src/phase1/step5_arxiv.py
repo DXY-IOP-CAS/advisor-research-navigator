@@ -109,8 +109,11 @@ def _parse_entry(entry: Any) -> Optional[Dict[str, Any]]:
 
 
 def _query_arxiv(search_query: str, max_results: int,
-                  delay: float) -> Optional[str]:
-    """向 arXiv API 发一次查询，返回 XML 文本。"""
+                  delay: float, attempt: int = 0) -> Optional[str]:
+    """向 arXiv API 发一次查询，返回 XML 文本。
+
+    对 429/503 响应自动重试（指数退避，最多 3 次）。
+    """
     url = (
         f"{ARIXV_SEARCH_URL}?search_query={search_query}"
         f"&sortBy=submittedDate&sortOrder=descending&max_results={max_results}"
@@ -120,6 +123,11 @@ def _query_arxiv(search_query: str, max_results: int,
         with urlopen(url, timeout=30) as resp:
             return resp.read().decode()
     except HTTPError as e:
+        if e.code in (429, 503) and attempt < 3:
+            wait = 10 * (2 ** attempt)
+            logger.warning(f"arXiv HTTP {e.code}, retrying in {wait}s (attempt {attempt + 1}/3)")
+            time.sleep(wait)
+            return _query_arxiv(search_query, max_results, delay, attempt + 1)
         logger.warning(f"arXiv HTTP {e.code} for: {search_query[:60]}")
         return None
     except URLError as e:

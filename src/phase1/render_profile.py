@@ -83,21 +83,25 @@ def paper_url(paper: dict) -> str:
 
 
 def generate(data: dict, output_path: str, stage_config: list = None,
-              department: str = "", stage_descriptions: dict = None) -> str:
+              department: str = "", stage_descriptions: dict = None,
+              run_timestamp: str = "") -> str:
     prof = data.get("professor", {})
     papers = data.get("papers", [])
     stats = data.get("statistics", {})
     src_status = data.get("source_status", {})
 
     ts = datetime.now().strftime("%Y-%m-%d %H:%M")
-    # 向上 1 层到 professor 目录，再找 archive 子目录的最新时间戳
-    prof_dir = os.path.dirname(output_path)
-    archive_dir = os.path.join(prof_dir, "archive")
-    if os.path.isdir(archive_dir):
-        subdirs = sorted(os.listdir(archive_dir), reverse=True)
-        ts_dir = subdirs[0] if subdirs else "latest"
+    # 优先使用传入的 run_timestamp，否则从 archive 目录取最新
+    if run_timestamp:
+        ts_dir = run_timestamp
     else:
-        ts_dir = "latest"
+        prof_dir = os.path.dirname(output_path)
+        archive_dir = os.path.join(prof_dir, "archive")
+        if os.path.isdir(archive_dir):
+            subdirs = sorted(os.listdir(archive_dir), reverse=True)
+            ts_dir = subdirs[0] if subdirs else "latest"
+        else:
+            ts_dir = "latest"
 
     by_source = stats.get("by_source", {})
     cross_count = sum(1 for p in papers if p.get("source_count", 0) > 1)
@@ -275,6 +279,7 @@ def main() -> None:
     parser.add_argument("--stages", help="学术阶段配置 JSON 文件")
     parser.add_argument("--department", "-d", default="", help="部门/实验室名称")
     parser.add_argument("--stage-desc", help="阶段描述 JSON 文件（{阶段名: 描述}）")
+    parser.add_argument("--run-timestamp", help="当前运行的时间戳（如 20260702_024857），用于 frontmatter 中指向 archive 目录")
     args = parser.parse_args()
 
     stage_config = None
@@ -288,5 +293,5 @@ def main() -> None:
             stage_descriptions = json.load(f)
 
     data = load_merged(args.merged_json)
-    generate(data, args.output, stage_config, args.department, stage_descriptions)
+    generate(data, args.output, stage_config, args.department, stage_descriptions, args.run_timestamp)
     print(f"✅ {len(data.get('papers', []))} papers → {args.output}", file=sys.stderr)

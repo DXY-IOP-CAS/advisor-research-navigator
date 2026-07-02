@@ -115,14 +115,14 @@ arXiv author identifier 是 opt-in 机制，不是所有作者都有。ORCID 关
                         学者维护, 最完整
                         有 GS ID 就行
                             |
-arXiv（预印本补新）─→ render_profile.py ←─ OpenAlex（元数据补充）
-          │                │                   补 DOI/期刊/作者/引用
-          │     arXiv 有 DOI → 保留（预印本）
-          │     arXiv 无 DOI → 过滤（同名噪声）
-          │                                 |
+arXiv  ── step4（ORCID）──→ render_profile.py ←─ OpenAlex（元数据补充）
+  │   精确匹配，零噪声              │                补 DOI/期刊/作者/引用
+  │   step4 失败 → step5（au:）     │
+  └──────────────────┴────────────┘
+          │                         |
           ├─────────────────┴─────────────────┤
           ↓                                    ↓
-     step6_merge.py 合并去重           OA 独有论文：合著者+期刊网络过滤
+     step6_merge.py 合并去重           OA 独有论文：合著者+期刊+机构网络过滤
      P0:DOI → P1:arXiv ID → P2:标题    arXiv 独有论文：有 DOI 保留，无 DOI 过滤
 
 **不漏的原理**：GS profile 由学者本人维护。学者不会遗漏自己的论文。只要 GS profile 存在且邮箱已验证，该 profile 内的论文列表即视为该学者的完整论文列表。OA 和 arXiv 只做元数据补充和时间差填补（GS 可能没收录近 1-2 个月的预印本）。
@@ -208,6 +208,13 @@ TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 PROF="output/中科院物理所/超快物质科学中心/张鹏举"
 mkdir -p "$PROF/archive/$TIMESTAMP"
 
+# — 将 Phase A 产出存入 archive —
+# verified_ids.json 和 career_stages.json 由 AI 在 Phase A 创建
+cp "$PROF/verified_ids.json" "$PROF/archive/$TIMESTAMP/00_verified_ids.json" 2>/dev/null || true
+cp "$PROF/career_stages.json" "$PROF/archive/$TIMESTAMP/career_stages.json" 2>/dev/null || true
+# 校验 career_stages.json 格式
+python src/phase1/validate_career_stages.py "$PROF/archive/$TIMESTAMP/career_stages.json" || echo "⚠️ 无 career_stages，论文将按"其他阶段"归并"
+
 # step2: Google Scholar（需要 GS ID）
 python src/phase1/step2_gs.py ls7XuGoAAAAJ \
   -o "$PROF/archive/$TIMESTAMP/01_gs.json"
@@ -217,12 +224,18 @@ python src/phase1/step3_openalex.py A5000914228 \
   --email your@real.com \
   -o "$PROF/archive/$TIMESTAMP/02_oa.json"
 
-# step5: arXiv（用英文名搜索，加学科分类过滤）
-python src/phase1/step5_arxiv.py "Zhang_Pengju" \
-  -c "physics.atom-ph physics.optics" \
-  -o "$PROF/archive/$TIMESTAMP/03_arxiv.json"
+# step4（可选）: arXiv 精确匹配（需 ORCID，opt-in 机制）
+python src/phase1/step4_arxiv_id.py "0000-0002-0463-3476" \
+  --name "Zhang_Pengju" \
+  -o "$PROF/archive/$TIMESTAMP/03_arxiv.json" \
+|| {
+  # step4 失败时回退到 step5（au: 搜索）
+  python src/phase1/step5_arxiv.py "Zhang_Pengju" \
+    -c "physics.atom-ph physics.optics" \
+    -o "$PROF/archive/$TIMESTAMP/03_arxiv.json"
+}
 
-# step6: 三源合并去重
+# step6: 三源合并去重（或四源：GS + OA + arXiv + step4 已含在 arXiv 中）
 python src/phase1/step6_merge.py \
   "$PROF/archive/$TIMESTAMP/01_gs.json" \
   "$PROF/archive/$TIMESTAMP/02_oa.json" \
@@ -250,7 +263,8 @@ python src/phase1/render_profile.py \
   "$PROF/archive/$TIMESTAMP/04_merged.json" \
   -o "$PROF/01_基础画像.md" \
   --department "超快物质科学中心" \
-  --stages "$PROF/archive/$TIMESTAMP/career_stages.json"
+  --stages "$PROF/archive/$TIMESTAMP/career_stages.json" \
+  --run-timestamp "$TIMESTAMP"
 
 echo "$TIMESTAMP" > "$PROF/latest.txt"
 ```
