@@ -1,0 +1,50 @@
+[
+  {
+    "name": "本科阶段",
+    "start": 2003,
+    "end": 2007,
+    "institution": "河北大学 物理科学与技术学院",
+    "position": "本科生",
+    "direction": "应用物理学"
+  },
+  {
+    "name": "硕博阶段",
+    "start": 2007,
+    "end": 2013,
+    "institution": "中科院近代物理所",
+    "position": "硕博研究生",
+    "direction": "原子分子碰撞动力学"
+  },
+  {
+    "name": "第一段博后",
+    "start": 2013,
+    "end": 2016,
+    "institution": "RIKEN (日本理化学研究所)",
+    "position": "博士后研究员",
+    "direction": "原子分子光学 / 碰撞动力学"
+  },
+  {
+    "name": "副研阶段",
+    "start": 2016,
+    "end": 2018,
+    "institution": "中科院近代物理所",
+    "position": "副研究员",
+    "direction": "原子分子动力学"
+  },
+  {
+    "name": "第二段博后",
+    "start": 2018,
+    "end": 2024,
+    "institution": "ETH Zurich (苏黎世联邦理工学院)",
+    "position": "博士后 & 资深研究员",
+    "direction": "超快光谱学 / 阿秒科学 / 液相超快动力学"
+  },
+  {
+    "name": "独立阶段",
+    "start": 2024,
+    "end": 2026,
+    "institution": "中科院物理所 超快物质科学中心",
+    "position": "特聘研究员 / 博导",
+    "direction": "阿秒光源研制 / 超快激发态动力学 / 液相超快化学"
+  }
+]
