@@ -41,6 +41,21 @@ def e(*args, **kwargs):
     return result.returncode
 
 
+def build_prof_path(university: str = "", institute: str = "",
+                    department: str = "", name: str = "") -> str:
+    """自动拼接输出目录路径。
+
+    结构化参数拼接，保证层级一致：
+      output/<大学>/<学院所>/<部门>/<姓名>/
+    大学 + 姓名是必须的，有姓名的前提下学院所和部门可选。
+    仅提供 name 时回退到单段（兼容旧用法）。
+    """
+    if university and name:
+        parts = [p for p in [university, institute, department, name] if p]
+        return "/".join(parts)
+    return name
+
+
 def run(prof_path: str, gs_id: str = "", oa_id: str = "",
         orcid: str = "", email: str = "", categories: str = "",
         department: str = "", stages_file: str = "",
@@ -165,7 +180,12 @@ def run(prof_path: str, gs_id: str = "", oa_id: str = "",
 
 def main():
     parser = argparse.ArgumentParser(description="Phase 1 统一入口")
-    parser.add_argument("prof_path", help="output 下的学者路径，如 中科院物理所/超快物质科学中心/张鹏举")
+    parser.add_argument("prof_path", nargs="?", default="",
+                        help="output 下的学者路径，如 中科院物理所/超快物质科学中心/张鹏举。"
+                             "不传时用 --university/--name 自动构造。")
+    parser.add_argument("--university", help="大学/上级机构（如 中国科学院大学）")
+    parser.add_argument("--institute", help="学院/研究所（如 中科院物理所）")
+    parser.add_argument("--name", help="学者姓名（与 --university 配合自动构造路径）")
     parser.add_argument("--gs-id", help="Google Scholar ID")
     parser.add_argument("--oa-id", help="OpenAlex Author ID")
     parser.add_argument("--orcid", help="ORCID（含连字符）")
@@ -175,6 +195,13 @@ def main():
     parser.add_argument("--stages", help="career_stages.json 路径（默认从输出目录自动查找）")
     parser.add_argument("--name-pinyin", help="姓名拼音（姓_名），arXiv 搜索用，如 Zhang_Pengju。不传则用中文名搜（不推荐）")
     args = parser.parse_args()
+
+    # 路径构建：优先结构化参数，回退到 prof_path
+    prof_path = args.prof_path or build_prof_path(
+        args.university or "", args.institute or "",
+        args.department or "", args.name or "")
+    if not prof_path:
+        parser.error("必须提供 prof_path 或 --university + --name")
 
     sys.exit(run(
         prof_path=args.prof_path,

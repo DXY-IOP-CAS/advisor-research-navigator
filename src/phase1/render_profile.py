@@ -77,6 +77,28 @@ def compute_career_stages(year: int, stages: list = None) -> str:
     return None
 
 
+def _build_stage_lookup(stage_config: list) -> dict:
+    """从 career_stages 构建 name → 原数据的查找表。
+
+    enriched stages 的 name 字段不含年份信息（如"博士阶段"）。
+    通过查找表获取 start/end，用于排序和生成含年份范围的标题。
+    """
+    return {s["name"]: s for s in stage_config} if stage_config else {}
+
+
+def _stage_header_name(name: str, meta: dict, enriched: bool) -> str:
+    """生成含年份范围的阶段标题。
+
+    enriched 新格式：显示 博士阶段（2000–2004）
+    旧格式（name 已含年份信息）：直接返回 name，不重复追加
+    """
+    if enriched and meta and "start" in meta and "end" in meta:
+        start, end = meta["start"], meta["end"]
+        end_str = f"{end}" if end < 9999 else "至今"
+        return f"{name}（{start}–{end_str}）"
+    return name
+
+
 def paper_url(paper: dict) -> str:
     """已弃用。请使用 utils.make_paper_link。保留向后兼容。"""
     return make_paper_link(paper)
@@ -258,11 +280,18 @@ def generate(data: dict, output_path: str, stage_config: list = None,
         else:
             stages["未知年份"].append(p)
 
+    # Build stage lookup for enriched stages (name → start/end metadata)
+    enriched = _is_enriched_stages(stage_config)
+    stage_lookup = _build_stage_lookup(stage_config) if enriched else {}
+
     # Sort stages chronologically by their starting year
-    def stage_start(name: str) -> int:
+    def stage_sort_key(name: str) -> int:
+        if enriched and name in stage_lookup:
+            return stage_lookup[name].get("start", 9999)
+        # 旧格式：从 name 字符串提取年份（如"博士阶段（2007–2013）"）
         m = re.search(r"(\d{4})", name)
         return int(m.group(1)) if m else 9999
-    stage_order = sorted(stages.keys(), key=stage_start)
+    stage_order = sorted(stages.keys(), key=stage_sort_key)
 
     stage_idx = 1
     for stage_name in stage_order:
@@ -271,7 +300,8 @@ def generate(data: dict, output_path: str, stage_config: list = None,
             continue
         stage_papers.sort(key=lambda p: (p.get("year") or 0, p.get("title", "")))
 
-        L(f"### 4.{stage_idx} {stage_name}")
+        header_name = _stage_header_name(stage_name, stage_lookup.get(stage_name, {}), enriched)
+        L(f"### 4.{stage_idx} {header_name}")
         L("")
         # Stage narrative (from --stage-desc or AI enrichment placeholder)
         if stage_descriptions and stage_name in stage_descriptions:
@@ -286,6 +316,15 @@ def generate(data: dict, output_path: str, stage_config: list = None,
         rows = []
         for i, p in enumerate(stage_papers, 1):
             title_display = make_paper_link(p)
+            # 截断过长的标题（超过 80 字符的部分截断，避免 markdown 表格不可读）
+            short_title = re.sub(r"(\[).{81,}(]\(https?://)",
+                                 lambda m: m.group(1) + m.group(0)[1:79] + "…" + m.group(2),
+                                 title_display)
+            if short_title == title_display:
+                # 也尝试截断无 URL 的纯文本标题
+                title_display = (title_display[:78] + "…") if len(title_display) > 80 else title_display
+            else:
+                title_display = short_title
             journal = (p.get("journal") or "")[:40] or "—"
             cites = p.get("citation_count") or "—"
             tag = source_tag(p.get("sources", []))

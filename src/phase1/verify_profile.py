@@ -31,6 +31,18 @@ def check(condition: bool, message: str, errors: list):
 def verify(profile_path: str, merged_path: str = None) -> int:
     errors = []
 
+    # 0. 路径规范：output/<大学>/<学院所>/<部门>/<姓名>/01_基础画像.md
+    #    至少 3 级目录 + 文件名
+    parts = profile_path.replace("\\", "/").split("/")
+    md_idx = next((i for i, p in enumerate(parts) if p.endswith(".md")), -1)
+    path_depth = md_idx  # output/<...>/ 的层级数
+    if path_depth < 4:
+        check(False,
+              f"输出路径层级不规范：{profile_path}。"
+              "应为 output/<大学>/<学院所>/<部门>/<姓名>/01_基础画像.md"
+              f"（当前 {path_depth} 级，应 ≥4）",
+              errors)
+
     with open(profile_path, encoding="utf-8") as f:
         content = f.read()
 
@@ -188,6 +200,7 @@ FIX_MAP = {
     "基础章节": "补充缺失的章节（§3/§5/§6/§7）",
     "重复论文标题": "去重，保留唯一版本",
     "阶段标题": "在 career_stages.json 的 name 字段中添加中文",
+    "输出路径": "路径层级应为 output/<大学>/<学院所>/<部门>/<姓名>/01_基础画像.md。\n                → 重新生成：python src/phase1/run.py --university 中国科学院大学 --institute 中科院物理所 --department 部门 --name 姓名",
 }
 
 
