@@ -236,19 +236,24 @@ def verify(profile_path: str, merged_path: str = None) -> int:
 
 
 FIX_MAP = {
-    "禁止关键词": "删除包含这些词的句子",
+    "禁止关键词": "删除包含这些词的句子（参考 references/phase1-anti-patterns.md）",
     "frontmatter": "确保文件以 --- 开头，第二个 --- 后有换行",
-    "表格内部无空行": "删除表格行之间的空行",
-    "名字格式": "改为 '中文名 (English Name) — 基础画像' 格式",
-    "论文行数": "merged JSON 有变化，重新渲染",
-    "学术履历": "运行 render_profile 重新生成（含 --stages parameter）",
-    "叙事": "检查阶段表格前的叙事是否存在",
-    "有超链接": "确认论文有 DOI 或 arXiv 链接",
-    "基础章节": "补充缺失的章节（§3/§5/§6/§7）",
-    "重复论文标题": "去重，保留唯一版本",
-    "进度标题含年份": "重新运行 render_profile（--stages career_stages.json 含 start/end 即可自动生成年份范围）",
-    "无中文的阶段": "在 career_stages.json 的 name 字段中添加中文描述",
+    "表格内部无空行": "删除论文表格行之间的空行（只删表格内的，前后叙事段落保留）",
+    "名字格式": "改为 '# 中文名 (English Name) — 基础画像' 格式",
+    "论文行数": "merged JSON 有变化，跑 render_profile.py --prof-dir ... 重新生成",
+    "学术履历": "跑 render_profile.py --prof-dir ... --stages career_stages.json 重新生成（career_stages.json 需含 institution/position/direction 字段）",
+    "叙事": "每个 ### 4.x 阶段表格前必须有 1-2 句研究主题说明",
+    "有超链接": "确认论文有 DOI 或 arXiv 链接（render_profile.py 自动生成）",
+    "基础章节": "补充缺失的章节（§3 方向 / §5 合作 / §6 公开 / §7 引用）",
+    "重复论文标题": "去重 step6_merge.py 输出；保留唯一版本",
+    "进度标题含年份": "跑 render_profile.py（career_stages.json 含 start/end 即自动生成年份范围）",
+    "无中文的阶段": "career_stages.json 的 name 字段改为中文（如「博士阶段」）",
     "输出路径": "用 phase1_init.py 重建：python src/phase1/phase1_init.py --university 中国科学院大学 --institute 中科院物理所 --department 部门 --name 姓名",
+    "AI 叙事占位符": "用 Edit 替换占位符：Edit(file_path, old='<!-- AI 渲染：方向 -->', new='实际研究方向描述')。参考 references/phase1-core.md §叙事规范",
+    "论文表格表头": "论文表格必须 6 列：# / 年份 / 标题 / 期刊 / 引用 / 来源。禁止 AI 加 '关键论文' / '代表性论文' 等筛选表",
+    "论文表格行宽": "论文标题过长（>400 字符）会被截断。检查 render 输出是否含异常长标题",
+    "阶段含有论文表格": "career_stages.json 需要至少 2 个阶段，每个阶段必须有论文落入。检查阶段 start/end 是否覆盖了论文年份范围",
+    "阶段后空文本": "§2 学术履历表格后到 ### 4.1 之间应有 1-2 句研究方向过渡段；如缺则在 §2 末尾 Edit 一段过渡文字",
 }
 
 
