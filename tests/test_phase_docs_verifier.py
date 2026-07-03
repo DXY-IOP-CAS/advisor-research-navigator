@@ -112,7 +112,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 先抓住论文在回答什么问题
-## 论文路线总表
+## 四条论文线怎样连成路线
 ## 当前主线论文
 ## 前史积累论文
 ## 旁支与弱证据
@@ -175,7 +175,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 先抓住论文在回答什么问题
-## 论文路线总表
+## 四条论文线怎样连成路线
 ## 当前主线论文
 ## 前史积累论文
 ## 旁支与弱证据
@@ -241,7 +241,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 先抓住论文在回答什么问题
-## 论文路线总表
+## 四条论文线怎样连成路线
 ## 当前主线论文
 ## 前史积累论文
 ## 旁支与弱证据
@@ -306,7 +306,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 先抓住论文在回答什么问题
-## 论文路线总表
+## 四条论文线怎样连成路线
 ## 当前主线论文
 ## 前史积累论文
 ## 旁支与弱证据
