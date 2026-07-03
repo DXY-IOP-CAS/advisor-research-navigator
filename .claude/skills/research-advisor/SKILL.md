@@ -59,6 +59,7 @@ python src/phase1/phase1_init.py \
 | Phase 3 / `03_论文路线.md` | `references/phase3-paper-position.md`, `references/evidence-rules.md`, `references/quality-gates.md` |
 | Phase 4 / `04_学习向导.md` | `references/phase4-learning-guide.md`, `references/evidence-rules.md`, `references/quality-gates.md` |
 | 确定性 smoke | run `python .claude/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "<prof_dir>"` |
+| DOI 来源元数据 smoke | run `python .claude/skills/research-advisor/scripts/verify_source_metadata.py --prof-dir "<prof_dir>"` when network is available |
 
 `assets/templates/` 只提供章节骨架。模板不是内容质量，不能把填满模板误认为完成理解。
 
@@ -82,7 +83,7 @@ python src/phase1/phase1_init.py \
 4. 阶段二先建立当前领域地图；阶段三深入导师当前研究内容和论文群内部逻辑；阶段四把目标前沿倒推成学习路径。
 5. 弱推断标 `需人工复核`；来源缺失写 `[未找到]`。
 6. 领域理解薄、方向转折证据不足、论文关系不清时，暂停写作并继续检索，必要时请用户补充领域判断。不要用顺滑但空泛的文字补洞。
-7. 写作或修改阶段文档后运行确定性验证器。
+7. 写作或修改阶段文档后运行确定性验证器；有网络时再运行 DOI 来源元数据 smoke，修正 `[FAIL] DOI title mismatch`。
 
 ## 硬约束
 
