@@ -161,6 +161,17 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.assertFalse(result.ok)
         self.assertTrue(any("裸 URL" in m for m in result.messages))
 
+    def test_rejects_reference_section_before_later_phase_sections(self):
+        text = (self.prof / "02_领域地图.md").read_text(encoding="utf-8")
+        evidence_heading = "## 证据与待复核点\n需人工复核。\n\n"
+        text = text.replace(evidence_heading, "")
+        text = text + "\n" + evidence_heading
+        self.write_doc("02_领域地图.md", text)
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+        self.assertFalse(result.ok)
+        self.assertTrue(any("参考文献与资料必须是最后一个二级章节" in m for m in result.messages))
+
     def test_rejects_plain_body_citation_key_without_superscript_link(self):
         text = (self.prof / "03_论文路线.md").read_text(encoding="utf-8")
         text = text.replace(cite("P1"), "[P1]")

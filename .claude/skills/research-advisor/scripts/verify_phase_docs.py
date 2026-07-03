@@ -144,6 +144,9 @@ def _check_source_format(filename: str, text: str, messages: list[str]) -> None:
         messages.append(f"[FAIL] {filename} 缺少章节: {SOURCE_SECTION_MARKER}")
         return
 
+    if "\n## " in sources:
+        messages.append(f"[FAIL] {filename} 参考文献与资料必须是最后一个二级章节")
+
     if BARE_URL_RE.search(body):
         messages.append(f"[FAIL] {filename} 正文含裸 URL")
 
