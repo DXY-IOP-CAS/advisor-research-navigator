@@ -16,7 +16,7 @@ python .claude/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "
 python .claude/skills/research-advisor/scripts/verify_source_metadata.py --prof-dir "<prof_dir>"
 ```
 
-这个门检查 `02_领域地图.md`、`03_论文路线.md`、`04_学习向导.md` 文末 DOI 来源题名是否和 Crossref 元数据一致。`[WARN] DOI metadata unavailable` 不等于失败，通常表示该 DOI 不在 Crossref 或被来源站点限制；`[FAIL] DOI title mismatch` 必须修正或标明原因。
+这个门检查 `02_领域地图.md`、`03_论文路线.md`、`04_学习向导.md` 文末 DOI 来源题名是否和 Crossref/DataCite 元数据一致。`[WARN] DOI metadata unavailable` 不等于失败，通常表示该 DOI 不在 Crossref/DataCite 或被来源站点限制；`[FAIL] DOI title mismatch` 必须修正或标明原因。
 
 ## 共享内容门
 
@@ -29,7 +29,7 @@ python .claude/skills/research-advisor/scripts/verify_source_metadata.py --prof-
 - 正文引用键 `[O#]`、`[P#]`、`[R#]`、`[B#]` 必须写成内部链接，并能在文末来源表找到。
 - 文末来源表 `编号` 列必须写成 `<a id="p3"></a>[P3]` 形式，锚点与正文 `#p3` 对应。
 - 文末来源表必须使用 `编号 / 文献或资料 / 支撑内容 / 链接 / 类型` 五列。
-- DOI 来源的论文题名必须尽量使用出版方或 Crossref 元数据中的完整题名，不能把相邻论文、会议题名或 AI 误记题名写入来源表。
+- DOI 来源的论文题名必须尽量使用出版方、Crossref 或 DataCite 元数据中的完整题名，不能把相邻论文、会议题名或 AI 误记题名写入来源表。
 - 论文路线判断主要依赖 `[P#]`；学习路径判断主要依赖 `[R#]`。
 - 是否优先依赖官网、DOI/期刊、arXiv、ORCID、GS/OpenAlex、教材、讲义和综述。
 - 是否区分直接证据和推断。
