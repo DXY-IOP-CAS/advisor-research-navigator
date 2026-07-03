@@ -56,6 +56,10 @@ FORBIDDEN = [
 ]
 
 SOURCE_RE = re.compile(r"https?://|\[未找到\]|需人工复核")
+CITATION_RE = re.compile(r"\[(O|P|R|B)(\d+)\]")
+BARE_URL_RE = re.compile(r"(?<!\]\()https?://[^\s)]+")
+SOURCE_SECTION_MARKER = "## 参考文献与来源"
+SOURCE_TABLE_HEADER = "| 编号 | 来源 | 用途 | 链接 | 备注 |"
 
 
 @dataclass
@@ -76,6 +80,39 @@ def _body_after_frontmatter(text: str) -> str:
     if len(parts) == 2:
         return parts[1].lstrip()
     return stripped
+
+
+def _extract_citation_keys(text: str) -> set[str]:
+    return {f"[{kind}{number}]" for kind, number in CITATION_RE.findall(text)}
+
+
+def _split_sources_section(text: str) -> tuple[str, str]:
+    if SOURCE_SECTION_MARKER not in text:
+        return text, ""
+    body, sources = text.split(SOURCE_SECTION_MARKER, 1)
+    return body, sources
+
+
+def _check_source_format(filename: str, text: str, messages: list[str]) -> None:
+    if filename == "01_基础画像.md":
+        return
+
+    body, sources = _split_sources_section(text)
+    if not sources:
+        messages.append(f"[FAIL] {filename} 缺少章节: {SOURCE_SECTION_MARKER}")
+        return
+
+    if BARE_URL_RE.search(body):
+        messages.append(f"[FAIL] {filename} 正文含裸 URL")
+
+    if SOURCE_TABLE_HEADER not in sources:
+        messages.append(f"[FAIL] {filename} 来源表缺少五列表头: {SOURCE_TABLE_HEADER}")
+
+    body_keys = _extract_citation_keys(body)
+    source_keys = _extract_citation_keys(sources)
+    missing = sorted(body_keys - source_keys)
+    for key in missing:
+        messages.append(f"[FAIL] {filename} 引用键未在来源表中定义: {key}")
 
 
 def verify_prof_dir(prof_dir: str | Path) -> VerifyResult:
@@ -99,6 +136,8 @@ def verify_prof_dir(prof_dir: str | Path) -> VerifyResult:
 
         if not _has_source_marker(text):
             messages.append(f"[FAIL] {filename} 缺少来源 URL、[未找到] 或需人工复核标记")
+
+        _check_source_format(filename, text, messages)
 
         for word in FORBIDDEN:
             if word in text:
