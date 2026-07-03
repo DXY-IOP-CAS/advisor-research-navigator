@@ -54,7 +54,7 @@ class VerifyPhaseDocsTest(unittest.TestCase):
             "## 运行信息\n来源：[R1]\n\n"
             "## 读者起点\n\n## 学习主线总图\n\n## 数学基础\n\n## 物理基础\n\n"
             "## 领域核心工具\n\n## 导师当前方向专题\n\n## 论文阅读顺序\n\n"
-            "## 概念小字典\n\n## 论文阅读训练\n\n## 自测与复盘\n\n## 资源指针\n\n"
+            "## 概念小字典\n\n## 论文阅读训练\n\n## 阶段产出物\n\n## 自测与复盘\n\n## 资源指针\n\n"
             "## 参考文献与来源\n\n"
             "### 综述、教材与课程来源\n\n"
             "| 编号 | 来源 | 用途 | 链接 | 备注 |\n"
@@ -78,7 +78,7 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.assertTrue(any("禁用评价语" in m for m in result.messages))
 
     def test_rejects_missing_source_marker(self):
-        self.write_doc("04_学习向导.md", "# 张鹏举 (Pengju Zhang) — 学习向导\n\n## 运行信息\n\n## 读者起点\n\n## 学习主线总图\n\n## 数学基础\n\n## 物理基础\n\n## 领域核心工具\n\n## 导师当前方向专题\n\n## 论文阅读顺序\n\n## 概念小字典\n\n## 论文阅读训练\n\n## 自测与复盘\n\n## 资源指针\n")
+        self.write_doc("04_学习向导.md", "# 张鹏举 (Pengju Zhang) — 学习向导\n\n## 运行信息\n\n## 读者起点\n\n## 学习主线总图\n\n## 数学基础\n\n## 物理基础\n\n## 领域核心工具\n\n## 导师当前方向专题\n\n## 论文阅读顺序\n\n## 概念小字典\n\n## 论文阅读训练\n\n## 阶段产出物\n\n## 自测与复盘\n\n## 资源指针\n")
         module = load_module()
         result = module.verify_prof_dir(self.prof)
         self.assertFalse(result.ok)
