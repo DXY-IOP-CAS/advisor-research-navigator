@@ -7,7 +7,7 @@
 | 错误 | 原因 | 恢复动作 |
 |:-----|:-----|:--------|
 | `API 429/503` | 限速 | 脚本内部已有指数退避重试（3 次）。等待后自动恢复。 |
-| `subAgent API rate limit` | 当前 session 命中限速 | 等待 60 秒后重试整条命令。**不要从头跑**——archive/ 中间文件可复用。 |
+| `subAgent API rate limit` | 当前 session 命中限速 | 等待 60 秒后重试当前失败命令。**不要从头跑**——脚本会通过 `--prof-dir` 复用中间文件。 |
 | `GS status=blocked` | GS 被封锁 | 降级到 OpenAlex 走 OA-only 路径。不重试 GS。 |
 | `network interrupt` | 网络中断 | 重新执行失败的 step（不是整条流水线）。用 `--prof-dir` 复用已采集数据。 |
 | `merged.json not found` | step6 没跑或路径错 | 先跑 step6，再 render。 |
@@ -67,16 +67,17 @@ python src/phase1/archive_step.py --prof-dir "output/..." --source 01_gs.json
 
 AI **不需要记得手动归档**——脚本副作用会处理。如果忘了也没关系，archive 是 best-effort，不影响主流程。
 
+Agent 不得手动读取或引用 `archive/`。需要恢复上下文时，用 `--prof-dir` 运行脚本，让 `ProfDirResolver` 自动定位当前中间文件。
+
 ---
 
 ## 中途接手时的恢复
 
 如果是从某个 checkpoint 继续：
 
-1. 读 `output/.../姓名/latest.txt` 拿当前 ts
-2. 读 `archive/<ts>/00_verified_ids.json` 看已经锁定的身份
-3. 读 `archive/<ts>/career_stages.json` 看阶段配置
-4. 读 `archive/<ts>/04_merged.json` 看已合并的论文
-5. 根据缺失的 step 从 Phase B 的对应位置继续
+1. 确认 `prof_dir` 是 `output/<大学>/<学院或研究所>/<部门>/<姓名>`。
+2. 运行 `python src/phase1/verify_profile.py --prof-dir "<prof_dir>"` 看当前最终画像是否已经通过。
+3. 如果最终画像缺失或 verify 指向中间文件缺失，重新执行对应 step，命令仍只传 `--prof-dir`。
+4. 不手动打开 `archive/<ts>/...` 判断状态；让脚本解析 `latest.txt` 和中间文件。
 
 **不需要从头跑**。ProfDirResolver 会从 latest.txt 自动找到 archive 路径。

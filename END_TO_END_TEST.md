@@ -31,7 +31,7 @@
 
 **禁止**：找用户要更多提示
 **正确**：记录下来「Harness 缺口」，回头优化。具体动作：
-1. 在 `archive/<日期>_harness_缺口/` 写 diagnosis.md 说明哪一步卡住、缺什么信息
+1. 在 `docs/e2e/YYYY-MM-DD-<name>-minimal-prompt.md` 写 diagnosis 说明哪一步卡住、缺什么信息
 2. 在对应的 phase1-core.md / SKILL.md 加 L3 reference 补充
 3. 重新跑测试
 
