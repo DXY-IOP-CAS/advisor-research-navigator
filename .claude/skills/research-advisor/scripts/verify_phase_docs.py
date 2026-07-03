@@ -176,6 +176,20 @@ def _check_phase4_minimal_loop(filename: str, text: str, messages: list[str]) ->
         )
 
 
+def _check_forbidden_terms(filename: str, text: str, messages: list[str]) -> None:
+    for word in FORBIDDEN:
+        if word in text:
+            messages.append(f"[FAIL] {filename} 含禁用评价语: {word}")
+
+
+def _check_optional_markdown_docs(prof: Path, messages: list[str]) -> None:
+    for path in sorted(prof.glob("*.md")):
+        if path.name in DOCS:
+            continue
+        text = path.read_text(encoding="utf-8")
+        _check_forbidden_terms(path.name, text, messages)
+
+
 def verify_prof_dir(prof_dir: str | Path) -> VerifyResult:
     prof = Path(prof_dir)
     messages: list[str] = []
@@ -200,10 +214,9 @@ def verify_prof_dir(prof_dir: str | Path) -> VerifyResult:
 
         _check_source_format(filename, text, messages)
         _check_phase4_minimal_loop(filename, text, messages)
+        _check_forbidden_terms(filename, text, messages)
 
-        for word in FORBIDDEN:
-            if word in text:
-                messages.append(f"[FAIL] {filename} 含禁用评价语: {word}")
+    _check_optional_markdown_docs(prof, messages)
 
     if not messages:
         messages.append("[OK] phase docs deterministic checks passed")

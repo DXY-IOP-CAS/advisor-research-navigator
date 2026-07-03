@@ -25,7 +25,38 @@ SOURCE_TABLE = """## 参考文献与资料
 """
 
 
+def write_minimal_valid_phase_docs(prof_dir: Path) -> None:
+    for filename, sections in verify_phase_docs.DOCS.items():
+        lines = [f"# 测试导师 - {filename}", ""]
+        for section in sections:
+            lines.extend([section, '正文 <sup><a href="#o1">[O1]</a></sup>'])
+            if section == verify_phase_docs.PHASE4_MINIMAL_LOOP_HEADING:
+                lines.append("一篇论文、一张核心图和一条平台链路。")
+        if filename == "01_基础画像.md":
+            lines.append("来源：https://example.com")
+        else:
+            lines.append(SOURCE_TABLE)
+        (prof_dir / filename).write_text("\n".join(lines), encoding="utf-8")
+
+
 class PhaseDocsVerifierTests(unittest.TestCase):
+    def test_scans_optional_guide_for_forbidden_advisor_evaluation_terms(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            prof_dir = Path(tmp)
+            write_minimal_valid_phase_docs(prof_dir)
+            (prof_dir / "00_材料导读.md").write_text(
+                "# 材料导读\n\n这里不应出现匹配度。",
+                encoding="utf-8",
+            )
+
+            result = verify_phase_docs.verify_prof_dir(prof_dir)
+
+        self.assertFalse(result.ok)
+        self.assertIn(
+            "[FAIL] 00_材料导读.md 含禁用评价语: 匹配度",
+            result.messages,
+        )
+
     def test_accepts_problem_chain_phase4_structure(self):
         with tempfile.TemporaryDirectory() as tmp:
             prof_dir = Path(tmp)
