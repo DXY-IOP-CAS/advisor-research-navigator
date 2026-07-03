@@ -20,13 +20,11 @@ from typing import Mapping
 
 
 DEFAULT_DOCS = ["02_领域地图.md", "03_论文路线.md", "04_学习向导.md"]
-SOURCE_TABLE_ROW_RE = re.compile(
-    r"^\|\s*(?P<key><a id=\"[oprb]\d+\"></a>\[(?P<label>[OPRB]\d+)\])\s*"
-    r"\|\s*(?P<title>[^|\n]*?)\s*"
-    r"\|\s*(?P<support>[^|\n]*?)\s*"
-    r"\|\s*(?P<link>https://doi\.org/(?P<doi>[^|\s]+))\s*"
-    r"\|\s*(?P<kind>[^|\n]*?)\s*\|",
-    re.MULTILINE,
+SOURCE_LABEL_RE = re.compile(r"<a id=\"[oprb]\d+\"></a>\[(?P<label>[OPRB]\d+)\]")
+DOI_URL_RE = re.compile(r"^https://doi\.org/(?P<doi>[^\s]+)$", re.IGNORECASE)
+NATURE_ARTICLE_RE = re.compile(
+    r"^https://www\.nature\.com/articles/(?P<article>s[0-9a-z-]+)$",
+    re.IGNORECASE,
 )
 TAG_RE = re.compile(r"<[^>]+>")
 SPACE_RE = re.compile(r"\s+")
@@ -59,16 +57,43 @@ def _similarity(left: str, right: str) -> float:
 
 def extract_doi_rows(filename: str, text: str) -> list[DoiRow]:
     rows: list[DoiRow] = []
-    for match in SOURCE_TABLE_ROW_RE.finditer(text):
+    for line in text.splitlines():
+        if not line.startswith("|"):
+            continue
+
+        columns = [column.strip() for column in line.strip().strip("|").split("|")]
+        if len(columns) < 5:
+            continue
+
+        label_match = SOURCE_LABEL_RE.search(columns[0])
+        if not label_match:
+            continue
+
+        doi = doi_from_link(columns[3])
+        if not doi:
+            continue
+
         rows.append(
             DoiRow(
                 filename=filename,
-                label=f"[{match.group('label')}]",
-                title=match.group("title").strip(),
-                doi=match.group("doi").strip().rstrip("."),
+                label=f"[{label_match.group('label')}]",
+                title=columns[1],
+                doi=doi,
             )
         )
     return rows
+
+
+def doi_from_link(link: str) -> str | None:
+    doi_match = DOI_URL_RE.match(link.strip())
+    if doi_match:
+        return doi_match.group("doi").strip().rstrip(".")
+
+    nature_match = NATURE_ARTICLE_RE.match(link.strip())
+    if nature_match:
+        return f"10.1038/{nature_match.group('article')}"
+
+    return None
 
 
 def _fetch_crossref_title(doi: str) -> str | None:

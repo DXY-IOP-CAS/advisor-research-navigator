@@ -66,6 +66,20 @@ class SourceMetadataVerifierTests(unittest.TestCase):
         self.assertEqual(rows[0].title, "DOI Paper Title")
         self.assertEqual(rows[0].doi, "10.1234/example")
 
+    def test_converts_nature_article_links_to_doi(self):
+        text = """## 参考文献与资料
+
+| 编号 | 文献或资料 | 支撑内容 | 链接 | 类型 |
+|:---|:---|:---|:---|:---|
+| <a id="p1"></a>[P1] | Nature Article Title | 支撑测试 | https://www.nature.com/articles/s41467-025-62162-6 | 论文 |
+"""
+
+        rows = verify_source_metadata.extract_doi_rows("03_论文路线.md", text)
+
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(rows[0].label, "[P1]")
+        self.assertEqual(rows[0].doi, "10.1038/s41467-025-62162-6")
+
     def test_verify_prof_dir_uses_offline_metadata(self):
         with tempfile.TemporaryDirectory() as tmp:
             prof_dir = Path(tmp)
