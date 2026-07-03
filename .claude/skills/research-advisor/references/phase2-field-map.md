@@ -10,6 +10,10 @@ It should give a fast life/career frame, then spend most of its effort on the
 current unit, current field, field genealogy, current frontier, and the parts of
 the professor's earlier experience that connect to the current direction.
 
+The document must teach the field before positioning the professor. It is not a
+restyled biography and not a paper-list summary. A student should finish it with
+a usable map of the current field even before reading Phase 3.
+
 ## Method Basis
 
 Borrow strengths from three established practices:
@@ -40,18 +44,24 @@ discipline for search, grouping, and gap marking.
    - review/tutorial papers for the field;
    - parent discipline and subfield pages;
    - method/tool background sources.
-4. Build a field tree:
+4. Build a field-entry explanation before writing:
+   - why the parent discipline cares about this problem;
+   - how the field moved from static structure to femtosecond nuclear dynamics
+     to attosecond electron dynamics, when relevant;
+   - what experimental bottleneck made each technique necessary;
+   - what an incoming student must know to understand the current direction.
+5. Build a field tree:
    - parent discipline;
    - second-level subfield;
    - smaller research problem;
    - common methods and observables;
    - current frontier and unresolved questions.
-5. Relate the professor to the tree:
+6. Relate the professor to the tree:
    - current focus;
    - earlier directly related stages;
    - unrelated or weakly related stages;
    - coauthor or institution context when it clarifies the route.
-6. Write with evidence labels and open risks. Use `需人工复核` for uncertain
+7. Write with evidence labels and open risks. Use `需人工复核` for uncertain
    direction shifts, ambiguous field names, or thin source coverage.
 
 ## Output Emphasis
@@ -61,6 +71,22 @@ map for a future student.
 
 Use this weighting unless the user says otherwise:
 
-- 20% career/path overview.
-- 60% current direction and field map.
-- 20% uncertainty, source gaps, and transition notes for Phase 3.
+- 15% career/path overview.
+- 65% field explanation, field genealogy, current methods, and frontier.
+- 20% professor positioning, uncertainty, and transition notes for Phase 3.
+
+## Batch-Scale Quality Standard
+
+This skill is intended to scale from one professor to a whole institute,
+university system, and eventually national coverage. Keep the structure stable
+across professors. Domain content may vary; the phase responsibility may not.
+
+For every professor, Phase 2 must answer the same seven questions:
+
+1. What is the current direction in one precise sentence?
+2. Which parent discipline and subfield does it belong to?
+3. What smaller research problem does the professor currently work on?
+4. How did the field develop into this problem?
+5. Which methods and observables define the field?
+6. Where is the professor positioned inside the field map?
+7. What should Phase 3 check in the paper corpus?
