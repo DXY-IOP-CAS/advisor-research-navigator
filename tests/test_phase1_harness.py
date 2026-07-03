@@ -312,6 +312,25 @@ affiliation: 测试机构
         self.assertEqual(verify_profile.FAIL, result)
         self.assertIn("§9 验证来源不含未验证来源", buf.getvalue())
 
+    def test_verify_profile_fails_when_section9_repeats_source_table_header(self):
+        profile_path = self._write_profile(
+            self._valid_profile(
+                """| 来源 | URL | 状态 |
+|:-----|:----|:------|
+| 来源 | URL | 状态 |
+|:-----|:----|:------|
+| 官网 | https://example.com | 已验证 |
+"""
+            )
+        )
+
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            result = verify_profile.verify(profile_path)
+
+        self.assertEqual(verify_profile.FAIL, result)
+        self.assertIn("§9 验证来源表头只出现一次", buf.getvalue())
+
     def test_verify_profile_fails_when_single_source_oa_row_is_unvetted(self):
         profile_path = self._write_profile(
             self._valid_profile().replace(

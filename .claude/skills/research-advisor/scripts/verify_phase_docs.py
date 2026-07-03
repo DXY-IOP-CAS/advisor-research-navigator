@@ -67,6 +67,8 @@ SOURCE_ANCHOR_RE = re.compile(r"<a id=\"([oprb]\d+)\"></a>\[((O|P|R|B)(\d+))\]")
 BARE_URL_RE = re.compile(r"(?<!\]\()https?://[^\s)]+")
 SOURCE_SECTION_MARKER = "## 参考文献与资料"
 SOURCE_TABLE_HEADER = "| 编号 | 文献或资料 | 支撑内容 | 链接 | 类型 |"
+PHASE4_MINIMAL_LOOP_HEADING = "## 进组前最小闭环"
+PHASE4_MINIMAL_LOOP_REQUIRED = ("论文", "图", "平台")
 
 
 @dataclass
@@ -106,6 +108,16 @@ def _split_sources_section(text: str) -> tuple[str, str]:
         return text, ""
     body, sources = text.split(SOURCE_SECTION_MARKER, 1)
     return body, sources
+
+
+def _extract_markdown_section(text: str, heading: str) -> str:
+    marker = f"{heading}\n"
+    start = text.find(marker)
+    if start < 0:
+        return ""
+    section_start = start + len(marker)
+    next_heading = text.find("\n## ", section_start)
+    return text[section_start:] if next_heading < 0 else text[section_start:next_heading]
 
 
 def _check_source_format(filename: str, text: str, messages: list[str]) -> None:
@@ -154,6 +166,16 @@ def _check_source_format(filename: str, text: str, messages: list[str]) -> None:
         messages.append(f"[WARN] {filename} 参考文献表引用键未在正文使用: {key}")
 
 
+def _check_phase4_minimal_loop(filename: str, text: str, messages: list[str]) -> None:
+    if filename != "04_学习向导.md" or PHASE4_MINIMAL_LOOP_HEADING not in text:
+        return
+    section = _extract_markdown_section(text, PHASE4_MINIMAL_LOOP_HEADING)
+    if not all(token in section for token in PHASE4_MINIMAL_LOOP_REQUIRED):
+        messages.append(
+            "[FAIL] 04_学习向导.md 进组前最小闭环必须同时连接论文、核心图和平台链路"
+        )
+
+
 def verify_prof_dir(prof_dir: str | Path) -> VerifyResult:
     prof = Path(prof_dir)
     messages: list[str] = []
@@ -177,6 +199,7 @@ def verify_prof_dir(prof_dir: str | Path) -> VerifyResult:
             messages.append(f"[FAIL] {filename} 缺少来源 URL、[未找到] 或需人工复核标记")
 
         _check_source_format(filename, text, messages)
+        _check_phase4_minimal_loop(filename, text, messages)
 
         for word in FORBIDDEN:
             if word in text:

@@ -141,6 +141,15 @@ def verify(profile_path: str, merged_path: str = None) -> int:
               errors)
 
     section9 = _extract_section(content, r"^## 9\.\s*验证来源\s*$")
+    section9_header_count = len(re.findall(
+        r"^\|\s*来源\s*\|\s*URL\s*\|\s*状态\s*\|",
+        section9,
+        re.MULTILINE,
+    ))
+    check(section9_header_count == 1,
+          f"§9 验证来源表头只出现一次（发现 {section9_header_count} 次）",
+          errors)
+
     source_rows = [
         line for line in section9.splitlines()
         if line.startswith("|")
