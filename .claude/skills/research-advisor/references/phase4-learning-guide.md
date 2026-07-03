@@ -1,57 +1,46 @@
-# Phase 4: Learning Guide
+# 阶段四：学习讲义
 
-## Purpose
+## 目的
 
-`04_学习讲义.md` answers: "How can a student move from near-beginner status to
-being able to understand the professor's current field and read the key papers?"
+`04_学习讲义.md` 回答：学生如何从近似空白状态，逐步学到能理解导师当前领域并阅读关键论文？
 
-It is not a textbook and not a generic course plan. It is a guided bridge from
-the student's starting point to the concrete frontier identified in Phase 2 and
-Phase 3.
+它不是教材，也不是通用课程计划。它是一座桥：从学生当前水平，通向阶段二和阶段三确认的具体前沿、具体方法和具体论文群。
 
-## Method Basis
+## 方法依据
 
-Use backward design and constructive alignment:
+使用 backward design 和 constructive alignment：
 
-1. Define the target abilities needed to understand the current field and
-   selected papers.
-2. Derive prerequisite concepts and skills.
-3. Sequence learning activities, resources, and checkpoints so they align with
-   those target abilities.
+1. 先定义终点能力：学生最终要能理解什么领域、读懂哪些论文、解释哪些方法。
+2. 再倒推出先修概念和技能。
+3. 最后安排学习活动、资源和检查点，使它们服务于终点能力。
 
-## Procedure
+## 操作流程
 
-1. Read `02_领域脉络.md` and `03_论文定位.md`.
-2. Define the reader's assumed starting point. If unknown, assume a motivated
-   undergraduate with incomplete field background and mark assumptions.
-3. List target abilities:
-   - understand the current field map;
-   - read the professor's mainline papers;
-   - recognize core methods and vocabulary;
-   - ask informed questions about the frontier.
-4. Build the learning sequence:
-   - mathematical prerequisites;
-   - physical/domain prerequisites;
-   - field-specific tools and observables;
-   - professor-current-direction topics;
-   - ordered paper-reading route.
-5. Add checkpoints:
-   - concept explanation tasks;
-   - method interpretation tasks;
-   - paper-figure/table reading tasks;
-   - short synthesis tasks.
-6. Provide resource pointers with URLs or `[未找到]`. Prefer authoritative
-   textbooks, lecture notes, reviews, and tutorials. Avoid dumping excessive
-   resource lists.
+1. 读取 `02_领域脉络.md` 和 `03_论文定位.md`。
+2. 定义读者起点。未知时默认“有动力但领域背景不完整的物理本科生”，并标明假设。
+3. 列出目标能力：
+   - 理解当前领域地图；
+   - 阅读导师当前主线论文；
+   - 识别核心方法、装置、可观测量和术语；
+   - 能围绕前沿提出有信息量的问题。
+4. 设计学习顺序：
+   - 数学先修；
+   - 物理/领域先修；
+   - 领域特定工具和可观测量；
+   - 导师当前方向主题；
+   - 有顺序的论文阅读路线。
+5. 加入检查点：
+   - 概念解释任务；
+   - 方法理解任务；
+   - 论文图表阅读任务；
+   - 短综合任务。
+6. 给出资源指针，优先教材、讲义、综述、教程。不要堆过量资源清单；每个资源必须说明它在学习路径中的作用。
 
-## Writing Rules
+## 写作规则
 
-- Teach by building a path, not by listing topics.
-- Keep explanations accessible, then add technical precision.
-- Avoid full derivations unless they are necessary to unlock the target papers.
-- Make every section trace back to Phase 2 or Phase 3.
-- Use citation keys and a final `参考文献与来源` section; avoid bare raw URLs in
-  body prose.
-- Search for field-standard learning resources before designing the route.
-  Phase 4 should feel like a professional prerequisite path, not an invented
-  AI syllabus.
+- 用路径教学，不列主题清单。
+- 先通俗建立直觉，再补技术精度。
+- 除非能直接解锁目标论文，否则不要大段推导。
+- 每一节都要能追溯到阶段二或阶段三。
+- 使用引用键和文末 `参考文献与来源`，正文避免裸 URL。
+- 设计路线前先检索领域标准教材、课程讲义、综述和教程。阶段四要像专业先修路径，不像 AI 自造课程表。

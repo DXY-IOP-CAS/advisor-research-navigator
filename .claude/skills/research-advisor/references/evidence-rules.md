@@ -1,81 +1,54 @@
-# Evidence Rules for Phase 2-4
+# 阶段二到四证据规则
 
-## Source Hierarchy
+## 来源层级
 
-Prefer sources in this order:
+优先使用以下来源，越靠前权重越高：
 
-1. Professor official page, lab page, institution profile, CV, grant/project page.
-2. DOI landing pages, publisher pages, arXiv, OpenAlex, Google Scholar, ORCID.
-3. Recent review articles, tutorial articles, textbooks, lecture notes, and
-   authoritative field pages for background.
-4. Wikipedia or encyclopedia pages only for first-pass terminology checks; never
-   use them as the sole source for a technical or career claim.
+1. 导师官网、课题组主页、机构主页、简历、项目/基金页面。
+2. DOI 页面、期刊/出版社页面、arXiv、OpenAlex、Google Scholar、ORCID。
+3. 近年综述、教程型论文、教材、课程讲义、权威领域页面。
+4. Wikipedia 或百科页面只用于术语初筛，不能单独支撑技术判断、履历判断或研究路线判断。
 
-Every factual claim that affects the student's understanding of the professor,
-field, paper positioning, or learning path needs a URL nearby. If no source is
-found, write `[未找到]`. If a claim is plausible but not directly established,
-write `需人工复核`.
+会影响学生理解导师、领域、论文定位或学习路径的事实，都必须能追溯到 URL。未找到来源写 `[未找到]`。合理但未被直接证实的判断写 `需人工复核`。
 
-## Citation and Link Style
+## 引用与链接格式
 
-Write final Markdown like a readable academic note, not a web-search transcript.
+最终 Markdown 应像可读的学术笔记，而不是网页检索记录。
 
-- Prefer citation keys in prose, such as `[P1]`, `[R2]`, `[O1]`, then put the
-  clickable Markdown links in a final `参考文献与来源` section.
-- Avoid bare raw URLs in body paragraphs. Use hidden Markdown links only when a
-  sentence genuinely needs a direct clickable source.
-- Use source categories:
-  - `[O#]` official professor, lab, institution, ORCID, GS, OpenAlex;
-  - `[P#]` papers, DOI pages, arXiv, publisher pages;
-  - `[R#]` reviews, tutorials, textbooks, lecture notes;
-  - `[B#]` background or terminology sources.
-- Prefer official, DOI, publisher, arXiv, ORCID, GS, OpenAlex, and institution
-  pages over secondary pages. Wikipedia is terminology background only.
-- Every document must keep enough links for source checking, but the visible
-  text should remain clean and easy to read.
+- 正文优先使用 `[O1]`、`[P2]`、`[R3]` 这类引用键，完整可点击链接集中放到文末 `参考文献与来源`。
+- 正文避免裸 URL。只有句子本身强依赖直接跳转时，才使用隐藏 Markdown 链接。
+- 引用键分类：
+  - `[O#]`：官网、课题组、机构、ORCID、Google Scholar、OpenAlex；
+  - `[P#]`：论文、DOI、arXiv、期刊/出版社页面；
+  - `[R#]`：综述、教程、教材、课程讲义；
+  - `[B#]`：背景术语或辅助来源。
+- 优先官方、DOI/期刊、arXiv、ORCID、Google Scholar、OpenAlex、教材/讲义/综述；二手网页只能辅助理解，不能当强证据。
+- 链接必须保留可核查性，但正文不能被链接噪声淹没。
 
-## Search Discipline
+## 检索纪律
 
-- Search again when Phase 2 would otherwise be only a summary of
-  `01_基础画像.md`.
-- Search again when Phase 3 or Phase 4 would otherwise become repeated
-  digestion of Phase 1 and Phase 2.
-- Search for both the professor and the field: professor name + current unit,
-  current direction keywords, recent paper titles, review keywords, and core
-  method keywords.
-- Use broad-to-narrow search: first locate the parent discipline and subfield,
-  then identify the smaller research problem and the professor's role in it.
-- When a term has multiple meanings, resolve it by matching papers, institution,
-  coauthors, and research systems before writing.
-- Do not use old outputs, caches, or `archive/` as evidence.
-- For Phase 3, search for talks, group news, invited seminars, abstracts, review
-  articles, and paper introductions when the paper route is unclear. Treat them
-  as interpretive support, not as stronger evidence than papers or official
-  pages.
-- For Phase 4, search for field-standard textbooks, lecture notes, review
-  articles, and course materials. The learning path should reflect disciplinary
-  consensus and actual prerequisite structure, not invented AI sequencing.
+- 阶段二如果快变成 `01_基础画像.md` 的改写，立刻重新检索领域资料。
+- 阶段三或阶段四如果快变成阶段一、二的反复咀嚼，立刻重新检索当前论文、综述、讲座、教程或教材。
+- 同时检索导师和领域：导师名 + 当前单位、当前方向关键词、近期论文题名、综述关键词、核心方法关键词。
+- 采用“宽到窄”：先定位一级学科和二级学科，再定位更小问题域，最后定位导师在其中的角色。
+- 术语多义时，必须用论文、机构、合作者、研究对象和实验/理论系统交叉消歧。
+- 不使用旧输出、缓存或 `archive/` 作为证据。
+- 阶段三路线不清时，检索讲座、组内新闻、邀请报告、摘要、综述、论文 introduction。它们可作解释支持，但证据强度不高于论文和官方页面。
+- 阶段四必须检索领域标准教材、讲义、综述、课程材料。学习路线要反映专业共识和真实先修结构，不能凭 AI 自造顺序。
 
-## Inference Labels
+## 推断标签
 
-Use explicit labels:
+正文中需要显式区分：
 
-- `直接证据`: stated by official profile, paper title/abstract, DOI page, or
-  review source.
-- `交叉证据`: supported by multiple weaker sources or repeated paper patterns.
-- `弱证据`: inferred from sparse metadata, coauthor context, or adjacent papers.
-- `需人工复核`: needed when weak evidence affects structure, chronology, or
-  learning sequence.
+- `直接证据`：官网、论文题名/摘要、DOI 页面、综述明确说明。
+- `交叉证据`：多个弱来源或重复论文模式共同支持。
+- `弱证据`：来自稀疏元数据、合作者背景或相邻论文的推断。
+- `需人工复核`：弱证据会影响结构、时间线、论文主线或学习顺序时必须标出。
 
-## Prohibited Moves
+## 禁止动作
 
-- Do not write application advice, advisor ranking, matching score, or
-  recommendation language.
-- Do not infer a professor's current direction only from the earliest or most
-  cited papers.
-- Do not turn Phase 2 into an encyclopedia article. The field map is filtered
-  through what an incoming student needs for this professor's current direction.
-- Do not turn Phase 3 into paper abstracts. Explain each relevant paper's role
-  in the research route.
-- Do not turn Phase 4 into a generic course syllabus. Backward-design it from
-  the current direction and the papers selected in Phase 3.
+- 不写申请建议、导师排名、匹配分数、推荐/不推荐。
+- 不只根据最早论文或最高引论文推断当前方向。
+- 不把阶段二写成百科词条。领域地图必须服务“这个学生理解这个导师当前方向”。
+- 不把阶段三写成论文摘要列表。要解释论文在研究路线中的作用。
+- 不把阶段四写成通用课程表。它必须从阶段二的当前方向和阶段三的论文群反向设计。

@@ -1,68 +1,33 @@
-# Phase 3: Paper Positioning
+# 阶段三：论文定位
 
-## Purpose
+## 目的
 
-`03_论文定位.md` answers: "Given the field map, what is this professor actually
-doing in the current direction, and how do the papers reveal the research
-route?"
+`03_论文定位.md` 回答：在阶段二的领域地图已经建立后，导师当前方向里到底在做什么？相关论文如何显示他的研究路线？
 
-It is the bridge between field understanding and teaching design. Phase 2
-explains the current field and the professor's position in that field. Phase 3
-must go inside the professor's current research content: it builds a reading
-coordinate system for the relevant paper group so a new student can locate any
-current-related paper by research object, core process, method, paper role, and
-relation to neighboring papers.
+阶段三是“领域理解”和“学习讲义”之间的桥。阶段二解释当前领域和导师位置；阶段三必须进入导师自己的研究内容，给相关论文群建立一个阅读坐标系。学生读完后，应能拿起任意一篇当前相关论文，判断它研究什么对象、处理什么过程、使用什么方法、承担什么角色、和相邻论文是什么关系。
 
-It should not be written from Phase 1 and Phase 2 alone. Use those documents as
-reliable inputs, then search current papers, paper introductions, DOI/publisher
-pages, reviews, official talks/news/seminars when available, and related field
-resources to check the route. If the route remains uncertain, mark it.
+阶段三不能只靠阶段一、阶段二写。它们是可靠输入源，但还必须继续检索当前论文、论文 introduction、DOI/期刊页面、综述、官方讲座/新闻/报告和相关领域资料。路线仍不清时，明确标 `需人工复核`。
 
-## Procedure
+## 操作流程
 
-1. Read `01_基础画像.md` and `02_领域脉络.md`.
-2. Define a paper-reading coordinate system before classifying papers:
-   - research object: gas-phase molecule, liquid water, liquid-phase molecule,
-     solid, apparatus/source;
-   - core process: ionization, ICD, charge transfer, Fano resonance,
-     non-adiabatic relaxation, HHG, coincidence decay;
-   - method: XUV photoelectron spectroscopy, attosecond spectroscopy,
-     electron coincidence, photoelectron FROG, HHG apparatus, magnetic bottle;
-   - paper role: baseline measurement, method construction, mechanism
-     clarification, platform expansion, new-system expansion.
-3. Organize current-related papers by research route, not by year alone and not
-   as a flat paper table.
-4. For each route, explain:
-   - what this route studies;
-   - which papers are representative and what role each plays;
-   - how the papers relate to one another;
-   - how a new student should identify papers belonging to this route.
-5. For representative current-mainline papers, extract:
-   - research problem;
-   - method or instrument;
-   - system/material/model;
-   - key result or contribution;
-   - why it matters for the current direction;
-   - what knowledge a student needs to read it.
-6. For predecessors, explain which capability, concept, system, or collaboration
-   they contributed to the current route.
-7. Export a knowledge-point list for Phase 4. This list should include methods,
-   physics concepts, mathematical tools, domain vocabulary, and paper-reading
-   prerequisites.
+1. 读取 `01_基础画像.md` 和 `02_领域脉络.md`。
+2. 先定义论文阅读坐标系，再分类论文。坐标系至少包含：
+   - 研究对象：气相分子、液态水、液相分子、固体、装置/光源等；
+   - 核心过程：电离、ICD、charge transfer、Fano resonance、非绝热弛豫、HHG、符合探测衰变等；
+   - 方法平台：XUV 光电子谱、阿秒谱、电子符合、photoelectron FROG、HHG 装置、magnetic bottle 等；
+   - 论文角色：基线测量、方法建设、机制澄清、平台扩展、新体系扩展。
+3. 按研究路线组织当前相关论文，不按年份机械排列，也不做扁平论文表。
+4. 每条路线都要解释：这条路线研究什么；代表论文分别承担什么角色；论文之间如何衔接；新生如何识别属于该路线的论文。
+5. 对当前主线代表论文提取：研究问题；方法/装置；体系/材料/模型；关键结果或贡献；为什么和当前方向有关；学生读它需要哪些知识。
+6. 对前史论文只解释其为当前路线贡献了什么能力、概念、体系、平台或合作关系。无关早期工作一笔带过。
+7. 输出给阶段四的知识点清单，包括方法、物理概念、数学工具、领域词汇和论文阅读先修。
 
-## Writing Rules
+## 写作规则
 
-- Do not produce a list of abstracts. The unit of analysis is "how this paper
-  helps reveal the professor's current research content."
-- Do not merely repeat Phase 1 paper lists or Phase 2 field background. Phase 3
-  should assume those are already known and move into the professor's paper
-  group.
-- Do not deeply dissect every paper. Use a unified coordinate system and route
-  explanations so a student can locate any relevant paper.
-- Do not use messy bare URLs in body paragraphs. Use citation keys and a final
-  `参考文献与来源` section following `evidence-rules.md`.
-- Do not force every paper into the current direction. Mark side branches.
-- Do not overstate continuity. A professor can shift direction with institution,
-  role, collaborators, equipment, or funding context.
-- If only metadata is available for a paper, label the interpretation as weak
-  evidence.
+- 不写论文摘要合集。分析单位是“这篇论文如何帮助学生理解导师当前研究内容”。
+- 不复述阶段一论文列表，也不复述阶段二领域背景。阶段三默认读者已经知道这些，要进入论文群内部。
+- 不逐篇深挖所有论文。用统一坐标系和路线解释，让学生能定位任何相关论文。
+- 不在正文堆裸 URL。按 `evidence-rules.md` 使用引用键和文末 `参考文献与来源`。
+- 不强行把所有论文塞进当前方向。旁支要标旁支，弱证据要标弱证据。
+- 不夸大连续性。导师会因单位、身份、合作者、设备平台或基金环境发生方向微调或转向。
+- 只有元数据可用时，解释必须标为弱证据。

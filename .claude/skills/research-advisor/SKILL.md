@@ -11,9 +11,9 @@ description: >
 
 # research-advisor
 
-## Contract
+## 核心契约
 
-Input for a new professor run is exactly:
+新导师运行时，用户输入只需要：
 
 ```text
 姓名：<中文名>
@@ -21,25 +21,20 @@ Input for a new professor run is exactly:
 官网 URL：<教授主页链接>
 ```
 
-Do not ask the user for English name, email, Google Scholar ID, OpenAlex ID,
-ORCID, papers, or JSON drafts. Discover them from sources. The final profile
-name must still be `中文名(English Name)`; if no English name is found, use
-`[未找到]` and record the source gap.
+不要要求用户提供英文名、邮箱、Google Scholar ID、OpenAlex ID、ORCID、论文列表或 JSON 草稿。这些信息必须从来源中发现。最终画像姓名仍写成 `中文名(English Name)`；如果未找到英文名，写 `[未找到]` 并记录来源缺口。
 
-The four deliverables form one cognitive ladder:
+四份文档是一条认知阶梯，不是四个互不相干的报告：
 
-1. `01_基础画像.md`: who the professor is, with career stages and paper corpus.
-2. `02_领域脉络.md`: what the student must understand about the professor's
-   current direction and how it sits inside larger disciplines.
-3. `03_论文定位.md`: how the professor's papers map onto that current direction,
-   including mainline, technical predecessors, side branches, and weak evidence.
-4. `04_学习讲义.md`: how a near-beginner can build toward reading the current
-   frontier and the professor's relevant papers.
+1. `01_基础画像.md`：回答“老师是谁、资料是否可靠、履历和论文集合是什么”。
+2. `02_领域脉络.md`：回答“老师当前处在哪个领域，这个领域是什么，老师的位置在哪里”。
+3. `03_论文定位.md`：回答“老师在当前方向具体做什么，相关论文之间如何构成研究路线”。
+4. `04_学习讲义.md`：回答“学生如何从近似空白一步步学到能读懂当前前沿和相关论文”。
 
-## First Action
+第一性原理：学生真正缺的不是资料堆叠，而是一条从陌生到理解导师当前研究的认知路径。任何阶段如果只是为了填章节、拼贴前文或展示检索结果，都应停下来重新界定任务。
 
-For a new Phase 1 run, initialize the profile directory with the user-provided
-path. Do not hand-create output folders.
+## 首个动作
+
+新建阶段一时，用用户提供的机构路径初始化导师目录。不要手工创建输出目录。
 
 ```bash
 python src/phase1/phase1_init.py \
@@ -49,72 +44,52 @@ python src/phase1/phase1_init.py \
   --name "<中文名>"
 ```
 
-Use the printed `prof_dir` for every later step. Use `--prof-dir`; do not
-rebuild archive or output paths manually. Agents must not manually inspect
-`archive/` because repo guidance marks it write-only/do-not-read.
+后续步骤全部使用脚本打印出的 `prof_dir`。使用 `--prof-dir` 参数，不要手动拼接 `output/` 或 `archive/` 路径。项目规则把 `archive/` 标为只写不读，agent 不得检查或引用其中内容。
 
-For an existing professor directory, first locate the active `prof_dir` from the
-user-provided path or current `output/` path. Do not use archived outputs as
-evidence.
+如果导师目录已经存在，先从用户给出的路径或当前 `output/` 路径定位活跃 `prof_dir`。不要把旧输出或存档当证据。
 
-## Workflow Router
+## 路由
 
-Read only the references needed for the requested phase:
+只读取当前任务需要的参考文件：
 
-| Task | Read |
+| 任务 | 读取 |
 |:--|:--|
 | Phase 1 / `01_基础画像.md` | `references/phase1-core.md`; add `phase1-templates.md`, `phase1-anti-patterns.md`, `phase1-recovery.md`, or `01-data-sources.md` only when needed |
 | Phase 2 / `02_领域脉络.md` | `references/phase2-field-map.md`, `references/evidence-rules.md`, `references/quality-gates.md` |
 | Phase 3 / `03_论文定位.md` | `references/phase3-paper-position.md`, `references/evidence-rules.md`, `references/quality-gates.md` |
 | Phase 4 / `04_学习讲义.md` | `references/phase4-learning-guide.md`, `references/evidence-rules.md`, `references/quality-gates.md` |
-| Deterministic smoke check | run `python .claude/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "<prof_dir>"` |
+| 确定性 smoke | run `python .claude/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "<prof_dir>"` |
 
-Use templates in `assets/templates/` for headings and document skeletons. Do not
-mistake templates for sufficient content.
+`assets/templates/` 只提供章节骨架。模板不是内容质量，不能把填满模板误认为完成理解。
 
-## Phase 1 Procedure
+## 阶段一流程
 
-1. Read `references/phase1-core.md`.
-2. Lock identity from the official page, Google Scholar, OpenAlex, ORCID, and
-   cross-source paper fingerprints.
-3. Create required JSON files using `references/phase1-templates.md` when
-   schema details are needed.
-4. Run Phase B scripts in the order documented by `phase1-core.md`.
-5. Run `python src/phase1/risk_gate.py --prof-dir "<prof_dir>"`. Continue in
-   standard mode only when it prints `mode: standard`; if it prints
-   `mode: conservative_required`, do targeted supplemental search using the
-   printed reasons, then rerun the gate.
-6. Render with `python src/phase1/render_profile.py --prof-dir "<prof_dir>" --department "<部门>"`.
-7. Fill only narrative placeholders. Read `references/phase1-anti-patterns.md`
-   before editing narrative.
-8. Verify with `python src/phase1/verify_profile.py --prof-dir "<prof_dir>"`.
-   If it fails, read `references/phase1-recovery.md`, fix, and rerun.
-9. For end-to-end tests, write the process record to
-   `docs/e2e/YYYY-MM-DD-<name>-minimal-prompt.md`.
+1. 读取 `references/phase1-core.md`。
+2. 用官网、Google Scholar、OpenAlex、ORCID 和跨来源论文指纹锁定身份。
+3. 需要 schema 细节时读取 `references/phase1-templates.md` 并创建必需 JSON。
+4. 按 `phase1-core.md` 的顺序运行 Phase B 脚本。
+5. 运行 `python src/phase1/risk_gate.py --prof-dir "<prof_dir>"`。只有输出 `mode: standard` 才继续标准流程；如果输出 `mode: conservative_required`，按原因做定向补检，再重跑 gate。
+6. 渲染：`python src/phase1/render_profile.py --prof-dir "<prof_dir>" --department "<部门>"`。
+7. 只填叙事占位符。编辑叙事前读取 `references/phase1-anti-patterns.md`。
+8. 验证：`python src/phase1/verify_profile.py --prof-dir "<prof_dir>"`。失败时读取 `references/phase1-recovery.md`，修复后重跑。
+9. 端到端测试记录写入 `docs/e2e/YYYY-MM-DD-<name>-minimal-prompt.md`。
 
-## Phase 2-4 Procedure
+## 阶段二到四流程
 
-1. Start from the verified `01_基础画像.md`; treat career-stage paper grouping as
-   a hypothesis about direction shifts, not as a final explanation.
-2. Perform fresh source search for current direction and field context. Use
-   official pages, recent review papers, field/tutorial pages, textbooks or
-   lecture notes, and paper metadata. Do not rely on `01_基础画像.md` alone.
-3. Build Phase 2 before Phase 3, and Phase 3 before Phase 4. Each later phase
-   must explicitly consume the previous phase.
-4. Mark every weak inference as `需人工复核`; use `[未找到]` for missing sources.
-5. If field understanding is thin, pause writing and search again or ask for
-   domain clarification. Do not fill gaps with generic prose.
-6. Run the deterministic verifier after writing or editing phase documents.
+1. 从已验证的 `01_基础画像.md` 出发。把“按履历阶段分组的论文”当作方向变化假设，而不是最终解释。
+2. 每个阶段都做 fresh search。阶段一和前序文档是可靠输入源，但不能替代当前阶段的信息检索、筛选和分析。
+3. 严格按 `02 -> 03 -> 04` 推进。后一个阶段必须显式消费前一个阶段，但不能简单复述。
+4. 阶段二先建立当前领域地图；阶段三深入导师当前研究内容和论文群内部逻辑；阶段四把目标前沿倒推成学习路径。
+5. 弱推断标 `需人工复核`；来源缺失写 `[未找到]`。
+6. 领域理解薄、方向转折证据不足、论文关系不清时，暂停写作并继续检索，必要时请用户补充领域判断。不要用顺滑但空泛的文字补洞。
+7. 写作或修改阶段文档后运行确定性验证器。
 
-## Hard Constraints
+## 硬约束
 
-- Source URLs are mandatory; missing source is `[未找到]`.
-- Do not evaluate the professor or advise whether to apply.
-- Do not modify generated paper tables in Phase 1; they come from `merged.json`.
-- Do not rewrite the whole Phase 1 profile file. Replace placeholders only.
-- Do not manually read `archive/`; use active `output/` paths and `--prof-dir`
-  tools.
-- Do not treat a passing deterministic smoke check as proof of academic quality.
-  It only checks structure and forbidden hygiene failures.
-- A run is complete only after the requested verifier passes and remaining
-  content risks are stated.
+- 来源 URL 必须可追溯；缺失来源写 `[未找到]`。
+- 不评价导师，不写匹配度、推荐意见或是否应该申请。
+- 阶段一不要修改脚本生成的论文表格；表格来自 `merged.json`。
+- 阶段一不要整篇重写，只替换占位叙事。
+- 不手动读取 `archive/`；只用活跃 `output/` 路径和 `--prof-dir` 工具。
+- 确定性 smoke 通过不等于学术质量通过；它只检查结构、来源标记和禁用语。
+- 只有请求的验证器通过，并且剩余内容风险被明确说明，才能说完成。

@@ -1,67 +1,64 @@
-# Quality Gates for Phase 2-4
+# 阶段二到四质量门
 
-## Deterministic Gate
+## 确定性门
 
-Run:
+运行：
 
 ```bash
 python .claude/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "<prof_dir>"
 ```
 
-This gate checks required files, required headings, source markers, and banned
-advisor-evaluation phrases. Passing this gate does not prove content quality.
+这个门只检查必需文件、必需标题、来源标记和禁用导师评价语。通过它不等于内容质量合格。
 
-## Shared Content Gate
+## 共享内容门
 
-Before calling a phase document usable, verify:
+声称阶段文档可用前，逐项检查：
 
-- It clearly consumes the previous phase instead of repeating it.
-- It has nearby URLs, `[未找到]`, or `需人工复核` for factual claims.
-- It uses clean citation keys or hidden Markdown links in body prose and places
-  source URLs in a final references section; avoid visible URL clutter.
-- It relies first on official, DOI/publisher, arXiv, ORCID, GS/OpenAlex,
-  textbooks, lecture notes, and review sources.
-- It separates direct evidence from inference.
-- It avoids professor evaluation and application recommendation.
-- It names open uncertainty instead of smoothing it into confident prose.
+- 是否清楚消费了前一阶段，而不是复述前一阶段。
+- 事实判断附近是否有 URL、`[未找到]` 或 `需人工复核`。
+- 正文是否使用干净引用键或隐藏 Markdown 链接，并把完整链接放到文末来源区，避免裸 URL 噪声。
+- 是否优先依赖官网、DOI/期刊、arXiv、ORCID、GS/OpenAlex、教材、讲义和综述。
+- 是否区分直接证据和推断。
+- 是否避免导师评价和申请建议。
+- 是否明确不确定性，而不是用顺滑文字掩盖证据缺口。
 
-## Phase 2 Gate
+## 阶段二门
 
-`02_领域脉络.md` passes only if:
+`02_领域脉络.md` 只有满足以下条件才算可用：
 
-- It gives a concise career-path view, then focuses on the current institution
-  and current direction.
-- It identifies when the current direction appears to start and which earlier
-  stages are relevant to it.
-- It maps parent discipline, subfield, smaller problem, methods, and frontier.
-- It explains why the field context matters for an incoming student.
-- It is based on fresh field/context search, not only on `01_基础画像.md`.
+- 先给简洁学术路径视图，再聚焦当前单位和当前方向。
+- 说明当前方向大约从何时出现，哪些早期阶段与它直接相关。
+- 映射一级学科、二级学科、更小问题域、方法和前沿。
+- 解释这些领域背景为什么对入门学生重要。
+- 基于 fresh field/context search，而不只依赖 `01_基础画像.md`。
 
-## Phase 3 Gate
+## 阶段三门
 
-`03_论文定位.md` passes only if:
+`03_论文定位.md` 只有满足以下条件才算可用：
 
-- It goes inside the professor's current research content instead of repeating
-  Phase 1 and Phase 2.
-- It gives a unified paper-reading coordinate system for current-related papers.
-- It explains current research routes and relationships between representative
-  papers, not merely year groups or paper categories.
-- Representative papers explain problem, method, system/material/model, result,
-  and relation to the professor's current research route.
-- Predecessor papers are brief and explain only which capability or concept they
-  contributed.
-- Side branches and weak evidence are explicitly marked.
-- It exports a knowledge-point list for Phase 4.
+- 进入导师当前研究内容，而不是重复阶段一和阶段二。
+- 为当前相关论文给出统一的论文阅读坐标系。
+- 解释当前研究路线和代表论文之间的关系，而不是只按年份或类别分组。
+- 代表论文说明问题、方法、体系/材料/模型、结果，以及与导师当前路线的关系。
+- 前史论文保持简短，只说明贡献了什么能力、概念、平台或合作关系。
+- 旁支和弱证据被明确标出。
+- 输出阶段四需要的知识点清单。
 
-## Phase 4 Gate
+## 阶段四门
 
-`04_学习讲义.md` passes only if:
+`04_学习讲义.md` 只有满足以下条件才算可用：
 
-- It starts from the student's likely current level and the Phase 3 target
-  papers.
-- It uses backward design: target abilities first, then prerequisite concepts,
-  then learning sequence and resources.
-- It gives a staged route from basic concepts to the professor's current
-  frontier.
-- It includes resource pointers rather than pretending to be a full textbook.
-- It has checkpoints that reveal whether the student can read the target papers.
+- 从学生可能的当前水平和阶段三目标论文出发。
+- 使用目标倒推：先目标能力，再先修概念，再学习顺序和资源。
+- 给出从基础概念到导师当前前沿的分阶段路线。
+- 提供资源指针，不假装自己是一整本教材。
+- 有检查点，能检验学生是否正在接近“读懂目标论文”的能力。
+
+## 失败处理
+
+如果某一阶段没有通过内容门，不要直接润色原文。先判断失败类型：
+
+- 信息不足：继续检索官方、论文、综述、教材或讲义。
+- 结构漂移：回到该阶段目的，重写大纲，再迁移可用内容。
+- 证据太弱：降低结论强度，标 `需人工复核`，或删去无法支撑的判断。
+- 文风混乱：保留判断链，统一成引用键 + 文末来源的学术笔记风格。

@@ -1,92 +1,53 @@
-# Phase 2: Field Map
+# 阶段二：领域脉络
 
-## Purpose
+## 目的
 
-`02_领域脉络.md` answers: "If a student wants to apply to this professor, what
-must they understand about the professor's current research direction and its
-position inside the larger discipline?"
+`02_领域脉络.md` 回答：如果学生想申请这位导师，必须先理解导师当前方向属于什么领域、这个领域为什么发展到这里、导师当前位置在哪里。
 
-It should give a fast life/career frame, then spend most of its effort on the
-current unit, current field, field genealogy, current frontier, and the parts of
-the professor's earlier experience that connect to the current direction.
+它先快速回顾导师学术路径，帮助学生建立人生历程框架；随后把主要篇幅放在当前单位、当前方向、领域谱系、当前前沿，以及早期履历中与当前方向有关的部分。
 
-The document must teach the field before positioning the professor. It is not a
-restyled biography and not a paper-list summary. A student should finish it with
-a usable map of the current field even before reading Phase 3.
+阶段二必须先教领域，再定位导师。它不是传记改写，不是论文列表摘要。学生读完后，即使还没读阶段三，也应该能在脑中形成一张当前领域地图。
 
-## Method Basis
+## 方法依据
 
-Borrow strengths from three established practices:
+借用三类成熟做法的优点，但不照搬模板：
 
-- Scoping review: define what is in scope, map major concepts, and identify
-  evidence gaps.
-- Science mapping: trace clusters, chronology, citation/paper neighborhoods,
-  and frontier movement.
-- Concept mapping: organize concepts and prerequisites as relationships, not a
-  flat glossary.
+- scoping review：先定范围，再列主要概念和证据空洞；
+- science mapping：看论文簇、时间演变、邻近方向和前沿移动；
+- concept mapping：把概念组织成关系，而不是扁平术语表。
 
-Do not copy any external template wholesale. Use these methods only as working
-discipline for search, grouping, and gap marking.
+这些方法只用来约束检索、分组和缺口标注。最终文档仍服务于“学生理解这位导师当前方向”。
 
-## Procedure
+## 操作流程
 
-1. Extract from `01_基础画像.md`: current institution, current title/unit,
-   career stages, stage-level research directions, and all recent/relevant
-   papers.
-2. Create an initial hypothesis:
-   - current direction;
-   - when it appears to begin;
-   - which older stages are direct predecessors;
-   - which older stages are background or side branches.
-3. Search fresh sources:
-   - official profile/lab/current unit;
-   - recent papers by the professor;
-   - review/tutorial papers for the field;
-   - parent discipline and subfield pages;
-   - method/tool background sources.
-4. Build a field-entry explanation before writing:
-   - why the parent discipline cares about this problem;
-   - how the field moved from static structure to femtosecond nuclear dynamics
-     to attosecond electron dynamics, when relevant;
-   - what experimental bottleneck made each technique necessary;
-   - what an incoming student must know to understand the current direction.
-5. Build a field tree:
-   - parent discipline;
-   - second-level subfield;
-   - smaller research problem;
-   - common methods and observables;
-   - current frontier and unresolved questions.
-6. Relate the professor to the tree:
-   - current focus;
-   - earlier directly related stages;
-   - unrelated or weakly related stages;
-   - coauthor or institution context when it clarifies the route.
-7. Write with evidence labels and open risks. Use `需人工复核` for uncertain
-   direction shifts, ambiguous field names, or thin source coverage.
+1. 从 `01_基础画像.md` 提取当前机构、当前职务/单位、履历阶段、阶段方向、近期和相关论文。
+2. 形成初始假设：当前方向是什么；大约从什么时候开始；哪些旧阶段是直接前史；哪些只是背景或旁支。
+3. 做 fresh search：导师官网/课题组/当前单位；导师近期论文；领域综述/教程；一级学科和二级学科资料；核心方法和工具资料。
+4. 写作前先搭出领域入口解释：大领域为什么关心这个问题；技术如何一步步发展到当前小方向；关键实验/理论瓶颈是什么；新生必须先知道哪些东西。
+5. 搭领域树：一级学科；二级学科；更小问题域；常见方法和可观测量；当前前沿和未解问题。
+6. 把导师放回领域树：当前重心；直接相关旧阶段；弱相关或无关阶段；必要时用合作者、平台、机构背景解释路线。
+7. 用证据标签写作。方向转折、领域命名、证据覆盖薄弱时写 `需人工复核`。
 
-## Output Emphasis
+## 篇幅重心
 
-Keep biography short. The document is not a life story; it is a field-entry
-map for a future student.
+传记要短。阶段二是给未来学生的领域入口地图，不是人生故事。
 
-Use this weighting unless the user says otherwise:
+默认权重：
 
-- 15% career/path overview.
-- 65% field explanation, field genealogy, current methods, and frontier.
-- 20% professor positioning, uncertainty, and transition notes for Phase 3.
+- 15%：导师路径概览；
+- 65%：领域解释、领域谱系、当前方法和前沿；
+- 20%：导师定位、不确定性、给阶段三的论文核查线索。
 
-## Batch-Scale Quality Standard
+## 批量化质量标准
 
-This skill is intended to scale from one professor to a whole institute,
-university system, and eventually national coverage. Keep the structure stable
-across professors. Domain content may vary; the phase responsibility may not.
+该 skill 要从单个导师扩展到研究所、大学系统，甚至全国专业覆盖。不同学科内容可以不同，但阶段职责不能漂移。
 
-For every professor, Phase 2 must answer the same seven questions:
+每位导师的阶段二都必须回答七个问题：
 
-1. What is the current direction in one precise sentence?
-2. Which parent discipline and subfield does it belong to?
-3. What smaller research problem does the professor currently work on?
-4. How did the field develop into this problem?
-5. Which methods and observables define the field?
-6. Where is the professor positioned inside the field map?
-7. What should Phase 3 check in the paper corpus?
+1. 当前方向能否用一句精确的话说清？
+2. 它属于哪个一级学科和二级学科？
+3. 导师当前实际做的是哪个更小问题域？
+4. 这个领域如何发展到该问题？
+5. 定义该领域的核心方法和可观测量是什么？
+6. 导师在这张领域地图中的位置是什么？
+7. 阶段三应该去论文集合里核查什么？
