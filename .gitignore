@@ -28,6 +28,8 @@ Thumbs.db
 
 # Project-specific
 scorecard.png
+archive/
+output/**/archive/
 
 # .agents/skills is an NTFS junction to .claude/skills (single source of truth).
 # git doesn't track junctions as symlinks — ignore the target path to avoid duplicate commits.
