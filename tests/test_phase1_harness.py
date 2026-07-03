@@ -11,6 +11,7 @@ PHASE1 = os.path.join(ROOT, "src", "phase1")
 sys.path.insert(0, PHASE1)
 
 import render_profile
+import risk_gate
 import step2_gs
 import validate_career_stages
 import verify_profile
@@ -194,6 +195,75 @@ affiliation: 测试机构
         self.assertEqual("iphy.ac.cn", step2_gs.normalize_email_domain("@iphy.ac.cn"))
         self.assertEqual("iphy.ac.cn", step2_gs.normalize_email_domain("Verified email at iphy.ac.cn"))
 
+    def test_risk_gate_load_json_accepts_utf8_bom(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            json_path = os.path.join(tmp, "data.json")
+            with open(json_path, "w", encoding="utf-8-sig") as f:
+                f.write('{"ok": true}')
+
+            data = risk_gate.load_json(json_path)
+
+        self.assertEqual({"ok": True}, data)
+    def test_risk_gate_passes_standard_when_identity_and_sources_are_stable(self):
+        merged = {
+            "professor": {"name": "张三 (San Zhang)", "email_domain": "iphy.ac.cn"},
+            "papers": [
+                {"title": "A", "sources": ["google_scholar", "openalex"]},
+                {"title": "B", "sources": ["google_scholar"]},
+                {"title": "C", "sources": ["google_scholar"]},
+                {"title": "D", "sources": ["google_scholar"]},
+            ],
+            "statistics": {"by_source": {"google_scholar": 4, "openalex": 1}},
+        }
+        verified_ids = {
+            "name": "张三 (San Zhang)",
+            "verification": {"tier": "T1", "email_domain": "iphy.ac.cn"},
+            "ids": {"gs_id": "abc", "oa_id": "A123"},
+        }
+
+        result = risk_gate.evaluate_risk(merged, verified_ids)
+
+        self.assertEqual("standard", result.mode)
+        self.assertEqual([], result.reasons)
+
+    def test_risk_gate_requires_conservative_when_single_source_ratio_is_high(self):
+        merged = {
+            "professor": {"name": "张三 (San Zhang)", "email_domain": "iphy.ac.cn"},
+            "papers": [
+                {"title": "GS confirmed", "sources": ["google_scholar", "openalex"]},
+                {"title": "OA only 1", "sources": ["openalex"]},
+                {"title": "OA only 2", "sources": ["openalex"]},
+            ],
+            "statistics": {"by_source": {"google_scholar": 1, "openalex": 3}},
+        }
+        verified_ids = {
+            "name": "张三 (San Zhang)",
+            "verification": {"tier": "T1", "email_domain": "iphy.ac.cn"},
+            "ids": {"gs_id": "abc", "oa_id": "A123"},
+        }
+
+        result = risk_gate.evaluate_risk(merged, verified_ids)
+
+        self.assertEqual("conservative_required", result.mode)
+        self.assertIn("single-source OA/arXiv ratio", "\n".join(result.reasons))
+
+    def test_risk_gate_requires_conservative_when_identity_evidence_is_weak(self):
+        merged = {
+            "professor": {"name": "张三", "email_domain": "iphy.ac.cn"},
+            "papers": [{"title": "A", "sources": ["google_scholar"]}],
+            "statistics": {"by_source": {"google_scholar": 1}},
+        }
+        verified_ids = {
+            "name": "张三",
+            "verification": {"tier": "T4"},
+            "ids": {},
+        }
+
+        result = risk_gate.evaluate_risk(merged, verified_ids)
+
+        self.assertEqual("conservative_required", result.mode)
+        self.assertIn("English name missing", "\n".join(result.reasons))
+        self.assertIn("verification tier is T4", "\n".join(result.reasons))
     def test_verify_profile_fails_when_identity_table_name_is_not_mixed(self):
         profile_path = self._write_profile(
             self._valid_profile().replace("| 姓名 | 张三 (San Zhang) |", "| 姓名 | San Zhang |")

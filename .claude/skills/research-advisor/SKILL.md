@@ -42,10 +42,11 @@ Use the printed `prof_dir` for every later step. Use `--prof-dir`; do not rebuil
 2. Lock identity from the official page, Google Scholar, OpenAlex, ORCID, and cross-source paper fingerprints.
 3. Create the required JSON files using `references/phase1-templates.md` when schema details are needed.
 4. Run Phase B scripts in the order documented by `phase1-core.md`.
-5. Render with `python src/phase1/render_profile.py --prof-dir "<prof_dir>" --department "<部门>"`.
-6. Fill only narrative placeholders. Read `references/phase1-anti-patterns.md` before editing narrative.
-7. Verify with `python src/phase1/verify_profile.py --prof-dir "<prof_dir>"`. If it fails, read `references/phase1-recovery.md`, fix, and rerun.
-8. For end-to-end tests, write the process record to `docs/e2e/YYYY-MM-DD-<name>-minimal-prompt.md`.
+5. Run `python src/phase1/risk_gate.py --prof-dir "<prof_dir>"`. Continue in standard mode only when it prints `mode: standard`; if it prints `mode: conservative_required`, do targeted supplemental search using the printed reasons, then rerun the gate.
+6. Render with `python src/phase1/render_profile.py --prof-dir "<prof_dir>" --department "<部门>"`.
+7. Fill only narrative placeholders. Read `references/phase1-anti-patterns.md` before editing narrative.
+8. Verify with `python src/phase1/verify_profile.py --prof-dir "<prof_dir>"`. If it fails, read `references/phase1-recovery.md`, fix, and rerun.
+9. For end-to-end tests, write the process record to `docs/e2e/YYYY-MM-DD-<name>-minimal-prompt.md`.
 
 ## Reference Map
 
@@ -57,6 +58,7 @@ Use the printed `prof_dir` for every later step. Use `--prof-dir`; do not rebuil
 | `references/phase1-recovery.md` | A step or verify fails | Recovery loop and failure handling |
 | `references/01-data-sources.md` | API/search uncertainty | Source-specific search, limits, fallback |
 | `src/phase1/pipeline.md` | CLI details are unclear | Technical source of truth for scripts |
+| `docs/phase1运行策略.md` | Choosing standard vs conservative | Risk-gated run strategy shared by Codex and Claude Code |
 | `END_TO_END_TEST.md` | Running a true e2e test | Minimal-prompt test rules |
 
 ## Source Search

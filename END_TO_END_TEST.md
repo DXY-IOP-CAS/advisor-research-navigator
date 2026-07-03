@@ -66,3 +66,12 @@
 ```
 
 **就这样。**
+## 测试记录要求
+
+每次端到端测试完成后，在 `docs/e2e/` 记录：
+
+- 使用策略：`standard` 或 `conservative`
+- `risk_gate.py --prof-dir ...` 的 mode、reason、metrics
+- 是否触发补搜；如触发，补搜原因和处理结果
+- `verify_profile.py --prof-dir ...` 的结果
+- verify 之外仍需人工关注的内容风险

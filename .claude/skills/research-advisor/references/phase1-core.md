@@ -41,9 +41,10 @@ python src/phase1/step3_openalex.py {oa_id} --prof-dir "output/..."
 python src/phase1/step4_arxiv_id.py {orcid} --name "姓_名" --prof-dir "output/..."  # ORCID 精确匹配，零噪声
 # step4 失败时回退：python src/phase1/step5_arxiv.py "姓_名" -c "physics.atom-ph" --prof-dir "output/..."
 python src/phase1/step6_merge.py --prof-dir "output/..."
+python src/phase1/risk_gate.py --prof-dir "output/..."
 ```
 
-**采信优先级**：GS > OA > arXiv。多源重合以 GS 标题为准，OA 补充 DOI/期刊/作者，arXiv 补充预印本。
+**采信优先级**：GS > OA > arXiv。多源重合以 GS 标题为准，OA 补充 DOI/期刊/作者，arXiv 补充预印本。`risk_gate.py` 决定是否必须从 standard 升级到 conservative；如果输出 `mode: conservative_required`，按 reason 做定向补搜后重跑 gate。
 
 ### 数据源细节
 

@@ -35,6 +35,7 @@ python src/phase1/archive_previous.py "<学校>/<学院>/<部门>/<姓名>"
     step4_arxiv_id:  ORCID → arXiv 精确匹配（零噪声）
       └─失败→ step5_arxiv:  arXiv au: 搜索
     step6_merge:     三源合并去重 + 噪声过滤
+    risk_gate:       判断 standard 是否足够，或要求 conservative 补搜
     │
 阶段 C（脚本渲染 + AI 叙事 + verify 循环）
   render_profile.py → 骨架（§1/§2/§4/§8 自动，§3/§5/§6/§7/§9 占位）
@@ -233,7 +234,7 @@ python src/phase1/run.py \
 自动完成：
 1. 存档旧版产出 → 2. 建 archive/<ts>/ 目录 → 3. 校验 career_stages.json
 4. GS 采集 → 5. OA 采集 → 6. arXiv（ORCID 精确匹配 / au: 回退）
-7. 三源合并去重 → 8. 画像渲染 → 9. verify 检查
+7. 三源合并去重 → 8. risk gate → 9. 画像渲染 → 10. verify 检查
 
 各参数均可选。无 GS/OA ID 时自动跳过对应步骤。
 
@@ -265,6 +266,7 @@ python src/phase1/step4_arxiv_id.py "0000-0000-0000-0000" --name "Wang_Shili" --
 
 # step6 用 --archive-dir 自动读 01+02+03 文件
 python src/phase1/step6_merge.py --archive-dir "$PROF/archive/$TIMESTAMP" -o "$PROF/archive/$TIMESTAMP/04_merged.json"
+python src/phase1/risk_gate.py --prof-dir "$PROF"
 
 # render 用 --archive-dir 自动找 career_stages.json（或显式传 --stages）
 python src/phase1/render_profile.py \
@@ -289,6 +291,18 @@ echo "$TIMESTAMP" > "$PROF/latest.txt"
 
 推荐使用真实邮箱（非 `test@example.com` 等保留域），否则 OpenAlex 被判定为低优先级、降入 1 req/s 的 polite pool。
 
+---
+
+
+### standard / conservative 运行策略
+
+默认使用 `standard`：完成身份锁定、三源采集和合并后，先运行：
+
+```bash
+python src/phase1/risk_gate.py --prof-dir "$PROF"
+```
+
+输出 `mode: standard` 时继续渲染。输出 `mode: conservative_required` 时，不要凭感觉多轮乱搜；只按 reason 做定向补搜或人工核查，然后重新运行 risk gate。策略细节见 `docs/phase1运行策略.md`。
 ---
 
 ## 5 阶段 C — 渲染流程
