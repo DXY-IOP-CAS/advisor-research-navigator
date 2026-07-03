@@ -123,16 +123,18 @@ class VerifyPhaseDocsTest(unittest.TestCase):
 
     def test_rejects_internal_pipeline_wording_in_final_docs(self):
         text = (self.prof / "02_领域地图.md").read_text(encoding="utf-8")
-        text = text.replace("## 证据与待复核点\n需人工复核。", "## 证据与待复核点\n### 给阶段三的检查点\n阶段三应逐篇核对。")
+        text = text.replace("## 证据与待复核点\n需人工复核。", "## 证据与待复核点\n### 给阶段三的检查点\n阶段三应逐篇核对，阶段三只标为分支。")
         self.write_doc("02_领域地图.md", text)
         text = (self.prof / "03_论文路线.md").read_text(encoding="utf-8")
-        text = text.replace("## 给学习向导的知识点清单\n", "## 给学习向导的知识点清单\n阶段四应从论文路线倒推。\n")
+        text = text.replace("## 给学习向导的知识点清单\n", "## 给学习向导的知识点清单\n阶段四应从论文路线倒推，阶段四可把它作为背景。\n")
         self.write_doc("03_论文路线.md", text)
         module = load_module()
         result = module.verify_prof_dir(self.prof)
         self.assertFalse(result.ok)
         self.assertTrue(any("给阶段三" in m for m in result.messages))
         self.assertTrue(any("阶段四应" in m for m in result.messages))
+        self.assertTrue(any("阶段三只" in m for m in result.messages))
+        self.assertTrue(any("阶段四可" in m for m in result.messages))
 
     def test_rejects_forbidden_advisor_evaluation(self):
         text = (self.prof / "02_领域地图.md").read_text(encoding="utf-8")

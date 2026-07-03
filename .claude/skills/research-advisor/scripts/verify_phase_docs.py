@@ -70,6 +70,8 @@ FORBIDDEN_STYLE = [
     "给阶段三",
     "阶段三应",
     "阶段四应",
+    "阶段三只",
+    "阶段四可",
 ]
 
 SOURCE_RE = re.compile(r"https?://|\[未找到\]|需人工复核")
