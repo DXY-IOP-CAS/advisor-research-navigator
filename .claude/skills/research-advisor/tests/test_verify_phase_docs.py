@@ -16,6 +16,21 @@ def load_module():
     return module
 
 
+def cite(key: str) -> str:
+    return f'<sup><a href="#{key.lower()}">[{key}]</a></sup>'
+
+
+def source_table_row(key: str) -> str:
+    lower = key.lower()
+    return (
+        f'| <a id="{lower}"></a>[{key}] | 示例文献或资料 | '
+        f"支撑正文中的 [{key}] 判断 | https://example.com/{lower} | 测试资料 |\n"
+    )
+
+
+SOURCE_TABLE_HEADER = "| 编号 | 文献或资料 | 支撑内容 | 链接 | 类型 |\n"
+
+
 class VerifyPhaseDocsTest(unittest.TestCase):
     def setUp(self):
         workspace_tmp = Path(__file__).resolve().parents[4] / ".tmp" / "verify_phase_docs_tests"
@@ -25,44 +40,44 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.write_doc(
             "01_基础画像.md",
             "# 张鹏举 (Pengju Zhang) - 基础画像\n\n"
-            "## 运行信息\n来源：https://example.com\n",
+            "## 运行信息\n资料链接：https://example.com\n",
         )
         self.write_doc(
             "02_领域地图.md",
             "# 张鹏举 (Pengju Zhang) - 领域地图\n\n"
-            "## 运行信息\n来源：[O1](#o1)\n\n"
+            f"## 运行信息\n官方方向以导师主页为准。{cite('O1')}\n\n"
             "## 导师路径速览\n\n"
             "## 当前方向学科定位\n\n"
             "## 领域发展树\n\n"
             "## 关键问题和技术路线\n\n"
             "## 当前前沿\n\n"
-            "## 来源与待复核点\n需人工复核。\n\n"
-            "## 参考文献与来源\n\n"
-            "### 官方与身份来源\n\n"
-            "| 编号 | 来源 | 用途 | 链接 | 备注 |\n"
-            "|:---|:---|:---|:---|:---|\n"
-            "| <a id=\"o1\"></a>[O1] | 示例官网 | 支撑运行信息来源 | https://example.com | 测试来源 |\n",
+            "## 证据与待复核点\n需人工复核。\n\n"
+            "## 参考文献与资料\n\n"
+            "### 官方与身份资料\n\n"
+            + SOURCE_TABLE_HEADER
+            + "|:---|:---|:---|:---|:---|\n"
+            + source_table_row("O1"),
         )
         self.write_doc(
             "03_论文路线.md",
             "# 张鹏举 (Pengju Zhang) - 论文路线\n\n"
-            "## 运行信息\n来源：[P1](#p1)\n\n"
+            f"## 运行信息\n论文路线以代表论文为准。{cite('P1')}\n\n"
             "## 领域树节点定义\n\n"
             "## 论文路线总表\n\n"
             "## 当前主线论文\n\n"
             "## 前史积累论文\n\n"
             "## 旁支与弱证据\n需人工复核。\n\n"
             "## 给学习向导的知识点清单\n\n"
-            "## 参考文献与来源\n\n"
-            "### 论文与数据来源\n\n"
-            "| 编号 | 来源 | 用途 | 链接 | 备注 |\n"
-            "|:---|:---|:---|:---|:---|\n"
-            "| <a id=\"p1\"></a>[P1] | 示例论文 | 支撑论文路线来源 | https://example.com/paper | 测试来源 |\n",
+            "## 参考文献与资料\n\n"
+            "### 论文与数据资料\n\n"
+            + SOURCE_TABLE_HEADER
+            + "|:---|:---|:---|:---|:---|\n"
+            + source_table_row("P1"),
         )
         self.write_doc(
             "04_学习向导.md",
             "# 张鹏举 (Pengju Zhang) - 学习向导\n\n"
-            "## 运行信息\n来源：[R1](#r1)\n\n"
+            f"## 运行信息\n学习路径以课程和综述倒推。{cite('R1')}\n\n"
             "## 读者起点\n\n"
             "## 学习主线总图\n\n"
             "## 数学基础\n\n"
@@ -75,11 +90,11 @@ class VerifyPhaseDocsTest(unittest.TestCase):
             "## 阶段产出物\n\n"
             "## 自测与复盘\n\n"
             "## 资源指针\n\n"
-            "## 参考文献与来源\n\n"
-            "### 综述、教材与课程来源\n\n"
-            "| 编号 | 来源 | 用途 | 链接 | 备注 |\n"
-            "|:---|:---|:---|:---|:---|\n"
-            "| <a id=\"r1\"></a>[R1] | 示例讲义 | 支撑学习路径来源 | https://example.com/course | 测试来源 |\n",
+            "## 参考文献与资料\n\n"
+            "### 综述、教材与课程资料\n\n"
+            + SOURCE_TABLE_HEADER
+            + "|:---|:---|:---|:---|:---|\n"
+            + source_table_row("R1"),
         )
 
     def write_doc(self, name, text):
@@ -119,52 +134,61 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         module = load_module()
         result = module.verify_prof_dir(self.prof)
         self.assertFalse(result.ok)
-        self.assertTrue(any("来源" in m for m in result.messages))
+        self.assertTrue(any("来源" in m or "资料" in m for m in result.messages))
 
     def test_rejects_bare_url_in_phase2_body(self):
         text = (self.prof / "02_领域地图.md").read_text(encoding="utf-8")
-        text = text.replace("来源：[O1](#o1)", "来源：https://example.com")
+        text = text.replace(cite("O1"), "https://example.com")
         self.write_doc("02_领域地图.md", text)
         module = load_module()
         result = module.verify_prof_dir(self.prof)
         self.assertFalse(result.ok)
         self.assertTrue(any("裸 URL" in m for m in result.messages))
 
-    def test_rejects_plain_body_citation_key_without_internal_link(self):
+    def test_rejects_plain_body_citation_key_without_superscript_link(self):
         text = (self.prof / "03_论文路线.md").read_text(encoding="utf-8")
-        text = text.replace("来源：[P1](#p1)", "来源：[P1]")
+        text = text.replace(cite("P1"), "[P1]")
         self.write_doc("03_论文路线.md", text)
         module = load_module()
         result = module.verify_prof_dir(self.prof)
         self.assertFalse(result.ok)
-        self.assertTrue(any("正文引用键必须使用内部链接" in m for m in result.messages))
+        self.assertTrue(any("正文引用键必须使用上标链接" in m for m in result.messages))
 
-    def test_rejects_phase3_citation_key_missing_from_source_table(self):
+    def test_rejects_old_markdown_link_citation(self):
         text = (self.prof / "03_论文路线.md").read_text(encoding="utf-8")
-        text = text.replace("来源：[P1](#p1)", "来源：[P2](#p2)")
+        text = text.replace(cite("P1"), "[P1](#p1)")
         self.write_doc("03_论文路线.md", text)
         module = load_module()
         result = module.verify_prof_dir(self.prof)
         self.assertFalse(result.ok)
-        self.assertTrue(any("引用键未在来源表中定义" in m for m in result.messages))
+        self.assertTrue(any("正文引用键必须使用上标链接" in m for m in result.messages))
 
-    def test_rejects_source_table_key_without_anchor(self):
+    def test_rejects_phase3_citation_key_missing_from_reference_table(self):
+        text = (self.prof / "03_论文路线.md").read_text(encoding="utf-8")
+        text = text.replace(cite("P1"), cite("P2"))
+        self.write_doc("03_论文路线.md", text)
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+        self.assertFalse(result.ok)
+        self.assertTrue(any("引用键未在参考文献表中定义" in m for m in result.messages))
+
+    def test_rejects_reference_table_key_without_anchor(self):
         text = (self.prof / "04_学习向导.md").read_text(encoding="utf-8")
-        text = text.replace("<a id=\"r1\"></a>[R1]", "[R1]")
+        text = text.replace('<a id="r1"></a>[R1]', "[R1]")
         self.write_doc("04_学习向导.md", text)
         module = load_module()
         result = module.verify_prof_dir(self.prof)
         self.assertFalse(result.ok)
-        self.assertTrue(any("来源表引用键缺少锚点" in m for m in result.messages))
+        self.assertTrue(any("参考文献表引用键缺少锚点" in m for m in result.messages))
 
-    def test_rejects_phase4_missing_source_table_header(self):
+    def test_rejects_phase4_missing_reference_table_header(self):
         text = (self.prof / "04_学习向导.md").read_text(encoding="utf-8")
-        text = text.replace("| 编号 | 来源 | 用途 | 链接 | 备注 |", "| 编号 | 来源 | 链接 |")
+        text = text.replace(SOURCE_TABLE_HEADER.strip(), "| 编号 | 文献或资料 | 链接 |")
         self.write_doc("04_学习向导.md", text)
         module = load_module()
         result = module.verify_prof_dir(self.prof)
         self.assertFalse(result.ok)
-        self.assertTrue(any("来源表缺少五列表头" in m for m in result.messages))
+        self.assertTrue(any("参考文献表缺少五列表头" in m for m in result.messages))
 
     def test_rejects_missing_required_section(self):
         text = (self.prof / "03_论文路线.md").read_text(encoding="utf-8")

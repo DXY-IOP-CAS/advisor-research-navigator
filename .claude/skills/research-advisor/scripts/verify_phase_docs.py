@@ -22,7 +22,7 @@ DOCS = {
         "## 领域发展树",
         "## 关键问题和技术路线",
         "## 当前前沿",
-        "## 来源与待复核点",
+        "## 证据与待复核点",
     ],
     "03_论文路线.md": [
         "## 运行信息",
@@ -61,11 +61,13 @@ FORBIDDEN = [
 
 SOURCE_RE = re.compile(r"https?://|\[未找到\]|需人工复核")
 CITATION_RE = re.compile(r"\[(O|P|R|B)(\d+)\]")
-LINKED_CITATION_RE = re.compile(r"\[((O|P|R|B)(\d+))\]\(#([oprb]\d+)\)")
+LINKED_CITATION_RE = re.compile(
+    r"<sup><a href=\"#([oprb]\d+)\">\[((O|P|R|B)(\d+))\]</a></sup>"
+)
 SOURCE_ANCHOR_RE = re.compile(r"<a id=\"([oprb]\d+)\"></a>\[((O|P|R|B)(\d+))\]")
 BARE_URL_RE = re.compile(r"(?<!\]\()https?://[^\s)]+")
-SOURCE_SECTION_MARKER = "## 参考文献与来源"
-SOURCE_TABLE_HEADER = "| 编号 | 来源 | 用途 | 链接 | 备注 |"
+SOURCE_SECTION_MARKER = "## 参考文献与资料"
+SOURCE_TABLE_HEADER = "| 编号 | 文献或资料 | 支撑内容 | 链接 | 类型 |"
 
 
 @dataclass
@@ -93,7 +95,7 @@ def _extract_citation_keys(text: str) -> set[str]:
 
 
 def _extract_linked_body_citations(text: str) -> dict[str, str]:
-    return {f"[{kind}{number}]": target for _, kind, number, target in LINKED_CITATION_RE.findall(text)}
+    return {f"[{kind}{number}]": target for target, _, kind, number in LINKED_CITATION_RE.findall(text)}
 
 
 def _extract_source_anchors(text: str) -> dict[str, str]:
@@ -120,13 +122,13 @@ def _check_source_format(filename: str, text: str, messages: list[str]) -> None:
         messages.append(f"[FAIL] {filename} 正文含裸 URL")
 
     if SOURCE_TABLE_HEADER not in sources:
-        messages.append(f"[FAIL] {filename} 来源表缺少五列表头: {SOURCE_TABLE_HEADER}")
+        messages.append(f"[FAIL] {filename} 参考文献表缺少五列表头: {SOURCE_TABLE_HEADER}")
 
     body_keys = _extract_citation_keys(body)
     linked_body_keys = _extract_linked_body_citations(body)
     plain_body_keys = sorted(body_keys - set(linked_body_keys))
     for key in plain_body_keys:
-        messages.append(f"[FAIL] {filename} 正文引用键必须使用内部链接: {key}")
+        messages.append(f"[FAIL] {filename} 正文引用键必须使用上标链接: {key}")
 
     for key, target in sorted(linked_body_keys.items()):
         expected_target = key.strip("[]").lower()
@@ -137,20 +139,20 @@ def _check_source_format(filename: str, text: str, messages: list[str]) -> None:
     anchored_source_keys = _extract_source_anchors(sources)
     unanchored_source_keys = sorted(source_keys - set(anchored_source_keys))
     for key in unanchored_source_keys:
-        messages.append(f"[FAIL] {filename} 来源表引用键缺少锚点: {key}")
+        messages.append(f"[FAIL] {filename} 参考文献表引用键缺少锚点: {key}")
 
     for key, anchor in sorted(anchored_source_keys.items()):
         expected_anchor = key.strip("[]").lower()
         if anchor != expected_anchor:
-            messages.append(f"[FAIL] {filename} 来源表引用键锚点不匹配: {key} -> #{anchor}")
+            messages.append(f"[FAIL] {filename} 参考文献表引用键锚点不匹配: {key} -> #{anchor}")
 
     missing = sorted(set(linked_body_keys) - set(anchored_source_keys))
     for key in missing:
-        messages.append(f"[FAIL] {filename} 引用键未在来源表中定义: {key}")
+        messages.append(f"[FAIL] {filename} 引用键未在参考文献表中定义: {key}")
 
     unused = sorted(set(anchored_source_keys) - set(linked_body_keys))
     for key in unused:
-        messages.append(f"[WARN] {filename} 来源表引用键未在正文使用: {key}")
+        messages.append(f"[WARN] {filename} 参考文献表引用键未在正文使用: {key}")
 
 
 def verify_prof_dir(prof_dir: str | Path) -> VerifyResult:
