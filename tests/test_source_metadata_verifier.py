@@ -3,6 +3,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -79,6 +80,22 @@ class SourceMetadataVerifierTests(unittest.TestCase):
         self.assertEqual(len(rows), 1)
         self.assertEqual(rows[0].label, "[P1]")
         self.assertEqual(rows[0].doi, "10.1038/s41467-025-62162-6")
+
+    def test_uses_datacite_when_crossref_is_unavailable(self):
+        text = """## 参考文献与资料
+
+| 编号 | 文献或资料 | 支撑内容 | 链接 | 类型 |
+|:---|:---|:---|:---|:---|
+| <a id="p1"></a>[P1] | Repository Paper Title | 支撑测试 | https://doi.org/10.3929/example | 论文 |
+"""
+        rows = verify_source_metadata.extract_doi_rows("03_论文路线.md", text)
+
+        with patch.object(verify_source_metadata, "_fetch_crossref_title", return_value=None), patch.object(
+            verify_source_metadata, "_fetch_datacite_title", return_value="Repository Paper Title"
+        ):
+            result = verify_source_metadata.verify_rows(rows)
+
+        self.assertTrue(result.ok, "\n".join(result.messages))
 
     def test_verify_prof_dir_uses_offline_metadata(self):
         with tempfile.TemporaryDirectory() as tmp:

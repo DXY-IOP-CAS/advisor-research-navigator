@@ -114,6 +114,26 @@ def _fetch_crossref_title(doi: str) -> str | None:
     return " ".join(str(part) for part in titles)
 
 
+def _fetch_datacite_title(doi: str) -> str | None:
+    encoded = urllib.parse.quote(doi, safe="")
+    req = urllib.request.Request(
+        f"https://api.datacite.org/dois/{encoded}",
+        headers={"User-Agent": "pilot-test-source-metadata-verifier/1.0"},
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=20) as response:
+            payload = json.loads(response.read().decode("utf-8"))
+    except Exception:
+        return None
+
+    titles = payload.get("data", {}).get("attributes", {}).get("titles") or []
+    for item in titles:
+        title = item.get("title") if isinstance(item, dict) else None
+        if title:
+            return str(title)
+    return None
+
+
 def verify_rows(
     rows: list[DoiRow],
     metadata: Mapping[str, str] | None = None,
@@ -126,6 +146,8 @@ def verify_rows(
         expected_title = metadata.get(row.doi)
         if expected_title is None:
             expected_title = _fetch_crossref_title(row.doi)
+        if expected_title is None:
+            expected_title = _fetch_datacite_title(row.doi)
 
         if expected_title is None:
             messages.append(f"[WARN] {row.filename} {row.label} DOI metadata unavailable: {row.doi}")
