@@ -17,6 +17,10 @@ Before calling a phase document usable, verify:
 
 - It clearly consumes the previous phase instead of repeating it.
 - It has nearby URLs, `[未找到]`, or `需人工复核` for factual claims.
+- It uses clean citation keys or hidden Markdown links in body prose and places
+  source URLs in a final references section; avoid visible URL clutter.
+- It relies first on official, DOI/publisher, arXiv, ORCID, GS/OpenAlex,
+  textbooks, lecture notes, and review sources.
 - It separates direct evidence from inference.
 - It avoids professor evaluation and application recommendation.
 - It names open uncertainty instead of smoothing it into confident prose.
@@ -37,11 +41,15 @@ Before calling a phase document usable, verify:
 
 `03_论文定位.md` passes only if:
 
-- Papers are grouped by relationship to the current direction, not merely by
-  year.
-- Mainline papers explain problem, method, system/material/model, result, and
-  relation to the current direction.
-- Predecessor papers explain which capability or topic they contributed.
+- It goes inside the professor's current research content instead of repeating
+  Phase 1 and Phase 2.
+- It gives a unified paper-reading coordinate system for current-related papers.
+- It explains current research routes and relationships between representative
+  papers, not merely year groups or paper categories.
+- Representative papers explain problem, method, system/material/model, result,
+  and relation to the professor's current research route.
+- Predecessor papers are brief and explain only which capability or concept they
+  contributed.
 - Side branches and weak evidence are explicitly marked.
 - It exports a knowledge-point list for Phase 4.
 

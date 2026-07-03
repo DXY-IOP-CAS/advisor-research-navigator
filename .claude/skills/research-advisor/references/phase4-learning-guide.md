@@ -50,3 +50,8 @@ Use backward design and constructive alignment:
 - Keep explanations accessible, then add technical precision.
 - Avoid full derivations unless they are necessary to unlock the target papers.
 - Make every section trace back to Phase 2 or Phase 3.
+- Use citation keys and a final `参考文献与来源` section; avoid bare raw URLs in
+  body prose.
+- Search for field-standard learning resources before designing the route.
+  Phase 4 should feel like a professional prerequisite path, not an invented
+  AI syllabus.

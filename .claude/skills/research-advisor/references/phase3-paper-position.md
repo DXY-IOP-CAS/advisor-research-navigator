@@ -13,6 +13,11 @@ coordinate system for the relevant paper group so a new student can locate any
 current-related paper by research object, core process, method, paper role, and
 relation to neighboring papers.
 
+It should not be written from Phase 1 and Phase 2 alone. Use those documents as
+reliable inputs, then search current papers, paper introductions, DOI/publisher
+pages, reviews, official talks/news/seminars when available, and related field
+resources to check the route. If the route remains uncertain, mark it.
+
 ## Procedure
 
 1. Read `01_基础画像.md` and `02_领域脉络.md`.
@@ -54,6 +59,8 @@ relation to neighboring papers.
   group.
 - Do not deeply dissect every paper. Use a unified coordinate system and route
   explanations so a student can locate any relevant paper.
+- Do not use messy bare URLs in body paragraphs. Use citation keys and a final
+  `参考文献与来源` section following `evidence-rules.md`.
 - Do not force every paper into the current direction. Mark side branches.
 - Do not overstate continuity. A professor can shift direction with institution,
   role, collaborators, equipment, or funding context.
