@@ -58,6 +58,15 @@ FORBIDDEN = [
     "强烈推荐",
 ]
 
+FORBIDDEN_STYLE = [
+    "语言层",
+    "图像层",
+    "方法层",
+    "训练营",
+    "刷课",
+    "炫技",
+]
+
 SOURCE_RE = re.compile(r"https?://|\[未找到\]|需人工复核")
 CITATION_RE = re.compile(r"\[(O|P|R|B)(\d+)\]")
 LINKED_CITATION_RE = re.compile(
@@ -69,6 +78,10 @@ SOURCE_SECTION_MARKER = "## 参考文献与资料"
 SOURCE_TABLE_HEADER = "| 编号 | 文献或资料 | 支撑内容 | 链接 | 类型 |"
 PHASE4_MINIMAL_LOOP_HEADING = "## 进组前最小闭环"
 PHASE4_MINIMAL_LOOP_REQUIRED = ("论文", "图", "平台")
+FIXED_DAY_RE = re.compile(
+    r"第\s*[0-9０-９一二三四五六七八九十百两]+\s*天"
+    r"|[0-9０-９]+\s*天(?:路线|计划|安排|训练|打卡|任务|课程)?"
+)
 
 
 @dataclass
@@ -182,12 +195,22 @@ def _check_forbidden_terms(filename: str, text: str, messages: list[str]) -> Non
             messages.append(f"[FAIL] {filename} 含禁用评价语: {word}")
 
 
+def _check_forbidden_style(filename: str, text: str, messages: list[str]) -> None:
+    for word in FORBIDDEN_STYLE:
+        if word in text:
+            messages.append(f"[FAIL] {filename} 含禁用写作风格: {word}")
+
+    for match in FIXED_DAY_RE.finditer(text):
+        messages.append(f"[FAIL] {filename} 含固定天数学习安排: {match.group(0)}")
+
+
 def _check_optional_markdown_docs(prof: Path, messages: list[str]) -> None:
     for path in sorted(prof.glob("*.md")):
         if path.name in DOCS:
             continue
         text = path.read_text(encoding="utf-8")
         _check_forbidden_terms(path.name, text, messages)
+        _check_forbidden_style(path.name, text, messages)
 
 
 def verify_prof_dir(prof_dir: str | Path) -> VerifyResult:
@@ -215,6 +238,7 @@ def verify_prof_dir(prof_dir: str | Path) -> VerifyResult:
         _check_source_format(filename, text, messages)
         _check_phase4_minimal_loop(filename, text, messages)
         _check_forbidden_terms(filename, text, messages)
+        _check_forbidden_style(filename, text, messages)
 
     _check_optional_markdown_docs(prof, messages)
 

@@ -57,6 +57,33 @@ class PhaseDocsVerifierTests(unittest.TestCase):
             result.messages,
         )
 
+    def test_rejects_old_layered_training_camp_style(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            prof_dir = Path(tmp)
+            write_minimal_valid_phase_docs(prof_dir)
+            phase4 = prof_dir / "04_学习向导.md"
+            phase4.write_text(
+                phase4.read_text(encoding="utf-8")
+                + "\n## 旧式补充\n第 1 天训练营：先分语言层、图像层、方法层。\n",
+                encoding="utf-8",
+            )
+
+            result = verify_phase_docs.verify_prof_dir(prof_dir)
+
+        self.assertFalse(result.ok)
+        self.assertIn(
+            "[FAIL] 04_学习向导.md 含禁用写作风格: 训练营",
+            result.messages,
+        )
+        self.assertIn(
+            "[FAIL] 04_学习向导.md 含禁用写作风格: 语言层",
+            result.messages,
+        )
+        self.assertIn(
+            "[FAIL] 04_学习向导.md 含固定天数学习安排: 第 1 天",
+            result.messages,
+        )
+
     def test_accepts_problem_chain_phase4_structure(self):
         with tempfile.TemporaryDirectory() as tmp:
             prof_dir = Path(tmp)
