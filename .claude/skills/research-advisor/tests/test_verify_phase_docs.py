@@ -79,6 +79,7 @@ class VerifyPhaseDocsTest(unittest.TestCase):
             "# 张鹏举 (Pengju Zhang) - 学习向导\n\n"
             f"## 运行信息\n学习路径以课程和综述倒推。{cite('R1')}\n\n"
             "## 终点：进组前应接近什么状态\n\n"
+            "## 进组前最小闭环\n\n"
             "## 第一段路：先知道光电子谱到底在看什么\n\n"
             "## 第二段路：从静态谱走到时间分辨\n\n"
             "## 第三段路：从飞秒过程走到阿秒电子运动\n\n"
@@ -117,6 +118,7 @@ class VerifyPhaseDocsTest(unittest.TestCase):
             "# 张鹏举 (Pengju Zhang) - 学习向导\n\n"
             "## 运行信息\n\n"
             "## 终点：进组前应接近什么状态\n\n"
+            "## 进组前最小闭环\n\n"
             "## 第一段路：先知道光电子谱到底在看什么\n\n"
             "## 第二段路：从静态谱走到时间分辨\n\n"
             "## 第三段路：从飞秒过程走到阿秒电子运动\n\n"
@@ -194,6 +196,18 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         result = module.verify_prof_dir(self.prof)
         self.assertFalse(result.ok)
         self.assertTrue(any("缺少章节" in m for m in result.messages))
+
+    def test_rejects_missing_phase4_minimal_loop_section(self):
+        text = (self.prof / "04_学习向导.md").read_text(encoding="utf-8")
+        text = text.replace("## 进组前最小闭环\n\n", "")
+        self.write_doc("04_学习向导.md", text)
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+        self.assertFalse(result.ok)
+        self.assertIn(
+            "[FAIL] 04_学习向导.md 缺少章节: ## 进组前最小闭环",
+            result.messages,
+        )
 
     def test_accepts_yaml_frontmatter_before_title(self):
         text = (self.prof / "01_基础画像.md").read_text(encoding="utf-8")
