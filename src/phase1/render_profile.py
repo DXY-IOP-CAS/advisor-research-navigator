@@ -62,6 +62,14 @@ def load_merged(path: str) -> dict:
         return json.load(f)
 
 
+def default_output_path(prof_dir: str = None, output: str = None) -> str:
+    if output:
+        return output
+    if prof_dir:
+        return os.path.join(prof_dir, "01_基础画像.md")
+    return "01_基础画像.md"
+
+
 def compute_career_stages(year: int, stages: list = None) -> str:
     """根据学术履历阶段匹配论文。
 
@@ -430,7 +438,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="从 merged.json 生成基础画像")
     parser.add_argument("merged_json", nargs="?",
                         help="04_merged.json 路径（不传时从 --prof-dir 或 --archive-dir 自动查找）")
-    parser.add_argument("--output", "-o", default="01_基础画像.md", help="输出路径")
+    parser.add_argument("--output", "-o", help="输出路径")
     parser.add_argument("--stages", help="学术阶段配置 JSON 文件（不传则从 archive 自动查找）")
     parser.add_argument("--archive-dir", help="archive 目录路径（自动查找 career_stages.json、merged.json 等）")
     parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 latest.txt 自动推导 archive_dir 和 merged.json")
@@ -444,8 +452,7 @@ def main() -> None:
         args.archive_dir = resolver.archive_dir
         if not args.archive_dir:
             parser.error(f"--prof-dir {args.prof_dir} 下找不到 latest.txt，请先跑 phase1_init.py")
-    if args.prof_dir and not args.output:
-        args.output = os.path.join(args.prof_dir, "01_基础画像.md")
+    args.output = default_output_path(args.prof_dir, args.output)
 
     stage_config = None
     stages_path = args.stages

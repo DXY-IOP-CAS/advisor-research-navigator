@@ -148,6 +148,19 @@ affiliation: 测试机构
             self.assertIn("| 2010–2011 | 测试大学 | 博士研究生 | 测试方向 |", content)
             self.assertIn("### 4.1 博士阶段（2010–2011）", content)
 
+    def test_render_profile_prof_dir_default_output_uses_profile_path(self):
+        parser_output_default = render_profile.default_output_path("output/大学/所/部门/张三", None)
+        self.assertEqual(
+            os.path.normpath("output/大学/所/部门/张三/01_基础画像.md"),
+            os.path.normpath(parser_output_default),
+        )
+
+        explicit_output = render_profile.default_output_path(
+            "output/大学/所/部门/张三",
+            "custom.md",
+        )
+        self.assertEqual("custom.md", explicit_output)
+
     def test_validate_career_stages_accepts_dict_wrapped_stages(self):
         with tempfile.TemporaryDirectory() as tmp:
             stages_path = os.path.join(tmp, "career_stages.json")

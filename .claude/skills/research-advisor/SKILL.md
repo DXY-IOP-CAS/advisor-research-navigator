@@ -57,8 +57,8 @@ python src/phase1/phase1_init.py \
 ## 端到端测试输入规范
 
 如果本次会话是「端到端测试」（用户给姓名+机构+URL，没别的），遵守 [`../../END_TO_END_TEST.md`](../../END_TO_END_TEST.md)：
-- 用户只给基础信息，不要找用户要更多
-- 自主通过 MCP 获取 email / GS ID / OA ID / ORCID / 论文列表
+- 用户只给基础信息；姓名只给中文名，不给英文名；不要找用户要更多
+- 自主通过 MCP 获取英文名 / email / GS ID / OA ID / ORCID / 论文列表
 - 自主决定降级路径（按本文件 §自主决策）
 - 基础信息不够 → 记录 Harness 缺口到 `archive/<日期>_harness_缺口/`，回头优化 Harness
 
@@ -72,7 +72,7 @@ python src/phase1/phase1_init.py \
 
 ## 自主决策：MCP 搜索 + 降级
 
-**用户输入只有姓名+机构+官网 URL。其余信息（email、GS ID、论文列表）由你自主获取。**
+**用户输入只有中文姓名+机构+官网 URL。其余信息（英文名、email、GS ID、论文列表）由你自主获取。最终画像的姓名仍必须是 `中文名 (English Name)` 格式。**
 
 ### MCP 搜索策略（按此顺序）
 

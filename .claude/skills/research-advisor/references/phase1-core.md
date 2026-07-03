@@ -13,7 +13,7 @@
 按以下顺序用 MCP 搜（不要漏步骤、也不要乱序）：
 
 1. **官网**：MCP fetch 读 → 提取姓名、英文名、机构、email、ORCID、履历
-2. **Google Scholar**：MCP 搜"姓名 + 机构 + Google Scholar" → 提取 GS profile URL 和 GS ID
+2. **Google Scholar**：优先用官网/ORCID/OpenAlex 取得的英文名搜 `"英文名" + "机构英文名" + Google Scholar` → 提取 GS profile URL 和 GS ID
 3. **OpenAlex**：MCP 搜"姓名 + OpenAlex" 或用 ORCID 反查 → 提取 OA Author ID
 4. **ORCID**：官网有就直接用，否则 MCP 搜"姓名 + ORCID"
 5. **交叉验证**：邮箱域名匹配（T1）/ ORCID 匹配（T2）/ 论文指纹（T3）/ 全降级（T4）
@@ -85,7 +85,7 @@ python src/phase1/verify_profile.py --prof-dir "output/..."
 
 ### 姓名格式
 
-统一格式：`中文名 (英文名)`，如 `王示例 (Shili Wang)`。
+统一格式：`中文名 (英文名)`，如 `王示例 (Shili Wang)`。端到端输入只给中文名，英文名必须从官网、GS、ORCID 或 OpenAlex 自主提取；找不到则标 `[未找到]`，不要向用户索要。
 
 ### §2 学术履历
 
