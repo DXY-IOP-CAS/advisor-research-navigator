@@ -172,17 +172,7 @@ def generate(data: dict, output_path: str, stage_config: list = None,
     src_status = data.get("source_status", {})
 
     ts = datetime.now().strftime("%Y-%m-%d %H:%M")
-    # 优先使用传入的 run_timestamp，否则从 archive 目录取最新
-    if run_timestamp:
-        ts_dir = run_timestamp
-    else:
-        prof_dir = os.path.dirname(output_path)
-        archive_dir = os.path.join(prof_dir, "archive")
-        if os.path.isdir(archive_dir):
-            subdirs = sorted(os.listdir(archive_dir), reverse=True)
-            ts_dir = subdirs[0] if subdirs else "latest"
-        else:
-            ts_dir = "latest"
+    run_ts = run_timestamp or ts
 
     by_source = stats.get("by_source", {})
     cross_count = sum(1 for p in papers if p.get("source_count", 0) > 1)
@@ -199,8 +189,7 @@ def generate(data: dict, output_path: str, stage_config: list = None,
     L(f'orcid: {prof.get("orcid", "")}')
     L(f"google_scholar_url: https://scholar.google.com/citations?hl=en&user={prof.get('gs_id', '')}")
     L(f'openalex_id: {prof.get("oa_id", "")}')
-    L(f"run_timestamp: {ts}")
-    L(f"run_archive: archive/{ts_dir}/")
+    L(f"run_timestamp: {run_ts}")
     L("---")
     L("")
 
@@ -217,7 +206,6 @@ def generate(data: dict, output_path: str, stage_config: list = None,
     L("| 项目 | 内容 |")
     L("|:-----|:------|")
     L(f"| 生成时间 | {ts} |")
-    L(f"| 运行存档 | `archive/{ts_dir}/` |")
     L(f"| 总论文数 | {len(papers)} 篇（合并后）|")
     L(f"| GS 状态 | {src_status.get('google_scholar', 'N/A')} |")
     L(f"| OA 状态 | {src_status.get('openalex', 'N/A')} |")
@@ -443,7 +431,7 @@ def main() -> None:
     parser.add_argument("--archive-dir", help="archive 目录路径（自动查找 career_stages.json、merged.json 等）")
     parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 latest.txt 自动推导 archive_dir 和 merged.json")
     parser.add_argument("--department", "-d", default="", help="部门/实验室名称")
-    parser.add_argument("--run-timestamp", help="当前运行的时间戳（如 20260702_024857），用于 frontmatter 中指向 archive 目录")
+    parser.add_argument("--run-timestamp", help="当前运行的时间戳（如 20260702_024857），写入 frontmatter 供追溯")
     args = parser.parse_args()
 
     # prof-dir 优先于 archive-dir
