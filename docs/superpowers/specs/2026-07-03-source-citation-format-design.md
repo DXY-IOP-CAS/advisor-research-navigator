@@ -75,11 +75,11 @@ Missing sources remain explicit in the body as `[未找到]`. Reasonable but ins
 
 `01_基础画像.md` may retain DOI or source links inside the generated paper table because Phase 1 includes a data table whose purpose is direct source access. Narrative sections should still prefer citation keys where practical.
 
-`02_领域脉络.md` must use citation keys in prose. This document is the most vulnerable to URL noise because it combines official profile sources, field sources, reviews, and papers.
+`02_领域地图.md` must use citation keys in prose. This document is the most vulnerable to URL noise because it combines official profile sources, field sources, reviews, and papers.
 
-`03_论文定位.md` must use citation keys in prose. Paper-route claims should be supported by `[P#]` sources; field interpretation should be supported by `[R#]` or strong paper evidence.
+`03_论文路线.md` must use citation keys in prose. Paper-route claims should be supported by `[P#]` sources; field interpretation should be supported by `[R#]` or strong paper evidence.
 
-`04_学习讲义.md` must use citation keys in prose. Learning-path claims should rely heavily on `[R#]` sources such as textbooks, lecture notes, reviews, tutorials, and course materials.
+`04_学习向导.md` must use citation keys in prose. Learning-path claims should rely heavily on `[R#]` sources such as textbooks, lecture notes, reviews, tutorials, and course materials.
 
 ## Quality Checks
 
