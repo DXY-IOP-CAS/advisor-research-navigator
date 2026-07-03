@@ -24,8 +24,8 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.prof.mkdir(parents=True, exist_ok=False)
         self.write_doc("01_基础画像.md", "# 张鹏举 (Pengju Zhang) — 基础画像\n\n## 运行信息\n来源：https://example.com\n")
         self.write_doc(
-            "02_领域脉络.md",
-            "# 张鹏举 (Pengju Zhang) — 领域脉络\n\n"
+            "02_领域地图.md",
+            "# 张鹏举 (Pengju Zhang) — 领域地图\n\n"
             "## 运行信息\n来源：[O1]\n\n"
             "## 导师路径速览\n\n## 当前方向学科定位\n\n## 领域发展树\n\n"
             "## 关键问题和技术路线\n\n## 当前前沿\n\n## 来源与待复核点\n需人工复核。\n\n"
@@ -36,21 +36,21 @@ class VerifyPhaseDocsTest(unittest.TestCase):
             "| [O1] | 示例官网 | 支撑运行信息来源 | https://example.com | 测试来源 |\n",
         )
         self.write_doc(
-            "03_论文定位.md",
-            "# 张鹏举 (Pengju Zhang) — 论文定位\n\n"
+            "03_论文路线.md",
+            "# 张鹏举 (Pengju Zhang) — 论文路线\n\n"
             "## 运行信息\n来源：[P1]\n\n"
-            "## 领域树节点定义\n\n## 论文定位总表\n\n## 当前主线论文\n\n"
+            "## 领域树节点定义\n\n## 论文路线总表\n\n## 当前主线论文\n\n"
             "## 前史积累论文\n\n## 旁支与弱证据\n需人工复核。\n\n"
-            "## 给学习讲义的知识点清单\n\n"
+            "## 给学习向导的知识点清单\n\n"
             "## 参考文献与来源\n\n"
             "### 论文与数据来源\n\n"
             "| 编号 | 来源 | 用途 | 链接 | 备注 |\n"
             "|:---|:---|:---|:---|:---|\n"
-            "| [P1] | 示例论文 | 支撑论文定位来源 | https://example.com/paper | 测试来源 |\n",
+            "| [P1] | 示例论文 | 支撑论文路线来源 | https://example.com/paper | 测试来源 |\n",
         )
         self.write_doc(
-            "04_学习讲义.md",
-            "# 张鹏举 (Pengju Zhang) — 学习讲义\n\n"
+            "04_学习向导.md",
+            "# 张鹏举 (Pengju Zhang) — 学习向导\n\n"
             "## 运行信息\n来源：[R1]\n\n"
             "## 读者起点\n\n## 学习主线总图\n\n## 数学基础\n\n## 物理基础\n\n"
             "## 领域核心工具\n\n## 导师当前方向专题\n\n## 论文阅读顺序\n\n## 资源指针\n\n"
@@ -70,49 +70,49 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.assertTrue(result.ok, result.messages)
 
     def test_rejects_forbidden_advisor_evaluation(self):
-        self.write_doc("02_领域脉络.md", (self.prof / "02_领域脉络.md").read_text(encoding="utf-8") + "\n推荐申请。\n")
+        self.write_doc("02_领域地图.md", (self.prof / "02_领域地图.md").read_text(encoding="utf-8") + "\n推荐申请。\n")
         module = load_module()
         result = module.verify_prof_dir(self.prof)
         self.assertFalse(result.ok)
         self.assertTrue(any("禁用评价语" in m for m in result.messages))
 
     def test_rejects_missing_source_marker(self):
-        self.write_doc("04_学习讲义.md", "# 张鹏举 (Pengju Zhang) — 学习讲义\n\n## 运行信息\n\n## 读者起点\n\n## 学习主线总图\n\n## 数学基础\n\n## 物理基础\n\n## 领域核心工具\n\n## 导师当前方向专题\n\n## 论文阅读顺序\n\n## 资源指针\n")
+        self.write_doc("04_学习向导.md", "# 张鹏举 (Pengju Zhang) — 学习向导\n\n## 运行信息\n\n## 读者起点\n\n## 学习主线总图\n\n## 数学基础\n\n## 物理基础\n\n## 领域核心工具\n\n## 导师当前方向专题\n\n## 论文阅读顺序\n\n## 资源指针\n")
         module = load_module()
         result = module.verify_prof_dir(self.prof)
         self.assertFalse(result.ok)
         self.assertTrue(any("来源" in m for m in result.messages))
 
     def test_rejects_bare_url_in_phase2_body(self):
-        text = (self.prof / "02_领域脉络.md").read_text(encoding="utf-8")
+        text = (self.prof / "02_领域地图.md").read_text(encoding="utf-8")
         text = text.replace("来源：[O1]", "来源：https://example.com")
-        self.write_doc("02_领域脉络.md", text)
+        self.write_doc("02_领域地图.md", text)
         module = load_module()
         result = module.verify_prof_dir(self.prof)
         self.assertFalse(result.ok)
         self.assertTrue(any("裸 URL" in m for m in result.messages))
 
     def test_rejects_phase3_citation_key_missing_from_source_table(self):
-        text = (self.prof / "03_论文定位.md").read_text(encoding="utf-8")
+        text = (self.prof / "03_论文路线.md").read_text(encoding="utf-8")
         text = text.replace("来源：[P1]", "来源：[P2]")
-        self.write_doc("03_论文定位.md", text)
+        self.write_doc("03_论文路线.md", text)
         module = load_module()
         result = module.verify_prof_dir(self.prof)
         self.assertFalse(result.ok)
         self.assertTrue(any("引用键未在来源表中定义" in m for m in result.messages))
 
     def test_rejects_phase4_missing_source_table_header(self):
-        text = (self.prof / "04_学习讲义.md").read_text(encoding="utf-8")
+        text = (self.prof / "04_学习向导.md").read_text(encoding="utf-8")
         text = text.replace("| 编号 | 来源 | 用途 | 链接 | 备注 |", "| 编号 | 来源 | 链接 |")
-        self.write_doc("04_学习讲义.md", text)
+        self.write_doc("04_学习向导.md", text)
         module = load_module()
         result = module.verify_prof_dir(self.prof)
         self.assertFalse(result.ok)
         self.assertTrue(any("来源表缺少五列表头" in m for m in result.messages))
 
     def test_rejects_missing_required_section(self):
-        text = (self.prof / "03_论文定位.md").read_text(encoding="utf-8").replace("## 当前主线论文\n", "")
-        self.write_doc("03_论文定位.md", text)
+        text = (self.prof / "03_论文路线.md").read_text(encoding="utf-8").replace("## 当前主线论文\n", "")
+        self.write_doc("03_论文路线.md", text)
         module = load_module()
         result = module.verify_prof_dir(self.prof)
         self.assertFalse(result.ok)

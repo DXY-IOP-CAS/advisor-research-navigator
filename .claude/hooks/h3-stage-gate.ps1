@@ -50,7 +50,7 @@ if ($leaf -eq '01_基础画像.md') {
     exit 0
 }
 
-# Check 2: writing 02_领域脉络.md without 01_基础画像.md in same directory
+# Check 2: writing 02_领域地图.md without 01_基础画像.md in same directory
 if ($leaf -match '^02_') {
     $parentDir = Split-Path -Parent $filePath
     $profilePath = Join-Path $parentDir '01_基础画像.md'

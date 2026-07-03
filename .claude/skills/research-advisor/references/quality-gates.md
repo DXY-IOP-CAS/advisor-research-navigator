@@ -28,7 +28,7 @@ python .claude/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "
 
 ## 阶段二门
 
-`02_领域脉络.md` 只有满足以下条件才算可用：
+`02_领域地图.md` 只有满足以下条件才算可用：
 
 - 先给简洁学术路径视图，再聚焦当前单位和当前方向。
 - 说明当前方向大约从何时出现，哪些早期阶段与它直接相关。
@@ -38,7 +38,7 @@ python .claude/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "
 
 ## 阶段三门
 
-`03_论文定位.md` 只有满足以下条件才算可用：
+`03_论文路线.md` 只有满足以下条件才算可用：
 
 - 进入导师当前研究内容，而不是重复阶段一和阶段二。
 - 为当前相关论文给出统一的论文阅读坐标系。
@@ -50,7 +50,7 @@ python .claude/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "
 
 ## 阶段四门
 
-`04_学习讲义.md` 只有满足以下条件才算可用：
+`04_学习向导.md` 只有满足以下条件才算可用：
 
 - 从学生可能的当前水平和阶段三目标论文出发。
 - 使用目标倒推：先目标能力，再先修概念，再学习顺序和资源。

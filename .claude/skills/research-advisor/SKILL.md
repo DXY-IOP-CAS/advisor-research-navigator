@@ -4,7 +4,7 @@ description: >
   Run the professor research-direction workflow from official identity locking
   through four Markdown deliverables. Use when the user asks to 调研导师,
   了解学者, 分析导师研究方向, 生成导师画像, run Phase 1, write or verify
-  01_基础画像.md, 02_领域脉络.md, 03_论文定位.md, 04_学习讲义.md,
+  01_基础画像.md, 02_领域地图.md, 03_论文路线.md, 04_学习向导.md,
   or build phase 2-4 documents that connect a professor's current institution,
   research direction, papers, and student learning path.
 ---
@@ -26,9 +26,9 @@ description: >
 四份文档是一条认知阶梯，不是四个互不相干的报告：
 
 1. `01_基础画像.md`：回答“老师是谁、资料是否可靠、履历和论文集合是什么”。
-2. `02_领域脉络.md`：回答“老师当前处在哪个领域，这个领域是什么，老师的位置在哪里”。
-3. `03_论文定位.md`：回答“老师在当前方向具体做什么，相关论文之间如何构成研究路线”。
-4. `04_学习讲义.md`：回答“学生如何从近似空白一步步学到能读懂当前前沿和相关论文”。
+2. `02_领域地图.md`：回答“老师当前处在哪个领域，这个领域是什么，老师的位置在哪里”。
+3. `03_论文路线.md`：回答“老师在当前方向具体做什么，相关论文之间如何构成研究路线”。
+4. `04_学习向导.md`：回答“学生如何从近似空白一步步学到能读懂当前前沿和相关论文”。
 
 第一性原理：学生真正缺的不是资料堆叠，而是一条从陌生到理解导师当前研究的认知路径。任何阶段如果只是为了填章节、拼贴前文或展示检索结果，都应停下来重新界定任务。
 
@@ -55,9 +55,9 @@ python src/phase1/phase1_init.py \
 | 任务 | 读取 |
 |:--|:--|
 | Phase 1 / `01_基础画像.md` | `references/phase1-core.md`; add `phase1-templates.md`, `phase1-anti-patterns.md`, `phase1-recovery.md`, or `01-data-sources.md` only when needed |
-| Phase 2 / `02_领域脉络.md` | `references/phase2-field-map.md`, `references/evidence-rules.md`, `references/quality-gates.md` |
-| Phase 3 / `03_论文定位.md` | `references/phase3-paper-position.md`, `references/evidence-rules.md`, `references/quality-gates.md` |
-| Phase 4 / `04_学习讲义.md` | `references/phase4-learning-guide.md`, `references/evidence-rules.md`, `references/quality-gates.md` |
+| Phase 2 / `02_领域地图.md` | `references/phase2-field-map.md`, `references/evidence-rules.md`, `references/quality-gates.md` |
+| Phase 3 / `03_论文路线.md` | `references/phase3-paper-position.md`, `references/evidence-rules.md`, `references/quality-gates.md` |
+| Phase 4 / `04_学习向导.md` | `references/phase4-learning-guide.md`, `references/evidence-rules.md`, `references/quality-gates.md` |
 | 确定性 smoke | run `python .claude/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "<prof_dir>"` |
 
 `assets/templates/` 只提供章节骨架。模板不是内容质量，不能把填满模板误认为完成理解。
