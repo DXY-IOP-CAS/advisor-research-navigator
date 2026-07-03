@@ -53,7 +53,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 
 ## 运行信息
 正文 <sup><a href="#o1">[O1]</a></sup>
-## 领域树节点定义
+## 先抓住论文在回答什么问题
 ## 论文路线总表
 ## 当前主线论文
 ## 前史积累论文
