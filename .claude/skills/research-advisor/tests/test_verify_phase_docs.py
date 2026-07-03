@@ -63,7 +63,7 @@ class VerifyPhaseDocsTest(unittest.TestCase):
             "# 张鹏举 (Pengju Zhang) - 论文路线\n\n"
             f"## 资料概览\n论文路线以代表论文为准。{cite('P1')}\n\n"
             "## 先抓住论文在回答什么问题\n\n"
-            "## 四条论文线怎样连成路线\n\n"
+            "## 论文线怎样连成研究路线\n\n"
             "## 当前主线论文\n\n"
             "## 前史积累论文\n\n"
             "## 旁支与弱证据\n需人工复核。\n\n"
@@ -115,7 +115,7 @@ class VerifyPhaseDocsTest(unittest.TestCase):
 
     def test_rejects_old_phase3_route_table_heading(self):
         text = (self.prof / "03_论文路线.md").read_text(encoding="utf-8")
-        self.write_doc("03_论文路线.md", text.replace("## 四条论文线怎样连成路线", "## 论文路线总表"))
+        self.write_doc("03_论文路线.md", text.replace("## 论文线怎样连成研究路线", "## 论文路线总表"))
         module = load_module()
         result = module.verify_prof_dir(self.prof)
         self.assertFalse(result.ok)
