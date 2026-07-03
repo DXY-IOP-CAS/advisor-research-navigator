@@ -18,7 +18,7 @@ render_profile.py — 从 merged.json 按模板生成 01_基础画像.md
      - OA 独有论文：通过合著者+期刊+机构网络评分（< 1 分过滤）
      - arXiv 独有论文：无 DOI 则过滤（无法交叉验证）
   4. 每篇论文附带 DOI/arXiv 超链接
-  5. 头部嵌入运行统计（时间戳、各源状态、论文总数）
+  5. 头部嵌入资料概览（整理时间、各源采集说明、论文总数）
   6. 支持 --department 和 --stage-desc 参数定制内容
 
   脚本不写的内容（由 AI 渲染后补充）：
@@ -139,6 +139,16 @@ def _is_enriched_stages(stages: list) -> bool:
     return all(s.get("institution") for s in stages)
 
 
+def _source_status_note(status: str, success_note: str) -> str:
+    """Turn internal source status into reader-facing wording."""
+    normalized = str(status or "").strip().lower()
+    if normalized == "success":
+        return success_note
+    if normalized in ("", "n/a", "none", "?"):
+        return "未记录"
+    return f"{status}（需人工复核）"
+
+
 def render_career_timeline(stages: list) -> str:
     """从 career_stages 生成 §2 学术履历表格。
 
@@ -198,18 +208,27 @@ def generate(data: dict, output_path: str, stage_config: list = None,
     filtered_papers = []
     removed_titles = []
 
-    # Title + Run info
+    # Title + reader-facing overview
     L(f"# {prof.get('name', '')} — 基础画像")
     L("")
-    L("## 运行信息")
+    L("## 资料概览")
     L("")
     L("| 项目 | 内容 |")
     L("|:-----|:------|")
-    L(f"| 生成时间 | {ts} |")
+    L(f"| 整理时间 | {ts} |")
     L(f"| 总论文数 | {len(papers)} 篇（合并后）|")
-    L(f"| GS 状态 | {src_status.get('google_scholar', 'N/A')} |")
-    L(f"| OA 状态 | {src_status.get('openalex', 'N/A')} |")
-    L(f"| arXiv 状态 | {src_status.get('arxiv', 'N/A')} |")
+    L(
+        "| Google Scholar 数据 | "
+        f"{_source_status_note(src_status.get('google_scholar'), '已采集，用作作者自维护论文主源')} |"
+    )
+    L(
+        "| OpenAlex 数据 | "
+        f"{_source_status_note(src_status.get('openalex'), '已采集，用于 DOI、期刊、作者与开放元数据补充')} |"
+    )
+    L(
+        "| arXiv 数据 | "
+        f"{_source_status_note(src_status.get('arxiv'), '已检索，用于识别预印本与同名噪声')} |"
+    )
     L(f"| 身份验证 | 已验证（email {prof.get('email_domain', '')}） |")
     L("")
     L("---")

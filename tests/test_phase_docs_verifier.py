@@ -88,13 +88,13 @@ class PhaseDocsVerifierTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             prof_dir = Path(tmp)
             (prof_dir / "01_基础画像.md").write_text(
-                "# 测试导师 - 基础画像\n\n## 运行信息\n\n来源：https://example.com\n",
+                "# 测试导师 - 基础画像\n\n## 资料概览\n\n来源：https://example.com\n",
                 encoding="utf-8",
             )
             (prof_dir / "02_领域地图.md").write_text(
                 """# 测试导师 - 领域地图
 
-## 运行信息
+## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 导师路径速览
 ## 当前方向学科定位
@@ -109,7 +109,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
             (prof_dir / "03_论文路线.md").write_text(
                 """# 测试导师 - 论文路线
 
-## 运行信息
+## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 先抓住论文在回答什么问题
 ## 论文路线总表
@@ -124,7 +124,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
             (prof_dir / "04_学习向导.md").write_text(
                 """# 测试导师 - 学习向导
 
-## 运行信息
+## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 终点：进组前应接近什么状态
 ## 进组前最小闭环
@@ -151,13 +151,13 @@ class PhaseDocsVerifierTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             prof_dir = Path(tmp)
             (prof_dir / "01_基础画像.md").write_text(
-                "# 测试导师 - 基础画像\n\n## 运行信息\n\n来源：https://example.com\n",
+                "# 测试导师 - 基础画像\n\n## 资料概览\n\n来源：https://example.com\n",
                 encoding="utf-8",
             )
             (prof_dir / "02_领域地图.md").write_text(
                 """# 测试导师 - 领域地图
 
-## 运行信息
+## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 导师路径速览
 ## 当前方向学科定位
@@ -172,7 +172,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
             (prof_dir / "03_论文路线.md").write_text(
                 """# 测试导师 - 论文路线
 
-## 运行信息
+## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 先抓住论文在回答什么问题
 ## 论文路线总表
@@ -187,7 +187,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
             (prof_dir / "04_学习向导.md").write_text(
                 """# 测试导师 - 学习向导
 
-## 运行信息
+## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 终点：进组前应接近什么状态
 ## 进组前最小闭环
@@ -217,13 +217,13 @@ class PhaseDocsVerifierTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             prof_dir = Path(tmp)
             (prof_dir / "01_基础画像.md").write_text(
-                "# 测试导师 - 基础画像\n\n## 运行信息\n\n来源：https://example.com\n",
+                "# 测试导师 - 基础画像\n\n## 资料概览\n\n来源：https://example.com\n",
                 encoding="utf-8",
             )
             (prof_dir / "02_领域地图.md").write_text(
                 """# 测试导师 - 领域地图
 
-## 运行信息
+## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 导师路径速览
 ## 当前方向学科定位
@@ -238,7 +238,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
             (prof_dir / "03_论文路线.md").write_text(
                 """# 测试导师 - 论文路线
 
-## 运行信息
+## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 先抓住论文在回答什么问题
 ## 论文路线总表
@@ -253,7 +253,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
             (prof_dir / "04_学习向导.md").write_text(
                 """# 测试导师 - 学习向导
 
-## 运行信息
+## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 终点：进组前应接近什么状态
 ## 第一段路：先知道光电子谱到底在看什么
@@ -282,13 +282,13 @@ class PhaseDocsVerifierTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             prof_dir = Path(tmp)
             (prof_dir / "01_基础画像.md").write_text(
-                "# 测试导师 - 基础画像\n\n## 运行信息\n\n来源：https://example.com\n",
+                "# 测试导师 - 基础画像\n\n## 资料概览\n\n来源：https://example.com\n",
                 encoding="utf-8",
             )
             (prof_dir / "02_领域地图.md").write_text(
                 """# 测试导师 - 领域地图
 
-## 运行信息
+## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 导师路径速览
 ## 当前方向学科定位
@@ -303,7 +303,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
             (prof_dir / "03_论文路线.md").write_text(
                 """# 测试导师 - 论文路线
 
-## 运行信息
+## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 先抓住论文在回答什么问题
 ## 论文路线总表
@@ -318,7 +318,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
             (prof_dir / "04_学习向导.md").write_text(
                 """# 测试导师 - 学习向导
 
-## 运行信息
+## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 终点：进组前应接近什么状态
 ## 进组前最小闭环

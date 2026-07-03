@@ -40,12 +40,12 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.write_doc(
             "01_基础画像.md",
             "# 张鹏举 (Pengju Zhang) - 基础画像\n\n"
-            "## 运行信息\n资料链接：https://example.com\n",
+            "## 资料概览\n资料链接：https://example.com\n",
         )
         self.write_doc(
             "02_领域地图.md",
             "# 张鹏举 (Pengju Zhang) - 领域地图\n\n"
-            f"## 运行信息\n官方方向以导师主页为准。{cite('O1')}\n\n"
+            f"## 资料概览\n官方方向以导师主页为准。{cite('O1')}\n\n"
             "## 导师路径速览\n\n"
             "## 当前方向学科定位\n\n"
             "## 领域发展树\n\n"
@@ -61,7 +61,7 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.write_doc(
             "03_论文路线.md",
             "# 张鹏举 (Pengju Zhang) - 论文路线\n\n"
-            f"## 运行信息\n论文路线以代表论文为准。{cite('P1')}\n\n"
+            f"## 资料概览\n论文路线以代表论文为准。{cite('P1')}\n\n"
             "## 先抓住论文在回答什么问题\n\n"
             "## 论文路线总表\n\n"
             "## 当前主线论文\n\n"
@@ -77,7 +77,7 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.write_doc(
             "04_学习向导.md",
             "# 张鹏举 (Pengju Zhang) - 学习向导\n\n"
-            f"## 运行信息\n学习路径以课程和综述倒推。{cite('R1')}\n\n"
+            f"## 资料概览\n学习路径以课程和综述倒推。{cite('R1')}\n\n"
             "## 终点：进组前应接近什么状态\n\n"
             "## 进组前最小闭环\n\n"
             "一篇主线论文、一张核心图和一条平台链路可以组成进组前最小闭环。\n\n"
@@ -105,6 +105,14 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         result = module.verify_prof_dir(self.prof)
         self.assertTrue(result.ok, result.messages)
 
+    def test_rejects_pipeline_run_info_heading(self):
+        text = (self.prof / "02_领域地图.md").read_text(encoding="utf-8")
+        self.write_doc("02_领域地图.md", text.replace("## 资料概览", "## 运行信息"))
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+        self.assertFalse(result.ok)
+        self.assertTrue(any("运行信息" in m for m in result.messages))
+
     def test_rejects_forbidden_advisor_evaluation(self):
         text = (self.prof / "02_领域地图.md").read_text(encoding="utf-8")
         self.write_doc("02_领域地图.md", text + "\n推荐申请。\n")
@@ -117,7 +125,7 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.write_doc(
             "04_学习向导.md",
             "# 张鹏举 (Pengju Zhang) - 学习向导\n\n"
-            "## 运行信息\n\n"
+            "## 资料概览\n\n"
             "## 终点：进组前应接近什么状态\n\n"
             "## 进组前最小闭环\n\n"
             "一篇主线论文、一张核心图和一条平台链路可以组成进组前最小闭环。\n\n"

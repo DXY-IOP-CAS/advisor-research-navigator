@@ -185,8 +185,13 @@ affiliation: 测试机构
             )
 
         self.assertIn("run_timestamp:", content)
+        self.assertIn("## 资料概览", content)
+        self.assertIn("Google Scholar 数据", content)
         self.assertNotIn("run_archive:", content)
         self.assertNotIn("运行存档", content)
+        self.assertNotIn("## 运行信息", content)
+        self.assertNotIn("生成时间", content)
+        self.assertNotIn("GS 状态", content)
         self.assertNotIn("archive/20260704_010203", content)
 
     def test_validate_career_stages_accepts_dict_wrapped_stages(self):
