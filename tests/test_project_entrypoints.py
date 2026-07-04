@@ -112,6 +112,26 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         existing = [str(path.relative_to(ROOT)) for path in obsolete if path.exists()]
         self.assertEqual([], existing, "obsolete phase1 helpers should not remain as parallel entrypoints")
 
+    def test_active_docs_do_not_reference_obsolete_phase1_helpers(self):
+        obsolete = ["archive_step.py", "merge_tables.py"]
+        active_docs = [
+            ROOT / "QUICKSTART.md",
+            ROOT / "AGENTS.md",
+            ROOT / "src" / "phase1" / "pipeline.md",
+            ROOT / ".claude" / "skills" / "research-advisor" / "SKILL.md",
+            ROOT / ".claude" / "skills" / "research-advisor" / "references" / "phase1-core.md",
+            ROOT / ".claude" / "skills" / "research-advisor" / "references" / "phase1-recovery.md",
+        ]
+
+        leaked = []
+        for path in active_docs:
+            text = path.read_text(encoding="utf-8")
+            for helper in obsolete:
+                if helper in text:
+                    leaked.append(f"{path.relative_to(ROOT)} references {helper}")
+
+        self.assertEqual([], leaked, "active docs should not send agents to removed helper scripts")
+
     def test_e2e_minimal_prompt_rules_live_in_quickstart(self):
         self.assertFalse(
             (ROOT / "END_TO_END_TEST.md").exists(),

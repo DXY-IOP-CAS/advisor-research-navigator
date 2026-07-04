@@ -57,15 +57,11 @@ verify_profile.py 失败
 
 ---
 
-## archive 行为（自动化，无需 AI 介入）
+## active state 写入行为（自动化，无需 AI 介入）
 
-每个 step 完成后用 `archive_step.py` 自动归档到 `_internal/archive/<ts>/`：
+每个 step 使用 `--prof-dir` 时，会通过 `ProfDirResolver` 把输出直接写到当前 active `_internal/archive/<ts>/` 中。不存在额外的手动归档 helper，也不要在恢复流程中补跑任何归档命令。
 
-```bash
-python src/phase1/archive_step.py --prof-dir "output/..." --source 01_gs.json
-```
-
-AI **不需要记得手动归档**——脚本副作用会处理。如果忘了也没关系，archive 是 best-effort，不影响主流程。
+AI **不需要记得手动归档**。如果某个中间 JSON 缺失，按上面的失败原因重新执行对应 step；不要自己创建、复制或移动 archive 文件。
 
 Agent 不得手动读取或引用 `archive/`。需要恢复上下文时，用 `--prof-dir` 运行脚本，让 `ProfDirResolver` 自动定位当前中间文件。
 
