@@ -67,7 +67,7 @@ class VerifyPhaseDocsTest(unittest.TestCase):
             "## 当前主线论文\n\n"
             "## 前史积累论文\n\n"
             "## 旁支与弱证据\n需人工复核。\n\n"
-            "## 给学习向导的知识点清单\n\n"
+            "## 从论文路线倒推出的学习准备\n\n"
             "## 参考文献与资料\n\n"
             "### 论文与数据资料\n\n"
             + SOURCE_TABLE_HEADER
@@ -126,7 +126,7 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         text = text.replace("## 证据与待复核点\n需人工复核。", "## 证据与待复核点\n### 给阶段三的检查点\n阶段三应逐篇核对，阶段三只标为分支。")
         self.write_doc("02_领域地图.md", text)
         text = (self.prof / "03_论文路线.md").read_text(encoding="utf-8")
-        text = text.replace("## 给学习向导的知识点清单\n", "## 给学习向导的知识点清单\n阶段四应从论文路线倒推，阶段四可把它作为背景。\n")
+        text = text.replace("## 从论文路线倒推出的学习准备\n", "## 从论文路线倒推出的学习准备\n阶段四应从论文路线倒推，阶段四可把它作为背景。\n")
         self.write_doc("03_论文路线.md", text)
         module = load_module()
         result = module.verify_prof_dir(self.prof)
@@ -135,6 +135,17 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.assertTrue(any("阶段四应" in m for m in result.messages))
         self.assertTrue(any("阶段三只" in m for m in result.messages))
         self.assertTrue(any("阶段四可" in m for m in result.messages))
+
+    def test_rejects_internal_learning_guide_handoff_heading(self):
+        text = (self.prof / "03_论文路线.md").read_text(encoding="utf-8")
+        self.write_doc(
+            "03_论文路线.md",
+            text.replace("## 从论文路线倒推出的学习准备", "## 给学习向导的知识点清单"),
+        )
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+        self.assertFalse(result.ok)
+        self.assertTrue(any("给学习向导" in m for m in result.messages))
 
     def test_rejects_internal_phase_range_wording_in_final_docs(self):
         text = (self.prof / "01_基础画像.md").read_text(encoding="utf-8")

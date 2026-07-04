@@ -116,7 +116,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 ## 当前主线论文
 ## 前史积累论文
 ## 旁支与弱证据
-## 给学习向导的知识点清单
+## 从论文路线倒推出的学习准备
 """
                 + SOURCE_TABLE,
                 encoding="utf-8",
@@ -179,7 +179,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 ## 当前主线论文
 ## 前史积累论文
 ## 旁支与弱证据
-## 给学习向导的知识点清单
+## 从论文路线倒推出的学习准备
 """
                 + SOURCE_TABLE,
                 encoding="utf-8",
@@ -245,7 +245,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 ## 当前主线论文
 ## 前史积累论文
 ## 旁支与弱证据
-## 给学习向导的知识点清单
+## 从论文路线倒推出的学习准备
 """
                 + SOURCE_TABLE,
                 encoding="utf-8",
@@ -310,7 +310,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 ## 当前主线论文
 ## 前史积累论文
 ## 旁支与弱证据
-## 给学习向导的知识点清单
+## 从论文路线倒推出的学习准备
 """
                 + SOURCE_TABLE,
                 encoding="utf-8",
