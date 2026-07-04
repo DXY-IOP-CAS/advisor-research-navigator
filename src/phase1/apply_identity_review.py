@@ -43,6 +43,7 @@ def apply_identity_review(
     prof_dir: str,
     display_name: Optional[str] = None,
     official_email_domain: Optional[str] = None,
+    official_affiliation: Optional[str] = None,
     official_url: str = "",
     note: str = "",
     ts: Optional[str] = None,
@@ -57,6 +58,7 @@ def apply_identity_review(
 
     normalized_name = (display_name or "").strip()
     normalized_domain = (official_email_domain or "").strip().lower()
+    normalized_affiliation = (official_affiliation or "").strip()
 
     if normalized_name:
         verified["name"] = normalized_name
@@ -65,6 +67,10 @@ def apply_identity_review(
     if normalized_domain:
         verified.setdefault("verification", {})["email_domain"] = normalized_domain
         merged.setdefault("professor", {})["email_domain"] = normalized_domain
+
+    if normalized_affiliation:
+        verified["affiliation"] = normalized_affiliation
+        merged.setdefault("professor", {})["affiliation"] = normalized_affiliation
 
     verified.setdefault("sources", {})["official_profile_url"] = official_url
     review = {
@@ -75,6 +81,8 @@ def apply_identity_review(
         review["display_name"] = normalized_name
     if normalized_domain:
         review["official_email_domain"] = normalized_domain
+    if normalized_affiliation:
+        review["official_affiliation"] = normalized_affiliation
 
     verified["identity_review"] = review
     merged.setdefault("metadata", {})["identity_review"] = review
@@ -89,6 +97,7 @@ def main() -> None:
     parser.add_argument("--ts", help="archive timestamp override")
     parser.add_argument("--display-name", help="Reviewed display name, e.g. 汪非凡 (Feifan Wang)")
     parser.add_argument("--official-email-domain", help="Reviewed current official email domain, e.g. iphy.ac.cn")
+    parser.add_argument("--official-affiliation", help="Reviewed current official affiliation")
     parser.add_argument("--official-url", required=True, help="Official source URL supporting this review")
     parser.add_argument("--note", default="", help="Short review note")
     args = parser.parse_args()
@@ -97,6 +106,7 @@ def main() -> None:
         prof_dir=args.prof_dir,
         display_name=args.display_name,
         official_email_domain=args.official_email_domain,
+        official_affiliation=args.official_affiliation,
         official_url=args.official_url,
         note=args.note,
         ts=args.ts,

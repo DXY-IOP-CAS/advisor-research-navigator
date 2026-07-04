@@ -546,6 +546,7 @@ run_timestamp: 20260704_010203
                 prof_dir=prof_dir,
                 display_name="张三 (San Zhang)",
                 official_email_domain="iphy.ac.cn",
+                official_affiliation="测试研究所",
                 official_url="https://example.edu/profile",
                 note="official profile confirms English name and current email",
             )
@@ -560,6 +561,8 @@ run_timestamp: 20260704_010203
         self.assertEqual("https://example.edu/profile", verified["sources"]["official_profile_url"])
         self.assertEqual("张三 (San Zhang)", merged["professor"]["name"])
         self.assertEqual("iphy.ac.cn", merged["professor"]["email_domain"])
+        self.assertEqual("测试研究所", merged["professor"]["affiliation"])
+        self.assertEqual("测试研究所", merged["metadata"]["identity_review"]["official_affiliation"])
         self.assertEqual("https://example.edu/profile", merged["metadata"]["identity_review"]["official_url"])
 
     def test_apply_paper_review_excludes_doi_and_recomputes_statistics(self):

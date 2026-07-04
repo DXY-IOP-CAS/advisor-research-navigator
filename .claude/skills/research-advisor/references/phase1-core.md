@@ -53,6 +53,7 @@ python src/phase1/apply_identity_review.py \
   --prof-dir "output/..." \
   --display-name "中文名 (English Name)" \
   --official-email-domain "iphy.ac.cn" \
+  --official-affiliation "当前官方机构" \
   --official-url "https://..." \
   --note "官方页面支持英文名和当前邮箱"
 ```

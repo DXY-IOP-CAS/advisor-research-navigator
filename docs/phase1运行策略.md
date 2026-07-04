@@ -36,11 +36,12 @@ python src/phase1/apply_identity_review.py \
   --prof-dir "output/..." \
   --display-name "中文名 (English Name)" \
   --official-email-domain "iphy.ac.cn" \
+  --official-affiliation "当前官方机构" \
   --official-url "https://..." \
   --note "官方页面支持该身份修正"
 ```
 
-该脚本只更新当前 active `00_verified_ids.json` 和 `04_merged.json`，并在 metadata 里记录官方 URL 和说明；它不修改原始 GS/OA/arXiv 采集文件。
+该脚本只更新当前 active `00_verified_ids.json` 和 `04_merged.json`，并在 metadata 里记录官方 URL 和说明；它可用于修正官网已核实的英文名、当前邮箱域和当前机构，不修改原始 GS/OA/arXiv 采集文件。
 
 当行动清单要求逐篇核查 OA/arXiv-only 论文时，先列出单源论文：
 
