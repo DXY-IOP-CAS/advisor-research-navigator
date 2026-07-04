@@ -467,7 +467,7 @@ python src/phase1/archive_previous.py "<学校>/<学院>/<部门>/<姓名>"
 ### 三层文档结构
 
 - **本文件（pipeline.md）**：阶段 1 的单一技术事实源，包含所有规范、命令和检查清单。
-- **CLAUDE.md**：项目级配置，定义快速指令和规则优先级。
+- **AGENTS.md**：项目级配置，定义快速指令和规则优先级；`CLAUDE.md` 只作兼容指针。
 - **脚本源码**：`utils.py`、`step*`、`risk_gate.py`、`render_profile.py`、`verify_profile.py` 实现具体逻辑。
 
 本文件不引用其他文档路径，自身就是完整的操作手册。

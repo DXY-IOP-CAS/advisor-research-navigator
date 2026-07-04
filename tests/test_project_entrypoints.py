@@ -13,6 +13,15 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertIn("Fact Pack -> Cognitive Blueprint -> 00-04", text)
         self.assertNotIn("四阶段流水线", text)
 
+    def test_claude_md_defers_to_agents_md_without_duplicate_rules(self):
+        text = (ROOT / "CLAUDE.md").read_text(encoding="utf-8")
+
+        self.assertIn("AGENTS.md 是当前项目规则的单一事实源", text)
+        self.assertIn("不要在 CLAUDE.md 里新增或复制项目规则", text)
+        self.assertNotIn("## 硬约束", text)
+        self.assertNotIn("来源必标 URL", text)
+        self.assertNotIn("## 目录角色", text)
+
     def test_obsolete_run_py_entrypoint_is_removed(self):
         self.assertFalse(
             (ROOT / "src" / "phase1" / "run.py").exists(),
