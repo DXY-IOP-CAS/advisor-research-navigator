@@ -190,6 +190,13 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.assertFalse(result.ok)
         self.assertTrue(any("证明学生" in m for m in result.messages))
 
+    def test_rejects_project_delivery_wording_in_optional_guides(self):
+        self.write_doc("00_材料导读.md", "# 材料导读\n\n## 最小可交付理解\n\n这里是项目交付口吻。\n")
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+        self.assertFalse(result.ok)
+        self.assertTrue(any("最小可交付" in m for m in result.messages))
+
     def test_rejects_missing_source_marker(self):
         self.write_doc(
             "04_学习向导.md",

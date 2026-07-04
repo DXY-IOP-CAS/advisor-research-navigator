@@ -78,6 +78,7 @@ FORBIDDEN_STYLE = [
     "阶段三只",
     "阶段四可",
     "证明学生",
+    "最小可交付",
 ]
 
 SOURCE_RE = re.compile(r"https?://|\[未找到\]|需人工复核")
