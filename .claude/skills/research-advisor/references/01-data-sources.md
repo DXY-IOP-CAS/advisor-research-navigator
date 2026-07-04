@@ -18,7 +18,7 @@
 **用法**（已封装为 step2_gs.py）：
 
 ```bash
-python src/phase1/step2_gs.py XXXXXXXXAAAAJ -o 01_gs.json
+python src/phase1/step2_gs.py XXXXXXXXAAAAJ --prof-dir "output/..."
 ```
 
 **限制**：
@@ -52,7 +52,7 @@ python src/phase1/step2_gs.py XXXXXXXXAAAAJ -o 01_gs.json
 **用法**（已封装为 step3_openalex.py）：
 
 ```bash
-python src/phase1/step3_openalex.py A5000000000 --email you@example.com -o 02_oa.json
+python src/phase1/step3_openalex.py A5000000000 --email you@example.com --prof-dir "output/..."
 ```
 
 **限速**：polite pool 10 req/s（带 email），无 email 约 1 req/s。
@@ -106,7 +106,7 @@ step5_arxiv.py 自动将 `姓_名`（如 `Wang_Shili`）拆分为 `au:Wang+AND+a
 **用法**：
 
 ```bash
-python src/phase1/step5_arxiv.py "Wang_Shili" -c "physics.atom-ph physics.optics" -o 03_arxiv.json
+python src/phase1/step5_arxiv.py "Wang_Shili" -c "physics.atom-ph physics.optics" --prof-dir "output/..."
 ```
 
 `-c` 参数传 arXiv 学科分类（来自 step1_discipline 输出），用于减少同名噪声。

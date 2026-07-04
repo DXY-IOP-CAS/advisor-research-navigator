@@ -102,6 +102,16 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
             self.assertIn("--official-url", text, str(path))
             self.assertIn("seed.json", text, str(path))
 
+    def test_phase1_references_use_prof_dir_for_step_outputs(self):
+        text = (
+            ROOT / ".claude" / "skills" / "research-advisor" / "references" / "01-data-sources.md"
+        ).read_text(encoding="utf-8")
+
+        forbidden = ["-o 01_gs.json", "-o 02_oa.json", "-o 03_arxiv.json"]
+        leaked = [phrase for phrase in forbidden if phrase in text]
+        self.assertEqual([], leaked, "phase1 source examples should write through --prof-dir")
+        self.assertIn("--prof-dir \"output/...\"", text)
+
     def test_phase1_strategy_is_not_a_parallel_docs_entrypoint(self):
         self.assertFalse(
             (ROOT / "docs" / "phase1运行策略.md").exists(),
