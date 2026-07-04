@@ -17,7 +17,7 @@
 3. 涉及导师调研或 00-04 文档时，读 `.claude/skills/research-advisor/SKILL.md`。
 4. 只有执行阶段 1 技术步骤时，再读 `src/phase1/pipeline.md` 和相关 references。
 
-不要从旧 quickstart、旧 e2e 记录或 `run.py` 反推当前 workflow。它们只能作历史或兼容参考。
+不要从旧 quickstart、旧 e2e 记录或已删除的兼容脚本反推当前 workflow。它们只能作历史参考。
 
 ## 项目结构
 
@@ -107,4 +107,3 @@ git diff --check -- . ':(exclude)archive/**' ':(exclude)output/**/archive/**'
 - 不读取或引用 `archive/` 与 `output/**/archive/**`。
 - archive 禁读指 Agent 不得手动打开、搜索、复制或引用历史/中间文件。脚本通过 `--prof-dir` / `ProfDirResolver` 读取当前 active `_internal/archive/<ts>` 不属于手动读取 archive；不要手动拼 archive 路径，也不要把脚本中间 JSON 当正文证据。
 - 每次运行从头查 API 和来源，不把 archive 当缓存。
-- `run.py` 只是旧兼容/本地调试捷径，不是新端到端主入口。

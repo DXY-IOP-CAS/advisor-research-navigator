@@ -34,7 +34,7 @@ python src/phase1/phase1_init.py \
   Step 4: step1_discipline → arXiv 学科分类
     │
 阶段 B（脚本执行）—— 数据采集
-  逐步脚本（优先 --prof-dir；run.py 仅兼容调试）：
+  逐步脚本（优先 --prof-dir）：
     step2_gs:       scholarly 取 Google Scholar 论文
     step3_openalex:  OpenAlex API 论文 + 元数据
     step4_arxiv_id:  ORCID → arXiv 精确匹配（零噪声）
@@ -218,34 +218,6 @@ step6_merge 的输出，在 SOURCE_OUTPUT 基础上增加：
 ---
 
 ## 4 阶段 B — CLI 执行
-
-### 兼容调试捷径（run.py）
-
-`run.py` 自动串联阶段 B + 阶段 C 的旧步骤，只作为兼容捷径和本地调试工具。新的端到端质量重构基线不以 `run.py` 为主入口，因为它要求调用者已经知道 GS/OA/ORCID 等信息，并且容易让执行 AI 跳过“官网 URL -> 身份锁定 -> Fact Pack -> Cognitive Blueprint”的认知设计步骤。
-
-新导师常规运行应先用 `phase1_init.py` 从 `姓名 + 机构路径 + 官网 URL` 建目录，并把三项最小输入写入 `_internal/seed.json`，再由 AI 按 `research-advisor` skill 完成官网身份锁定、`verified_ids.json`、`career_stages.json`、三源采集、`risk_gate`、`01_基础画像.md`，然后在 `_internal/blueprint.md` 中完成成品前认知蓝图。后续受控修正脚本默认继承 seed 中的官网 URL；只有核查证据来自不同官方页面时，才显式传新的 URL 覆盖。只有在已有人工核定 ID、需要快速复现旧 Phase B/C 行为时，才使用 `run.py`。
-
-```bash
-python src/phase1/run.py \
-  --university "中国科学院大学" \
-  --institute "中科院物理研究所" \
-  --department "超快物质科学中心" \
-  --name "王示例" \
-  --gs-id XXXXXXXXAAAAJ \
-  --oa-id A5048473780 \
-  --email your@real.com \
-  --orcid 0000-0000-0000-0000 \
-  --categories "physics.atom-ph physics.optics"
-```
-
-自动完成：
-1. 存档旧版产出 → 2. 建 `_internal/archive/<ts>/` 目录 → 3. 校验 career_stages.json
-4. GS 采集 → 5. OA 采集 → 6. arXiv（ORCID 精确匹配 / au: 回退）
-7. 三源合并去重 → 8. risk gate → 9. 画像渲染 → 10. verify 检查
-
-各参数均可选。无 GS/OA ID 时自动跳过对应步骤。
-
-也可传结构化参数（--university + --name，替代 prof_path）让工具自动拼接路径。兼容旧用法（单 prof_path 参数）。
 
 ### 常规逐步骤执行（优先用 --prof-dir 简化路径）
 

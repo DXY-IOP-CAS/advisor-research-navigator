@@ -15,7 +15,7 @@ sys.path.insert(0, PHASE1)
 import render_profile
 import apply_identity_review
 import apply_paper_review
-import run as phase1_run
+import phase1_init
 import risk_gate
 import step4_arxiv_id
 import step5_arxiv
@@ -276,8 +276,8 @@ class Phase1HarnessTests(unittest.TestCase):
                 seed = json.load(f)
             self.assertEqual("中科院物理研究所", seed["institute"])
 
-    def test_run_structured_path_uses_same_institute_canonicalization(self):
-        path = phase1_run.build_prof_path(
+    def test_phase1_init_build_path_uses_same_institute_canonicalization(self):
+        path = phase1_init.build_prof_path(
             university="中国科学院大学",
             institute="中科院物理所",
             department="超快物质科学中心",

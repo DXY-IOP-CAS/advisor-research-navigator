@@ -13,21 +13,24 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertIn("Fact Pack -> Cognitive Blueprint -> 00-04", text)
         self.assertNotIn("四阶段流水线", text)
 
-    def test_plan_does_not_present_run_py_as_primary_entrypoint(self):
-        text = (ROOT / "docs" / "计划书.md").read_text(encoding="utf-8")
-        forbidden = [
-            "run.py                         # 统一入口",
-            "`run.py` — 统一入口",
+    def test_obsolete_run_py_entrypoint_is_removed(self):
+        self.assertFalse(
+            (ROOT / "src" / "phase1" / "run.py").exists(),
+            "run.py should not remain as a parallel phase1 orchestration entrypoint",
+        )
+
+        active_docs = [
+            ROOT / "QUICKSTART.md",
+            ROOT / "docs" / "计划书.md",
+            ROOT / "src" / "phase1" / "pipeline.md",
         ]
+        leaked = []
+        for path in active_docs:
+            text = path.read_text(encoding="utf-8")
+            if "run.py" in text:
+                leaked.append(str(path.relative_to(ROOT)))
 
-        found = [phrase for phrase in forbidden if phrase in text]
-        self.assertEqual([], found, "docs/计划书.md still presents run.py as primary entrypoint")
-        self.assertIn("run.py                         # 兼容调试捷径", text)
-        self.assertIn("`run.py` — 兼容调试捷径", text)
-
-        run_py = (ROOT / "src" / "phase1" / "run.py").read_text(encoding="utf-8")
-        self.assertNotIn("统一入口", run_py)
-        self.assertIn("兼容调试捷径", run_py)
+        self.assertEqual([], leaked, "active entrypoint docs should not route agents through run.py")
 
     def test_plan_uses_e2e_quality_design_heading(self):
         text = (ROOT / "docs" / "计划书.md").read_text(encoding="utf-8")
@@ -47,7 +50,7 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         text = (ROOT / "src" / "phase1" / "pipeline.md").read_text(encoding="utf-8")
 
         self.assertNotIn("旧统一入口", text)
-        self.assertIn("兼容调试捷径（run.py）", text)
+        self.assertNotIn("兼容调试捷径（run.py）", text)
 
     def test_pipeline_examples_do_not_manual_expand_current_archive_path(self):
         text = (ROOT / "src" / "phase1" / "pipeline.md").read_text(encoding="utf-8")
@@ -69,10 +72,6 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         archive_previous = (ROOT / "src" / "phase1" / "archive_previous.py").read_text(encoding="utf-8")
         self.assertNotIn("运行前自动存档已有产出", archive_previous)
         self.assertIn("旧版整目录迁移工具", archive_previous)
-
-        run_py = (ROOT / "src" / "phase1" / "run.py").read_text(encoding="utf-8")
-        self.assertNotIn("自动处理：存档旧版", run_py)
-        self.assertIn("兼容旧流程", run_py)
 
     def test_archive_rule_distinguishes_manual_reads_from_prof_dir_tools(self):
         files = [
@@ -134,6 +133,8 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         forbidden = [
             "-o output/<机构>",
             "-o 03_arxiv.json",
+            "-o <output_path>",
+            "run.py",
             "01_gs.json 02_oa.json 03_arxiv.json -o 04_merged.json",
             "render_profile.py 04_merged.json -o 01_基础画像.md",
         ]
@@ -169,13 +170,14 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         obsolete = [
             ROOT / "src" / "phase1" / "archive_step.py",
             ROOT / "src" / "phase1" / "merge_tables.py",
+            ROOT / "src" / "phase1" / "run.py",
         ]
 
         existing = [str(path.relative_to(ROOT)) for path in obsolete if path.exists()]
         self.assertEqual([], existing, "obsolete phase1 helpers should not remain as parallel entrypoints")
 
     def test_active_docs_do_not_reference_obsolete_phase1_helpers(self):
-        obsolete = ["archive_step.py", "merge_tables.py"]
+        obsolete = ["archive_step.py", "merge_tables.py", "run.py"]
         active_docs = [
             ROOT / "QUICKSTART.md",
             ROOT / "AGENTS.md",

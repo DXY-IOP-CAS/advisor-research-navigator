@@ -207,8 +207,7 @@ def search(author_name: str, max_results: int = 200,
         logger.warning(
             "arXiv 返回 0 篇。姓名含中文字符，arXiv 只支持拼音。\n"
             "  → 重试：python src/phase1/step5_arxiv.py \"Li_Yutong\" "
-            f"-c \"{' '.join(cat_list)}\" -o <output_path>\n"
-            "  → 或传给 run.py 的 --name-pinyin 参数"
+            f"-c \"{' '.join(cat_list)}\" --prof-dir <prof_dir>"
         )
 
     return {
