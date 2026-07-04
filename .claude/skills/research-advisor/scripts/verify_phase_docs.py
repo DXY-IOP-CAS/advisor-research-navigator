@@ -45,8 +45,6 @@ DOCS = {
         "## 资料概览",
         "## 终点：进组前应接近什么状态",
         "## 进组前起步闭环",
-        "## 再把静态谱读成时间过程",
-        "## 最后把机制论文接回平台边界",
         "## 回到<导师>论文路线",
         "## 进组后先从哪里接上",
         "## 卡住时怎么判断该补什么",
@@ -113,6 +111,7 @@ BLUEPRINT_REQUIRED_FIELDS = [
 ]
 PHASE4_MINIMAL_LOOP_HEADING = "## 进组前起步闭环"
 PHASE4_MINIMAL_LOOP_REQUIRED = ("论文", "图", "平台")
+PHASE4_LEARNING_PATH_MIN_SECTIONS = 3
 PHASE0_READING_ORDER_HEADING = "## 建议阅读顺序"
 PHASE0_READING_ORDER_DOCS = (
     "01_基础画像.md",
@@ -264,6 +263,35 @@ def _check_phase4_minimal_loop(filename: str, text: str, messages: list[str]) ->
         )
     if not PHASE4_CONCRETE_FIGURE_RE.search(section):
         messages.append("[FAIL] 04_学习向导.md 进组前起步闭环必须具体到核心图编号或图组")
+
+
+def _extract_h2_headings(text: str) -> list[str]:
+    return [match.group(0).strip() for match in re.finditer(r"^## [^\n]+$", text, re.MULTILINE)]
+
+
+def _check_phase4_learning_path_sections(filename: str, text: str, messages: list[str]) -> None:
+    if filename != "04_学习向导.md":
+        return
+
+    headings = _extract_h2_headings(text)
+    try:
+        start_index = headings.index(PHASE4_MINIMAL_LOOP_HEADING)
+    except ValueError:
+        return
+
+    route_index = None
+    for index, heading in enumerate(headings[start_index + 1 :], start=start_index + 1):
+        if PHASE4_ROUTE_HEADING_RE.match(heading):
+            route_index = index
+            break
+    if route_index is None:
+        return
+
+    learning_path_headings = headings[start_index + 1 : route_index]
+    if len(learning_path_headings) < PHASE4_LEARNING_PATH_MIN_SECTIONS:
+        messages.append(
+            "[FAIL] 04_学习向导.md 进组前起步闭环和回到论文路线之间至少需要 3 个方向适配的学习路径章节"
+        )
 
 
 def _check_phase0_reading_order(filename: str, text: str, messages: list[str]) -> None:
@@ -481,6 +509,7 @@ def verify_prof_dir(prof_dir: str | Path) -> VerifyResult:
         _check_paragraph_density(filename, text, messages)
         _check_phase0_reading_order(filename, text, messages)
         _check_phase4_minimal_loop(filename, text, messages)
+        _check_phase4_learning_path_sections(filename, text, messages)
         _check_forbidden_terms(filename, text, messages)
         _check_forbidden_style(filename, text, messages)
 

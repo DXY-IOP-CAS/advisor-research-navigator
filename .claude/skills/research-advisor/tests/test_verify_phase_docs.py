@@ -232,6 +232,38 @@ class VerifyPhaseDocsTest(unittest.TestCase):
 
         self.assertTrue(result.ok, result.messages)
 
+    def test_accepts_fully_domain_adapted_phase4_learning_path_headings(self):
+        text = (self.prof / "04_学习向导.md").read_text(encoding="utf-8")
+        text = text.replace("## 先知道光电子谱到底在看什么", "## 先知道二维 Kerr 信号在读什么")
+        text = text.replace("## 再把静态谱读成时间过程", "## 再分清电子响应和声子响应")
+        text = text.replace("## 随后进入阿秒电子运动", "## 随后进入太赫兹驱动和非线性响应")
+        text = text.replace("## 进入液相和凝聚相复杂环境", "## 进入软晶格和极化子图像")
+        text = text.replace("## 最后把机制论文接回平台边界", "## 最后把平台链路接回目标论文")
+        self.write_doc("04_学习向导.md", text)
+
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+
+        self.assertTrue(result.ok, result.messages)
+
+    def test_rejects_phase4_without_learning_path_sections(self):
+        text = (self.prof / "04_学习向导.md").read_text(encoding="utf-8")
+        text = text.replace("## 先知道光电子谱到底在看什么\n\n", "")
+        text = text.replace("## 再把静态谱读成时间过程\n\n", "")
+        text = text.replace("## 随后进入阿秒电子运动\n\n", "")
+        text = text.replace("## 进入液相和凝聚相复杂环境\n\n", "")
+        text = text.replace("## 最后把机制论文接回平台边界\n\n", "")
+        self.write_doc("04_学习向导.md", text)
+
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+
+        self.assertFalse(result.ok)
+        self.assertIn(
+            "[FAIL] 04_学习向导.md 进组前起步闭环和回到论文路线之间至少需要 3 个方向适配的学习路径章节",
+            result.messages,
+        )
+
     def test_rejects_missing_material_guide(self):
         (self.prof / "00_材料导读.md").unlink()
         module = load_module()
