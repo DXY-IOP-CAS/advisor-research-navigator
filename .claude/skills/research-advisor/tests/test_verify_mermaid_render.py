@@ -1,8 +1,11 @@
 import importlib.util
+import subprocess
 import sys
+import tempfile
 import unittest
 import uuid
 from pathlib import Path
+from unittest.mock import patch
 
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "verify_mermaid_render.py"
@@ -79,6 +82,38 @@ class VerifyMermaidRenderTest(unittest.TestCase):
 
         self.assertTrue(result.ok)
         self.assertIn("[OK] 未找到 Mermaid 代码块，渲染门跳过", result.messages)
+
+    def test_puppeteer_config_uses_no_sandbox_without_bom(self):
+        module = load_module()
+        with tempfile.TemporaryDirectory() as tmp:
+            config = module.write_puppeteer_config(Path(tmp))
+            raw = config.read_bytes()
+
+        self.assertTrue(raw.startswith(b"{"))
+        self.assertNotEqual(b"\xef\xbb\xbf", raw[:3])
+        self.assertIn(b"--no-sandbox", raw)
+        self.assertIn(b"--disable-setuid-sandbox", raw)
+
+    def test_render_block_with_command_passes_puppeteer_config(self):
+        module = load_module()
+        block = module.MermaidBlock("02_领域地图.md", 1, "flowchart TD\nA --> B")
+
+        with tempfile.TemporaryDirectory() as tmp:
+            temp_dir = Path(tmp)
+            config = temp_dir / "puppeteer.json"
+            config.write_text('{"args":["--no-sandbox"]}', encoding="utf-8")
+
+            def fake_run(cmd, **kwargs):
+                output_path = Path(cmd[cmd.index("-o") + 1])
+                output_path.write_text("<svg></svg>", encoding="utf-8")
+                return subprocess.CompletedProcess(cmd, 0, "", "")
+
+            with patch.object(module.subprocess, "run", side_effect=fake_run) as run_mock:
+                module.render_block_with_command(block, ["npx", "--yes", "@mermaid-js/mermaid-cli"], temp_dir, config)
+
+        command = run_mock.call_args.args[0]
+        self.assertIn("-p", command)
+        self.assertEqual(str(config), command[command.index("-p") + 1])
 
 
 if __name__ == "__main__":

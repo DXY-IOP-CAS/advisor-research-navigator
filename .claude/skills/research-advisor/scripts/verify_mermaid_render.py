@@ -88,14 +88,29 @@ def _renderer_command(use_npx: bool = False) -> list[str] | None:
     return None
 
 
-def render_block_with_command(block: MermaidBlock, command: Sequence[str], temp_dir: Path) -> None:
+def write_puppeteer_config(temp_dir: Path) -> Path:
+    config_path = temp_dir / "puppeteer.json"
+    config_path.write_text(
+        '{"args":["--no-sandbox","--disable-setuid-sandbox"]}\n',
+        encoding="utf-8",
+    )
+    return config_path
+
+
+def render_block_with_command(
+    block: MermaidBlock,
+    command: Sequence[str],
+    temp_dir: Path,
+    puppeteer_config: Path | None = None,
+) -> None:
     safe_name = f"{Path(block.filename).stem}_{block.index}"
     input_path = temp_dir / f"{safe_name}.mmd"
     output_path = temp_dir / f"{safe_name}.svg"
     input_path.write_text(block.code + "\n", encoding="utf-8")
 
+    config_args = ["-p", str(puppeteer_config)] if puppeteer_config is not None else []
     completed = subprocess.run(
-        [*command, "-i", str(input_path), "-o", str(output_path)],
+        [*command, *config_args, "-i", str(input_path), "-o", str(output_path)],
         cwd=temp_dir,
         capture_output=True,
         text=True,
@@ -124,7 +139,11 @@ def verify_prof_dir(prof_dir: Path | str, use_npx: bool = False) -> VerifyResult
 
     with tempfile.TemporaryDirectory(prefix="pilot-test-mermaid-") as tmp:
         temp_dir = Path(tmp)
-        return verify_blocks(blocks, lambda block: render_block_with_command(block, command, temp_dir))
+        puppeteer_config = write_puppeteer_config(temp_dir)
+        return verify_blocks(
+            blocks,
+            lambda block: render_block_with_command(block, command, temp_dir, puppeteer_config),
+        )
 
 
 def main(argv: Sequence[str] | None = None) -> int:
