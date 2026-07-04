@@ -37,6 +37,15 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
             self.assertIn("--official-url", text, str(path))
             self.assertIn("seed.json", text, str(path))
 
+    def test_phase1_strategy_is_not_a_parallel_docs_entrypoint(self):
+        self.assertFalse(
+            (ROOT / "docs" / "phase1运行策略.md").exists(),
+            "Phase 1 strategy must live in research-advisor references and src/phase1/pipeline.md",
+        )
+
+        pipeline = (ROOT / "src" / "phase1" / "pipeline.md").read_text(encoding="utf-8")
+        self.assertNotIn("docs/phase1运行策略.md", pipeline)
+
     def test_tracked_professor_roots_expose_only_final_docs_or_internal(self):
         result = subprocess.run(
             ["git", "-c", "core.quotePath=false", "ls-files", "output"],
