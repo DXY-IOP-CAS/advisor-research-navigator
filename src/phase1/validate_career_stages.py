@@ -14,6 +14,7 @@ verify_profile.py 才是最终质量门控。
 
 用法：
   python src/phase1/validate_career_stages.py <path/to/career_stages.json>
+  python src/phase1/validate_career_stages.py --prof-dir <output/.../姓名>
 
 退出码：始终 0（仅警告，不阻塞流程）
 """
@@ -25,6 +26,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from career_stages import normalize_stage_config
+from utils import ProfDirResolver
 
 PASS, FAIL = 0, 1
 
@@ -97,9 +99,17 @@ def validate(path: str) -> int:
 
 def main():
     parser = argparse.ArgumentParser(description="career_stages.json 格式自检")
-    parser.add_argument("stages_file", help="career_stages.json 路径")
+    parser.add_argument("stages_file", nargs="?", help="career_stages.json 路径")
+    parser.add_argument("--prof-dir", help="导师输出目录；自动定位当前 active career_stages.json")
     args = parser.parse_args()
-    sys.exit(validate(args.stages_file))
+
+    stages_file = args.stages_file
+    if args.prof_dir:
+        stages_file = ProfDirResolver(args.prof_dir).stages_path
+    if not stages_file:
+        parser.error("需要传 career_stages.json 路径，或使用 --prof-dir")
+
+    sys.exit(validate(stages_file))
 
 
 if __name__ == "__main__":

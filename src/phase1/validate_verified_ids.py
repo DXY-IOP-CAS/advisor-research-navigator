@@ -13,13 +13,19 @@ validate_verified_ids.py — verified_ids.json 格式自检。
 
 用法：
   python src/phase1/validate_verified_ids.py <path/to/verified_ids.json>
+  python src/phase1/validate_verified_ids.py --prof-dir <output/.../姓名>
 
 退出码：始终 0
 """
 
+import argparse
 import json
+import os
 import re
 import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from utils import ProfDirResolver
 
 RECOVERY = {
     "tier": "verification.tier 必须是 T1/T2/T3/T4。T1=邮箱验证, T2=ORCID, T3=论文指纹, T4=综合判断",
@@ -85,11 +91,18 @@ def validate(path: str) -> int:
 
 def main():
     parser = argparse.ArgumentParser(description="verified_ids.json 格式自检")
-    parser.add_argument("ids_file", help="verified_ids.json 路径")
+    parser.add_argument("ids_file", nargs="?", help="verified_ids.json 路径")
+    parser.add_argument("--prof-dir", help="导师输出目录；自动定位当前 active 00_verified_ids.json")
     args = parser.parse_args()
-    sys.exit(validate(args.ids_file))
+
+    ids_file = args.ids_file
+    if args.prof_dir:
+        ids_file = ProfDirResolver(args.prof_dir).verified_ids_path
+    if not ids_file:
+        parser.error("需要传 verified_ids.json 路径，或使用 --prof-dir")
+
+    sys.exit(validate(ids_file))
 
 
 if __name__ == "__main__":
-    import argparse
     main()

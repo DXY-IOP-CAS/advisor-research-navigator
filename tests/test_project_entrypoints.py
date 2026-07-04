@@ -41,6 +41,13 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertNotIn("旧统一入口", text)
         self.assertIn("兼容调试捷径（run.py）", text)
 
+    def test_pipeline_examples_do_not_manual_expand_current_archive_path(self):
+        text = (ROOT / "src" / "phase1" / "pipeline.md").read_text(encoding="utf-8")
+
+        self.assertNotIn("$(cat \"$PROF/_internal/latest.txt\"", text)
+        self.assertIn("validate_career_stages.py --prof-dir", text)
+        self.assertIn("validate_verified_ids.py --prof-dir", text)
+
     def test_archive_rule_distinguishes_manual_reads_from_prof_dir_tools(self):
         files = [
             ROOT / "AGENTS.md",

@@ -21,6 +21,7 @@ import step5_arxiv
 import step2_gs
 import utils
 import validate_career_stages
+import validate_verified_ids
 import verify_profile
 
 
@@ -406,6 +407,84 @@ run_timestamp: 20260704_010203
 
             self.assertEqual(validate_career_stages.PASS, result)
             self.assertIn("[OK] 根元素是数组", buf.getvalue())
+
+    def test_validate_career_stages_accepts_prof_dir(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            prof_dir = os.path.join(tmp, "output", "大学", "所", "部门", "张三")
+            archive_dir = os.path.join(prof_dir, "_internal", "archive", "20260704_120000")
+            os.makedirs(archive_dir)
+            with open(os.path.join(prof_dir, "_internal", "latest.txt"), "w", encoding="utf-8") as f:
+                f.write("20260704_120000\n")
+            with open(os.path.join(archive_dir, "career_stages.json"), "w", encoding="utf-8") as f:
+                json.dump(
+                    [
+                        {
+                            "name": "博士阶段",
+                            "start": 2018,
+                            "end": 2023,
+                            "institution": "测试大学",
+                            "position": "博士研究生",
+                            "direction": "测试方向",
+                        }
+                    ],
+                    f,
+                    ensure_ascii=False,
+                )
+
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    os.path.join(PHASE1, "validate_career_stages.py"),
+                    "--prof-dir",
+                    prof_dir,
+                ],
+                cwd=ROOT,
+                env={**os.environ, "PYTHONIOENCODING": "utf-8"},
+                text=True,
+                encoding="utf-8",
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+
+            self.assertEqual(0, result.returncode, result.stderr)
+            self.assertIn("[OK]", result.stdout)
+
+    def test_validate_verified_ids_accepts_prof_dir(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            prof_dir = os.path.join(tmp, "output", "大学", "所", "部门", "张三")
+            archive_dir = os.path.join(prof_dir, "_internal", "archive", "20260704_120000")
+            os.makedirs(archive_dir)
+            with open(os.path.join(prof_dir, "_internal", "latest.txt"), "w", encoding="utf-8") as f:
+                f.write("20260704_120000\n")
+            with open(os.path.join(archive_dir, "00_verified_ids.json"), "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "name": "张三 (San Zhang)",
+                        "ids": {"gs_id": "abc123", "oa_id": "A123", "orcid": "0000-0000-0000-0000"},
+                        "verification": {"tier": "T1", "email_domain": "example.edu"},
+                        "sources": {"official": "https://example.edu/prof"},
+                    },
+                    f,
+                    ensure_ascii=False,
+                )
+
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    os.path.join(PHASE1, "validate_verified_ids.py"),
+                    "--prof-dir",
+                    prof_dir,
+                ],
+                cwd=ROOT,
+                env={**os.environ, "PYTHONIOENCODING": "utf-8"},
+                text=True,
+                encoding="utf-8",
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+
+            self.assertEqual(0, result.returncode, result.stderr)
+            self.assertIn("[OK]", result.stdout)
 
     def test_normalize_email_domain_removes_truncated_local_part(self):
         self.assertEqual("iphy.ac.cn", step2_gs.normalize_email_domain("...@@iphy.ac.cn"))
