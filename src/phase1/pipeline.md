@@ -112,7 +112,7 @@ arXiv author identifier 是 opt-in 机制，不是所有作者都有。ORCID 关
    "institution": "RIKEN", "position": "博士后研究员",
    "direction": "原子分子碰撞动力学"},
   {"name": "独立阶段", "start": 2018, "end": 2026,
-   "institution": "ETH Zurich / 中科院物理所", "position": "特聘研究员",
+   "institution": "ETH Zurich / 中科院物理研究所", "position": "特聘研究员",
    "direction": "超快光谱学 / 阿秒科学"}
 ]
 ```
@@ -228,7 +228,7 @@ step6_merge 的输出，在 SOURCE_OUTPUT 基础上增加：
 ```bash
 python src/phase1/run.py \
   --university "中国科学院大学" \
-  --institute "中科院物理所" \
+  --institute "中科院物理研究所" \
   --department "超快物质科学中心" \
   --name "王示例" \
   --gs-id XXXXXXXXAAAAJ \
@@ -254,12 +254,12 @@ Phase B/C 脚本优先支持 `--prof-dir` 参数，由 `ProfDirResolver` 从 `_i
 ```bash
 python src/phase1/phase1_init.py \
   --university "中国科学院大学" \
-  --institute "中科院物理所" \
+  --institute "中科院物理研究所" \
   --department "超快物质科学中心" \
   --name "王示例" \
   --official-url "https://..."
 
-PROF="output/中国科学院大学/中科院物理所/超快物质科学中心/王示例"
+PROF="output/中国科学院大学/中科院物理研究所/超快物质科学中心/王示例"
 
 # Phase A 由 AI 根据官网和跨源身份锁定，写入当前 _internal/archive/<latest>/：
 #   00_verified_ids.json
@@ -431,7 +431,7 @@ output/
 │       └── 凝聚态物理与材料物理研究所/
 │           └── 李新征/
 └── 中国科学院大学/
-    └── 中科院物理所/
+    └── 中科院物理研究所/
         └── 超快物质科学中心/
             └── 王示例/
 ```

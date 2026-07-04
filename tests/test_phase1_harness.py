@@ -15,6 +15,7 @@ sys.path.insert(0, PHASE1)
 import render_profile
 import apply_identity_review
 import apply_paper_review
+import run as phase1_run
 import risk_gate
 import step4_arxiv_id
 import step5_arxiv
@@ -235,6 +236,55 @@ class Phase1HarnessTests(unittest.TestCase):
             self.assertEqual("测试所", seed["institute"])
             self.assertEqual("测试部门", seed["department"])
             self.assertEqual("https://example.edu/teacher/zhangsan", seed["official_url"])
+
+    def test_phase1_init_canonicalizes_known_institute_aliases(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            script = os.path.join(PHASE1, "phase1_init.py")
+
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    script,
+                    "--university",
+                    "中国科学院大学",
+                    "--institute",
+                    "中科院物理所",
+                    "--department",
+                    "超快物质科学中心",
+                    "--name",
+                    "张三",
+                    "--official-url",
+                    "https://example.edu/teacher/zhangsan",
+                ],
+                cwd=tmp,
+                env={**os.environ, "PYTHONIOENCODING": "utf-8"},
+                text=True,
+                encoding="utf-8",
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=True,
+            )
+
+            prof_dir = os.path.join(tmp, "output", "中国科学院大学", "中科院物理研究所", "超快物质科学中心", "张三")
+            legacy_dir = os.path.join(tmp, "output", "中国科学院大学", "中科院物理所", "超快物质科学中心", "张三")
+            seed_path = os.path.join(prof_dir, "_internal", "seed.json")
+
+            self.assertTrue(os.path.isdir(prof_dir))
+            self.assertFalse(os.path.exists(legacy_dir))
+            self.assertIn("中科院物理研究所", result.stderr)
+            with open(seed_path, "r", encoding="utf-8") as f:
+                seed = json.load(f)
+            self.assertEqual("中科院物理研究所", seed["institute"])
+
+    def test_run_structured_path_uses_same_institute_canonicalization(self):
+        path = phase1_run.build_prof_path(
+            university="中国科学院大学",
+            institute="中科院物理所",
+            department="超快物质科学中心",
+            name="张三",
+        )
+
+        self.assertEqual("中国科学院大学/中科院物理研究所/超快物质科学中心/张三", path)
 
     def test_phase1_init_rejects_non_http_official_url(self):
         with tempfile.TemporaryDirectory() as tmp:

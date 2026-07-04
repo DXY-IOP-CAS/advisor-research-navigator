@@ -9,7 +9,7 @@ run.py — 阶段 1 兼容调试捷径。
 开始，再按 research-advisor skill 走 Fact Pack -> Cognitive Blueprint -> 00-04。
 
 用法（兼容调试）：
-  python src/phase1/run.py "中科院物理所/超快物质科学中心/王示例" \
+  python src/phase1/run.py "中国科学院大学/中科院物理研究所/超快物质科学中心/王示例" \
     --gs-id XXXXXXXXAAAAJ \
     --oa-id A5048473780 \
     --email your@real.com \
@@ -28,6 +28,8 @@ import os
 import subprocess
 import sys
 from datetime import datetime
+
+from phase1_init import canonicalize_institute
 
 SRC_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -54,7 +56,13 @@ def build_prof_path(university: str = "", institute: str = "",
     仅提供 name 时回退到单段（兼容旧用法）。
     """
     if university and name:
-        parts = [p for p in [university, institute, department, name] if p]
+        parts = [
+            (university or "").strip(),
+            canonicalize_institute(institute),
+            (department or "").strip(),
+            (name or "").strip(),
+        ]
+        parts = [p for p in parts if p]
         return "/".join(parts)
     return name
 
@@ -186,10 +194,10 @@ def run(prof_path: str, gs_id: str = "", oa_id: str = "",
 def main():
     parser = argparse.ArgumentParser(description="Phase 1 兼容调试捷径（非新端到端主入口）")
     parser.add_argument("prof_path", nargs="?", default="",
-                        help="output 下的学者路径，如 中科院物理所/超快物质科学中心/王示例。"
+                        help="output 下的学者路径，如 中国科学院大学/中科院物理研究所/超快物质科学中心/王示例。"
                              "不传时用 --university/--name 自动构造。")
     parser.add_argument("--university", help="大学/上级机构（如 中国科学院大学）")
-    parser.add_argument("--institute", help="学院/研究所（如 中科院物理所）")
+    parser.add_argument("--institute", help="学院/研究所（如 中科院物理研究所）")
     parser.add_argument("--name", help="学者姓名（与 --university 配合自动构造路径）")
     parser.add_argument("--gs-id", help="Google Scholar ID")
     parser.add_argument("--oa-id", help="OpenAlex Author ID")

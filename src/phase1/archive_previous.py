@@ -13,7 +13,7 @@ archive_previous.py — 旧版整目录迁移工具。
 
 用法（旧版兼容）：
   python src/phase1/archive_previous.py "北京大学/物理学院/凝聚态物理与材料物理研究所/李新征"
-  python src/phase1/archive_previous.py "中国科学院大学/中科院物理所/超快物质科学中心/王示例"
+  python src/phase1/archive_previous.py "中国科学院大学/中科院物理研究所/超快物质科学中心/王示例"
 """
 
 import argparse

@@ -64,7 +64,7 @@ def verify(profile_path: str, merged_path: str = None) -> int:
               f"（当前 {path_depth} 级，应 ≥4）",
               errors)
     elif path_depth < 5 and path_depth == 4:
-        # 4 级路径如 output/中科院物理所/超快物质科学中心/姓名/ — 缺少大学层
+        # 4 级路径如 output/中科院物理研究所/超快物质科学中心/姓名/ — 缺少大学层
         # 不 fail，但 warn
         pass
 
@@ -344,7 +344,7 @@ FIX_MAP = {
     "重复论文标题": "去重 step6_merge.py 输出；保留唯一版本",
     "进度标题含年份": "跑 render_profile.py（career_stages.json 含 start/end 即自动生成年份范围）",
     "无中文的阶段": "career_stages.json 的 name 字段改为中文（如「博士阶段」）",
-    "输出路径": "用 phase1_init.py 重建：python src/phase1/phase1_init.py --university 中国科学院大学 --institute 中科院物理所 --department 部门 --name 姓名 --official-url 官网URL",
+    "输出路径": "用 phase1_init.py 重建：python src/phase1/phase1_init.py --university 中国科学院大学 --institute 中科院物理研究所 --department 部门 --name 姓名 --official-url 官网URL",
     "AI 叙事占位符": "用 Edit 替换占位符：Edit(file_path, old='<!-- AI 渲染：方向 -->', new='实际研究方向描述')。参考 references/phase1-core.md §叙事规范",
     "论文表格表头": "论文表格必须 6 列：# / 年份 / 标题 / 期刊 / 引用 / 来源。禁止 AI 加 '关键论文' / '代表性论文' 等筛选表",
     "论文表格行宽": "论文标题过长（>400 字符）会被截断。检查 render 输出是否含异常长标题",

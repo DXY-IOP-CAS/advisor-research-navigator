@@ -23,7 +23,7 @@ step1_discipline.py — 学科关键词分类
 取命中关键词数最多的学科。general_physics 作为无命中时的兜底。
 
 用法：
-  python src/phase1/step1_discipline.py --text "阿秒科学、强场物理" --affiliation "中科院物理所"
+  python src/phase1/step1_discipline.py --text "阿秒科学、强场物理" --affiliation "中科院物理研究所"
 
 依赖：标准库 + config/sources.json
 """
