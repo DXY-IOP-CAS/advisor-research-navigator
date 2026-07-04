@@ -8,7 +8,7 @@
 
 | 路径 | 用途 |
 |:-----|:------|
-| `src/phase1/` | 阶段 1 Python 脚本（step2_gs / step3_openalex / step5_arxiv / step6_merge / render_profile / verify_profile / archive_previous / utils） |
+| `src/phase1/` | 阶段 1 Python 脚本（phase1_init / step2_gs / step3_openalex / step4_arxiv_id / step5_arxiv / step6_merge / risk_gate / render_profile / verify_profile / utils） |
 | `src/phase1/pipeline.md` | 阶段 1 技术执行文档（单一事实源） |
 | `.agents/skills/` | Codex/其他 CLI Skill 入口（NTFS junction → `.claude/skills/`） |
 | `.claude/skills/research-advisor/` | research-advisor Skill 入口 |

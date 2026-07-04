@@ -3,7 +3,7 @@
 run.py — 阶段 1 兼容调试捷径。
 
 将阶段 B（数据采集）+ 阶段 C（渲染）的 6 个脚本串联为一条命令。
-自动处理：存档旧版 → 建目录 → 采集 → 合并 → 渲染 → 验证。
+兼容旧流程：迁移旧版整目录 → 建目录 → 采集 → 合并 → 渲染 → 验证。
 
 它不是当前端到端主入口；新导师常规流程应从 `phase1_init.py --official-url`
 开始，再按 research-advisor skill 走 Fact Pack -> Cognitive Blueprint -> 00-04。

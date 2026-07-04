@@ -48,6 +48,24 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertIn("validate_career_stages.py --prof-dir", text)
         self.assertIn("validate_verified_ids.py --prof-dir", text)
 
+    def test_legacy_archive_previous_is_not_presented_as_current_entrypoint(self):
+        for path in [ROOT / "AGENTS.md", ROOT / "CLAUDE.md"]:
+            text = path.read_text(encoding="utf-8")
+            self.assertNotIn("archive_previous / utils", text, str(path))
+
+        pipeline = (ROOT / "src" / "phase1" / "pipeline.md").read_text(encoding="utf-8")
+        self.assertNotIn("### 自动存档机制", pipeline)
+        self.assertNotIn("该命令在阶段 A 开始前执行", pipeline)
+        self.assertIn("### 旧版整目录存档", pipeline)
+
+        archive_previous = (ROOT / "src" / "phase1" / "archive_previous.py").read_text(encoding="utf-8")
+        self.assertNotIn("运行前自动存档已有产出", archive_previous)
+        self.assertIn("旧版整目录迁移工具", archive_previous)
+
+        run_py = (ROOT / "src" / "phase1" / "run.py").read_text(encoding="utf-8")
+        self.assertNotIn("自动处理：存档旧版", run_py)
+        self.assertIn("兼容旧流程", run_py)
+
     def test_archive_rule_distinguishes_manual_reads_from_prof_dir_tools(self):
         files = [
             ROOT / "AGENTS.md",

@@ -1,13 +1,17 @@
 #!/usr/bin/env python3
 """
-archive_previous.py — 运行前自动存档已有产出。
+archive_previous.py — 旧版整目录迁移工具。
 
 规则：
   如果 output/<学校>/<学院>/<部门>/<姓名>/ 已存在
   → 整个目录移到 archive/旧版产出/<姓名>_<timestamp>/
   如果不存在 → 不操作
 
-用法（在阶段 A 开始前调用）：
+当前端到端主路径不调用本脚本；新运行默认通过 phase1_init.py
+在同一导师目录下创建新的 _internal/archive/<timestamp>/ active state。
+只有用户明确要求人工保留整份旧输出时，才使用本旧工具。
+
+用法（旧版兼容）：
   python src/phase1/archive_previous.py "北京大学/物理学院/凝聚态物理与材料物理研究所/李新征"
   python src/phase1/archive_previous.py "中国科学院大学/中科院物理所/超快物质科学中心/王示例"
 """
@@ -38,7 +42,7 @@ def archive(professor_path: str) -> None:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="运行前自动存档已有产出")
+    parser = argparse.ArgumentParser(description="旧版整目录迁移工具（非当前主路径）")
     parser.add_argument("professor_path", help="output 下的老师路径（如 北京大学/物理学院/.../李新征）")
     args = parser.parse_args()
     archive(args.professor_path)

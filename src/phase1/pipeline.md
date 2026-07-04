@@ -457,15 +457,15 @@ output/
         └── career_stages.json
 ```
 
-### 自动存档机制
+### 旧版整目录存档
 
-运行前检查目标目录是否已存在，若存在则自动迁移旧版：
+`archive_previous.py` 是旧版整目录迁移工具，不是当前端到端主路径的阶段 A 命令。新一轮运行默认用 `phase1_init.py` 在同一导师目录下创建新的 `_internal/archive/<timestamp>/` active state，并通过 `_internal/latest.txt` 切换当前状态。
 
 ```bash
 python src/phase1/archive_previous.py "<学校>/<学院>/<部门>/<姓名>"
 ```
 
-该命令在阶段 A 开始前执行。旧版整目录移动到项目级 `archive/旧版产出/<姓名>_<timestamp>/`，只供人工溯源，agent 不读取或引用。新的导师成品目录重新生成，并且根部仍只保留 00-04 五份 Markdown 和 `_internal/`。
+只有用户明确要求把整份旧输出移出 `output/` 做人工溯源时，才考虑这个旧工具。它会把旧版整目录移动到项目级 `archive/旧版产出/<姓名>_<timestamp>/`；agent 之后仍不得读取、搜索、复制或引用 `archive/` 中的任何内容。
 
 ---
 
@@ -496,7 +496,7 @@ python src/phase1/archive_previous.py "<学校>/<学院>/<部门>/<姓名>"
 
 - **本文件（pipeline.md）**：阶段 1 的单一技术事实源，包含所有规范、命令和检查清单。
 - **CLAUDE.md**：项目级配置，定义快速指令和规则优先级。
-- **脚本源码**：`utils.py`、`step*`、`render_profile.py`、`archive_previous.py` 实现具体逻辑。
+- **脚本源码**：`utils.py`、`step*`、`risk_gate.py`、`render_profile.py`、`verify_profile.py` 实现具体逻辑。
 
 本文件不引用其他文档路径，自身就是完整的操作手册。
 
