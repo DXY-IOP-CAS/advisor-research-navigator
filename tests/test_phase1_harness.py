@@ -210,6 +210,20 @@ run_timestamp: 20260704_010203
         self.assertEqual(verify_profile.FAIL, result)
         self.assertIn("不使用裸露 frontmatter", buf.getvalue())
 
+    def test_verify_profile_accepts_current_stage_title_to_present(self):
+        profile_path = self._write_profile(
+            self._valid_profile().replace(
+                "### 4.2 博后阶段（2012–2013）",
+                "### 4.2 博后阶段（2012–至今）",
+            )
+        )
+
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            result = verify_profile.verify(profile_path)
+
+        self.assertEqual(verify_profile.PASS, result, buf.getvalue())
+
     def test_validate_career_stages_accepts_dict_wrapped_stages(self):
         with tempfile.TemporaryDirectory() as tmp:
             stages_path = os.path.join(tmp, "career_stages.json")

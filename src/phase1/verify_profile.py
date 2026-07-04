@@ -279,7 +279,7 @@ def verify(profile_path: str, merged_path: str = None) -> int:
     stage_headers = re.findall(r"^### 4\.\d+ (.+)$", content, re.MULTILINE)
     bare_years = [s for s in stage_headers
                   if s not in ("其他阶段", "未知年份")
-                  and not re.search(r"\d{4}.*\d{4}", s)]
+                  and not re.search(r"\d{4}.*(?:\d{4}|至今)", s)]
     check(len(bare_years) == 0,
           f"阶段标题含年份范围（发现 {len(bare_years)} 个无年份的阶段：{bare_years[:5]}）",
           errors)
