@@ -149,6 +149,16 @@ def _source_status_note(status: str, success_note: str) -> str:
     return f"{status}（需人工复核）"
 
 
+def _source_status_label(status: str) -> str:
+    """Render machine status labels for the final Markdown table."""
+    normalized = str(status or "").strip().lower()
+    if normalized == "success":
+        return "已核验"
+    if normalized in ("", "n/a", "none", "?"):
+        return "未记录"
+    return f"{status}（需人工复核）"
+
+
 def render_career_timeline(stages: list) -> str:
     """从 career_stages 生成 §2 学术履历表格。
 
@@ -201,19 +211,19 @@ def generate(data: dict, output_path: str, stage_config: list = None,
     L("")
     L("| 项目 | 内容 |")
     L("|:-----|:------|")
-    L(f"| 整理时间 | {ts} |")
-    L(f"| 总论文数 | {len(papers)} 篇（合并后）|")
+    L(f"| 资料整理时间 | {ts} |")
+    L(f"| 论文记录数 | {len(papers)} 篇（多源去重后）|")
     L(
-        "| Google Scholar 数据 | "
-        f"{_source_status_note(src_status.get('google_scholar'), '已采集，用作作者自维护论文主源')} |"
+        "| Google Scholar 记录 | "
+        f"{_source_status_note(src_status.get('google_scholar'), '已核验，用作作者自维护论文主源')} |"
     )
     L(
-        "| OpenAlex 数据 | "
-        f"{_source_status_note(src_status.get('openalex'), '已采集，用于 DOI、期刊、作者与开放元数据补充')} |"
+        "| OpenAlex 记录 | "
+        f"{_source_status_note(src_status.get('openalex'), '已核验，用于 DOI、期刊、作者与开放元数据补充')} |"
     )
     L(
-        "| arXiv 数据 | "
-        f"{_source_status_note(src_status.get('arxiv'), '已检索，用于识别预印本与同名噪声')} |"
+        "| arXiv 记录 | "
+        f"{_source_status_note(src_status.get('arxiv'), '已核验，用于识别预印本与明显误归属记录')} |"
     )
     L(f"| 身份验证 | 已验证（email {prof.get('email_domain', '')}） |")
     L("")
@@ -274,15 +284,15 @@ def generate(data: dict, output_path: str, stage_config: list = None,
         sources = set(p.get("sources", []))
         if sources == {"openalex"}:
             if no_gs_anchor:
-                # 没有 GS 锚点 → 跳过 OA 噪声过滤，保留全部论文
+                # 没有 GS 锚点 → 跳过 OA 误归属过滤，保留全部论文
                 # 所有论文标记"未验证"但保留在正文中
                 p["_no_gs_anchor"] = True
             else:
                 score = score_oa_noise(p, gs_or_multi)
                 if score < 1:
-                    removed_titles.append(f"[OA 噪声] {title}")
+                    removed_titles.append(f"[OA 误归属] {title}")
                     continue
-        # arXiv 独有论文过滤：无 DOI 的 arXiv-only 论文无法交叉验证，视为同名噪声
+        # arXiv 独有论文过滤：无 DOI 的 arXiv-only 论文无法交叉验证，视为明显误归属
         # 有 DOI 的 arXiv-only 论文保留（可能是尚未被 GS 收录的预印本）
         if sources == {"arxiv"} and not p.get("doi"):
             removed_titles.append(f"[arXiv 无 DOI] {title}")
@@ -396,10 +406,10 @@ def generate(data: dict, output_path: str, stage_config: list = None,
     oa_papers = len([p for p in filtered_papers if "openalex" in set(p.get("sources", []))])
     arxiv_papers = len([p for p in filtered_papers if "arxiv" in set(p.get("sources", []))])
     total_unique = len(filtered_papers)
-    L(f"| Google Scholar | {src_status.get('google_scholar', '?')} | {gs_papers} | h-index {prof.get('h_index')}, 引用 {prof.get('total_citations')} |")
-    L(f"| OpenAlex | {src_status.get('openalex', '?')} | {oa_papers} | 元数据补充（DOI/期刊/作者） |")
-    L(f"| arXiv | {src_status.get('arxiv', '?')} | {arxiv_papers} | 预印本（同名噪声已过滤） |")
-    L(f"| 合并 | ✅ | {total_unique} | 去重后唯一数（多源论文在各源计数中重复计算） |")
+    L(f"| Google Scholar | {_source_status_label(src_status.get('google_scholar'))} | {gs_papers} | h-index {prof.get('h_index')}, 引用 {prof.get('total_citations')} |")
+    L(f"| OpenAlex | {_source_status_label(src_status.get('openalex'))} | {oa_papers} | 元数据补充（DOI/期刊/作者） |")
+    L(f"| arXiv | {_source_status_label(src_status.get('arxiv'))} | {arxiv_papers} | 预印本（明显误归属记录已过滤） |")
+    L(f"| 合并 | ✅ | {total_unique} | 多源去重后的唯一记录数；多源论文在各源计数中重复计算 |")
     L("")
     # 交叉验证统计
     cross_count = sum(1 for p in filtered_papers if p.get("source_count", 0) > 1)

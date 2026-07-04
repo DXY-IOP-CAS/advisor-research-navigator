@@ -171,7 +171,11 @@ class Phase1HarnessTests(unittest.TestCase):
                 },
                 "papers": [],
                 "statistics": {},
-                "source_status": {},
+                "source_status": {
+                    "google_scholar": "success",
+                    "openalex": "success",
+                    "arxiv": "success",
+                },
             }
 
             content = render_profile.generate(
@@ -185,9 +189,19 @@ class Phase1HarnessTests(unittest.TestCase):
         self.assertNotIn("source_updated:", content)
         self.assertNotIn("affiliation:", content.split("#", 1)[0])
         self.assertIn("## 资料概览", content)
-        self.assertIn("Google Scholar 数据", content)
+        self.assertIn("Google Scholar 记录", content)
+        self.assertIn("OpenAlex 记录", content)
+        self.assertIn("arXiv 记录", content)
+        self.assertIn("已核验，用作作者自维护论文主源", content)
+        self.assertIn("| Google Scholar | 已核验 |", content)
+        self.assertIn("| OpenAlex | 已核验 |", content)
+        self.assertIn("| arXiv | 已核验 |", content)
         self.assertIn("| Google Scholar ID | abc123 |", content)
         self.assertIn("| OpenAlex ID | A123 |", content)
+        self.assertNotIn("Google Scholar 数据", content)
+        self.assertNotIn("已采集", content)
+        self.assertNotIn("同名噪声", content)
+        self.assertNotIn("合并后", content)
         self.assertNotIn("| GS ID |", content)
         self.assertNotIn("| OA ID |", content)
         self.assertNotIn("run_archive:", content)
