@@ -210,6 +210,21 @@ run_timestamp: 20260704_010203
         self.assertEqual(verify_profile.FAIL, result)
         self.assertIn("不使用裸露 frontmatter", buf.getvalue())
 
+    def test_verify_profile_fails_when_html_comment_is_visible(self):
+        profile_path = self._write_profile(
+            self._valid_profile().replace(
+                "## 5. 合作网络",
+                "<!-- 已被剔除的同名噪声 -->\n## 5. 合作网络",
+            )
+        )
+
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            result = verify_profile.verify(profile_path)
+
+        self.assertEqual(verify_profile.FAIL, result)
+        self.assertIn("不含 HTML 注释", buf.getvalue())
+
     def test_verify_profile_accepts_current_stage_title_to_present(self):
         profile_path = self._write_profile(
             self._valid_profile().replace(

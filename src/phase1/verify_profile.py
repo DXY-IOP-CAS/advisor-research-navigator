@@ -79,6 +79,11 @@ def verify(profile_path: str, merged_path: str = None) -> int:
     # 1b. 成品 Markdown 不暴露流水线元数据。
     check(not content.startswith("---\n"), "不使用裸露 frontmatter", errors)
 
+    html_comment_count = len(re.findall(r"<!--.*?-->", content, re.DOTALL))
+    check(html_comment_count == 0,
+          f"不含 HTML 注释（发现 {html_comment_count} 处）",
+          errors)
+
     # 1c. 表格内部无空行（空行会破坏 markdown 表格渲染）
     table_regions = re.findall(r"^\| # \| 年份 \| 标题 \| 期刊 \| 引用 \| 来源 \|(.+?)(?=\n\n|\Z)", content, re.MULTILINE | re.DOTALL)
     blank_within_table = False
@@ -328,6 +333,7 @@ def verify(profile_path: str, merged_path: str = None) -> int:
 FIX_MAP = {
     "禁止关键词": "删除包含这些词的句子（参考 references/phase1-anti-patterns.md）",
     "frontmatter": "删除文件开头的 YAML 元数据；必要信息放入「资料概览」或「身份标识」",
+    "HTML 注释": "删除最终 Markdown 中的 <!-- ... --> 隐藏注释；需要保留的信息改写为正文或数据质量说明",
     "表格内部无空行": "删除论文表格行之间的空行（只删表格内的，前后叙事段落保留）",
     "名字格式": "改为 '# 中文名 (English Name) — 基础画像' 格式",
     "论文行数": "merged JSON 有变化，跑 render_profile.py --prof-dir ... 重新生成",
