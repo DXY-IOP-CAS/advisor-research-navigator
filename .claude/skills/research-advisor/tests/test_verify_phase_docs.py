@@ -94,7 +94,16 @@ class VerifyPhaseDocsTest(unittest.TestCase):
             "00_材料导读.md",
             "# 张鹏举 (Pengju Zhang) - 材料导读\n\n"
             f"## 这套材料解决什么问题\n这套材料帮助学生建立阅读顺序。{cite('O1')}\n\n"
-            "## 建议阅读顺序\n先粗读基础画像，再读领域地图、论文路线和学习向导，最后回看基础画像。\n\n"
+            "## 建议阅读顺序\n"
+            "第一遍先粗读 `01_基础画像.md`，只建立身份、履历、论文集合和来源风险的初印象。\n\n"
+            "第二步读 `02_领域地图.md`，第三步读 `03_论文路线.md`，第四步读 `04_学习向导.md`。最后回看 `01_基础画像.md`，用领域、论文和学习路径理解反过来核查事实底座。\n\n"
+            "| 阅读轮次 | 文档 | 读这一遍要抓住什么 |\n"
+            "|:---|:---|:---|\n"
+            "| 第一遍 | `01_基础画像.md` | 粗读身份、履历、论文集合和来源风险 |\n"
+            "| 第二步 | `02_领域地图.md` | 建立当前方向的领域坐标 |\n"
+            "| 第三步 | `03_论文路线.md` | 看论文怎样连成问题链 |\n"
+            "| 第四步 | `04_学习向导.md` | 从基础课倒推到论文和平台链路 |\n"
+            "| 最后 | `01_基础画像.md` | 回看事实底座和风险 |\n\n"
             "## 如何阅读引用和证据标记\n[O#] 代表官方或身份来源，[P#] 代表论文来源，[R#] 代表教材、讲义或综述，[B#] 代表背景资料；[未找到] 表示暂缺来源，需人工复核表示判断还不够强。\n\n"
             "## 起步讨论入口\n用一篇目标论文、Fig. 2 核心图和一条平台链路进入讨论。\n\n"
             "## 文件定位\n五份文档按认知阶梯互相支撑。\n\n"
@@ -229,6 +238,31 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         result = module.verify_prof_dir(self.prof)
         self.assertFalse(result.ok)
         self.assertIn("[FAIL] 缺少文件: 00_材料导读.md", result.messages)
+
+    def test_rejects_material_guide_without_explicit_reading_order_explanation(self):
+        self.write_doc(
+            "00_材料导读.md",
+            "# 张鹏举 (Pengju Zhang) - 材料导读\n\n"
+            f"## 这套材料解决什么问题\n这套材料帮助学生建立阅读顺序。{cite('O1')}\n\n"
+            "## 建议阅读顺序\n先粗读基础画像，再读领域地图、论文路线和学习向导，最后回看基础画像。\n\n"
+            "## 如何阅读引用和证据标记\n[O#] 代表官方或身份来源，[P#] 代表论文来源，[R#] 代表教材、讲义或综述，[B#] 代表背景资料；[未找到] 表示暂缺来源，需人工复核表示判断还不够强。\n\n"
+            "## 起步讨论入口\n用一篇目标论文、Fig. 2 核心图和一条平台链路进入讨论。\n\n"
+            "## 文件定位\n五份文档按认知阶梯互相支撑。\n\n"
+            "## 使用边界\n本材料不做导师评价、不做申请建议、不替代论文和教材。\n\n"
+            + MERMAID_BLOCK
+            + "\n"
+            "## 参考文献与资料\n\n"
+            "### 官方与身份资料\n\n"
+            + SOURCE_TABLE_HEADER
+            + "|:---|:---|:---|:---|:---|\n"
+            + source_table_row("O1"),
+        )
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+
+        self.assertFalse(result.ok)
+        self.assertIn("[FAIL] 00_材料导读.md 建议阅读顺序缺少分步文字解释", result.messages)
+        self.assertIn("[FAIL] 00_材料导读.md 建议阅读顺序缺少阅读顺序表", result.messages)
 
     def test_rejects_machine_files_in_professor_root(self):
         (self.prof / "latest.txt").write_text("20260704_010203\n", encoding="utf-8")

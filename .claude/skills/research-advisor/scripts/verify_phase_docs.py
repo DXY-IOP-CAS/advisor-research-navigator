@@ -113,6 +113,13 @@ BLUEPRINT_REQUIRED_FIELDS = [
 ]
 PHASE4_MINIMAL_LOOP_HEADING = "## 进组前起步闭环"
 PHASE4_MINIMAL_LOOP_REQUIRED = ("论文", "图", "平台")
+PHASE0_READING_ORDER_HEADING = "## 建议阅读顺序"
+PHASE0_READING_ORDER_DOCS = (
+    "01_基础画像.md",
+    "02_领域地图.md",
+    "03_论文路线.md",
+    "04_学习向导.md",
+)
 PHASE4_CONCRETE_FIGURE_RE = re.compile(
     r"(?:Fig(?:ure)?\.?\s*[0-9]+[a-z]?)|(?:图\s*[0-9０-９一二三四五六七八九十]+)"
 )
@@ -257,6 +264,23 @@ def _check_phase4_minimal_loop(filename: str, text: str, messages: list[str]) ->
         )
     if not PHASE4_CONCRETE_FIGURE_RE.search(section):
         messages.append("[FAIL] 04_学习向导.md 进组前起步闭环必须具体到核心图编号或图组")
+
+
+def _check_phase0_reading_order(filename: str, text: str, messages: list[str]) -> None:
+    if filename != "00_材料导读.md" or PHASE0_READING_ORDER_HEADING not in text:
+        return
+
+    section = _extract_markdown_section(text, PHASE0_READING_ORDER_HEADING)
+    before_table = section.split("\n|", 1)[0]
+    has_all_docs_in_explanation = all(doc in before_table for doc in PHASE0_READING_ORDER_DOCS)
+    has_first_pass = any(token in before_table for token in ("第一遍", "第一次", "先粗读", "粗读"))
+    has_final_revisit = any(token in before_table for token in ("最后", "回看", "回读"))
+
+    if not (has_all_docs_in_explanation and has_first_pass and has_final_revisit):
+        messages.append("[FAIL] 00_材料导读.md 建议阅读顺序缺少分步文字解释")
+
+    if not _has_markdown_table(section):
+        messages.append("[FAIL] 00_材料导读.md 建议阅读顺序缺少阅读顺序表")
 
 
 def _check_forbidden_terms(filename: str, text: str, messages: list[str]) -> None:
@@ -455,6 +479,7 @@ def verify_prof_dir(prof_dir: str | Path) -> VerifyResult:
         _check_source_format(filename, text, messages)
         _check_visualization_construct(filename, text, messages)
         _check_paragraph_density(filename, text, messages)
+        _check_phase0_reading_order(filename, text, messages)
         _check_phase4_minimal_loop(filename, text, messages)
         _check_forbidden_terms(filename, text, messages)
         _check_forbidden_style(filename, text, messages)
