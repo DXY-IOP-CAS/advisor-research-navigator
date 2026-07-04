@@ -153,6 +153,22 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertIn("00_材料导读.md", text)
         self.assertNotIn("four Markdown deliverables", text)
 
+    def test_active_docs_do_not_describe_deliverables_as_four_docs(self):
+        active_docs = [
+            ROOT / "AGENTS.md",
+            ROOT / "QUICKSTART.md",
+            ROOT / "docs" / "计划书.md",
+            ROOT / ".claude" / "skills" / "research-advisor" / "SKILL.md",
+        ]
+
+        leaked = []
+        for path in active_docs:
+            text = path.read_text(encoding="utf-8")
+            if "四份文档" in text:
+                leaked.append(str(path.relative_to(ROOT)))
+
+        self.assertEqual([], leaked, "active docs should describe the 00-04 deliverables as five docs")
+
     def test_phase4_reference_avoids_forbidden_key_paper_wording(self):
         text = (
             ROOT
