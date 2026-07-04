@@ -125,6 +125,10 @@ MERMAID_START_RE = re.compile(
 MARKDOWN_TABLE_SEPARATOR_RE = re.compile(r"^\s*\|?\s*:?-{3,}:?\s*(?:\|\s*:?-{3,}:?\s*)+\|?\s*$")
 TEXT_VISUAL_BLOCK_RE = re.compile(r"```(?:text|txt)\s*\n(.*?)\n```", re.DOTALL)
 TEXT_VISUAL_MARKERS = ("->", "→", "├", "└", "│")
+ORDINARY_PARAGRAPH_MAX_CHARS = 420
+PARAGRAPH_BOUNDARY_RE = re.compile(
+    r"^\s*(?:#{1,6}\s|[-*+]\s+|\d+[.)]\s+|>\s*|<!--|</?\w|---\s*$)"
+)
 
 
 @dataclass
@@ -326,6 +330,57 @@ def _check_visualization_construct(filename: str, text: str, messages: list[str]
     messages.append(f"[FAIL] {filename} 缺少可视化理解构件：Mermaid、正文表格/矩阵或文本层级树")
 
 
+def _is_markdown_table_line(line: str) -> bool:
+    stripped = line.strip()
+    return stripped.startswith("|") or MARKDOWN_TABLE_SEPARATOR_RE.match(stripped) is not None
+
+
+def _visible_text_length(text: str) -> int:
+    return len(re.sub(r"\s+", "", text))
+
+
+def _check_paragraph_density(filename: str, text: str, messages: list[str]) -> None:
+    body, _sources = _split_sources_section(_body_after_frontmatter(text))
+    paragraph_lines: list[str] = []
+    paragraph_start = 0
+    in_code_block = False
+
+    def flush() -> None:
+        nonlocal paragraph_lines, paragraph_start
+        if not paragraph_lines:
+            return
+        paragraph = " ".join(line.strip() for line in paragraph_lines)
+        length = _visible_text_length(paragraph)
+        if length > ORDINARY_PARAGRAPH_MAX_CHARS:
+            messages.append(
+                f"[FAIL] {filename} 普通正文段落过长: 第 {paragraph_start} 行约 {length} 字，"
+                "建议拆成短段、表格、矩阵、层级树或必要 Mermaid"
+            )
+        paragraph_lines = []
+        paragraph_start = 0
+
+    for line_number, line in enumerate(body.splitlines(), start=1):
+        stripped = line.strip()
+        if stripped.startswith("```"):
+            flush()
+            in_code_block = not in_code_block
+            continue
+        if in_code_block:
+            continue
+        if (
+            not stripped
+            or PARAGRAPH_BOUNDARY_RE.match(stripped)
+            or _is_markdown_table_line(stripped)
+        ):
+            flush()
+            continue
+        if not paragraph_lines:
+            paragraph_start = line_number
+        paragraph_lines.append(line)
+
+    flush()
+
+
 def _check_evidence_tables(prof: Path, messages: list[str]) -> None:
     evidence_dir = prof / "_internal" / "evidence"
     if not evidence_dir.is_dir():
@@ -372,6 +427,7 @@ def verify_prof_dir(prof_dir: str | Path) -> VerifyResult:
 
         _check_source_format(filename, text, messages)
         _check_visualization_construct(filename, text, messages)
+        _check_paragraph_density(filename, text, messages)
         _check_phase4_minimal_loop(filename, text, messages)
         _check_forbidden_terms(filename, text, messages)
         _check_forbidden_style(filename, text, messages)

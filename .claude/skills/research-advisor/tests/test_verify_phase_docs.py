@@ -191,6 +191,23 @@ class VerifyPhaseDocsTest(unittest.TestCase):
             result.messages,
         )
 
+    def test_rejects_overlong_ordinary_body_paragraph(self):
+        text = (self.prof / "02_领域地图.md").read_text(encoding="utf-8")
+        long_paragraph = "这是一段没有被表格、列表或图示承载的普通正文。" * 32
+        self.write_doc(
+            "02_领域地图.md",
+            text.replace("## 当前方向学科定位\n\n", f"## 当前方向学科定位\n{long_paragraph}\n\n"),
+        )
+
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+
+        self.assertFalse(result.ok)
+        self.assertTrue(
+            any("02_领域地图.md 普通正文段落过长" in message for message in result.messages),
+            result.messages,
+        )
+
     def test_rejects_invalid_mermaid_even_when_table_exists(self):
         text = (self.prof / "03_论文路线.md").read_text(encoding="utf-8")
         self.write_doc(
