@@ -6,6 +6,7 @@ from pathlib import Path
 
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "verify_phase_docs.py"
+BLUEPRINT_TEMPLATE = Path(__file__).resolve().parents[1] / "assets" / "templates" / "blueprint.md"
 
 
 def load_module():
@@ -180,6 +181,14 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         module = load_module()
         result = module.verify_prof_dir(self.prof)
         self.assertTrue(result.ok, result.messages)
+
+    def test_blueprint_template_contains_required_fields(self):
+        module = load_module()
+        self.assertTrue(BLUEPRINT_TEMPLATE.exists(), f"missing template: {BLUEPRINT_TEMPLATE}")
+        text = BLUEPRINT_TEMPLATE.read_text(encoding="utf-8")
+
+        for label, pattern in module.BLUEPRINT_REQUIRED_FIELDS:
+            self.assertRegex(text, pattern, f"blueprint template missing {label}")
 
     def test_rejects_missing_cognitive_blueprint(self):
         (self.prof / "_internal" / "blueprint.md").unlink()
