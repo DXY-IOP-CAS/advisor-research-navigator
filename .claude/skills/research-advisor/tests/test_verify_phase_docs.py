@@ -182,6 +182,14 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.assertFalse(result.ok)
         self.assertTrue(any("禁用评价语" in m for m in result.messages))
 
+    def test_rejects_overpromising_student_proof_wording(self):
+        text = (self.prof / "04_学习向导.md").read_text(encoding="utf-8")
+        self.write_doc("04_学习向导.md", text + "\n这个汇报能证明学生已经理解主线。\n")
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+        self.assertFalse(result.ok)
+        self.assertTrue(any("证明学生" in m for m in result.messages))
+
     def test_rejects_missing_source_marker(self):
         self.write_doc(
             "04_学习向导.md",
