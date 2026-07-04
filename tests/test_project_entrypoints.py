@@ -35,6 +35,14 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertIn("第2章: 端到端质量重构设计", text)
         self.assertNotIn("第2章: 四阶段流水线设计", text)
 
+    def test_plan_does_not_retain_legacy_version_footer(self):
+        text = (ROOT / "docs" / "计划书.md").read_text(encoding="utf-8")
+
+        forbidden = ["**版本**：v5.0", "**下次更新**："]
+        found = [phrase for phrase in forbidden if phrase in text]
+        if found:
+            self.fail(f"docs/计划书.md retains legacy footer markers: {found}")
+
     def test_pipeline_does_not_call_run_py_old_unified_entrypoint(self):
         text = (ROOT / "src" / "phase1" / "pipeline.md").read_text(encoding="utf-8")
 
