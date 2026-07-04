@@ -83,6 +83,7 @@ FORBIDDEN_STYLE = [
     "告诉你",
     "告诉我们",
     "我现在缺的是",
+    "下面的路线图",
 ]
 
 SOURCE_RE = re.compile(r"https?://|\[未找到\]|需人工复核")
@@ -103,6 +104,7 @@ FIXED_DAY_RE = re.compile(
     r"第\s*[0-9０-９一二三四五六七八九十百两]+\s*天"
     r"|[0-9０-９]+\s*天(?:路线|计划|安排|训练|打卡|任务|课程)?"
 )
+VISIBLE_TAXONOMY_RE = re.compile(r"主线[一二三四五六七八九十]+[:：]")
 
 
 @dataclass
@@ -232,6 +234,9 @@ def _check_forbidden_style(filename: str, text: str, messages: list[str]) -> Non
 
     for match in FIXED_DAY_RE.finditer(text):
         messages.append(f"[FAIL] {filename} 含固定天数学习安排: {match.group(0)}")
+
+    for match in VISIBLE_TAXONOMY_RE.finditer(text):
+        messages.append(f"[FAIL] {filename} 含外显分类写法: {match.group(0)}")
 
 
 def _check_optional_markdown_docs(prof: Path, messages: list[str]) -> None:

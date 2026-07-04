@@ -121,6 +121,15 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.assertFalse(result.ok)
         self.assertTrue(any("论文路线总表" in m for m in result.messages))
 
+    def test_rejects_visible_numbered_mainline_taxonomy(self):
+        text = (self.prof / "03_论文路线.md").read_text(encoding="utf-8")
+        self.write_doc("03_论文路线.md", text + "\n### 主线一：液相光电子谱\n\n因此，学生可以用下面的路线图理解论文关系。\n")
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+        self.assertFalse(result.ok)
+        self.assertTrue(any("主线一：" in m for m in result.messages))
+        self.assertTrue(any("路线图" in m for m in result.messages))
+
     def test_rejects_old_phase2_field_tree_heading(self):
         text = (self.prof / "02_领域地图.md").read_text(encoding="utf-8")
         self.write_doc(
