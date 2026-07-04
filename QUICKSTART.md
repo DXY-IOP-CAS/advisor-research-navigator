@@ -70,6 +70,20 @@ python src/phase1/phase1_init.py \
 
 阶段 2-4 先写 `_internal/blueprint.md`，再生成或修订成品文档。蓝图必须固定导师主线、目标论文、核心图、平台链路、学习桥、证据风险和可视化计划。
 
+## 端到端回归
+
+端到端回归只给三行最小输入：
+
+```text
+姓名：<中文名>
+机构：<大学>/<学院或研究所>/<部门>
+官网 URL：<导师官网 URL>
+```
+
+不要在 prompt 里附已知 GS ID、OpenAlex ID、ORCID、英文名、邮箱、论文列表、官网摘录、career_stages 草案、搜索关键词、命令顺序或修复提示。端到端回归的目的不是手把手带 AI 跑通，而是暴露 harness 缺口；如果执行 AI 觉得三行输入不够，先记录缺口并改 harness，不向用户索要额外学术线索。
+
+每次回归记录写入 `docs/e2e/YYYY-MM-DD-<name>-minimal-prompt.md`，至少记录 `risk_gate.py` mode/reason/next_actions/metrics、补证据或剔除动作、`verify_profile.py`、`verify_phase_docs.py`、可视化/DOI smoke 结果，以及 smoke 之外仍需人工学术审查的身份、论文归属、核心图、平台链路和学习路径风险。
+
 ## 验证
 
 常用验证命令：

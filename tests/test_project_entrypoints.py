@@ -46,6 +46,18 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         pipeline = (ROOT / "src" / "phase1" / "pipeline.md").read_text(encoding="utf-8")
         self.assertNotIn("docs/phase1运行策略.md", pipeline)
 
+    def test_e2e_minimal_prompt_rules_live_in_quickstart(self):
+        self.assertFalse(
+            (ROOT / "END_TO_END_TEST.md").exists(),
+            "Minimal-prompt E2E rules should not remain as a parallel root entrypoint",
+        )
+
+        quickstart = (ROOT / "QUICKSTART.md").read_text(encoding="utf-8")
+        self.assertIn("端到端回归", quickstart)
+        self.assertIn("只给三行最小输入", quickstart)
+        self.assertIn("不要在 prompt 里附已知 GS ID", quickstart)
+        self.assertIn("docs/e2e/YYYY-MM-DD-<name>-minimal-prompt.md", quickstart)
+
     def test_tracked_professor_roots_expose_only_final_docs_or_internal(self):
         result = subprocess.run(
             ["git", "-c", "core.quotePath=false", "ls-files", "output"],
