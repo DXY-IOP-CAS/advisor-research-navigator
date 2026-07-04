@@ -152,6 +152,29 @@ class Phase1HarnessTests(unittest.TestCase):
             self.assertIn("| 2010–2011 | 测试大学 | 博士研究生 | 测试方向 |", content)
             self.assertIn("### 4.1 博士阶段（2010–2011）", content)
 
+    def test_render_profile_writes_lf_line_endings(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            output_path = os.path.join(tmp, "01_基础画像.md")
+            data = {
+                "professor": {
+                    "name": "张三 (San Zhang)",
+                    "affiliation": "测试机构",
+                    "email_domain": "iphy.ac.cn",
+                    "gs_id": "abc123",
+                },
+                "papers": [],
+                "statistics": {},
+                "source_status": {},
+            }
+
+            content = render_profile.generate(data, output_path)
+            with open(output_path, "rb") as f:
+                raw = f.read()
+
+            self.assertIn("## 资料概览", content)
+            self.assertNotIn(b"\r\n", raw)
+            self.assertIn(b"\n", raw)
+
     def test_render_profile_prof_dir_default_output_uses_profile_path(self):
         parser_output_default = render_profile.default_output_path("output/大学/所/部门/张三", None)
         self.assertEqual(

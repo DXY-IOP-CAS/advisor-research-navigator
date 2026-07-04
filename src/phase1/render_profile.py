@@ -431,7 +431,7 @@ def generate(data: dict, output_path: str, stage_config: list = None,
 
     # Save
     content = "\n".join(lines)
-    with open(output_path, "w", encoding="utf-8") as f:
+    with open(output_path, "w", encoding="utf-8", newline="\n") as f:
         f.write(content)
     logger.info(f"Profile written: {output_path} ({len(papers)} papers, {stage_idx - 1} stages)")
     return content
