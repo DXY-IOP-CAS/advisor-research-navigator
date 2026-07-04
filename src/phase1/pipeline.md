@@ -223,7 +223,7 @@ step6_merge 的输出，在 SOURCE_OUTPUT 基础上增加：
 
 `run.py` 自动串联阶段 B + 阶段 C 的旧步骤，只作为兼容捷径和本地调试工具。新的端到端质量重构基线不以 `run.py` 为主入口，因为它要求调用者已经知道 GS/OA/ORCID 等信息，并且容易让执行 AI 跳过“官网 URL -> 身份锁定 -> Fact Pack -> Cognitive Blueprint”的认知设计步骤。
 
-新导师常规运行应先用 `phase1_init.py` 从 `姓名 + 机构路径 + 官网 URL` 建目录，并把三项最小输入写入 `_internal/seed.json`，再由 AI 按 `research-advisor` skill 完成官网身份锁定、`verified_ids.json`、`career_stages.json`、三源采集、`risk_gate`、`01_基础画像.md`，然后在 `_internal/blueprint.md` 中完成成品前认知蓝图。只有在已有人工核定 ID、需要快速复现旧 Phase B/C 行为时，才使用 `run.py`。
+新导师常规运行应先用 `phase1_init.py` 从 `姓名 + 机构路径 + 官网 URL` 建目录，并把三项最小输入写入 `_internal/seed.json`，再由 AI 按 `research-advisor` skill 完成官网身份锁定、`verified_ids.json`、`career_stages.json`、三源采集、`risk_gate`、`01_基础画像.md`，然后在 `_internal/blueprint.md` 中完成成品前认知蓝图。后续受控修正脚本默认继承 seed 中的官网 URL；只有核查证据来自不同官方页面时，才显式传新的 URL 覆盖。只有在已有人工核定 ID、需要快速复现旧 Phase B/C 行为时，才使用 `run.py`。
 
 ```bash
 python src/phase1/run.py \

@@ -32,11 +32,33 @@ def write_json(path: str, data: Dict[str, Any]) -> None:
         f.write("\n")
 
 
-def require_official_url(official_url: str) -> str:
+def require_official_url(official_url: str, source: str = "--official-url") -> str:
     official_url = (official_url or "").strip()
     if not official_url.startswith(("http://", "https://")):
-        raise ValueError("--official-url is required and must be an HTTP(S) URL")
+        raise ValueError(f"{source} must be an HTTP(S) URL")
     return official_url
+
+
+def load_seed_official_url(prof_dir: str) -> str:
+    seed_path = os.path.join(prof_dir, "_internal", "seed.json")
+    if not os.path.exists(seed_path):
+        return ""
+    seed = load_json(seed_path)
+    return str(seed.get("official_url") or "").strip()
+
+
+def resolve_official_url(prof_dir: str, official_url: str = "") -> str:
+    if (official_url or "").strip():
+        return require_official_url(official_url, "--official-url")
+
+    seed_url = load_seed_official_url(prof_dir)
+    if seed_url:
+        return require_official_url(seed_url, "_internal/seed.json official_url")
+
+    raise ValueError(
+        "--official-url is required unless _internal/seed.json contains an HTTP(S) official_url; "
+        "rerun phase1_init.py --official-url ... or pass --official-url explicitly"
+    )
 
 
 def apply_identity_review(
@@ -48,10 +70,10 @@ def apply_identity_review(
     note: str = "",
     ts: Optional[str] = None,
 ) -> None:
-    official_url = require_official_url(official_url)
     resolver = ProfDirResolver(prof_dir, ts)
     if not resolver.archive_dir:
         raise ValueError(f"{prof_dir} 下找不到 _internal/latest.txt，请先跑 phase1_init.py")
+    official_url = resolve_official_url(prof_dir, official_url)
 
     verified = load_json(resolver.verified_ids_path)
     merged = load_json(resolver.merged_path)
@@ -98,7 +120,10 @@ def main() -> None:
     parser.add_argument("--display-name", help="Reviewed display name, e.g. 汪非凡 (Feifan Wang)")
     parser.add_argument("--official-email-domain", help="Reviewed current official email domain, e.g. iphy.ac.cn")
     parser.add_argument("--official-affiliation", help="Reviewed current official affiliation")
-    parser.add_argument("--official-url", required=True, help="Official source URL supporting this review")
+    parser.add_argument(
+        "--official-url",
+        help="Official source URL supporting this review; defaults to _internal/seed.json official_url",
+    )
     parser.add_argument("--note", default="", help="Short review note")
     args = parser.parse_args()
 

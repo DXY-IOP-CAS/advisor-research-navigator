@@ -54,9 +54,10 @@ python src/phase1/apply_identity_review.py \
   --display-name "中文名 (English Name)" \
   --official-email-domain "iphy.ac.cn" \
   --official-affiliation "当前官方机构" \
-  --official-url "https://..." \
   --note "官方页面支持英文名和当前邮箱"
 ```
+
+`apply_identity_review.py` 默认读取 `_internal/seed.json` 里的 `official_url`；只有官方身份核查使用了不同页面时，才额外传 `--official-url "https://..."` 覆盖 seed。
 
 不要手动打开或编辑 `_internal/archive/<ts>/00_verified_ids.json` 和 `04_merged.json`。
 

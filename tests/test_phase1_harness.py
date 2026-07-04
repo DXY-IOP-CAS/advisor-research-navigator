@@ -625,6 +625,54 @@ run_timestamp: 20260704_010203
         self.assertEqual("测试研究所", merged["metadata"]["identity_review"]["official_affiliation"])
         self.assertEqual("https://example.edu/profile", merged["metadata"]["identity_review"]["official_url"])
 
+    def test_apply_identity_review_uses_seed_official_url_when_not_passed(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            prof_dir = os.path.join(tmp, "output", "University", "Institute", "Department", "Professor")
+            internal_dir = os.path.join(prof_dir, "_internal")
+            archive_dir = os.path.join(internal_dir, "archive", "20260704_120000")
+            os.makedirs(archive_dir)
+            os.makedirs(internal_dir, exist_ok=True)
+            with open(os.path.join(internal_dir, "latest.txt"), "w", encoding="utf-8") as f:
+                f.write("20260704_120000\n")
+            with open(os.path.join(internal_dir, "seed.json"), "w", encoding="utf-8") as f:
+                json.dump({"official_url": "https://example.edu/seed-profile"}, f)
+
+            verified_path = os.path.join(archive_dir, "00_verified_ids.json")
+            merged_path = os.path.join(archive_dir, "04_merged.json")
+            with open(verified_path, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "name": "Professor",
+                        "verification": {"tier": "T2", "email_domain": "old.edu"},
+                        "sources": {},
+                    },
+                    f,
+                )
+            with open(merged_path, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "professor": {"name": "Professor", "email_domain": "old.edu"},
+                        "papers": [],
+                        "statistics": {"by_source": {}},
+                    },
+                    f,
+                )
+
+            apply_identity_review.apply_identity_review(
+                prof_dir=prof_dir,
+                display_name="Professor (Example Professor)",
+                official_email_domain="example.edu",
+                note="seed official profile supports identity review",
+            )
+
+            with open(verified_path, "r", encoding="utf-8-sig") as f:
+                verified = json.load(f)
+            with open(merged_path, "r", encoding="utf-8-sig") as f:
+                merged = json.load(f)
+
+        self.assertEqual("https://example.edu/seed-profile", verified["sources"]["official_profile_url"])
+        self.assertEqual("https://example.edu/seed-profile", merged["metadata"]["identity_review"]["official_url"])
+
     def test_apply_paper_review_excludes_doi_and_recomputes_statistics(self):
         with tempfile.TemporaryDirectory() as tmp:
             prof_dir = os.path.join(tmp, "output", "大学", "所", "部门", "张三")
