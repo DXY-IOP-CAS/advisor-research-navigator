@@ -201,7 +201,16 @@ def print_single_source_papers(papers: Iterable[Dict[str, Any]]) -> None:
         doi = paper.get("doi")
         arxiv_id = paper.get("arxiv_id")
         marker = doi or (f"arXiv:{arxiv_id}" if arxiv_id else "[未找到]")
-        print(f"- {year} | {title} | {marker}")
+        authors = paper.get("authors")
+        if isinstance(authors, list) and authors:
+            author_text = "; ".join(str(author) for author in authors[:8])
+            if len(authors) > 8:
+                author_text += "; ..."
+        elif authors:
+            author_text = str(authors)
+        else:
+            author_text = "[未找到]"
+        print(f"- {year} | {title} | {marker} | {author_text}")
 
 
 def main() -> None:

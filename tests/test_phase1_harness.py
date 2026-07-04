@@ -481,6 +481,7 @@ run_timestamp: 20260704_010203
                 "title": "OA-only paper",
                 "year": 2024,
                 "doi": "https://doi.org/10.1000/oa",
+                "authors": ["San Zhang", "Li Wang"],
                 "sources": ["openalex"],
             },
             {
@@ -503,7 +504,7 @@ run_timestamp: 20260704_010203
 
         output = buf.getvalue()
         self.assertIn("single_source_oa_arxiv_papers:", output)
-        self.assertIn("2024 | OA-only paper | https://doi.org/10.1000/oa", output)
+        self.assertIn("2024 | OA-only paper | https://doi.org/10.1000/oa | San Zhang; Li Wang", output)
         self.assertIn("2022 | arXiv-only paper | arXiv:2201.00001", output)
         self.assertNotIn("GS confirmed paper", output)
 
