@@ -13,7 +13,8 @@ python .claude/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "
 V2 基线下，这个门还检查：
 
 - 导师根目录只包含 00-04 五份 Markdown 和 `_internal/`。
-- 每份成品文档至少有一个 Mermaid 代码块，且代码块开头是可识别图类型，例如 `flowchart`、`graph`、`mindmap`、`timeline` 等。它是基础语法 smoke，不等于人工确认图已服务理解。
+- 每份成品文档至少有一个正文可视化理解构件。构件可以是 Mermaid，也可以是正文表格/矩阵或文本层级树；参考文献表不算可视化构件。
+- 如果文档包含 Mermaid 代码块，代码块开头必须是可识别图类型，例如 `flowchart`、`graph`、`mindmap`、`timeline`、`quadrantChart`、`xychart-beta`、`block-beta`、`venn`、`treemap` 等。它是基础语法 smoke，不等于人工确认图已服务理解。
 - `_internal/evidence/` 下至少有一个 Markdown 关键判断证据核对表，并包含固定表头：`文档位置 / 关键判断 / 来源 / 来源支撑了什么 / 证据强度 / 人工复核`。
 
 有 Mermaid 渲染器时，继续运行图渲染门：
@@ -22,7 +23,7 @@ V2 基线下，这个门还检查：
 python .claude/skills/research-advisor/scripts/verify_mermaid_render.py --prof-dir "<prof_dir>"
 ```
 
-这个门会调用本机 `mmdc` 逐个渲染成 SVG。若本机未安装 `mmdc`，脚本必须明确失败；不得把 `verify_phase_docs.py` 的 Mermaid 代码块存在性检查误报为“图可渲染”。临时环境可以显式加 `--use-npx` 使用 `npx --yes @mermaid-js/mermaid-cli`，但要记录引入原因、运行结果和是否被中断。
+这个门会调用本机 `mmdc` 逐个渲染 Mermaid 成 SVG。若文档没有 Mermaid 代码块，渲染门应跳过；若文档有 Mermaid 且本机未安装 `mmdc`，脚本必须明确失败。不得把 `verify_phase_docs.py` 的可视化构件检查误报为“Mermaid 可渲染”。临时环境可以显式加 `--use-npx` 使用 `npx --yes @mermaid-js/mermaid-cli`，但要记录引入原因、运行结果和是否被中断。
 
 有网络时，继续运行 DOI 元数据门：
 
@@ -39,8 +40,10 @@ python .claude/skills/research-advisor/scripts/verify_source_metadata.py --prof-
 - 每份成品文档是否自包含：说明本文解决什么问题、为什么要这样读、读完应获得什么能力。
 - 是否默认执行 AI 和读者都是小白，没有依赖聊天上下文、项目规则或其他导师材料补齐理解。
 - 关键缩写和专业术语首次出现时是否展开并用一句话解释。
-- 段落是否过长；并列、递进和因果关系是否通过短段、表格或 Mermaid 图降低阅读负担。
-- 是否包含必要 Mermaid 可视化，并且图服务理解而不是装饰。
+- 段落是否过长；并列、递进和因果关系是否通过短段、表格、矩阵、层级树或必要 Mermaid 降低阅读负担。
+- 是否包含必要可视化理解构件，并且构件服务理解而不是装饰。
+- 是否先选择合适媒介再可视化：流程图只用于真实流程；领域定位优先层级树/定位表；论文路线优先问题-方法-角色矩阵；学习向导优先课程-能力-论文桥接表；平台链路可用小型 Mermaid 或文本链路。
+- Mermaid 图是否小型化。单图只回答一个问题，优先控制在 5-9 个节点；超过约 12 个节点或横向过长时，拆成总览图 + 局部图，或改成表格/矩阵/层级树。
 - 关键判断是否有 `_internal/evidence/` 中的证据核对记录。
 - 是否清楚消费了前一阶段，而不是复述前一阶段。
 - 最终 Markdown 是否直接从一级标题开始，不使用裸露 YAML/frontmatter 或流水线元数据。
@@ -70,7 +73,7 @@ python .claude/skills/research-advisor/scripts/verify_source_metadata.py --prof-
 _internal/
 ```
 
-`latest.txt`、archive、中间 JSON、证据核对表、Mermaid 图源和验证产物都必须放进 `_internal/`。旧版目录迁移时，不要读取或引用已有 `archive/` 内容；只能移动路径结构或让脚本重新生成。
+`latest.txt`、archive、中间 JSON、证据核对表、可视化源文件和验证产物都必须放进 `_internal/`。旧版目录迁移时，不要读取或引用已有 `archive/` 内容；只能移动路径结构或让脚本重新生成。
 
 ## 阶段零门
 

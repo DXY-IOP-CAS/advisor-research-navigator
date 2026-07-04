@@ -60,7 +60,7 @@ def verify_blocks(
     renderer: Callable[[MermaidBlock], object],
 ) -> VerifyResult:
     if not blocks:
-        return VerifyResult(False, ["[FAIL] 未找到 Mermaid 代码块"])
+        return VerifyResult(True, ["[OK] 未找到 Mermaid 代码块，渲染门跳过"])
 
     messages: list[str] = []
     ok = True
@@ -109,6 +109,10 @@ def render_block_with_command(block: MermaidBlock, command: Sequence[str], temp_
 
 
 def verify_prof_dir(prof_dir: Path | str, use_npx: bool = False) -> VerifyResult:
+    blocks = extract_mermaid_blocks(prof_dir)
+    if not blocks:
+        return verify_blocks(blocks, lambda block: None)
+
     command = _renderer_command(use_npx=use_npx)
     if command is None:
         return VerifyResult(
@@ -118,7 +122,6 @@ def verify_prof_dir(prof_dir: Path | str, use_npx: bool = False) -> VerifyResult
             ],
         )
 
-    blocks = extract_mermaid_blocks(prof_dir)
     with tempfile.TemporaryDirectory(prefix="pilot-test-mermaid-") as tmp:
         temp_dir = Path(tmp)
         return verify_blocks(blocks, lambda block: render_block_with_command(block, command, temp_dir))

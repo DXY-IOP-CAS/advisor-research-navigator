@@ -31,6 +31,11 @@ def source_table_row(key: str) -> str:
 SOURCE_TABLE_HEADER = "| 编号 | 文献或资料 | 支撑内容 | 链接 | 类型 |\n"
 EVIDENCE_TABLE_HEADER = "| 文档位置 | 关键判断 | 来源 | 来源支撑了什么 | 证据强度 | 人工复核 |\n"
 MERMAID_BLOCK = "```mermaid\nflowchart LR\n    A[起点] --> B[终点]\n```\n"
+TABLE_VISUAL = (
+    "| 论文 | 问题 | 角色 |\n"
+    "|:---|:---|:---|\n"
+    "| P1 | 示例问题 | 当前主线 |\n"
+)
 
 
 class VerifyPhaseDocsTest(unittest.TestCase):
@@ -161,7 +166,19 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.assertIn("[FAIL] 导师根目录不得包含机器文件或目录: career_stages.json", result.messages)
         self.assertIn("[FAIL] 导师根目录不得包含机器文件或目录: archive", result.messages)
 
-    def test_rejects_missing_mermaid_visualization(self):
+    def test_accepts_table_visualization_without_mermaid(self):
+        text = (self.prof / "03_论文路线.md").read_text(encoding="utf-8")
+        self.write_doc(
+            "03_论文路线.md",
+            text.replace(MERMAID_BLOCK + "\n", TABLE_VISUAL + "\n"),
+        )
+
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+
+        self.assertTrue(result.ok, result.messages)
+
+    def test_rejects_missing_visualization_construct(self):
         text = (self.prof / "03_论文路线.md").read_text(encoding="utf-8")
         self.write_doc("03_论文路线.md", text.replace(MERMAID_BLOCK + "\n", ""))
 
@@ -169,7 +186,23 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         result = module.verify_prof_dir(self.prof)
 
         self.assertFalse(result.ok)
-        self.assertIn("[FAIL] 03_论文路线.md 缺少 Mermaid 可视化代码块", result.messages)
+        self.assertIn(
+            "[FAIL] 03_论文路线.md 缺少可视化理解构件：Mermaid、正文表格/矩阵或文本层级树",
+            result.messages,
+        )
+
+    def test_rejects_invalid_mermaid_even_when_table_exists(self):
+        text = (self.prof / "03_论文路线.md").read_text(encoding="utf-8")
+        self.write_doc(
+            "03_论文路线.md",
+            text.replace(MERMAID_BLOCK, "```mermaid\nnotAChart\nA --> B\n```\n" + TABLE_VISUAL),
+        )
+
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+
+        self.assertFalse(result.ok)
+        self.assertIn("[FAIL] 03_论文路线.md Mermaid 代码块缺少可识别图类型", result.messages)
 
     def test_rejects_missing_key_claim_evidence_table(self):
         (self.prof / "_internal" / "evidence" / "key_claims.md").unlink()

@@ -72,13 +72,13 @@ class VerifyMermaidRenderTest(unittest.TestCase):
         self.assertFalse(result.ok)
         self.assertIn("[FAIL] 03_论文路线.md Mermaid #1 render failed: parse error", result.messages)
 
-    def test_verify_blocks_rejects_missing_blocks(self):
+    def test_verify_blocks_skips_when_no_blocks_exist(self):
         module = load_module()
 
         result = module.verify_blocks([], lambda block: None)
 
-        self.assertFalse(result.ok)
-        self.assertIn("[FAIL] 未找到 Mermaid 代码块", result.messages)
+        self.assertTrue(result.ok)
+        self.assertIn("[OK] 未找到 Mermaid 代码块，渲染门跳过", result.messages)
 
 
 if __name__ == "__main__":
