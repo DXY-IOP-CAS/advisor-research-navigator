@@ -31,7 +31,7 @@ def write_minimal_valid_phase_docs(prof_dir: Path) -> None:
         for section in sections:
             lines.extend([section, '正文 <sup><a href="#o1">[O1]</a></sup>'])
             if section == verify_phase_docs.PHASE4_MINIMAL_LOOP_HEADING:
-                lines.append("一篇论文、一张核心图和一条平台链路。")
+                lines.append("一篇论文、Fig. 2 核心图和一条平台链路。")
         if filename == "01_基础画像.md":
             lines.append("来源：https://example.com")
         else:
@@ -128,7 +128,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 终点：进组前应接近什么状态
 ## 进组前最小闭环
-一篇主线论文、一张核心图和一条平台链路可以组成进组前最小闭环。
+一篇主线论文、Fig. 2 核心图和一条平台链路可以组成进组前最小闭环。
 ## 第一段路：先知道光电子谱到底在看什么
 ## 第二段路：从静态谱走到时间分辨
 ## 第三段路：从飞秒过程走到阿秒电子运动
@@ -191,7 +191,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 终点：进组前应接近什么状态
 ## 进组前最小闭环
-一篇主线论文、一张核心图和一条平台链路可以组成进组前最小闭环。
+一篇主线论文、Fig. 2 核心图和一条平台链路可以组成进组前最小闭环。
 ## 第一段路：先知道光电子谱到底在看什么
 ## 第二段路：从静态谱走到时间分辨
 ## 第三段路：从飞秒过程走到阿秒电子运动
