@@ -146,6 +146,18 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         result = module.verify_prof_dir(self.prof)
         self.assertTrue(result.ok, result.messages)
 
+    def test_accepts_domain_adapted_phase4_learning_headings(self):
+        text = (self.prof / "04_学习向导.md").read_text(encoding="utf-8")
+        text = text.replace("## 先知道光电子谱到底在看什么", "## 先知道谱学到底在读什么信号")
+        text = text.replace("## 随后进入阿秒电子运动", "## 随后再看固体 HHG 和阿秒电子运动")
+        text = text.replace("## 进入液相和凝聚相复杂环境", "## 进入软晶格和凝聚态复杂环境")
+        self.write_doc("04_学习向导.md", text)
+
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+
+        self.assertTrue(result.ok, result.messages)
+
     def test_rejects_missing_material_guide(self):
         (self.prof / "00_材料导读.md").unlink()
         module = load_module()
