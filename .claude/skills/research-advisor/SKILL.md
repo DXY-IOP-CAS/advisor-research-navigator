@@ -2,9 +2,9 @@
 name: research-advisor
 description: >
   Run the professor research-direction workflow from official identity locking
-  through four Markdown deliverables. Use when the user asks to 调研导师,
+  through five Markdown deliverables. Use when the user asks to 调研导师,
   了解学者, 分析导师研究方向, 生成导师画像, run Phase 1, write or verify
-  01_基础画像.md, 02_领域地图.md, 03_论文路线.md, 04_学习向导.md,
+  00_材料导读.md, 01_基础画像.md, 02_领域地图.md, 03_论文路线.md, 04_学习向导.md,
   or build phase 2-4 documents that connect a professor's current institution,
   research direction, papers, and student learning path.
 ---

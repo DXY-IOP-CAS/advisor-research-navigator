@@ -144,6 +144,15 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertIn("中文名 (English Name)", text)
         self.assertNotIn("中文名(English Name)", text)
 
+    def test_research_advisor_skill_advertises_five_deliverables(self):
+        text = (ROOT / ".claude" / "skills" / "research-advisor" / "SKILL.md").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("five Markdown deliverables", text)
+        self.assertIn("00_材料导读.md", text)
+        self.assertNotIn("four Markdown deliverables", text)
+
     def test_phase4_reference_avoids_forbidden_key_paper_wording(self):
         text = (
             ROOT
