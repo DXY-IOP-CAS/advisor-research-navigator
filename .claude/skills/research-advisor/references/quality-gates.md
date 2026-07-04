@@ -16,6 +16,14 @@ V2 基线下，这个门还检查：
 - 每份成品文档至少有一个 Mermaid 代码块，且代码块开头是可识别图类型，例如 `flowchart`、`graph`、`mindmap`、`timeline` 等。它是基础语法 smoke，不等于人工确认图已服务理解。
 - `_internal/evidence/` 下至少有一个 Markdown 关键判断证据核对表，并包含固定表头：`文档位置 / 关键判断 / 来源 / 来源支撑了什么 / 证据强度 / 人工复核`。
 
+有 Mermaid 渲染器时，继续运行图渲染门：
+
+```bash
+python .claude/skills/research-advisor/scripts/verify_mermaid_render.py --prof-dir "<prof_dir>"
+```
+
+这个门会调用本机 `mmdc` 逐个渲染成 SVG。若本机未安装 `mmdc`，脚本必须明确失败；不得把 `verify_phase_docs.py` 的 Mermaid 代码块存在性检查误报为“图可渲染”。临时环境可以显式加 `--use-npx` 使用 `npx --yes @mermaid-js/mermaid-cli`，但要记录引入原因、运行结果和是否被中断。
+
 有网络时，继续运行 DOI 元数据门：
 
 ```bash
