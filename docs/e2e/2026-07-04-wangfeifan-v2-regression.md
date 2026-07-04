@@ -199,3 +199,37 @@ python src\phase1\verify_profile.py --prof-dir "output\中国科学院大学\中
 ```
 
 判断：汪非凡 Phase 1 `01_基础画像.md` 已通过机械 smoke。当前仍不是完整 V2 标准品，因为 `00_材料导读.md`、`02_领域地图.md`、`03_论文路线.md`、`04_学习向导.md` 和 `_internal/evidence/` 尚未完成。
+
+## 2026-07-05 V2 四阶段补齐与验证
+
+已继续把汪非凡作为非张鹏举回归样本推进到完整 V2 成品结构。新增或补齐：
+
+| 文件 | 状态 | 说明 |
+|:---|:---|:---|
+| `00_材料导读.md` | 已补齐 | 包含阅读顺序、引用符号说明、起步讨论入口、文件定位和使用边界 |
+| `02_领域地图.md` | 已补齐 | 使用领域定位表、路径速览表和证据/复核表解释当前方向 |
+| `03_论文路线.md` | 已补齐 | 使用问题链矩阵解释 2D-OKE、Kerr、极化子、软声子和 THz 控制论文关系 |
+| `04_学习向导.md` | 已补齐 | 从高数、线代、普物接到波动、量子、固体、非线性光学、目标论文、核心图和平台链路 |
+| `_internal/evidence/key_claims.md` | 已补齐 | 覆盖身份锁定、领域定位、论文路线、学习路线和平台链路关键判断 |
+
+可视化策略采用表格、矩阵和平台链路表，不强行使用 Mermaid。这样可以避免长条流程图导致字号过小或维护成本过高，同时满足“可视化理解构件”质量门。
+
+验证命令：
+
+```powershell
+python .claude\skills\research-advisor\scripts\verify_phase_docs.py --prof-dir "output\中国科学院大学\中科院物理研究所\超快物质科学中心\汪非凡"
+python src\phase1\verify_profile.py --prof-dir "output\中国科学院大学\中科院物理研究所\超快物质科学中心\汪非凡"
+python .claude\skills\research-advisor\scripts\verify_mermaid_render.py --prof-dir "output\中国科学院大学\中科院物理研究所\超快物质科学中心\汪非凡"
+python .claude\skills\research-advisor\scripts\verify_source_metadata.py --prof-dir "output\中国科学院大学\中科院物理研究所\超快物质科学中心\汪非凡"
+```
+
+结果：
+
+| 验证门 | 结果 |
+|:---|:---|
+| `verify_phase_docs.py` | `[OK] phase docs deterministic checks passed` |
+| `verify_profile.py` | `[OK] 全部检查通过` |
+| `verify_mermaid_render.py` | `[OK] 未找到 Mermaid 代码块，渲染门跳过` |
+| `verify_source_metadata.py` | `[OK] DOI source metadata checks passed` |
+
+判断：汪非凡已从“旧目录失败样本”推进为一个非张鹏举 V2 回归样本，机械 smoke 已通过。剩余风险仍是学术质量风险：Fig. 1 / Fig. 4 的具体子图顺序、官网 in revision / in preparation 方向、固体 HHG 与阿秒方向的公开论文链，都需要后续人工读原文和更新来源继续复核。
