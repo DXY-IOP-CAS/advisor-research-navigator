@@ -91,8 +91,6 @@ def main():
         json.dump(seed, f, ensure_ascii=False, indent=2)
         f.write("\n")
 
-    print(f"prof_dir: {base}", file=sys.stderr)
-    print(f"archive_dir: {archive}", file=sys.stderr)
     print(base)  # 主输出：prof_dir 路径，供 --prof-dir 使用
 
     return 0

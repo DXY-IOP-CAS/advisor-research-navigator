@@ -120,6 +120,7 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         text = (ROOT / "src" / "phase1" / "phase1_init.py").read_text(encoding="utf-8")
 
         self.assertNotIn("打印 archive 路径供后续步骤使用", text)
+        self.assertNotIn("archive_dir:", text)
         self.assertNotIn("print(archive)", text)
         self.assertIn("print(base)", text)
 

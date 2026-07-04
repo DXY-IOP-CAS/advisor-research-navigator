@@ -228,11 +228,7 @@ class Phase1HarnessTests(unittest.TestCase):
             self.assertFalse(os.path.exists(os.path.join(prof_dir, "latest.txt")))
             stdout_prof_dir = os.path.normpath(os.path.join(tmp, result.stdout.strip()))
             self.assertEqual(os.path.normpath(prof_dir), stdout_prof_dir)
-            self.assertIn("archive_dir:", result.stderr)
-            stderr_archive_root = os.path.normpath(
-                os.path.join("output", "测试大学", "测试所", "测试部门", "张三", "_internal", "archive")
-            )
-            self.assertIn(stderr_archive_root, os.path.normpath(result.stderr))
+            self.assertEqual("", result.stderr)
 
             with open(seed_path, "r", encoding="utf-8") as f:
                 seed = json.load(f)
@@ -276,7 +272,7 @@ class Phase1HarnessTests(unittest.TestCase):
 
             self.assertTrue(os.path.isdir(prof_dir))
             self.assertFalse(os.path.exists(legacy_dir))
-            self.assertIn("中科院物理研究所", result.stderr)
+            self.assertIn("中科院物理研究所", result.stdout)
             with open(seed_path, "r", encoding="utf-8") as f:
                 seed = json.load(f)
             self.assertEqual("中科院物理研究所", seed["institute"])

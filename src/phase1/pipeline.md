@@ -8,7 +8,7 @@
 
 ### 开始前准备
 
-新导师或新一轮 active state 先运行 `phase1_init.py`。它负责创建标准目录、写 `_internal/latest.txt`、写 `_internal/seed.json`，并在 stdout 打印后续步骤使用的 `prof_dir`。`archive_dir` 只作为 stderr 诊断信息和内部状态存在。AI 不要手动 `mkdir`，也不要手动拼 `_internal/archive/<ts>`。
+新导师或新一轮 active state 先运行 `phase1_init.py`。它负责创建标准目录、写 `_internal/latest.txt`、写 `_internal/seed.json`，并在 stdout 只打印后续步骤使用的 `prof_dir`。archive 路径只由 `ProfDirResolver` 根据 `_internal/latest.txt` 自动解析，不给执行者手动使用。AI 不要手动 `mkdir`，也不要手动拼 `_internal/archive/<ts>`。
 
 ```bash
 python src/phase1/phase1_init.py \
