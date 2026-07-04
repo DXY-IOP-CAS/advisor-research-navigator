@@ -214,9 +214,11 @@ step6_merge 的输出，在 SOURCE_OUTPUT 基础上增加：
 
 ## 4 阶段 B — CLI 执行
 
-### 推荐：统一入口（run.py）
+### 兼容：旧统一入口（run.py）
 
-`run.py` 自动串联阶段 B + 阶段 C 的全部步骤。推荐大多数场景使用。
+`run.py` 自动串联阶段 B + 阶段 C 的旧步骤，只作为兼容捷径和本地调试工具。新的端到端质量重构基线不以 `run.py` 为主入口，因为它要求调用者已经知道 GS/OA/ORCID 等信息，并且容易让执行 AI 跳过“官网 URL -> 身份锁定 -> Fact Pack -> Cognitive Blueprint”的认知设计步骤。
+
+新导师常规运行应先用 `phase1_init.py` 从 `姓名 + 机构路径 + 官网 URL` 建目录，再由 AI 按 `research-advisor` skill 完成官网身份锁定、`verified_ids.json`、`career_stages.json`、三源采集、`risk_gate`、`01_基础画像.md`，然后在 `_internal/blueprint.md` 中完成成品前认知蓝图。只有在已有人工核定 ID、需要快速复现旧 Phase B/C 行为时，才使用 `run.py`。
 
 ```bash
 python src/phase1/run.py \
@@ -240,7 +242,7 @@ python src/phase1/run.py \
 
 也可传结构化参数（--university + --name，替代 prof_path）让工具自动拼接路径。兼容旧用法（单 prof_path 参数）。
 
-### 手动逐步骤执行（优先用 --prof-dir 简化路径）
+### 常规逐步骤执行（优先用 --prof-dir 简化路径）
 
 Phase B/C 脚本优先支持 `--prof-dir` 参数，由 `ProfDirResolver` 从 `_internal/latest.txt` 自动推导当前 archive 目录。`--archive-dir` 仅作为调试和旧流程兼容入口；常规执行不要让 AI 手动拼 `_internal/archive/<ts>` 路径。
 

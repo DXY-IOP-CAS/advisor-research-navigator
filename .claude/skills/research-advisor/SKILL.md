@@ -33,6 +33,16 @@ description: >
 
 第一性原理：学生真正缺的不是资料堆叠，而是一条从陌生到理解导师当前研究的认知路径。任何阶段如果只是为了填章节、拼贴前文或展示检索结果，都应停下来重新界定任务。
 
+新端到端基线不以旧 phase、旧模板或旧 verifier 为中心。主路径是：
+
+```text
+最小输入 -> Fact Pack -> Cognitive Blueprint -> 00-04 成品 -> 证据/图示/自审 -> 回归与瘦身
+```
+
+`Fact Pack` 负责锁定身份、履历、论文集合和风险；`Cognitive Blueprint` 负责在写成品前固定导师主线、目标论文、核心图、平台链路、学习路径、证据风险和可视化计划；`00-04` 成品只能消费蓝图和新检索证据，不能把“填满模板”误认为完成理解。
+
+每位导师在写 `02-04` 前必须维护 `_internal/blueprint.md`。它不是过程日志，而是认知设计合同，至少包含：读者起点、导师当前方向一句话、目标论文及选择理由、核心图或图组、平台链路、课程到论文的学习桥、证据风险、每份文档的可视化计划。蓝图薄弱时先继续检索和核证，不要继续润色正文。
+
 V2 基线默认执行 AI 是小白、读者也是小白。每份成品文档必须自包含：说明本文解决什么问题、为什么要这样读、读完应获得什么能力；关键术语和缩写首次出现时必须展开；不能假设读者已经读过项目规则或其他导师材料。不要把“为什么这么读”的认知框架只写在 `00_材料导读.md` 或项目文档里。
 
 不闭门造车。凡是研究判断、学习路径、证据标准、可视化或 harness 设计拿捏不准，先调研官方文档、公开 skills、同类项目、论文或领域资料，再决定是否吸收。站在巨人肩膀上扬长避短，但不生搬硬套；不能为了实现某个技术而做技术。
@@ -68,6 +78,7 @@ python src/phase1/phase1_init.py \
 | Phase 2 / `02_领域地图.md` | `references/phase2-field-map.md`, `references/evidence-rules.md`, `references/quality-gates.md` |
 | Phase 3 / `03_论文路线.md` | `references/phase3-paper-position.md`, `references/evidence-rules.md`, `references/quality-gates.md` |
 | Phase 4 / `04_学习向导.md` | `references/phase4-learning-guide.md`, `references/evidence-rules.md`, `references/quality-gates.md` |
+| 认知蓝图 / E2E 主路径 | 本文件“端到端基线” + `references/evidence-rules.md`, `references/quality-gates.md` |
 | 确定性 smoke | run `python .claude/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "<prof_dir>"` |
 | DOI 来源元数据 smoke | run `python .claude/skills/research-advisor/scripts/verify_source_metadata.py --prof-dir "<prof_dir>"` when network is available |
 
@@ -90,12 +101,14 @@ python src/phase1/phase1_init.py \
 ## 阶段二到四流程
 
 1. 从已验证的 `01_基础画像.md` 出发。把“按履历阶段分组的论文”当作方向变化假设，而不是最终解释。
-2. 每个阶段都做 fresh search。阶段一和前序文档是可靠输入源，但不能替代当前阶段的信息检索、筛选和分析。
-3. 严格按 `02 -> 03 -> 04` 推进。后一个阶段必须显式消费前一个阶段，但不能简单复述。
-4. 阶段二先建立当前领域地图；阶段三深入导师当前研究内容和论文群内部逻辑；阶段四把目标前沿倒推成学习路径。
-5. 弱推断标 `需人工复核`；来源缺失写 `[未找到]`。
-6. 领域理解薄、方向转折证据不足、论文关系不清时，暂停写作并继续检索，必要时请用户补充领域判断。不要用顺滑但空泛的文字补洞。
-7. 写作或修改阶段文档后运行确定性验证器；有网络时再运行 DOI 来源元数据 smoke，修正 `[FAIL] DOI title mismatch`。
+2. 先写或更新 `_internal/blueprint.md`。蓝图必须把导师主线、目标论文、核心图、平台链路、学习桥、证据风险和可视化计划说清楚；否则暂停写作，继续检索官方页面、论文、综述、课程或图源。
+3. 每个阶段都做 fresh search。阶段一、蓝图和前序文档是可靠输入源，但不能替代当前阶段的信息检索、筛选和分析。
+4. 严格按 `02 -> 03 -> 04` 推进。后一个阶段必须显式消费前一个阶段和蓝图，但不能简单复述。
+5. 阶段二先建立当前领域地图；阶段三深入导师当前研究内容和论文群内部逻辑；阶段四把目标前沿倒推成学习路径。
+6. 弱推断标 `需人工复核`；来源缺失写 `[未找到]`。
+7. 领域理解薄、方向转折证据不足、论文关系不清、核心图无法核对或学习桥像通用课程表时，暂停写作并继续检索。不要用顺滑但空泛的文字补洞。
+8. 写作或修改阶段文档后运行确定性验证器；有网络时再运行 DOI 来源元数据 smoke，修正 `[FAIL] DOI title mismatch`。
+9. 完成一位导师后做轻量去重审计：被蓝图、skill 或 verifier 正式吸收的临时过程说明不再扩散成新规则文件。
 
 ## 硬约束
 
