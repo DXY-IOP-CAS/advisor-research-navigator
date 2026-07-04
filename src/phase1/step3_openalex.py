@@ -184,10 +184,11 @@ def main() -> None:
     parser.add_argument("oa_id", help="OpenAlex Author ID（如 A5000000000）")
     parser.add_argument("--email", help="Polite pool email")
     parser.add_argument("--output", "-o", help="输出 JSON 文件")
-    parser.add_argument("--archive-dir", help="archive 目录（自动设置输出路径）")
-    parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 _internal/latest.txt 自动推导 archive_dir")
+    parser.add_argument("--archive-dir", help=argparse.SUPPRESS)
+    parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 _internal/latest.txt 自动推导 active state")
     parser.add_argument("--verbose", "-v", action="store_true")
     args = parser.parse_args()
+    # prof-dir 优先；archive-dir 仅保留内部兼容，AI 不必手动拼路径
     if args.prof_dir and not args.archive_dir:
         args.archive_dir = ProfDirResolver(args.prof_dir).archive_dir
         if not args.archive_dir:

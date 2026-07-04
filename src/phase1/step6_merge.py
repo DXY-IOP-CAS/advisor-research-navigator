@@ -279,14 +279,14 @@ def merge(source_paths: List[str]) -> dict:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="多源合并去重")
-    parser.add_argument("input_files", nargs="*", help="统一格式的 JSON 源文件（不传时从 --archive-dir 读取）")
+    parser.add_argument("input_files", nargs="*", help="统一格式的 JSON 源文件（常规执行不传，由 --prof-dir 推导）")
     parser.add_argument("--output", "-o", help="输出 JSON 文件")
-    parser.add_argument("--archive-dir", help="archive 目录路径（自动读取 01_gs/02_oa/03_arxiv.json）")
-    parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 _internal/latest.txt 自动推导 archive_dir")
+    parser.add_argument("--archive-dir", help=argparse.SUPPRESS)
+    parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 _internal/latest.txt 自动推导 active state")
     parser.add_argument("--verbose", "-v", action="store_true")
     args = parser.parse_args()
 
-    # prof-dir 优先于 archive-dir
+    # prof-dir 优先；archive-dir 仅保留内部兼容，AI 不必手动拼路径
     if args.prof_dir and not args.archive_dir:
         args.archive_dir = ProfDirResolver(args.prof_dir).archive_dir
         if not args.archive_dir:
@@ -303,7 +303,7 @@ def main() -> None:
             if os.path.exists(os.path.join(args.archive_dir, n))
         ]
     if not files:
-        logger.error("没有输入文件。传 input_files 或 --archive-dir")
+        logger.error("没有输入文件。传 input_files 或 --prof-dir")
         sys.exit(1)
 
     result = merge(files)

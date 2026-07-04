@@ -441,16 +441,16 @@ def generate(data: dict, output_path: str, stage_config: list = None,
 def main() -> None:
     parser = argparse.ArgumentParser(description="从 merged.json 生成基础画像")
     parser.add_argument("merged_json", nargs="?",
-                        help="04_merged.json 路径（不传时从 --prof-dir 或 --archive-dir 自动查找）")
+                        help="04_merged.json 路径（常规执行不传，由 --prof-dir 自动查找）")
     parser.add_argument("--output", "-o", help="输出路径")
-    parser.add_argument("--stages", help="学术阶段配置 JSON 文件（不传则从 archive 自动查找）")
-    parser.add_argument("--archive-dir", help="archive 目录路径（自动查找 career_stages.json、merged.json 等）")
-    parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 _internal/latest.txt 自动推导 archive_dir 和 merged.json")
+    parser.add_argument("--stages", help="学术阶段配置 JSON 文件（常规执行不传，由 --prof-dir 自动查找）")
+    parser.add_argument("--archive-dir", help=argparse.SUPPRESS)
+    parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 _internal/latest.txt 自动推导 active state 和 merged.json")
     parser.add_argument("--department", "-d", default="", help="部门/实验室名称")
     parser.add_argument("--run-timestamp", help="兼容旧命令的运行时间戳参数；不写入最终 Markdown")
     args = parser.parse_args()
 
-    # prof-dir 优先于 archive-dir
+    # prof-dir 优先；archive-dir 仅保留内部兼容，AI 不必手动拼路径
     if args.prof_dir and not args.archive_dir:
         resolver = ProfDirResolver(args.prof_dir)
         args.archive_dir = resolver.archive_dir
@@ -472,7 +472,7 @@ def main() -> None:
         if os.path.exists(candidate):
             args.merged_json = candidate
     if not args.merged_json or not os.path.exists(args.merged_json):
-        parser.error("找不到 merged.json。传位置参数或 --archive-dir/--prof-dir")
+        parser.error("找不到 merged.json。传位置参数或 --prof-dir")
 
     stage_descriptions = None
 

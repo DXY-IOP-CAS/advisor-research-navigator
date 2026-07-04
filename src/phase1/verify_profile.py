@@ -6,8 +6,7 @@ verify_profile.py — 画像质量自动门控。
 所有检查项不通过则退出码非 0，AI 不能声称完成。
 
 用法：
-  python src/phase1/verify_profile.py output/<机构>/<部门>/<姓名>/01_基础画像.md \
-    --merged output/<机构>/<部门>/<姓名>/_internal/archive/<timestamp>/04_merged.json
+  python src/phase1/verify_profile.py --prof-dir output/<大学>/<学院所>/<部门>/<姓名>
 
 退出码：0 = 通过，1 = 有失败项
 """
@@ -358,11 +357,11 @@ def main():
     parser.add_argument("profile", nargs="?",
                         help="01_基础画像.md 路径（不传时从 --prof-dir 自动查找）")
     parser.add_argument("--merged", help="04_merged.json 路径（校验论文行数）")
-    parser.add_argument("--archive-dir", help="archive 目录路径（自动查找 merged.json）")
+    parser.add_argument("--archive-dir", help=argparse.SUPPRESS)
     parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 _internal/latest.txt 自动推导")
     args = parser.parse_args()
 
-    # prof-dir 优先于 archive-dir
+    # prof-dir 优先；archive-dir 仅保留内部兼容，AI 不必手动拼路径
     if args.prof_dir and not args.archive_dir:
         resolver = ProfDirResolver(args.prof_dir)
         args.archive_dir = resolver.archive_dir

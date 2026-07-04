@@ -1,4 +1,6 @@
+import os
 import subprocess
+import sys
 import unittest
 from pathlib import Path
 
@@ -170,6 +172,41 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
                     leaked.append(f"{path.relative_to(ROOT)} contains {phrase}")
 
         self.assertEqual([], leaked, "phase1 script usage examples should default to --prof-dir")
+
+    def test_phase1_cli_help_does_not_expose_archive_dir(self):
+        scripts = [
+            ROOT / "src" / "phase1" / "step2_gs.py",
+            ROOT / "src" / "phase1" / "step3_openalex.py",
+            ROOT / "src" / "phase1" / "step4_arxiv_id.py",
+            ROOT / "src" / "phase1" / "step5_arxiv.py",
+            ROOT / "src" / "phase1" / "step6_merge.py",
+            ROOT / "src" / "phase1" / "render_profile.py",
+            ROOT / "src" / "phase1" / "verify_profile.py",
+        ]
+
+        leaked = []
+        env = {
+            **os.environ,
+            "PYTHONIOENCODING": "utf-8",
+            "PYTHONUTF8": "1",
+        }
+        for script in scripts:
+            result = subprocess.run(
+                [sys.executable, str(script), "--help"],
+                cwd=ROOT,
+                env=env,
+                text=True,
+                encoding="utf-8",
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=True,
+            )
+            help_text = result.stdout + result.stderr
+            for phrase in ("--archive-dir", "archive 目录", "archive_dir", "archive"):
+                if phrase in help_text:
+                    leaked.append(f"{script.relative_to(ROOT)} exposes {phrase}")
+
+        self.assertEqual([], leaked, "phase1 public CLI help should route agents through --prof-dir only")
 
     def test_render_profile_docstring_matches_current_ai_edit_contract(self):
         text = (ROOT / "src" / "phase1" / "render_profile.py").read_text(encoding="utf-8")
