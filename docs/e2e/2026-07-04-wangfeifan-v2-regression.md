@@ -35,3 +35,36 @@ python .claude\skills\research-advisor\scripts\verify_phase_docs.py --prof-dir "
 这个现有目录不能作为 V2 回归样本直接验收。它只证明早期 Phase 1 试跑产物尚未迁移到 V2 目录契约和四阶段成品结构。
 
 下一步如果要使用汪非凡作为非张鹏举回归样本，应从官网 URL 和机构路径重新走 research-advisor 流程：先用 `_internal/` 目录契约生成或迁移阶段 1，再补 `00/02/03/04`、证据表和可视化理解构件，最后跑完整验证门。不得把旧 `archive/` 内容当作证据来源。
+
+## 2026-07-04 重新试跑状态
+
+已用官网 URL 和机构路径重新初始化汪非凡 V2 目录，并完成 Phase 1 的三源采集与合并。当前未把该目录纳入提交，因为成品文档尚未形成，只能作为回归试跑状态。
+
+运行：
+
+```powershell
+python src\phase1\risk_gate.py --prof-dir "output\中国科学院大学\中科院物理研究所\超快物质科学中心\汪非凡"
+```
+
+当前结果：
+
+| 项目 | 结果 |
+|:---|:---|
+| mode | `conservative_required` |
+| total_papers | 39 |
+| gs_baseline | 29 |
+| single_source_oa_arxiv | 10 |
+| single_source_oa_arxiv_ratio | 25.64% |
+| gs_oa_overlap | 25 |
+| verification_tier | T2 |
+
+触发原因：
+
+| 原因 | 下一步处理 |
+|:---|:---|
+| `English name missing from professor/verified_ids name` | 从官网英文名补回身份锁定 JSON 或渲染输入，保持 `中文名 (English Name)` 格式。 |
+| `email domain mismatch: professor=mat.ethz.ch, verified=iphy.ac.cn` | 判断是否为 Google Scholar 滞后邮箱；需用官网当前邮箱、ORCID、OpenAlex 和 DOI 论文指纹交叉说明，不能直接忽略。 |
+| `single-source OA/arXiv ratio 25.6% exceeds 10.0%` | 逐篇核查 OA-only/arXiv-only 论文；无法核实时剔除或标为人工核查后再进入画像。 |
+| `merged paper count 39 exceeds GS baseline 29 by more than 20%` | 检查是否混入同名作者或 OpenAlex 消歧扩张，重点核查超出 GS baseline 的论文。 |
+
+本轮发现一个 harness 执行缺口：`phase1-core.md` 已要求 `step4_arxiv_id.py --prof-dir`，但脚本本身此前不支持；同时 ORCID 精确匹配失败后的 `step5_arxiv.py` 回退搜索也不支持 `--prof-dir`。已通过 TDD 补上两者入口，避免执行 AI 在 Phase B 手动拼 `_internal/archive` 路径。

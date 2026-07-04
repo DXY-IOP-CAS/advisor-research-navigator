@@ -240,14 +240,15 @@ python src/phase1/run.py \
 
 也可传结构化参数（--university + --name，替代 prof_path）让工具自动拼接路径。兼容旧用法（单 prof_path 参数）。
 
-### 手动逐步骤执行（用 --archive-dir 简化路径）
+### 手动逐步骤执行（优先用 --prof-dir 简化路径）
 
-所有 step 脚本都支持 `--archive-dir` 参数——AI 只需传递 archive 目录路径，输出的文件名和中间文件查找由脚本自动完成。
+Phase B/C 脚本优先支持 `--prof-dir` 参数，由 `ProfDirResolver` 从 `_internal/latest.txt` 自动推导当前 archive 目录。`--archive-dir` 仅作为调试和旧流程兼容入口；常规执行不要让 AI 手动拼 `_internal/archive/<ts>` 路径。
 
 ```bash
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 PROF="output/中科院物理所/超快物质科学中心/王示例"
 mkdir -p "$PROF/_internal/archive/$TIMESTAMP"
+echo "$TIMESTAMP" > "$PROF/_internal/latest.txt"
 
 # — 将 Phase A 产出存入 _internal/archive —
 # career_stages.json 和 verified_ids.json 存在 _internal/archive/ 下，不在 prof 根目录
@@ -255,27 +256,21 @@ cp "$PROF/verified_ids.json" "$PROF/_internal/archive/$TIMESTAMP/00_verified_ids
 cp "$PROF/career_stages.json" "$PROF/_internal/archive/$TIMESTAMP/career_stages.json" 2>/dev/null || true
 python src/phase1/validate_career_stages.py "$PROF/_internal/archive/$TIMESTAMP/career_stages.json"
 
-# 每步用 --archive-dir 替代 -o，自动输出到 _internal/archive/<ts>/01_gs.json 等
-python src/phase1/step2_gs.py XXXXXXXXAAAAJ --archive-dir "$PROF/_internal/archive/$TIMESTAMP"
+# 每步优先用 --prof-dir 替代 -o，自动输出到当前 _internal/archive/<ts>/01_gs.json 等
+python src/phase1/step2_gs.py XXXXXXXXAAAAJ --prof-dir "$PROF"
 
-python src/phase1/step3_openalex.py A5000000000 --email your@real.com --archive-dir "$PROF/_internal/archive/$TIMESTAMP"
+python src/phase1/step3_openalex.py A5000000000 --email your@real.com --prof-dir "$PROF"
 
 # step4（ORCID 精确匹配）→ 失败回退 step5
-python src/phase1/step4_arxiv_id.py "0000-0000-0000-0000" --name "Wang_Shili" --archive-dir "$PROF/_internal/archive/$TIMESTAMP" \
-  || python src/phase1/step5_arxiv.py "Wang_Shili" -c "physics.atom-ph physics.optics" --archive-dir "$PROF/_internal/archive/$TIMESTAMP"
+python src/phase1/step4_arxiv_id.py "0000-0000-0000-0000" --name "Wang_Shili" --prof-dir "$PROF" \
+  || python src/phase1/step5_arxiv.py "Wang_Shili" -c "physics.atom-ph physics.optics" --prof-dir "$PROF"
 
-# step6 用 --archive-dir 自动读 01+02+03 文件
-python src/phase1/step6_merge.py --archive-dir "$PROF/_internal/archive/$TIMESTAMP" -o "$PROF/_internal/archive/$TIMESTAMP/04_merged.json"
+# step6 用 --prof-dir 自动读 01+02+03 文件
+python src/phase1/step6_merge.py --prof-dir "$PROF"
 python src/phase1/risk_gate.py --prof-dir "$PROF"
 
-# render 用 --archive-dir 自动找 career_stages.json（或显式传 --stages）
-python src/phase1/render_profile.py \
-  "$PROF/_internal/archive/$TIMESTAMP/04_merged.json" \
-  -o "$PROF/01_基础画像.md" \
-  --department "超快物质科学中心" \
-  --archive-dir "$PROF/_internal/archive/$TIMESTAMP"
-
-echo "$TIMESTAMP" > "$PROF/_internal/latest.txt"
+# render 用 --prof-dir 自动找 career_stages.json 和 04_merged.json
+python src/phase1/render_profile.py --prof-dir "$PROF" --department "超快物质科学中心"
 ```
 
 **路径规范**：prof 根目录（`output/<大学>/<学院所>/<部门>/<姓名>/`）只放最终产出（00-04 五份 Markdown）和 `_internal/`。中间文件（step 输出 JSON、career_stages.json、verified_ids.json、latest.txt、证据表和图源）全部放在 `_internal/` 下。

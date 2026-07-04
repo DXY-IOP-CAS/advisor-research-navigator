@@ -6,6 +6,7 @@ import sys
 import tempfile
 import unittest
 from contextlib import redirect_stdout
+from unittest.mock import patch
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 PHASE1 = os.path.join(ROOT, "src", "phase1")
@@ -13,6 +14,8 @@ sys.path.insert(0, PHASE1)
 
 import render_profile
 import risk_gate
+import step4_arxiv_id
+import step5_arxiv
 import step2_gs
 import utils
 import validate_career_stages
@@ -450,6 +453,87 @@ run_timestamp: 20260704_010203
         self.assertEqual("conservative_required", result.mode)
         self.assertIn("English name missing", "\n".join(result.reasons))
         self.assertIn("verification tier is T4", "\n".join(result.reasons))
+
+    def test_step4_arxiv_id_accepts_prof_dir_and_writes_current_archive(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            prof_dir = os.path.join(tmp, "output", "大学", "所", "部门", "张三")
+            internal_dir = os.path.join(prof_dir, "_internal")
+            archive_dir = os.path.join(internal_dir, "archive", "20260704_120000")
+            os.makedirs(archive_dir)
+            with open(os.path.join(internal_dir, "latest.txt"), "w", encoding="utf-8") as f:
+                f.write("20260704_120000\n")
+
+            result = {
+                "pipeline": "phase1",
+                "source": "arxiv",
+                "status": "empty",
+                "error": None,
+                "professor": None,
+                "papers": [],
+                "metadata": {"method": "author_id_feed"},
+            }
+
+            argv = [
+                "step4_arxiv_id.py",
+                "0000-0002-3228-9932",
+                "--name",
+                "Zhang_San",
+                "--prof-dir",
+                prof_dir,
+            ]
+            with patch.object(sys, "argv", argv), patch.object(
+                step4_arxiv_id, "fetch_by_orcid", return_value=result
+            ) as fetch_mock:
+                step4_arxiv_id.main()
+
+            output_path = os.path.join(archive_dir, "03_arxiv.json")
+            with open(output_path, "r", encoding="utf-8-sig") as f:
+                written = json.load(f)
+
+        fetch_mock.assert_called_once_with("0000-0002-3228-9932", "Zhang_San")
+        self.assertEqual("arxiv", written["source"])
+        self.assertEqual([], written["papers"])
+
+    def test_step5_arxiv_accepts_prof_dir_and_writes_current_archive(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            prof_dir = os.path.join(tmp, "output", "大学", "所", "部门", "张三")
+            internal_dir = os.path.join(prof_dir, "_internal")
+            archive_dir = os.path.join(internal_dir, "archive", "20260704_120000")
+            os.makedirs(archive_dir)
+            with open(os.path.join(internal_dir, "latest.txt"), "w", encoding="utf-8") as f:
+                f.write("20260704_120000\n")
+
+            result = {
+                "pipeline": "phase1",
+                "source": "arxiv",
+                "status": "empty",
+                "error": None,
+                "professor": None,
+                "papers": [],
+                "metadata": {"query": "Zhang_San"},
+            }
+
+            argv = [
+                "step5_arxiv.py",
+                "Zhang_San",
+                "--categories",
+                "physics.atom-ph",
+                "--prof-dir",
+                prof_dir,
+            ]
+            with patch.object(sys, "argv", argv), patch.object(
+                step5_arxiv, "search", return_value=result
+            ) as search_mock:
+                step5_arxiv.main()
+
+            output_path = os.path.join(archive_dir, "03_arxiv.json")
+            with open(output_path, "r", encoding="utf-8-sig") as f:
+                written = json.load(f)
+
+        search_mock.assert_called_once_with("Zhang_San", 200, categories="physics.atom-ph")
+        self.assertEqual("arxiv", written["source"])
+        self.assertEqual([], written["papers"])
+
     def test_verify_profile_fails_when_identity_table_name_is_not_mixed(self):
         profile_path = self._write_profile(
             self._valid_profile().replace("| 姓名 | 张三 (San Zhang) |", "| 姓名 | San Zhang |")
