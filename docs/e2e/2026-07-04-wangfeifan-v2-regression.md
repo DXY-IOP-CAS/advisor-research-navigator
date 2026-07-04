@@ -1,5 +1,7 @@
 # 汪非凡 V2 回归样本检查记录
 
+> 历史记录：本文件用于追溯汪非凡从旧失败样本到 V2 回归样本的过程，不是当前 workflow 入口。当前执行路径以 `QUICKSTART.md`、`docs/上下文交接.md`、`research-advisor/SKILL.md` 和 `src/phase1/pipeline.md` 为准。
+
 ## 目的
 
 本记录用于检查非张鹏举导师样本是否能直接作为 V2 harness 回归样本。检查对象是当前工作区中已有的汪非凡试跑目录；本次不把该目录纳入提交，也不读取或引用 `archive/` 内容。
