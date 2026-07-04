@@ -23,14 +23,19 @@ description: >
 
 不要要求用户提供英文名、邮箱、Google Scholar ID、OpenAlex ID、ORCID、论文列表或 JSON 草稿。这些信息必须从来源中发现。最终画像姓名仍写成 `中文名(English Name)`；如果未找到英文名，写 `[未找到]` 并记录来源缺口。
 
-四份文档是一条认知阶梯，不是四个互不相干的报告：
+五份成品文档是一条认知阶梯，不是互不相干的报告：
 
+0. `00_材料导读.md`：回答“这套材料如何读，引用符号如何理解，五份文档怎样互相支撑”。
 1. `01_基础画像.md`：回答“老师是谁、资料是否可靠、履历和论文集合是什么”。
 2. `02_领域地图.md`：回答“老师当前处在哪个领域，这个领域是什么，老师的位置在哪里”。
 3. `03_论文路线.md`：回答“老师在当前方向具体做什么，相关论文之间如何构成研究路线”。
 4. `04_学习向导.md`：回答“学生如何从近似空白一步步学到能读懂当前前沿和相关论文”。
 
 第一性原理：学生真正缺的不是资料堆叠，而是一条从陌生到理解导师当前研究的认知路径。任何阶段如果只是为了填章节、拼贴前文或展示检索结果，都应停下来重新界定任务。
+
+V2 基线默认执行 AI 是小白、读者也是小白。每份成品文档必须自包含：说明本文解决什么问题、为什么要这样读、读完应获得什么能力；关键术语和缩写首次出现时必须展开；不能假设读者已经读过项目规则或其他导师材料。不要把“为什么这么读”的认知框架只写在 `00_材料导读.md` 或项目文档里。
+
+不闭门造车。凡是研究判断、学习路径、证据标准、可视化或 harness 设计拿捏不准，先调研官方文档、公开 skills、同类项目、论文或领域资料，再决定是否吸收。站在巨人肩膀上扬长避短，但不生搬硬套；不能为了实现某个技术而做技术。
 
 ## 首个动作
 
@@ -54,6 +59,7 @@ python src/phase1/phase1_init.py \
 
 | 任务 | 读取 |
 |:--|:--|
+| `00_材料导读.md` | `references/phase0-material-guide.md`, `references/evidence-rules.md`, `references/quality-gates.md` |
 | Phase 1 / `01_基础画像.md` | `references/phase1-core.md`; add `phase1-templates.md`, `phase1-anti-patterns.md`, `phase1-recovery.md`, or `01-data-sources.md` only when needed |
 | Phase 2 / `02_领域地图.md` | `references/phase2-field-map.md`, `references/evidence-rules.md`, `references/quality-gates.md` |
 | Phase 3 / `03_论文路线.md` | `references/phase3-paper-position.md`, `references/evidence-rules.md`, `references/quality-gates.md` |
@@ -62,6 +68,8 @@ python src/phase1/phase1_init.py \
 | DOI 来源元数据 smoke | run `python .claude/skills/research-advisor/scripts/verify_source_metadata.py --prof-dir "<prof_dir>"` when network is available |
 
 `assets/templates/` 只提供章节骨架。模板不是内容质量，不能把填满模板误认为完成理解。
+
+导师成品目录根部只放 `00_材料导读.md`、`01_基础画像.md`、`02_领域地图.md`、`03_论文路线.md`、`04_学习向导.md` 和 `_internal/`。`latest.txt`、archive、中间 JSON、证据核对表和图源文件都属于 `_internal/`，不得裸露在导师根目录。
 
 ## 阶段一流程
 
