@@ -103,6 +103,15 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         pipeline = (ROOT / "src" / "phase1" / "pipeline.md").read_text(encoding="utf-8")
         self.assertNotIn("docs/phase1运行策略.md", pipeline)
 
+    def test_obsolete_phase1_helpers_are_removed(self):
+        obsolete = [
+            ROOT / "src" / "phase1" / "archive_step.py",
+            ROOT / "src" / "phase1" / "merge_tables.py",
+        ]
+
+        existing = [str(path.relative_to(ROOT)) for path in obsolete if path.exists()]
+        self.assertEqual([], existing, "obsolete phase1 helpers should not remain as parallel entrypoints")
+
     def test_e2e_minimal_prompt_rules_live_in_quickstart(self):
         self.assertFalse(
             (ROOT / "END_TO_END_TEST.md").exists(),
