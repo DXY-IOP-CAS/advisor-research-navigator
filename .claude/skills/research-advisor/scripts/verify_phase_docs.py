@@ -239,6 +239,8 @@ def _check_optional_markdown_docs(prof: Path, messages: list[str]) -> None:
         if path.name in DOCS:
             continue
         text = path.read_text(encoding="utf-8")
+        if SOURCE_SECTION_MARKER in text:
+            _check_source_format(path.name, text, messages)
         _check_forbidden_terms(path.name, text, messages)
         _check_forbidden_style(path.name, text, messages)
 

@@ -209,6 +209,22 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.assertFalse(result.ok)
         self.assertTrue(any("最小可交付" in m for m in result.messages))
 
+    def test_checks_optional_guide_source_format_when_sources_present(self):
+        self.write_doc(
+            "00_材料导读.md",
+            "# 材料导读\n\n"
+            f"这份导读也使用正文引用。{cite('P1')}\n\n"
+            "## 参考文献与资料\n\n"
+            "### 论文与数据资料\n\n"
+            + SOURCE_TABLE_HEADER
+            + "|:---|:---|:---|:---|:---|\n"
+            + source_table_row("P2"),
+        )
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+        self.assertFalse(result.ok)
+        self.assertTrue(any("00_材料导读.md 引用键未在参考文献表中定义" in m for m in result.messages))
+
     def test_rejects_old_minimal_loop_wording_in_final_docs(self):
         text = (self.prof / "04_学习向导.md").read_text(encoding="utf-8")
         self.write_doc("04_学习向导.md", text + "\n这里又写回了进组前最小闭环。\n")
