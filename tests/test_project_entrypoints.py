@@ -29,6 +29,18 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertNotIn("统一入口", run_py)
         self.assertIn("兼容调试捷径", run_py)
 
+    def test_plan_uses_e2e_quality_design_heading(self):
+        text = (ROOT / "docs" / "计划书.md").read_text(encoding="utf-8")
+
+        self.assertIn("第2章: 端到端质量重构设计", text)
+        self.assertNotIn("第2章: 四阶段流水线设计", text)
+
+    def test_pipeline_does_not_call_run_py_old_unified_entrypoint(self):
+        text = (ROOT / "src" / "phase1" / "pipeline.md").read_text(encoding="utf-8")
+
+        self.assertNotIn("旧统一入口", text)
+        self.assertIn("兼容调试捷径（run.py）", text)
+
     def test_phase1_entrypoint_docs_require_official_url_seed(self):
         files = [
             ROOT / "QUICKSTART.md",

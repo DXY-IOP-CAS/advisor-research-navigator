@@ -219,7 +219,7 @@ step6_merge 的输出，在 SOURCE_OUTPUT 基础上增加：
 
 ## 4 阶段 B — CLI 执行
 
-### 兼容：旧统一入口（run.py）
+### 兼容调试捷径（run.py）
 
 `run.py` 自动串联阶段 B + 阶段 C 的旧步骤，只作为兼容捷径和本地调试工具。新的端到端质量重构基线不以 `run.py` 为主入口，因为它要求调用者已经知道 GS/OA/ORCID 等信息，并且容易让执行 AI 跳过“官网 URL -> 身份锁定 -> Fact Pack -> Cognitive Blueprint”的认知设计步骤。
 
