@@ -234,8 +234,8 @@ def verify(profile_path: str, merged_path: str = None) -> int:
 
     check(stages_with_narrative >= 2, f"≥2 个阶段含有论文表格（{stages_with_narrative} 个）", errors)
 
-    # 6. 有超链接（DOI 或 arXiv）
-    links = content.count("https://doi.org") + content.count("https://arxiv.org")
+    # 6. 论文表格有可点击来源链接（DOI、arXiv 或 GS publication URL）
+    links = len(re.findall(r"^\| \d+ \| \d{4} \| .*?\]\(https?://", content, re.MULTILINE))
     check(links > 0, f"有超链接（{links} 个）", errors)
 
     # 7. 全部 9 节必须存在至少 7 节（部分节可能因数据不足合理缺失）
@@ -339,7 +339,7 @@ FIX_MAP = {
     "论文行数": "merged JSON 有变化，跑 render_profile.py --prof-dir ... 重新生成",
     "学术履历": "跑 render_profile.py --prof-dir ... --stages career_stages.json 重新生成（career_stages.json 需含 institution/position/direction 字段）",
     "叙事": "每个 ### 4.x 阶段表格前必须有 1-2 句研究主题说明",
-    "有超链接": "确认论文有 DOI 或 arXiv 链接（render_profile.py 自动生成）",
+    "有超链接": "确认论文有 DOI、arXiv 或 Google Scholar 论文链接（render_profile.py 自动生成）",
     "基础章节": "补充缺失的章节（§3 方向 / §5 合作 / §6 公开 / §7 引用）",
     "重复论文标题": "去重 step6_merge.py 输出；保留唯一版本",
     "进度标题含年份": "跑 render_profile.py（career_stages.json 含 start/end 即自动生成年份范围）",

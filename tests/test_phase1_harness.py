@@ -505,6 +505,25 @@ run_timestamp: 20260704_010203
 
         self.assertEqual(verify_profile.PASS, result)
 
+    def test_verify_profile_accepts_google_scholar_paper_links_when_doi_missing(self):
+        profile_path = self._write_profile(
+            self._valid_profile()
+            .replace(
+                "[Paper A](https://doi.org/10.1000/a)",
+                "[Paper A](https://scholar.google.com/citations?view_op=view_citation&user=abc)",
+            )
+            .replace(
+                "[Paper B](https://doi.org/10.1000/b)",
+                "[Paper B](https://scholar.google.com/citations?view_op=view_citation&user=abc)",
+            )
+        )
+
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            result = verify_profile.verify(profile_path)
+
+        self.assertEqual(verify_profile.PASS, result, buf.getvalue())
+
 
 if __name__ == "__main__":
     unittest.main()
