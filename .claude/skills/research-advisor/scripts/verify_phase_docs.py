@@ -104,7 +104,7 @@ FIXED_DAY_RE = re.compile(
     r"第\s*[0-9０-９一二三四五六七八九十百两]+\s*天"
     r"|[0-9０-９]+\s*天(?:路线|计划|安排|训练|打卡|任务|课程)?"
 )
-VISIBLE_TAXONOMY_RE = re.compile(r"主线[一二三四五六七八九十]+[:：]")
+VISIBLE_TAXONOMY_RE = re.compile(r"(?:主线[一二三四五六七八九十]+[:：]|第[一二三四五六七八九十]+类是)")
 
 
 @dataclass
