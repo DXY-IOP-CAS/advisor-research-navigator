@@ -112,6 +112,16 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertEqual([], leaked, "phase1 source examples should write through --prof-dir")
         self.assertIn("--prof-dir \"output/...\"", text)
 
+    def test_active_skill_references_do_not_keep_local_version_footers(self):
+        refs_dir = ROOT / ".claude" / "skills" / "research-advisor" / "references"
+        leaked = []
+        for path in refs_dir.glob("*.md"):
+            text = path.read_text(encoding="utf-8")
+            if "**版本**:" in text or "**生成日期**:" in text:
+                leaked.append(str(path.relative_to(ROOT)))
+
+        self.assertEqual([], leaked, "active skill references should rely on git history, not local version footers")
+
     def test_phase1_script_usage_examples_prefer_prof_dir(self):
         files = [
             ROOT / "src" / "phase1" / "step2_gs.py",

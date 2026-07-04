@@ -176,6 +176,3 @@ python src/phase1/step1_discipline.py --text "阿秒科学、强场物理" --aff
 - scholarly: https://github.com/scholarly-python-package/scholarly
 - Zheng et al. (2025) OA 中文覆盖: https://doi.org/10.1002/asi.70013
 - Zhao & Chen (2025) OA 消歧: https://arxiv.org/html/2502.11610v2
-
-**版本**: v4.0
-**生成日期**: 2026-07-01
