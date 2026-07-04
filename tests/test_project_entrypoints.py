@@ -118,6 +118,13 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
             self.assertIn("--official-url", text, str(path))
             self.assertIn("seed.json", text, str(path))
 
+    def test_quickstart_warns_not_to_jump_from_init_to_risk_gate(self):
+        text = (ROOT / "QUICKSTART.md").read_text(encoding="utf-8")
+
+        self.assertIn("不要从 `phase1_init.py` 直接跳到 `risk_gate.py`", text)
+        self.assertIn("step2_gs.py", text)
+        self.assertIn("step6_merge.py", text)
+
     def test_phase1_init_stdout_is_not_archive_entrypoint(self):
         text = (ROOT / "src" / "phase1" / "phase1_init.py").read_text(encoding="utf-8")
 
