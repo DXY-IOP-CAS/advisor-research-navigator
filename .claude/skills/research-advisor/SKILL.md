@@ -71,7 +71,7 @@ python src/phase1/phase1_init.py \
 | 确定性 smoke | run `python .claude/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "<prof_dir>"` |
 | DOI 来源元数据 smoke | run `python .claude/skills/research-advisor/scripts/verify_source_metadata.py --prof-dir "<prof_dir>"` when network is available |
 
-`assets/templates/` 只提供章节骨架。模板不是内容质量，不能把填满模板误认为完成理解。
+`assets/templates/` 只提供 `00/02/03/04` 的章节骨架。`01_基础画像.md` 不走 Markdown 模板，而由 `render_profile.py` 从 active Phase 1 状态生成骨架，AI 只替换叙事占位符。模板不是内容质量，不能把填满模板误认为完成理解。
 
 导师成品目录根部只放 `00_材料导读.md`、`01_基础画像.md`、`02_领域地图.md`、`03_论文路线.md`、`04_学习向导.md` 和 `_internal/`。`latest.txt`、archive、中间 JSON、证据核对表和图源文件都属于 `_internal/`，不得裸露在导师根目录。
 
