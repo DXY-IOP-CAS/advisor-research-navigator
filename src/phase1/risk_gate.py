@@ -63,6 +63,15 @@ def count_single_source_oa_arxiv(papers: Iterable[Dict[str, Any]]) -> int:
     return count
 
 
+def single_source_oa_arxiv_papers(papers: Iterable[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    rows = []
+    for paper in papers:
+        sources = set(paper_sources(paper))
+        if len(sources) == 1 and sources <= {"openalex", "arxiv"}:
+            rows.append(paper)
+    return rows
+
+
 def count_overlap(papers: Iterable[Dict[str, Any]], left: str, right: str) -> int:
     total = 0
     for paper in papers:
@@ -180,12 +189,28 @@ def print_result(result: RiskResult) -> None:
         print(f"- {key}: {value}")
 
 
+def print_single_source_papers(papers: Iterable[Dict[str, Any]]) -> None:
+    rows = single_source_oa_arxiv_papers(papers)
+    if not rows:
+        print("single_source_oa_arxiv_papers: none")
+        return
+    print("single_source_oa_arxiv_papers:")
+    for paper in rows:
+        year = paper.get("year") or "[未找到]"
+        title = paper.get("title") or "[未找到]"
+        doi = paper.get("doi")
+        arxiv_id = paper.get("arxiv_id")
+        marker = doi or (f"arXiv:{arxiv_id}" if arxiv_id else "[未找到]")
+        print(f"- {year} | {title} | {marker}")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Decide Phase 1 standard vs conservative search mode")
     parser.add_argument("--prof-dir", help="output/.../<name> profile directory")
     parser.add_argument("--ts", help="archive timestamp override")
     parser.add_argument("--merged", help="04_merged.json path")
     parser.add_argument("--verified-ids", help="00_verified_ids.json path")
+    parser.add_argument("--list-single-source", action="store_true", help="print OA/arXiv-only paper titles for conservative review")
     parser.add_argument("--strict", action="store_true", help="exit 2 when conservative mode is required")
     args = parser.parse_args()
 
@@ -194,6 +219,8 @@ def main() -> None:
     verified_ids = load_json(verified_path) if verified_path and os.path.exists(verified_path) else {}
     result = evaluate_risk(merged, verified_ids)
     print_result(result)
+    if args.list_single_source:
+        print_single_source_papers(merged.get("papers") or [])
     if args.strict and result.mode == CONSERVATIVE:
         raise SystemExit(2)
 

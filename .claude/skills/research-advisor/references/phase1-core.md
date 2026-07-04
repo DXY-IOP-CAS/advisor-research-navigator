@@ -59,6 +59,14 @@ python src/phase1/apply_identity_review.py \
 
 不要手动打开或编辑 `_internal/archive/<ts>/00_verified_ids.json` 和 `04_merged.json`。
 
+如果 `next_actions` 要求逐篇核查 OA/arXiv-only 论文，先用风险门列出待核查清单：
+
+```bash
+python src/phase1/risk_gate.py --prof-dir "output/..." --list-single-source
+```
+
+输出的 `single_source_oa_arxiv_papers` 是保守核查输入。逐篇判断是否属于目标学者；不确定则剔除或标记人工核查，不得直接渲染进画像。
+
 ### 数据源细节
 
 需要调 API 时读 `references/01-data-sources.md`（限速、降级、噪声过滤）。

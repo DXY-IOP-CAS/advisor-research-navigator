@@ -475,6 +475,38 @@ run_timestamp: 20260704_010203
         self.assertIn("next_actions:", output)
         self.assertIn("补官网英文名", output)
 
+    def test_risk_gate_prints_single_source_oa_arxiv_papers(self):
+        papers = [
+            {
+                "title": "OA-only paper",
+                "year": 2024,
+                "doi": "https://doi.org/10.1000/oa",
+                "sources": ["openalex"],
+            },
+            {
+                "title": "GS confirmed paper",
+                "year": 2023,
+                "doi": "https://doi.org/10.1000/gs",
+                "sources": ["google_scholar", "openalex"],
+            },
+            {
+                "title": "arXiv-only paper",
+                "year": 2022,
+                "arxiv_id": "2201.00001",
+                "sources": ["arxiv"],
+            },
+        ]
+
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            risk_gate.print_single_source_papers(papers)
+
+        output = buf.getvalue()
+        self.assertIn("single_source_oa_arxiv_papers:", output)
+        self.assertIn("2024 | OA-only paper | https://doi.org/10.1000/oa", output)
+        self.assertIn("2022 | arXiv-only paper | arXiv:2201.00001", output)
+        self.assertNotIn("GS confirmed paper", output)
+
     def test_apply_identity_review_updates_active_verified_ids_and_merged_profile(self):
         with tempfile.TemporaryDirectory() as tmp:
             prof_dir = os.path.join(tmp, "output", "大学", "所", "部门", "张三")

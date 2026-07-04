@@ -42,6 +42,14 @@ python src/phase1/apply_identity_review.py \
 
 该脚本只更新当前 active `00_verified_ids.json` 和 `04_merged.json`，并在 metadata 里记录官方 URL 和说明；它不修改原始 GS/OA/arXiv 采集文件。
 
+当行动清单要求逐篇核查 OA/arXiv-only 论文时，先列出单源论文：
+
+```bash
+python src/phase1/risk_gate.py --prof-dir "output/..." --list-single-source
+```
+
+`single_source_oa_arxiv_papers` 输出只作为保守核查清单。执行 AI 需要逐篇用 DOI、题名、作者、机构和领域判断是否属于目标学者；明显同名噪声应剔除，不确定项标为人工核查。
+
 ## 记录要求
 
 端到端测试记录必须写入 `docs/e2e/`，并包含：
