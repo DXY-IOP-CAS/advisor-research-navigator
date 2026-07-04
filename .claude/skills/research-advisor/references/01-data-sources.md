@@ -1,6 +1,6 @@
 # API 与数据源调用参考
 
-本文件提供阶段 1 各 API 的调用方法、限速、参数说明。被 `references/phase1.md` 引用。
+本文件提供阶段 1 各 API 的调用方法、限速、参数说明。按需由 `references/phase1-core.md` 或执行 AI 引用。
 
 当前 pipeline 依赖三个数据源：Google Scholar（scholarly 库）、OpenAlex、arXiv。其余（S2/INSPIRE/NASA ADS/CrossRef）为可选补充，当前阶段未集成。
 

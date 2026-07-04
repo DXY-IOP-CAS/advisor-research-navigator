@@ -1,77 +1,94 @@
-# QUICKSTART — 导师研究方向调研工具
+# QUICKSTART - 导师研究方向调研工具
 
 ## 一句话
 
-阶段 1 已实现；阶段 2-4 已沉淀为 `research-advisor` skill、模板和 smoke 验证器，正在用张鹏举 pilot 做提交版质量收敛。阶段 1 技术细节见 `src/phase1/pipeline.md`，整体设计见 `docs/计划书.md`。
+用户只提供 `姓名 + 机构路径 + 官网 URL`。项目主路径是：
+
+```text
+最小输入 -> Fact Pack -> Cognitive Blueprint -> 00-04 成品 -> 验证/自审 -> 回归与瘦身
+```
+
+阶段 1 技术细节见 `src/phase1/pipeline.md`；整体设计和取舍见 `docs/计划书.md`；当前状态和下一步见 `docs/上下文交接.md`。
 
 ## 新窗口启动
 
-```
-1. 读 src/phase1/pipeline.md（阶段 1 技术执行文档）
-2. 读 docs/计划书.md（设计决策）
-3. 读 AGENTS.md（项目硬约束，尤其 archive 禁读）
-4. 若做导师调研或阶段 2-4，读 .claude/skills/research-advisor/SKILL.md 和对应 references
-5. 向用户确认当前任务
-```
+1. 读 `AGENTS.md`，尤其是 archive 禁读、每次从头查 API、先用 research-advisor skill。
+2. 读 `docs/上下文交接.md`，确认当前分支、已完成里程碑和下一步。
+3. 涉及导师调研或 00-04 文档时，读 `.claude/skills/research-advisor/SKILL.md`。
+4. 只有执行阶段 1 技术步骤时，再读 `src/phase1/pipeline.md` 和相关 references。
+
+不要从旧 quickstart、旧 e2e 记录或 `run.py` 反推当前 workflow。它们只能作历史或兼容参考。
 
 ## 项目结构
 
-```
+```text
 pilot-test/
-├── src/phase1/           # 阶段 1 活跃脚本
-│   ├── pipeline.md       # 技术执行文档（单一事实源）
-│   ├── step1_discipline.py  # 学科关键词分类
-│   ├── step2_gs.py          # scholarly 封装（GS 主源）
-│   ├── step3_openalex.py    # OpenAlex 元数据
-│   ├── step5_arxiv.py       # arXiv 预印本
-│   ├── step6_merge.py       # 多源合并去重
-│   ├── render_profile.py    # 论文表格渲染
-│   ├── verify_profile.py    # 质量门控验证
-│   ├── archive_previous.py  # 自动存档旧版产出
-│   └── utils.py             # 共享工具库
-├── config/
-│   └── sources.json         # 数据源 + 学科字典
-├── docs/                    # 规划与设计文档
-├── output/<机构>/<部门>/<姓名>/   # 导师画像产出
+├── src/phase1/                         # 阶段 1 Python 脚本
+│   ├── phase1_init.py                  # 新导师目录初始化，写 _internal/latest.txt
+│   ├── pipeline.md                     # 阶段 1 技术执行文档
+│   ├── step2_gs.py / step3_openalex.py # 论文采集
+│   ├── step4_arxiv_id.py / step5_arxiv.py
+│   ├── step6_merge.py                  # 多源合并
+│   ├── risk_gate.py                    # standard / conservative 风险门
+│   ├── render_profile.py               # 01 骨架生成
+│   └── verify_profile.py               # 01 机械验证
+├── .claude/skills/research-advisor/     # 00-04 工作流入口、模板和验证脚本
+├── docs/                               # 计划书、交接、历史 e2e 记录
+├── output/<大学>/<学院所>/<部门>/<姓名>/
 │   ├── 00_材料导读.md
 │   ├── 01_基础画像.md
 │   ├── 02_领域地图.md
 │   ├── 03_论文路线.md
 │   ├── 04_学习向导.md
-│   └── archive/<timestamp>/ # 中间产物存档（脚本写入，Agent 不读）
-└── archive/                 # 旧版存档（只写不读）
+│   └── _internal/                      # latest、archive、blueprint、evidence 等内部状态
+└── archive/                            # 旧版存档，只写不读
 ```
 
-## 流水线速览
+导师成品根目录只能暴露 `00-04` 五份 Markdown 和 `_internal/`。
 
-阶段 1 详见 `src/phase1/pipeline.md`。三阶段流：
+## 常规执行骨架
 
-```
-阶段 A（AI 主导）：读官网 + MCP 搜 GS/ORCID → 邮箱验证 → verified_ids.json
-阶段 B（脚本执行）：step2_gs / step3_openalex / step5_arxiv / step6_merge
-阶段 C（脚本+AI）：render_profile → AI Edit 叙事填充 → verify_profile
-```
+从三行输入初始化目录：
 
-阶段 2-4 详见 `.claude/skills/research-advisor/`：
-
-```
-阶段 2：从 01 出发，建立当前领域地图
-阶段 3：用领域地图重读当前相关论文，解释论文线如何构成研究路线
-阶段 4：从目标论文和当前前沿倒推学习路径，形成进组前起步闭环
+```bash
+python src/phase1/phase1_init.py \
+  --university "<大学>" \
+  --institute "<学院或研究所>" \
+  --department "<部门>" \
+  --name "<中文名>"
 ```
 
-## 注意事项
+后续统一使用脚本输出的 `prof_dir` 和 `--prof-dir` 参数。不要手动拼 `_internal/archive/<ts>`。
 
-- 每次运行不读历史缓存，全部重新查询。archive 目录仅供存档溯源
-- Agent 不读取或引用 `archive/` 或 `output/**/archive/**`
-- GS 访问依赖梯子节点质量，scholarly 库自动处理
-- OpenAlex 对中文学者覆盖约 22-38%，h-index 可能不准，以 GS 为准
-- arXiv 同名噪声率高，merge 时通过 DOI/标题匹配自动过滤
-- 阶段 2-4 的验证器只做结构、来源、禁用语和 DOI 元数据 smoke，不证明学术质量
+阶段 1 完成后：
 
-## 核心原则
+1. `risk_gate.py --prof-dir "<prof_dir>"` 必须输出 `mode: standard`，否则按 `next_actions` 定向补证据或剔除噪声。
+2. `render_profile.py --prof-dir "<prof_dir>" --department "<部门>"` 生成 `01_基础画像.md` 骨架。
+3. AI 只填叙事占位符，不重写脚本生成的论文表格。
+4. `verify_profile.py --prof-dir "<prof_dir>"` 通过后，再进入蓝图和 00/02/03/04。
 
-1. **GS 是论文列表主源**，OpenAlex 只做元数据补充
-2. **GS 邮箱校验是身份金标准**——匹配官网 email 即确认身份
-3. **存档不是缓存**——每次运行从头查 API
-4. **全降级**——GS 不可用时 OA 做替补
+阶段 2-4 先写 `_internal/blueprint.md`，再生成或修订成品文档。蓝图必须固定导师主线、目标论文、核心图、平台链路、学习桥、证据风险和可视化计划。
+
+## 验证
+
+常用验证命令：
+
+```bash
+python src/phase1/verify_profile.py --prof-dir "<prof_dir>"
+python .claude/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "<prof_dir>"
+python .claude/skills/research-advisor/scripts/verify_mermaid_render.py --prof-dir "<prof_dir>"
+python .claude/skills/research-advisor/scripts/verify_source_metadata.py --prof-dir "<prof_dir>"
+python -m unittest discover -s tests -p "test_*.py" -v
+python -m unittest discover -s .claude/skills/research-advisor/tests -p "test_*.py" -v
+git diff --check -- . ':(exclude)archive/**' ':(exclude)output/**/archive/**'
+```
+
+这些验证只代表机械 smoke 通过，不代表学术质量最终通过。学术质量仍来自证据核查、蓝图、自审和人工反馈。
+
+## 硬约束
+
+- 来源必须可追溯；缺失写 `[未找到]`；弱推断写 `需人工复核`。
+- 不做导师评价，不写匹配度、推荐申请或是否值得报考。
+- 不读取或引用 `archive/` 与 `output/**/archive/**`。
+- 每次运行从头查 API 和来源，不把 archive 当缓存。
+- `run.py` 只是旧兼容/本地调试捷径，不是新端到端主入口。

@@ -1,6 +1,6 @@
 # 端到端测试规范
 
-**目的**：防止 AI 把测试用例当成「手把手教学」。
+**目的**：防止 AI 把测试用例当成「手把手教学」，并验证 harness 能从最小输入走到可审查的 `00-04` 成品，而不只是跑通阶段 1。
 
 ## 用户输入（唯一允许的内容）
 
@@ -74,4 +74,6 @@
 - `risk_gate.py --prof-dir ...` 的 mode、reason、metrics
 - 是否触发补搜；如触发，补搜原因和处理结果
 - `verify_profile.py --prof-dir ...` 的结果
-- verify 之外仍需人工关注的内容风险
+- 是否生成 `_internal/blueprint.md`，以及蓝图是否覆盖目标论文、核心图、平台链路、学习桥和证据风险
+- `verify_phase_docs.py`、`verify_mermaid_render.py`、`verify_source_metadata.py` 的结果
+- verify 之外仍需人工关注的内容风险；尤其是身份、论文归属、核心图、平台链路和学习路径判断

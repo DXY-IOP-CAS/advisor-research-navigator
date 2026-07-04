@@ -8,13 +8,17 @@
 
 ### 开始前准备
 
-每次运行前必须先存档旧版产出（如果有的话）：
+新导师或新一轮 active state 先运行 `phase1_init.py`。它负责创建标准目录、写 `_internal/latest.txt` 并打印 `prof_dir` / `archive_dir`。AI 不要手动 `mkdir`，也不要手动拼 `_internal/archive/<ts>`。
 
 ```bash
-python src/phase1/archive_previous.py "<学校>/<学院>/<部门>/<姓名>"
+python src/phase1/phase1_init.py \
+  --university "<大学>" \
+  --institute "<学院或研究所>" \
+  --department "<部门>" \
+  --name "<中文名>"
 ```
 
-如果没有同名老师（首次运行），此命令自动跳过。
+`archive_previous.py` 是旧版整目录存档工具，只作人工兼容操作，不是新端到端质量重构的常规入口。Agent 不读取或引用 `archive/`。
 
 ### 三阶段流
 
@@ -29,7 +33,7 @@ python src/phase1/archive_previous.py "<学校>/<学院>/<部门>/<姓名>"
   Step 4: step1_discipline → arXiv 学科分类
     │
 阶段 B（脚本执行）—— 数据采集
-  run.py（推荐）或手动：
+  逐步脚本（优先 --prof-dir；run.py 仅兼容调试）：
     step2_gs:       scholarly 取 Google Scholar 论文
     step3_openalex:  OpenAlex API 论文 + 元数据
     step4_arxiv_id:  ORCID → arXiv 精确匹配（零噪声）
@@ -247,16 +251,18 @@ python src/phase1/run.py \
 Phase B/C 脚本优先支持 `--prof-dir` 参数，由 `ProfDirResolver` 从 `_internal/latest.txt` 自动推导当前 archive 目录。`--archive-dir` 仅作为调试和旧流程兼容入口；常规执行不要让 AI 手动拼 `_internal/archive/<ts>` 路径。
 
 ```bash
-TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-PROF="output/中科院物理所/超快物质科学中心/王示例"
-mkdir -p "$PROF/_internal/archive/$TIMESTAMP"
-echo "$TIMESTAMP" > "$PROF/_internal/latest.txt"
+python src/phase1/phase1_init.py \
+  --university "中国科学院大学" \
+  --institute "中科院物理所" \
+  --department "超快物质科学中心" \
+  --name "王示例"
 
-# — 将 Phase A 产出存入 _internal/archive —
-# career_stages.json 和 verified_ids.json 存在 _internal/archive/ 下，不在 prof 根目录
-cp "$PROF/verified_ids.json" "$PROF/_internal/archive/$TIMESTAMP/00_verified_ids.json" 2>/dev/null || true
-cp "$PROF/career_stages.json" "$PROF/_internal/archive/$TIMESTAMP/career_stages.json" 2>/dev/null || true
-python src/phase1/validate_career_stages.py "$PROF/_internal/archive/$TIMESTAMP/career_stages.json"
+PROF="output/中国科学院大学/中科院物理所/超快物质科学中心/王示例"
+
+# Phase A 由 AI 根据官网和跨源身份锁定，写入当前 _internal/archive/<latest>/：
+#   00_verified_ids.json
+#   career_stages.json
+python src/phase1/validate_career_stages.py "$PROF/_internal/archive/$(cat "$PROF/_internal/latest.txt" | tr -d '\r\n')/career_stages.json"
 
 # 每步优先用 --prof-dir 替代 -o，自动输出到当前 _internal/archive/<ts>/01_gs.json 等
 python src/phase1/step2_gs.py XXXXXXXXAAAAJ --prof-dir "$PROF"
