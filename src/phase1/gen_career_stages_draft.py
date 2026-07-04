@@ -3,7 +3,8 @@
 gen_career_stages_draft.py — 从 merged.json 论文年份生成 career_stages 空骨架。
 
 输入：merged.json
-输出：career_stages_draft.json — 仅含单阶段（[未填] 占位符）+ 论文年份范围
+输出：career_stages_draft.json — 仅含单阶段（[未填] 占位符）+ 论文年份范围。
+使用 --prof-dir 时，默认写入 _internal/career_stages_draft.json，避免导师根目录暴露机器草稿。
 
 为什么是这个设计：
   - 阶段边界需要官网履历（机构/职位变化），脚本无法可靠识别
@@ -13,7 +14,7 @@ gen_career_stages_draft.py — 从 merged.json 论文年份生成 career_stages 
 
 用法：
   python gen_career_stages_draft.py merged.json -o career_stages_draft.json
-  python gen_career_stages_draft.py --prof-dir "output/..."   # 自动找 merged.json
+  python gen_career_stages_draft.py --prof-dir "output/..."   # 自动找 merged.json，默认写 _internal/
 
 AI 工作流：
   1. 跑此脚本生成 draft.json（单阶段 + 年份范围）
@@ -72,7 +73,8 @@ def main():
     parser = argparse.ArgumentParser(description="生成 career_stages 空骨架")
     parser.add_argument("merged_json", nargs="?", help="04_merged.json 路径")
     parser.add_argument("--prof-dir", help="prof 根目录（自动找 merged.json）")
-    parser.add_argument("--output", "-o", default="career_stages_draft.json", help="输出路径")
+    parser.add_argument("--output", "-o", default="career_stages_draft.json",
+                        help="输出路径；使用 --prof-dir 且未显式传 -o 时默认写入 _internal/")
     args = parser.parse_args()
 
     if args.prof_dir and not args.merged_json:
@@ -81,13 +83,16 @@ def main():
         if not merged or not os.path.exists(merged):
             parser.error(f"--prof-dir {args.prof_dir} 下找不到 04_merged.json")
         args.merged_json = merged
-        if args.output == "career_stages_draft.json":  # 默认路径写到 prof_dir
-            args.output = os.path.join(args.prof_dir, "career_stages_draft.json")
+        if args.output == "career_stages_draft.json":  # 默认路径写到 _internal
+            args.output = os.path.join(args.prof_dir, "_internal", "career_stages_draft.json")
 
     if not args.merged_json or not os.path.exists(args.merged_json):
         parser.error("找不到 merged.json。传位置参数或 --prof-dir")
 
     draft = generate_draft(args.merged_json)
+    output_dir = os.path.dirname(args.output)
+    if output_dir:
+        os.makedirs(output_dir, exist_ok=True)
     with open(args.output, "w", encoding="utf-8") as f:
         json.dump(draft, f, ensure_ascii=False, indent=2)
 

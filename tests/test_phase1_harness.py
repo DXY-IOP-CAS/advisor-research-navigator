@@ -486,6 +486,48 @@ run_timestamp: 20260704_010203
             self.assertEqual(0, result.returncode, result.stderr)
             self.assertIn("[OK]", result.stdout)
 
+    def test_gen_career_stages_draft_prof_dir_writes_inside_internal_dir(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            prof_dir = os.path.join(tmp, "output", "大学", "所", "部门", "张三")
+            internal_dir = os.path.join(prof_dir, "_internal")
+            archive_dir = os.path.join(internal_dir, "archive", "20260704_120000")
+            os.makedirs(archive_dir)
+            with open(os.path.join(internal_dir, "latest.txt"), "w", encoding="utf-8") as f:
+                f.write("20260704_120000\n")
+            with open(os.path.join(archive_dir, "04_merged.json"), "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "professor": {"affiliation": "测试大学"},
+                        "papers": [{"year": 2020}, {"year": 2024}],
+                    },
+                    f,
+                    ensure_ascii=False,
+                )
+
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    os.path.join(PHASE1, "gen_career_stages_draft.py"),
+                    "--prof-dir",
+                    prof_dir,
+                ],
+                cwd=ROOT,
+                env={**os.environ, "PYTHONIOENCODING": "utf-8"},
+                text=True,
+                encoding="utf-8",
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+
+            self.assertEqual(0, result.returncode, result.stderr)
+            self.assertFalse(os.path.exists(os.path.join(prof_dir, "career_stages_draft.json")))
+            draft_path = os.path.join(internal_dir, "career_stages_draft.json")
+            self.assertTrue(os.path.exists(draft_path))
+            with open(draft_path, encoding="utf-8") as f:
+                draft = json.load(f)
+            self.assertEqual(2020, draft[0]["start"])
+            self.assertEqual(2024, draft[0]["end"])
+
     def test_normalize_email_domain_removes_truncated_local_part(self):
         self.assertEqual("iphy.ac.cn", step2_gs.normalize_email_domain("...@@iphy.ac.cn"))
         self.assertEqual("iphy.ac.cn", step2_gs.normalize_email_domain("@iphy.ac.cn"))
