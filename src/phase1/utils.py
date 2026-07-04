@@ -438,7 +438,6 @@ class ProfDirResolver:
     """从 prof_dir（output/.../姓名/）自动解析所有路径。
 
     AI 只需传入 prof_dir，timestamp 从 _internal/latest.txt 读取或通过 --ts 指定。
-    旧版根目录 latest.txt 只作为过渡兼容。
     """
     OUTPUT_NAMES = {1: "01_gs.json", 2: "02_oa.json",
                     3: "03_arxiv.json", 4: "04_merged.json"}
@@ -451,15 +450,10 @@ class ProfDirResolver:
             self._state_root = self.internal_dir
 
     def _read_latest(self) -> str:
-        candidates = [
-            (os.path.join(self.internal_dir, 'latest.txt'), self.internal_dir),
-            (os.path.join(self.prof_dir, 'latest.txt'), self.prof_dir),
-        ]
-        for path, state_root in candidates:
-            if not os.path.exists(path):
-                continue
+        path = os.path.join(self.internal_dir, 'latest.txt')
+        if os.path.exists(path):
             with open(path, encoding='utf-8') as f:
-                self._state_root = state_root
+                self._state_root = self.internal_dir
                 return f.read().strip()
         return ''
 

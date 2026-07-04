@@ -68,6 +68,12 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertIn("validate_career_stages.py --prof-dir", text)
         self.assertIn("validate_verified_ids.py --prof-dir", text)
 
+    def test_pipeline_does_not_document_root_latest_compatibility(self):
+        text = (ROOT / "src" / "phase1" / "pipeline.md").read_text(encoding="utf-8")
+
+        self.assertNotIn("旧版根目录 `latest.txt`", text)
+        self.assertNotIn("根目录 `latest.txt` 只作过渡兼容", text)
+
     def test_legacy_archive_previous_entrypoint_is_removed(self):
         for path in [ROOT / "AGENTS.md", ROOT / "CLAUDE.md"]:
             text = path.read_text(encoding="utf-8")

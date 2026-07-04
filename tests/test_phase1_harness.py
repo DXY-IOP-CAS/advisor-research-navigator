@@ -331,6 +331,23 @@ class Phase1HarnessTests(unittest.TestCase):
                 os.path.normpath(resolver.profile_path),
             )
 
+    def test_prof_dir_resolver_ignores_legacy_root_latest(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            prof_dir = os.path.join(tmp, "output", "大学", "所", "部门", "张三")
+            internal_dir = os.path.join(prof_dir, "_internal")
+            os.makedirs(internal_dir)
+            with open(os.path.join(prof_dir, "latest.txt"), "w", encoding="utf-8") as f:
+                f.write("20260704_010203\n")
+
+            resolver = utils.ProfDirResolver(prof_dir)
+
+            self.assertEqual("", resolver.ts)
+            self.assertEqual("", resolver.archive_dir)
+            self.assertEqual(
+                os.path.normpath(internal_dir),
+                os.path.normpath(resolver.state_root),
+            )
+
     def test_render_profile_omits_internal_archive_path_from_markdown(self):
         with tempfile.TemporaryDirectory() as tmp:
             output_path = os.path.join(tmp, "01_基础画像.md")
