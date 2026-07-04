@@ -226,8 +226,13 @@ class Phase1HarnessTests(unittest.TestCase):
             self.assertTrue(os.path.isfile(latest_path))
             self.assertTrue(os.path.isfile(seed_path))
             self.assertFalse(os.path.exists(os.path.join(prof_dir, "latest.txt")))
-            stdout_archive = os.path.normpath(os.path.join(tmp, result.stdout.strip()))
-            self.assertTrue(stdout_archive.startswith(os.path.normpath(archive_root)))
+            stdout_prof_dir = os.path.normpath(os.path.join(tmp, result.stdout.strip()))
+            self.assertEqual(os.path.normpath(prof_dir), stdout_prof_dir)
+            self.assertIn("archive_dir:", result.stderr)
+            stderr_archive_root = os.path.normpath(
+                os.path.join("output", "测试大学", "测试所", "测试部门", "张三", "_internal", "archive")
+            )
+            self.assertIn(stderr_archive_root, os.path.normpath(result.stderr))
 
             with open(seed_path, "r", encoding="utf-8") as f:
                 seed = json.load(f)

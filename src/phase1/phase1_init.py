@@ -17,7 +17,7 @@ AI 不要手动 mkdir。用此脚本自动创建标准目录结构。
   2. 创建 _internal/archive/<timestamp>/ 目录
   3. 写 _internal/latest.txt
   4. 写 _internal/seed.json 记录最小输入
-  5. 打印 archive 路径供后续步骤使用
+  5. 打印 prof_dir 路径供后续 --prof-dir 步骤使用
 """
 
 import argparse
@@ -93,7 +93,7 @@ def main():
 
     print(f"prof_dir: {base}", file=sys.stderr)
     print(f"archive_dir: {archive}", file=sys.stderr)
-    print(archive)  # 主输出：archive 路径，供 --archive-dir 使用
+    print(base)  # 主输出：prof_dir 路径，供 --prof-dir 使用
 
     return 0
 

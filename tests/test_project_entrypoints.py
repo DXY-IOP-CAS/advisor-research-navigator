@@ -116,6 +116,13 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
             self.assertIn("--official-url", text, str(path))
             self.assertIn("seed.json", text, str(path))
 
+    def test_phase1_init_stdout_is_not_archive_entrypoint(self):
+        text = (ROOT / "src" / "phase1" / "phase1_init.py").read_text(encoding="utf-8")
+
+        self.assertNotIn("打印 archive 路径供后续步骤使用", text)
+        self.assertNotIn("print(archive)", text)
+        self.assertIn("print(base)", text)
+
     def test_phase1_references_use_prof_dir_for_step_outputs(self):
         text = (
             ROOT / ".claude" / "skills" / "research-advisor" / "references" / "01-data-sources.md"
