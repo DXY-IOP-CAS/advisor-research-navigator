@@ -147,6 +147,15 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
 
         self.assertEqual([], leaked, "phase1 script usage examples should default to --prof-dir")
 
+    def test_render_profile_docstring_matches_current_ai_edit_contract(self):
+        text = (ROOT / "src" / "phase1" / "render_profile.py").read_text(encoding="utf-8")
+
+        forbidden = ["5 年默认段", "脚本不写的内容", "学术履历表格     - 研究方向描述"]
+        leaked = [phrase for phrase in forbidden if phrase in text]
+        self.assertEqual([], leaked, "render_profile docs should match current §2 auto-render contract")
+        self.assertIn("§2 学术履历表", text)
+        self.assertIn("AI 只补充叙事占位符", text)
+
     def test_phase1_strategy_is_not_a_parallel_docs_entrypoint(self):
         self.assertFalse(
             (ROOT / "docs" / "phase1运行策略.md").exists(),
