@@ -492,6 +492,18 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.assertFalse(result.ok)
         self.assertTrue(any("缺少章节" in m for m in result.messages))
 
+    def test_accepts_professor_specific_phase4_route_heading(self):
+        text = (self.prof / "04_学习向导.md").read_text(encoding="utf-8")
+        self.write_doc(
+            "04_学习向导.md",
+            text.replace("## 回到张鹏举论文路线", "## 回到测试导师论文路线"),
+        )
+
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+
+        self.assertTrue(result.ok, result.messages)
+
     def test_rejects_missing_phase4_minimal_loop_section(self):
         text = (self.prof / "04_学习向导.md").read_text(encoding="utf-8")
         text = text.replace("## 进组前起步闭环\n\n", "")

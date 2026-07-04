@@ -50,7 +50,7 @@ DOCS = {
         "## 随后进入阿秒电子运动",
         "## 进入液相和凝聚相复杂环境",
         "## 最后把机制论文接回平台边界",
-        "## 回到张鹏举论文路线",
+        "## 回到<导师>论文路线",
         "## 进组后先从哪里接上",
         "## 卡住时怎么判断该补什么",
         "## 资源指针",
@@ -115,6 +115,7 @@ FIXED_DAY_RE = re.compile(
 )
 VISIBLE_TAXONOMY_RE = re.compile(r"(?:主线[一二三四五六七八九十]+[:：]|第[一二三四五六七八九十]+类是)")
 NUMBERED_PHASE4_PATH_RE = re.compile(r"第[一二三四五六七八九十]+段路")
+PHASE4_ROUTE_HEADING_RE = re.compile(r"^## 回到.+论文路线\s*$", re.MULTILINE)
 ALLOWED_ROOT_ENTRIES = set(DOCS) | {"_internal"}
 MERMAID_BLOCK_RE = re.compile(r"```mermaid\s*\n(.*?)\n```", re.DOTALL)
 MERMAID_START_RE = re.compile(
@@ -182,6 +183,12 @@ def _extract_markdown_section(text: str, heading: str) -> str:
     section_start = start + len(marker)
     next_heading = text.find("\n## ", section_start)
     return text[section_start:] if next_heading < 0 else text[section_start:next_heading]
+
+
+def _has_required_section(filename: str, section: str, text: str) -> bool:
+    if filename == "04_学习向导.md" and section == "## 回到<导师>论文路线":
+        return bool(PHASE4_ROUTE_HEADING_RE.search(text))
+    return section in text
 
 
 def _check_source_format(filename: str, text: str, messages: list[str]) -> None:
@@ -419,7 +426,7 @@ def verify_prof_dir(prof_dir: str | Path) -> VerifyResult:
             messages.append(f"[FAIL] {filename} 缺少一级标题")
 
         for section in sections:
-            if section not in text:
+            if not _has_required_section(filename, section, text):
                 messages.append(f"[FAIL] {filename} 缺少章节: {section}")
 
         if not _has_source_marker(text):
