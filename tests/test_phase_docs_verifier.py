@@ -84,6 +84,29 @@ class PhaseDocsVerifierTests(unittest.TestCase):
             result.messages,
         )
 
+    def test_rejects_chatty_second_person_style(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            prof_dir = Path(tmp)
+            write_minimal_valid_phase_docs(prof_dir)
+            phase4 = prof_dir / "04_学习向导.md"
+            phase4.write_text(
+                phase4.read_text(encoding="utf-8")
+                + "\n本文告诉你怎么读论文：我现在缺的是某个概念。\n",
+                encoding="utf-8",
+            )
+
+            result = verify_phase_docs.verify_prof_dir(prof_dir)
+
+        self.assertFalse(result.ok)
+        self.assertIn(
+            "[FAIL] 04_学习向导.md 含禁用写作风格: 告诉你",
+            result.messages,
+        )
+        self.assertIn(
+            "[FAIL] 04_学习向导.md 含禁用写作风格: 我现在缺的是",
+            result.messages,
+        )
+
     def test_accepts_problem_chain_phase4_structure(self):
         with tempfile.TemporaryDirectory() as tmp:
             prof_dir = Path(tmp)
