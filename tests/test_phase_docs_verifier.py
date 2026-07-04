@@ -85,7 +85,7 @@ def write_evidence_table(prof_dir: Path) -> None:
 def write_minimal_valid_phase_docs(prof_dir: Path) -> None:
     write_evidence_table(prof_dir)
     for filename, sections in verify_phase_docs.DOCS.items():
-        lines = [f"# 测试导师 - {filename}", ""]
+        lines = [f"# 测试导师 (Test Mentor) - {filename}", ""]
         for section in sections:
             lines.extend([section, '正文 <sup><a href="#o1">[O1]</a></sup>'])
             if filename == "00_材料导读.md" and section == "## 建议阅读顺序":
@@ -185,7 +185,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
             prof_dir = Path(tmp)
             write_evidence_table(prof_dir)
             (prof_dir / "00_材料导读.md").write_text(
-                """# 测试导师 - 材料导读
+                """# 测试导师 (Test Mentor) - 材料导读
 
 ## 这套材料解决什么问题
 正文 <sup><a href="#o1">[O1]</a></sup>
@@ -210,12 +210,12 @@ class PhaseDocsVerifierTests(unittest.TestCase):
                 encoding="utf-8",
             )
             (prof_dir / "01_基础画像.md").write_text(
-                "# 测试导师 - 基础画像\n\n## 资料概览\n\n来源：https://example.com\n\n"
+                "# 测试导师 (Test Mentor) - 基础画像\n\n## 资料概览\n\n来源：https://example.com\n\n"
                 + MERMAID_BLOCK,
                 encoding="utf-8",
             )
             (prof_dir / "02_领域地图.md").write_text(
-                """# 测试导师 - 领域地图
+                """# 测试导师 (Test Mentor) - 领域地图
 
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
@@ -233,7 +233,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
                 encoding="utf-8",
             )
             (prof_dir / "03_论文路线.md").write_text(
-                """# 测试导师 - 论文路线
+                """# 测试导师 (Test Mentor) - 论文路线
 
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
@@ -251,7 +251,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
                 encoding="utf-8",
             )
             (prof_dir / "04_学习向导.md").write_text(
-                """# 测试导师 - 学习向导
+                """# 测试导师 (Test Mentor) - 学习向导
 
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
@@ -283,11 +283,11 @@ class PhaseDocsVerifierTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             prof_dir = Path(tmp)
             (prof_dir / "01_基础画像.md").write_text(
-                "# 测试导师 - 基础画像\n\n## 资料概览\n\n来源：https://example.com\n",
+                "# 测试导师 (Test Mentor) - 基础画像\n\n## 资料概览\n\n来源：https://example.com\n",
                 encoding="utf-8",
             )
             (prof_dir / "02_领域地图.md").write_text(
-                """# 测试导师 - 领域地图
+                """# 测试导师 (Test Mentor) - 领域地图
 
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
@@ -302,7 +302,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
                 encoding="utf-8",
             )
             (prof_dir / "03_论文路线.md").write_text(
-                """# 测试导师 - 论文路线
+                """# 测试导师 (Test Mentor) - 论文路线
 
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
@@ -317,7 +317,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
                 encoding="utf-8",
             )
             (prof_dir / "04_学习向导.md").write_text(
-                """# 测试导师 - 学习向导
+                """# 测试导师 (Test Mentor) - 学习向导
 
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
@@ -349,11 +349,11 @@ class PhaseDocsVerifierTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             prof_dir = Path(tmp)
             (prof_dir / "01_基础画像.md").write_text(
-                "# 测试导师 - 基础画像\n\n## 资料概览\n\n来源：https://example.com\n",
+                "# 测试导师 (Test Mentor) - 基础画像\n\n## 资料概览\n\n来源：https://example.com\n",
                 encoding="utf-8",
             )
             (prof_dir / "02_领域地图.md").write_text(
-                """# 测试导师 - 领域地图
+                """# 测试导师 (Test Mentor) - 领域地图
 
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
@@ -368,7 +368,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
                 encoding="utf-8",
             )
             (prof_dir / "03_论文路线.md").write_text(
-                """# 测试导师 - 论文路线
+                """# 测试导师 (Test Mentor) - 论文路线
 
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
@@ -383,7 +383,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
                 encoding="utf-8",
             )
             (prof_dir / "04_学习向导.md").write_text(
-                """# 测试导师 - 学习向导
+                """# 测试导师 (Test Mentor) - 学习向导
 
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
@@ -414,11 +414,11 @@ class PhaseDocsVerifierTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             prof_dir = Path(tmp)
             (prof_dir / "01_基础画像.md").write_text(
-                "# 测试导师 - 基础画像\n\n## 资料概览\n\n来源：https://example.com\n",
+                "# 测试导师 (Test Mentor) - 基础画像\n\n## 资料概览\n\n来源：https://example.com\n",
                 encoding="utf-8",
             )
             (prof_dir / "02_领域地图.md").write_text(
-                """# 测试导师 - 领域地图
+                """# 测试导师 (Test Mentor) - 领域地图
 
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
@@ -433,7 +433,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
                 encoding="utf-8",
             )
             (prof_dir / "03_论文路线.md").write_text(
-                """# 测试导师 - 论文路线
+                """# 测试导师 (Test Mentor) - 论文路线
 
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
@@ -448,7 +448,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
                 encoding="utf-8",
             )
             (prof_dir / "04_学习向导.md").write_text(
-                """# 测试导师 - 学习向导
+                """# 测试导师 (Test Mentor) - 学习向导
 
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>

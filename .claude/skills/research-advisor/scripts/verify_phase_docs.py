@@ -143,6 +143,7 @@ ORDINARY_PARAGRAPH_MAX_CHARS = 420
 PARAGRAPH_BOUNDARY_RE = re.compile(
     r"^\s*(?:#{1,6}\s|[-*+]\s+|\d+[.)]\s+|>\s*|<!--|</?\w|---\s*$)"
 )
+TITLE_IDENTITY_RE = re.compile(r"^#\s+.+\s+\([^)]+\)")
 
 
 @dataclass
@@ -352,6 +353,12 @@ def _check_prof_root_cleanliness(prof: Path, messages: list[str]) -> None:
         messages.append(f"[FAIL] 导师根目录不得包含机器文件或目录: {child.name}")
 
 
+def _check_title_identity_format(filename: str, body: str, messages: list[str]) -> None:
+    first_line = body.splitlines()[0] if body.splitlines() else ""
+    if first_line.startswith("# ") and not TITLE_IDENTITY_RE.match(first_line):
+        messages.append(f"[FAIL] {filename} 一级标题姓名格式应为: 中文名 (English Name)")
+
+
 def _has_markdown_table(text: str) -> bool:
     lines = text.splitlines()
     for index, line in enumerate(lines[:-2]):
@@ -496,6 +503,8 @@ def verify_prof_dir(prof_dir: str | Path) -> VerifyResult:
             messages.append(f"[FAIL] {filename} 不使用裸露 frontmatter")
         if not body.startswith("# "):
             messages.append(f"[FAIL] {filename} 缺少一级标题")
+        else:
+            _check_title_identity_format(filename, body, messages)
 
         for section in sections:
             if not _has_required_section(filename, section, text):

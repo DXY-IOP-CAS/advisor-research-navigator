@@ -7,6 +7,7 @@ from pathlib import Path
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "verify_phase_docs.py"
 BLUEPRINT_TEMPLATE = Path(__file__).resolve().parents[1] / "assets" / "templates" / "blueprint.md"
+TEMPLATE_DIR = Path(__file__).resolve().parents[1] / "assets" / "templates"
 
 
 def load_module():
@@ -199,6 +200,12 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         for label, pattern in module.BLUEPRINT_REQUIRED_FIELDS:
             self.assertRegex(text, pattern, f"blueprint template missing {label}")
 
+    def test_phase_templates_use_spaced_bilingual_title_placeholders(self):
+        for filename in ["00_材料导读.md", "02_领域地图.md", "03_论文路线.md", "04_学习向导.md"]:
+            text = (TEMPLATE_DIR / filename).read_text(encoding="utf-8")
+            first_line = text.splitlines()[0]
+            self.assertIn("<中文名> (<English Name>)", first_line, filename)
+
     def test_rejects_missing_cognitive_blueprint(self):
         (self.prof / "_internal" / "blueprint.md").unlink()
 
@@ -382,6 +389,19 @@ class VerifyPhaseDocsTest(unittest.TestCase):
 
         self.assertFalse(result.ok)
         self.assertIn("[FAIL] _internal/evidence/key_claims.md 缺少关键判断证据表头", result.messages)
+
+    def test_rejects_title_without_space_between_chinese_and_english_name(self):
+        text = (self.prof / "00_材料导读.md").read_text(encoding="utf-8")
+        self.write_doc(
+            "00_材料导读.md",
+            text.replace("# 张鹏举 (Pengju Zhang)", "# 张鹏举(Pengju Zhang)", 1),
+        )
+
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+
+        self.assertFalse(result.ok)
+        self.assertTrue(any("一级标题姓名格式" in m for m in result.messages))
 
     def test_rejects_pipeline_run_info_heading(self):
         text = (self.prof / "02_领域地图.md").read_text(encoding="utf-8")
