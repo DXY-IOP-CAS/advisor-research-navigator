@@ -44,7 +44,7 @@ python src/phase1/step6_merge.py --prof-dir "output/..."
 python src/phase1/risk_gate.py --prof-dir "output/..."
 ```
 
-**采信优先级**：GS > OA > arXiv。多源重合以 GS 标题为准，OA 补充 DOI/期刊/作者，arXiv 补充预印本。`risk_gate.py` 决定是否必须从 standard 升级到 conservative；如果输出 `mode: conservative_required`，按 reason 做定向补搜后重跑 gate。
+**采信优先级**：GS > OA > arXiv。多源重合以 GS 标题为准，OA 补充 DOI/期刊/作者，arXiv 补充预印本。`risk_gate.py` 决定是否必须从 standard 升级到 conservative；如果输出 `mode: conservative_required`，必须同时阅读 `reason` 和 `next_actions`，按 `next_actions` 做定向补搜、剔除或人工核查记录，然后重跑 gate。不要只看 `reason` 后凭感觉多轮乱搜。
 
 ### 数据源细节
 

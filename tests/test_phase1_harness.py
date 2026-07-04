@@ -414,6 +414,7 @@ run_timestamp: 20260704_010203
 
         self.assertEqual("standard", result.mode)
         self.assertEqual([], result.reasons)
+        self.assertEqual([], result.actions)
 
     def test_risk_gate_requires_conservative_when_single_source_ratio_is_high(self):
         merged = {
@@ -435,6 +436,7 @@ run_timestamp: 20260704_010203
 
         self.assertEqual("conservative_required", result.mode)
         self.assertIn("single-source OA/arXiv ratio", "\n".join(result.reasons))
+        self.assertIn("逐篇核查 OA/arXiv-only 论文", "\n".join(result.actions))
 
     def test_risk_gate_requires_conservative_when_identity_evidence_is_weak(self):
         merged = {
@@ -453,6 +455,24 @@ run_timestamp: 20260704_010203
         self.assertEqual("conservative_required", result.mode)
         self.assertIn("English name missing", "\n".join(result.reasons))
         self.assertIn("verification tier is T4", "\n".join(result.reasons))
+        self.assertIn("补官网英文名", "\n".join(result.actions))
+        self.assertIn("重新做身份锁定", "\n".join(result.actions))
+
+    def test_risk_gate_prints_next_actions_for_conservative_mode(self):
+        result = risk_gate.RiskResult(
+            mode="conservative_required",
+            reasons=["English name missing from professor/verified_ids name"],
+            actions=["补官网英文名，保持 中文名 (English Name) 格式。"],
+            metrics={"total_papers": 1},
+        )
+
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            risk_gate.print_result(result)
+
+        output = buf.getvalue()
+        self.assertIn("next_actions:", output)
+        self.assertIn("补官网英文名", output)
 
     def test_step4_arxiv_id_accepts_prof_dir_and_writes_current_archive(self):
         with tempfile.TemporaryDirectory() as tmp:
