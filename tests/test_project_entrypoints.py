@@ -144,6 +144,19 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertIn("中文名 (English Name)", text)
         self.assertNotIn("中文名(English Name)", text)
 
+    def test_phase4_reference_avoids_forbidden_key_paper_wording(self):
+        text = (
+            ROOT
+            / ".claude"
+            / "skills"
+            / "research-advisor"
+            / "references"
+            / "phase4-learning-guide.md"
+        ).read_text(encoding="utf-8")
+
+        self.assertNotIn("关键论文", text)
+        self.assertIn("目标论文", text)
+
     def test_active_skill_references_do_not_keep_local_version_footers(self):
         refs_dir = ROOT / ".claude" / "skills" / "research-advisor" / "references"
         leaked = []
