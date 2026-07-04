@@ -76,15 +76,8 @@ def verify(profile_path: str, merged_path: str = None) -> int:
     for kw in forbidden:
         check(kw not in content, f"无禁止关键词「{kw}」", errors)
 
-    # 1b. frontmatter 封闭（以 --- 开头且以 --- 结尾）
-    fm_start = content.find("---")
-    fm_end = content.find("---", fm_start + 3) if fm_start >= 0 else -1
-    if fm_start >= 0 and fm_end > fm_start:
-        # --- 和 --- 之间是 frontmatter；第二个 --- 之后应有换行
-        after_fm = content[fm_end + 3:fm_end + 5] if fm_end + 5 <= len(content) else ""
-        check(after_fm.startswith("\n"), "frontmatter 以 --- 封闭", errors)
-    else:
-        check(False, "frontmatter 存在且以 --- 封闭", errors)
+    # 1b. 成品 Markdown 不暴露流水线元数据。
+    check(not content.startswith("---\n"), "不使用裸露 frontmatter", errors)
 
     # 1c. 表格内部无空行（空行会破坏 markdown 表格渲染）
     table_regions = re.findall(r"^\| # \| 年份 \| 标题 \| 期刊 \| 引用 \| 来源 \|(.+?)(?=\n\n|\Z)", content, re.MULTILINE | re.DOTALL)
@@ -334,7 +327,7 @@ def verify(profile_path: str, merged_path: str = None) -> int:
 
 FIX_MAP = {
     "禁止关键词": "删除包含这些词的句子（参考 references/phase1-anti-patterns.md）",
-    "frontmatter": "确保文件以 --- 开头，第二个 --- 后有换行",
+    "frontmatter": "删除文件开头的 YAML 元数据；必要信息放入「资料概览」或「身份标识」",
     "表格内部无空行": "删除论文表格行之间的空行（只删表格内的，前后叙事段落保留）",
     "名字格式": "改为 '# 中文名 (English Name) — 基础画像' 格式",
     "论文行数": "merged JSON 有变化，跑 render_profile.py --prof-dir ... 重新生成",

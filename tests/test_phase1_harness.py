@@ -34,11 +34,7 @@ class Phase1HarnessTests(unittest.TestCase):
 |:-----|:----|:------|
 | 官网 | https://example.com | 已验证 |
 """
-        return f"""---
-affiliation: 测试机构
----
-
-# 张三 (San Zhang) — 基础画像
+        return f"""# 张三 (San Zhang) — 基础画像
 
 ## 1. 身份标识
 
@@ -184,7 +180,10 @@ affiliation: 测试机构
                 run_timestamp="20260704_010203",
             )
 
-        self.assertIn("run_timestamp:", content)
+        self.assertTrue(content.startswith("# 张三 (San Zhang) — 基础画像"))
+        self.assertNotIn("run_timestamp:", content)
+        self.assertNotIn("source_updated:", content)
+        self.assertNotIn("affiliation:", content.split("#", 1)[0])
         self.assertIn("## 资料概览", content)
         self.assertIn("Google Scholar 数据", content)
         self.assertNotIn("run_archive:", content)
@@ -193,6 +192,23 @@ affiliation: 测试机构
         self.assertNotIn("生成时间", content)
         self.assertNotIn("GS 状态", content)
         self.assertNotIn("archive/20260704_010203", content)
+
+    def test_verify_profile_fails_when_yaml_frontmatter_is_visible(self):
+        profile_path = self._write_profile(
+            """---
+affiliation: 测试机构
+run_timestamp: 20260704_010203
+---
+
+""" + self._valid_profile()
+        )
+
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            result = verify_profile.verify(profile_path)
+
+        self.assertEqual(verify_profile.FAIL, result)
+        self.assertIn("不使用裸露 frontmatter", buf.getvalue())
 
     def test_validate_career_stages_accepts_dict_wrapped_stages(self):
         with tempfile.TemporaryDirectory() as tmp:
