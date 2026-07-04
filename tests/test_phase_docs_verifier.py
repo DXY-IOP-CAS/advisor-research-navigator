@@ -24,14 +24,35 @@ SOURCE_TABLE = """## 参考文献与资料
 | <a id="o1"></a>[O1] | 测试来源 | 支撑测试判断 | https://example.com | 官方来源 |
 """
 
+MERMAID_BLOCK = """```mermaid
+flowchart LR
+    A[起点] --> B[终点]
+```
+"""
+
+EVIDENCE_TABLE = """# 关键判断证据核对表
+
+| 文档位置 | 关键判断 | 来源 | 来源支撑了什么 | 证据强度 | 人工复核 |
+|:---|:---|:---|:---|:---|:---|
+| 00_材料导读.md | 阅读顺序 | [O1] | 支撑测试判断 | 直接证据 | 否 |
+"""
+
+
+def write_evidence_table(prof_dir: Path) -> None:
+    evidence_dir = prof_dir / "_internal" / "evidence"
+    evidence_dir.mkdir(parents=True, exist_ok=True)
+    (evidence_dir / "key_claims.md").write_text(EVIDENCE_TABLE, encoding="utf-8")
+
 
 def write_minimal_valid_phase_docs(prof_dir: Path) -> None:
+    write_evidence_table(prof_dir)
     for filename, sections in verify_phase_docs.DOCS.items():
         lines = [f"# 测试导师 - {filename}", ""]
         for section in sections:
             lines.extend([section, '正文 <sup><a href="#o1">[O1]</a></sup>'])
             if section == verify_phase_docs.PHASE4_MINIMAL_LOOP_HEADING:
                 lines.append("一篇论文、Fig. 2 核心图和一条平台链路。")
+        lines.append(MERMAID_BLOCK)
         if filename == "01_基础画像.md":
             lines.append("来源：https://example.com")
         else:
@@ -110,6 +131,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
     def test_accepts_problem_chain_phase4_structure(self):
         with tempfile.TemporaryDirectory() as tmp:
             prof_dir = Path(tmp)
+            write_evidence_table(prof_dir)
             (prof_dir / "00_材料导读.md").write_text(
                 """# 测试导师 - 材料导读
 
@@ -121,11 +143,14 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 ## 文件定位
 ## 使用边界
 """
+                + MERMAID_BLOCK
+                + "\n"
                 + SOURCE_TABLE,
                 encoding="utf-8",
             )
             (prof_dir / "01_基础画像.md").write_text(
-                "# 测试导师 - 基础画像\n\n## 资料概览\n\n来源：https://example.com\n",
+                "# 测试导师 - 基础画像\n\n## 资料概览\n\n来源：https://example.com\n\n"
+                + MERMAID_BLOCK,
                 encoding="utf-8",
             )
             (prof_dir / "02_领域地图.md").write_text(
@@ -133,6 +158,9 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
+"""
+                + MERMAID_BLOCK
+                + """
 ## 导师路径速览
 ## 当前方向学科定位
 ## 领域怎样发展到当前问题
@@ -148,6 +176,9 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
+"""
+                + MERMAID_BLOCK
+                + """
 ## 先抓住论文在回答什么问题
 ## 论文线怎样连成研究路线
 ## 当前主线论文
@@ -163,6 +194,9 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
+"""
+                + MERMAID_BLOCK
+                + """
 ## 终点：进组前应接近什么状态
 ## 进组前起步闭环
 一篇主线论文、Fig. 2 核心图和一条平台链路可以组成进组前起步闭环。

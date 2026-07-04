@@ -29,6 +29,8 @@ def source_table_row(key: str) -> str:
 
 
 SOURCE_TABLE_HEADER = "| 编号 | 文献或资料 | 支撑内容 | 链接 | 类型 |\n"
+EVIDENCE_TABLE_HEADER = "| 文档位置 | 关键判断 | 来源 | 来源支撑了什么 | 证据强度 | 人工复核 |\n"
+MERMAID_BLOCK = "```mermaid\nflowchart LR\n    A[起点] --> B[终点]\n```\n"
 
 
 class VerifyPhaseDocsTest(unittest.TestCase):
@@ -38,6 +40,15 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.prof = workspace_tmp / f"case_{uuid.uuid4().hex}"
         self.prof.mkdir(parents=True, exist_ok=False)
         (self.prof / "_internal").mkdir()
+        evidence_dir = self.prof / "_internal" / "evidence"
+        evidence_dir.mkdir()
+        (evidence_dir / "key_claims.md").write_text(
+            "# 关键判断证据核对表\n\n"
+            + EVIDENCE_TABLE_HEADER
+            + "|:---|:---|:---|:---|:---|:---|\n"
+            + "| 00_材料导读.md | 阅读顺序 | [O1] | 支撑导读来源 | 直接证据 | 否 |\n",
+            encoding="utf-8",
+        )
         self.write_doc(
             "00_材料导读.md",
             "# 张鹏举 (Pengju Zhang) - 材料导读\n\n"
@@ -47,6 +58,8 @@ class VerifyPhaseDocsTest(unittest.TestCase):
             "## 起步讨论入口\n用一篇目标论文、Fig. 2 核心图和一条平台链路进入讨论。\n\n"
             "## 文件定位\n五份文档按认知阶梯互相支撑。\n\n"
             "## 使用边界\n本材料不做导师评价、不做申请建议、不替代论文和教材。\n\n"
+            + MERMAID_BLOCK
+            + "\n"
             "## 参考文献与资料\n\n"
             "### 官方与身份资料\n\n"
             + SOURCE_TABLE_HEADER
@@ -56,12 +69,15 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.write_doc(
             "01_基础画像.md",
             "# 张鹏举 (Pengju Zhang) - 基础画像\n\n"
-            "## 资料概览\n资料链接：https://example.com\n",
+            "## 资料概览\n资料链接：https://example.com\n\n"
+            + MERMAID_BLOCK,
         )
         self.write_doc(
             "02_领域地图.md",
             "# 张鹏举 (Pengju Zhang) - 领域地图\n\n"
             f"## 资料概览\n官方方向以导师主页为准。{cite('O1')}\n\n"
+            + MERMAID_BLOCK
+            + "\n"
             "## 导师路径速览\n\n"
             "## 当前方向学科定位\n\n"
             "## 领域怎样发展到当前问题\n\n"
@@ -78,6 +94,8 @@ class VerifyPhaseDocsTest(unittest.TestCase):
             "03_论文路线.md",
             "# 张鹏举 (Pengju Zhang) - 论文路线\n\n"
             f"## 资料概览\n论文路线以代表论文为准。{cite('P1')}\n\n"
+            + MERMAID_BLOCK
+            + "\n"
             "## 先抓住论文在回答什么问题\n\n"
             "## 论文线怎样连成研究路线\n\n"
             "## 当前主线论文\n\n"
@@ -94,6 +112,8 @@ class VerifyPhaseDocsTest(unittest.TestCase):
             "04_学习向导.md",
             "# 张鹏举 (Pengju Zhang) - 学习向导\n\n"
             f"## 资料概览\n学习路径以课程和综述倒推。{cite('R1')}\n\n"
+            + MERMAID_BLOCK
+            + "\n"
             "## 终点：进组前应接近什么状态\n\n"
             "## 进组前起步闭环\n\n"
             "一篇主线论文、Fig. 2 核心图和一条平台链路可以组成进组前起步闭环。\n\n"
@@ -140,6 +160,35 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.assertIn("[FAIL] 导师根目录不得包含机器文件或目录: latest.txt", result.messages)
         self.assertIn("[FAIL] 导师根目录不得包含机器文件或目录: career_stages.json", result.messages)
         self.assertIn("[FAIL] 导师根目录不得包含机器文件或目录: archive", result.messages)
+
+    def test_rejects_missing_mermaid_visualization(self):
+        text = (self.prof / "03_论文路线.md").read_text(encoding="utf-8")
+        self.write_doc("03_论文路线.md", text.replace(MERMAID_BLOCK + "\n", ""))
+
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+
+        self.assertFalse(result.ok)
+        self.assertIn("[FAIL] 03_论文路线.md 缺少 Mermaid 可视化代码块", result.messages)
+
+    def test_rejects_missing_key_claim_evidence_table(self):
+        (self.prof / "_internal" / "evidence" / "key_claims.md").unlink()
+
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+
+        self.assertFalse(result.ok)
+        self.assertIn("[FAIL] 缺少 _internal/evidence/ 关键判断证据核对表", result.messages)
+
+    def test_rejects_malformed_key_claim_evidence_table(self):
+        evidence_file = self.prof / "_internal" / "evidence" / "key_claims.md"
+        evidence_file.write_text("# 关键判断证据核对表\n\n| 判断 | 来源 |\n", encoding="utf-8")
+
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+
+        self.assertFalse(result.ok)
+        self.assertIn("[FAIL] _internal/evidence/key_claims.md 缺少关键判断证据表头", result.messages)
 
     def test_rejects_pipeline_run_info_heading(self):
         text = (self.prof / "02_领域地图.md").read_text(encoding="utf-8")

@@ -10,6 +10,12 @@ python .claude/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "
 
 这个门只检查必需文件、必需标题、来源标记和禁用导师评价语。通过它不等于内容质量合格。
 
+V2 基线下，这个门还检查：
+
+- 导师根目录只包含 00-04 五份 Markdown 和 `_internal/`。
+- 每份成品文档至少有一个 Mermaid 代码块，且代码块开头是可识别图类型，例如 `flowchart`、`graph`、`mindmap`、`timeline` 等。它是基础语法 smoke，不等于人工确认图已服务理解。
+- `_internal/evidence/` 下至少有一个 Markdown 关键判断证据核对表，并包含固定表头：`文档位置 / 关键判断 / 来源 / 来源支撑了什么 / 证据强度 / 人工复核`。
+
 有网络时，继续运行 DOI 元数据门：
 
 ```bash

@@ -103,6 +103,7 @@ SOURCE_ANCHOR_RE = re.compile(r"<a id=\"([oprb]\d+)\"></a>\[((O|P|R|B)(\d+))\]")
 BARE_URL_RE = re.compile(r"(?<!\]\()https?://[^\s)]+")
 SOURCE_SECTION_MARKER = "## 参考文献与资料"
 SOURCE_TABLE_HEADER = "| 编号 | 文献或资料 | 支撑内容 | 链接 | 类型 |"
+EVIDENCE_TABLE_HEADER = "| 文档位置 | 关键判断 | 来源 | 来源支撑了什么 | 证据强度 | 人工复核 |"
 PHASE4_MINIMAL_LOOP_HEADING = "## 进组前起步闭环"
 PHASE4_MINIMAL_LOOP_REQUIRED = ("论文", "图", "平台")
 PHASE4_CONCRETE_FIGURE_RE = re.compile(
@@ -115,6 +116,10 @@ FIXED_DAY_RE = re.compile(
 VISIBLE_TAXONOMY_RE = re.compile(r"(?:主线[一二三四五六七八九十]+[:：]|第[一二三四五六七八九十]+类是)")
 NUMBERED_PHASE4_PATH_RE = re.compile(r"第[一二三四五六七八九十]+段路")
 ALLOWED_ROOT_ENTRIES = set(DOCS) | {"_internal"}
+MERMAID_BLOCK_RE = re.compile(r"```mermaid\s*\n(.*?)\n```", re.DOTALL)
+MERMAID_START_RE = re.compile(
+    r"^(?:flowchart|graph|sequenceDiagram|timeline|mindmap|quadrantChart|journey|gantt|classDiagram|stateDiagram|erDiagram|pie|gitGraph)\b"
+)
 
 
 @dataclass
@@ -272,11 +277,45 @@ def _check_prof_root_cleanliness(prof: Path, messages: list[str]) -> None:
         messages.append(f"[FAIL] 导师根目录不得包含机器文件或目录: {child.name}")
 
 
+def _check_mermaid_visualization(filename: str, text: str, messages: list[str]) -> None:
+    blocks = MERMAID_BLOCK_RE.findall(text)
+    if not blocks:
+        messages.append(f"[FAIL] {filename} 缺少 Mermaid 可视化代码块")
+        return
+
+    valid = False
+    for block in blocks:
+        lines = [line.strip() for line in block.splitlines() if line.strip()]
+        if lines and MERMAID_START_RE.match(lines[0]):
+            valid = True
+            break
+    if not valid:
+        messages.append(f"[FAIL] {filename} Mermaid 代码块缺少可识别图类型")
+
+
+def _check_evidence_tables(prof: Path, messages: list[str]) -> None:
+    evidence_dir = prof / "_internal" / "evidence"
+    if not evidence_dir.is_dir():
+        messages.append("[FAIL] 缺少 _internal/evidence/ 关键判断证据核对表")
+        return
+
+    files = sorted(evidence_dir.glob("*.md"))
+    if not files:
+        messages.append("[FAIL] 缺少 _internal/evidence/ 关键判断证据核对表")
+        return
+
+    for path in files:
+        text = path.read_text(encoding="utf-8")
+        if EVIDENCE_TABLE_HEADER not in text:
+            messages.append(f"[FAIL] _internal/evidence/{path.name} 缺少关键判断证据表头")
+
+
 def verify_prof_dir(prof_dir: str | Path) -> VerifyResult:
     prof = Path(prof_dir)
     messages: list[str] = []
 
     _check_prof_root_cleanliness(prof, messages)
+    _check_evidence_tables(prof, messages)
 
     for filename, sections in DOCS.items():
         path = prof / filename
@@ -299,6 +338,7 @@ def verify_prof_dir(prof_dir: str | Path) -> VerifyResult:
             messages.append(f"[FAIL] {filename} 缺少来源 URL、[未找到] 或需人工复核标记")
 
         _check_source_format(filename, text, messages)
+        _check_mermaid_visualization(filename, text, messages)
         _check_phase4_minimal_loop(filename, text, messages)
         _check_forbidden_terms(filename, text, messages)
         _check_forbidden_style(filename, text, messages)
