@@ -122,6 +122,10 @@ def _body_after_frontmatter(text: str) -> str:
     return stripped
 
 
+def _has_visible_frontmatter(text: str) -> bool:
+    return text.lstrip("\ufeff").startswith("---\n")
+
+
 def _extract_citation_keys(text: str) -> set[str]:
     return {f"[{kind}{number}]" for kind, number in CITATION_RE.findall(text)}
 
@@ -248,6 +252,8 @@ def verify_prof_dir(prof_dir: str | Path) -> VerifyResult:
 
         text = path.read_text(encoding="utf-8")
         body = _body_after_frontmatter(text)
+        if _has_visible_frontmatter(text):
+            messages.append(f"[FAIL] {filename} 不使用裸露 frontmatter")
         if not body.startswith("# "):
             messages.append(f"[FAIL] {filename} 缺少一级标题")
 

@@ -363,6 +363,21 @@ class PhaseDocsVerifierTests(unittest.TestCase):
             result.messages,
         )
 
+    def test_rejects_visible_frontmatter_in_phase_docs(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            prof_dir = Path(tmp)
+            write_minimal_valid_phase_docs(prof_dir)
+            phase2 = prof_dir / "02_领域地图.md"
+            phase2.write_text(
+                "---\nsource: https://example.com\n---\n" + phase2.read_text(encoding="utf-8"),
+                encoding="utf-8",
+            )
+
+            result = verify_phase_docs.verify_prof_dir(prof_dir)
+
+        self.assertFalse(result.ok)
+        self.assertIn("[FAIL] 02_领域地图.md 不使用裸露 frontmatter", result.messages)
+
 
 if __name__ == "__main__":
     unittest.main()

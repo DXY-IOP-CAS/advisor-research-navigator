@@ -338,12 +338,13 @@ class VerifyPhaseDocsTest(unittest.TestCase):
             result.messages,
         )
 
-    def test_accepts_yaml_frontmatter_before_title(self):
+    def test_rejects_yaml_frontmatter_before_title(self):
         text = (self.prof / "01_基础画像.md").read_text(encoding="utf-8")
         self.write_doc("01_基础画像.md", "---\nsource: https://example.com\n---\n" + text)
         module = load_module()
         result = module.verify_prof_dir(self.prof)
-        self.assertTrue(result.ok, result.messages)
+        self.assertFalse(result.ok)
+        self.assertIn("[FAIL] 01_基础画像.md 不使用裸露 frontmatter", result.messages)
 
 
 if __name__ == "__main__":

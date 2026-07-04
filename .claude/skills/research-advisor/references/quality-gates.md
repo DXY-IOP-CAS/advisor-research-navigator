@@ -23,6 +23,7 @@ python .claude/skills/research-advisor/scripts/verify_source_metadata.py --prof-
 声称阶段文档可用前，逐项检查：
 
 - 是否清楚消费了前一阶段，而不是复述前一阶段。
+- 最终 Markdown 是否直接从一级标题开始，不使用裸露 YAML/frontmatter 或流水线元数据。
 - 事实判断附近是否有 URL、`[未找到]` 或 `需人工复核`。
 - 正文是否使用可点击短引用键，如 `<sup><a href="#p3">[P3]</a></sup>`，并把完整链接放到文末来源区，避免裸 URL 噪声。
 - 正文原则上不得出现裸 URL；URL 集中放在文末 `参考文献与资料`。
