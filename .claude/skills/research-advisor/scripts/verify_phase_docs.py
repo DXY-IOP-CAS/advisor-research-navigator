@@ -36,7 +36,7 @@ DOCS = {
     "04_学习向导.md": [
         "## 资料概览",
         "## 终点：进组前应接近什么状态",
-        "## 进组前最小闭环",
+        "## 进组前起步闭环",
         "## 第一段路：先知道光电子谱到底在看什么",
         "## 第二段路：从静态谱走到时间分辨",
         "## 第三段路：从飞秒过程走到阿秒电子运动",
@@ -79,6 +79,7 @@ FORBIDDEN_STYLE = [
     "阶段四可",
     "证明学生",
     "最小可交付",
+    "最小闭环",
 ]
 
 SOURCE_RE = re.compile(r"https?://|\[未找到\]|需人工复核")
@@ -90,7 +91,7 @@ SOURCE_ANCHOR_RE = re.compile(r"<a id=\"([oprb]\d+)\"></a>\[((O|P|R|B)(\d+))\]")
 BARE_URL_RE = re.compile(r"(?<!\]\()https?://[^\s)]+")
 SOURCE_SECTION_MARKER = "## 参考文献与资料"
 SOURCE_TABLE_HEADER = "| 编号 | 文献或资料 | 支撑内容 | 链接 | 类型 |"
-PHASE4_MINIMAL_LOOP_HEADING = "## 进组前最小闭环"
+PHASE4_MINIMAL_LOOP_HEADING = "## 进组前起步闭环"
 PHASE4_MINIMAL_LOOP_REQUIRED = ("论文", "图", "平台")
 PHASE4_CONCRETE_FIGURE_RE = re.compile(
     r"(?:Fig(?:ure)?\.?\s*[0-9]+[a-z]?)|(?:图\s*[0-9０-９一二三四五六七八九十]+)"
@@ -205,10 +206,10 @@ def _check_phase4_minimal_loop(filename: str, text: str, messages: list[str]) ->
     section = _extract_markdown_section(text, PHASE4_MINIMAL_LOOP_HEADING)
     if not all(token in section for token in PHASE4_MINIMAL_LOOP_REQUIRED):
         messages.append(
-            "[FAIL] 04_学习向导.md 进组前最小闭环必须同时连接论文、核心图和平台链路"
+            "[FAIL] 04_学习向导.md 进组前起步闭环必须同时连接论文、核心图和平台链路"
         )
     if not PHASE4_CONCRETE_FIGURE_RE.search(section):
-        messages.append("[FAIL] 04_学习向导.md 进组前最小闭环必须具体到核心图编号或图组")
+        messages.append("[FAIL] 04_学习向导.md 进组前起步闭环必须具体到核心图编号或图组")
 
 
 def _check_forbidden_terms(filename: str, text: str, messages: list[str]) -> None:

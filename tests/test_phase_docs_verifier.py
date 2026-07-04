@@ -127,8 +127,8 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 终点：进组前应接近什么状态
-## 进组前最小闭环
-一篇主线论文、Fig. 2 核心图和一条平台链路可以组成进组前最小闭环。
+## 进组前起步闭环
+一篇主线论文、Fig. 2 核心图和一条平台链路可以组成进组前起步闭环。
 ## 第一段路：先知道光电子谱到底在看什么
 ## 第二段路：从静态谱走到时间分辨
 ## 第三段路：从飞秒过程走到阿秒电子运动
@@ -190,8 +190,8 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 终点：进组前应接近什么状态
-## 进组前最小闭环
-一篇主线论文、Fig. 2 核心图和一条平台链路可以组成进组前最小闭环。
+## 进组前起步闭环
+一篇主线论文、Fig. 2 核心图和一条平台链路可以组成进组前起步闭环。
 ## 第一段路：先知道光电子谱到底在看什么
 ## 第二段路：从静态谱走到时间分辨
 ## 第三段路：从飞秒过程走到阿秒电子运动
@@ -274,7 +274,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 
         self.assertFalse(result.ok)
         self.assertIn(
-            "[FAIL] 04_学习向导.md 缺少章节: ## 进组前最小闭环",
+            "[FAIL] 04_学习向导.md 缺少章节: ## 进组前起步闭环",
             result.messages,
         )
 
@@ -321,7 +321,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 ## 资料概览
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 终点：进组前应接近什么状态
-## 进组前最小闭环
+## 进组前起步闭环
 这一节只泛泛总结学习成果，没有把真实科研入口说清楚。
 ## 第一段路：先知道光电子谱到底在看什么
 ## 第二段路：从静态谱走到时间分辨
@@ -341,7 +341,25 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 
         self.assertFalse(result.ok)
         self.assertIn(
-            "[FAIL] 04_学习向导.md 进组前最小闭环必须同时连接论文、核心图和平台链路",
+            "[FAIL] 04_学习向导.md 进组前起步闭环必须同时连接论文、核心图和平台链路",
+            result.messages,
+        )
+
+    def test_rejects_old_minimal_loop_wording(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            prof_dir = Path(tmp)
+            write_minimal_valid_phase_docs(prof_dir)
+            phase4 = prof_dir / "04_学习向导.md"
+            phase4.write_text(
+                phase4.read_text(encoding="utf-8") + "\n这里又写回了进组前最小闭环。\n",
+                encoding="utf-8",
+            )
+
+            result = verify_phase_docs.verify_prof_dir(prof_dir)
+
+        self.assertFalse(result.ok)
+        self.assertIn(
+            "[FAIL] 04_学习向导.md 含禁用写作风格: 最小闭环",
             result.messages,
         )
 
