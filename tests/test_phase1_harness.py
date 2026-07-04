@@ -13,6 +13,7 @@ PHASE1 = os.path.join(ROOT, "src", "phase1")
 sys.path.insert(0, PHASE1)
 
 import render_profile
+import apply_identity_review
 import risk_gate
 import step4_arxiv_id
 import step5_arxiv
@@ -473,6 +474,59 @@ run_timestamp: 20260704_010203
         output = buf.getvalue()
         self.assertIn("next_actions:", output)
         self.assertIn("补官网英文名", output)
+
+    def test_apply_identity_review_updates_active_verified_ids_and_merged_profile(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            prof_dir = os.path.join(tmp, "output", "大学", "所", "部门", "张三")
+            archive_dir = os.path.join(prof_dir, "_internal", "archive", "20260704_120000")
+            os.makedirs(archive_dir)
+            os.makedirs(os.path.join(prof_dir, "_internal"), exist_ok=True)
+            with open(os.path.join(prof_dir, "_internal", "latest.txt"), "w", encoding="utf-8") as f:
+                f.write("20260704_120000\n")
+            verified_path = os.path.join(archive_dir, "00_verified_ids.json")
+            merged_path = os.path.join(archive_dir, "04_merged.json")
+            with open(verified_path, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "name": "张三",
+                        "name_pinyin": "Zhang_San",
+                        "ids": {"gs_id": "abc", "oa_id": "A123", "orcid": "0000-0000-0000-0000"},
+                        "verification": {"tier": "T2", "email_domain": "old.edu", "gs_email_verified": False},
+                        "sources": {},
+                    },
+                    f,
+                    ensure_ascii=False,
+                )
+            with open(merged_path, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "professor": {"name": "张三", "email_domain": "old.edu"},
+                        "papers": [],
+                        "statistics": {"by_source": {}},
+                    },
+                    f,
+                    ensure_ascii=False,
+                )
+
+            apply_identity_review.apply_identity_review(
+                prof_dir=prof_dir,
+                display_name="张三 (San Zhang)",
+                official_email_domain="iphy.ac.cn",
+                official_url="https://example.edu/profile",
+                note="official profile confirms English name and current email",
+            )
+
+            with open(verified_path, "r", encoding="utf-8-sig") as f:
+                verified = json.load(f)
+            with open(merged_path, "r", encoding="utf-8-sig") as f:
+                merged = json.load(f)
+
+        self.assertEqual("张三 (San Zhang)", verified["name"])
+        self.assertEqual("iphy.ac.cn", verified["verification"]["email_domain"])
+        self.assertEqual("https://example.edu/profile", verified["sources"]["official_profile_url"])
+        self.assertEqual("张三 (San Zhang)", merged["professor"]["name"])
+        self.assertEqual("iphy.ac.cn", merged["professor"]["email_domain"])
+        self.assertEqual("https://example.edu/profile", merged["metadata"]["identity_review"]["official_url"])
 
     def test_step4_arxiv_id_accepts_prof_dir_and_writes_current_archive(self):
         with tempfile.TemporaryDirectory() as tmp:

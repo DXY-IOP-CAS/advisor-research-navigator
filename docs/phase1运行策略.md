@@ -29,6 +29,19 @@ python src/phase1/risk_gate.py --prof-dir "output/..."
 
 `reason` 说明为什么不能继续标准流程；`next_actions` 是执行清单。执行 AI 必须先完成或记录每条 `next_actions`，再决定是否渲染画像。无法完成的动作必须写入 e2e 记录和画像来源风险，不能静默跳过。
 
+当行动清单涉及官网英文名、当前官网邮箱域或其它已由官方来源核实的身份字段时，不手动编辑 `_internal/archive`。使用受控脚本修正 active state：
+
+```bash
+python src/phase1/apply_identity_review.py \
+  --prof-dir "output/..." \
+  --display-name "中文名 (English Name)" \
+  --official-email-domain "iphy.ac.cn" \
+  --official-url "https://..." \
+  --note "官方页面支持该身份修正"
+```
+
+该脚本只更新当前 active `00_verified_ids.json` 和 `04_merged.json`，并在 metadata 里记录官方 URL 和说明；它不修改原始 GS/OA/arXiv 采集文件。
+
 ## 记录要求
 
 端到端测试记录必须写入 `docs/e2e/`，并包含：
