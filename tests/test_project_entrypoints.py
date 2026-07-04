@@ -327,6 +327,12 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
 
         self.assertEqual([], leaked, "tracked professor roots contain exposed machine/process files")
 
+    def test_gitignore_excludes_local_codex_noise_dirs(self):
+        text = (ROOT / ".gitignore").read_text(encoding="utf-8")
+
+        self.assertIn(".codex/", text)
+        self.assertIn("精髓转移/", text)
+
 
 if __name__ == "__main__":
     unittest.main()

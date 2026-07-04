@@ -28,6 +28,8 @@ Thumbs.db
 
 # Project-specific
 scorecard.png
+.codex/
+精髓转移/
 archive/
 output/**/archive/
 output/**/_internal/latest.txt
