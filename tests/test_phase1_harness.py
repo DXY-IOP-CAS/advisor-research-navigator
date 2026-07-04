@@ -204,6 +204,8 @@ class Phase1HarnessTests(unittest.TestCase):
                     "测试部门",
                     "--name",
                     "张三",
+                    "--official-url",
+                    "https://example.edu/teacher/zhangsan",
                 ],
                 cwd=tmp,
                 text=True,
@@ -215,13 +217,48 @@ class Phase1HarnessTests(unittest.TestCase):
             prof_dir = os.path.join(tmp, "output", "测试大学", "测试所", "测试部门", "张三")
             internal_dir = os.path.join(prof_dir, "_internal")
             latest_path = os.path.join(internal_dir, "latest.txt")
+            seed_path = os.path.join(internal_dir, "seed.json")
             archive_root = os.path.join(internal_dir, "archive")
 
             self.assertTrue(os.path.isdir(internal_dir))
             self.assertTrue(os.path.isfile(latest_path))
+            self.assertTrue(os.path.isfile(seed_path))
             self.assertFalse(os.path.exists(os.path.join(prof_dir, "latest.txt")))
             stdout_archive = os.path.normpath(os.path.join(tmp, result.stdout.strip()))
             self.assertTrue(stdout_archive.startswith(os.path.normpath(archive_root)))
+
+            with open(seed_path, "r", encoding="utf-8") as f:
+                seed = json.load(f)
+            self.assertEqual("张三", seed["name"])
+            self.assertEqual("测试大学", seed["university"])
+            self.assertEqual("测试所", seed["institute"])
+            self.assertEqual("测试部门", seed["department"])
+            self.assertEqual("https://example.edu/teacher/zhangsan", seed["official_url"])
+
+    def test_phase1_init_rejects_non_http_official_url(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            script = os.path.join(PHASE1, "phase1_init.py")
+
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    script,
+                    "--university",
+                    "测试大学",
+                    "--name",
+                    "张三",
+                    "--official-url",
+                    "not-a-url",
+                ],
+                cwd=tmp,
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=False,
+            )
+
+            self.assertNotEqual(0, result.returncode)
+            self.assertIn("--official-url must be an HTTP(S) URL", result.stderr)
 
     def test_prof_dir_resolver_uses_internal_state_paths(self):
         with tempfile.TemporaryDirectory() as tmp:

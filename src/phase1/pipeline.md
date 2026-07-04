@@ -8,14 +8,15 @@
 
 ### 开始前准备
 
-新导师或新一轮 active state 先运行 `phase1_init.py`。它负责创建标准目录、写 `_internal/latest.txt` 并打印 `prof_dir` / `archive_dir`。AI 不要手动 `mkdir`，也不要手动拼 `_internal/archive/<ts>`。
+新导师或新一轮 active state 先运行 `phase1_init.py`。它负责创建标准目录、写 `_internal/latest.txt`、写 `_internal/seed.json` 并打印 `prof_dir` / `archive_dir`。AI 不要手动 `mkdir`，也不要手动拼 `_internal/archive/<ts>`。
 
 ```bash
 python src/phase1/phase1_init.py \
   --university "<大学>" \
   --institute "<学院或研究所>" \
   --department "<部门>" \
-  --name "<中文名>"
+  --name "<中文名>" \
+  --official-url "<教授主页链接>"
 ```
 
 `archive_previous.py` 是旧版整目录存档工具，只作人工兼容操作，不是新端到端质量重构的常规入口。Agent 不读取或引用 `archive/`。
@@ -222,7 +223,7 @@ step6_merge 的输出，在 SOURCE_OUTPUT 基础上增加：
 
 `run.py` 自动串联阶段 B + 阶段 C 的旧步骤，只作为兼容捷径和本地调试工具。新的端到端质量重构基线不以 `run.py` 为主入口，因为它要求调用者已经知道 GS/OA/ORCID 等信息，并且容易让执行 AI 跳过“官网 URL -> 身份锁定 -> Fact Pack -> Cognitive Blueprint”的认知设计步骤。
 
-新导师常规运行应先用 `phase1_init.py` 从 `姓名 + 机构路径 + 官网 URL` 建目录，再由 AI 按 `research-advisor` skill 完成官网身份锁定、`verified_ids.json`、`career_stages.json`、三源采集、`risk_gate`、`01_基础画像.md`，然后在 `_internal/blueprint.md` 中完成成品前认知蓝图。只有在已有人工核定 ID、需要快速复现旧 Phase B/C 行为时，才使用 `run.py`。
+新导师常规运行应先用 `phase1_init.py` 从 `姓名 + 机构路径 + 官网 URL` 建目录，并把三项最小输入写入 `_internal/seed.json`，再由 AI 按 `research-advisor` skill 完成官网身份锁定、`verified_ids.json`、`career_stages.json`、三源采集、`risk_gate`、`01_基础画像.md`，然后在 `_internal/blueprint.md` 中完成成品前认知蓝图。只有在已有人工核定 ID、需要快速复现旧 Phase B/C 行为时，才使用 `run.py`。
 
 ```bash
 python src/phase1/run.py \
@@ -255,7 +256,8 @@ python src/phase1/phase1_init.py \
   --university "中国科学院大学" \
   --institute "中科院物理所" \
   --department "超快物质科学中心" \
-  --name "王示例"
+  --name "王示例" \
+  --official-url "https://..."
 
 PROF="output/中国科学院大学/中科院物理所/超快物质科学中心/王示例"
 
@@ -281,7 +283,7 @@ python src/phase1/risk_gate.py --prof-dir "$PROF"
 python src/phase1/render_profile.py --prof-dir "$PROF" --department "超快物质科学中心"
 ```
 
-**路径规范**：prof 根目录（`output/<大学>/<学院所>/<部门>/<姓名>/`）只放最终产出（00-04 五份 Markdown）和 `_internal/`。中间文件（step 输出 JSON、career_stages.json、verified_ids.json、latest.txt、证据表和图源）全部放在 `_internal/` 下。
+**路径规范**：prof 根目录（`output/<大学>/<学院所>/<部门>/<姓名>/`）只放最终产出（00-04 五份 Markdown）和 `_internal/`。中间文件（step 输出 JSON、career_stages.json、verified_ids.json、latest.txt、seed.json、证据表和图源）全部放在 `_internal/` 下。
 
 **ProfDirResolver**（`utils.py`）：脚本内部用 `ProfDirResolver(prof_dir)` 自动解析所有路径——优先从 `_internal/latest.txt` 读取时间戳、拼接 `_internal/archive/<ts>/`、定位各文件。旧版根目录 `latest.txt` 只作过渡兼容。
 
@@ -450,6 +452,7 @@ output/
 ├── 04_学习向导.md            # 成品学习向导
 └── _internal/
     ├── latest.txt            # 最新运行 timestamp
+    ├── seed.json             # 姓名、机构路径、官网 URL 的最小输入记录
     └── archive/<timestamp>/  # 一次运行的全部数据快照
         ├── 00_verified_ids.json
         ├── 01_gs.json

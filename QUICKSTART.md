@@ -24,7 +24,7 @@
 ```text
 pilot-test/
 ├── src/phase1/                         # 阶段 1 Python 脚本
-│   ├── phase1_init.py                  # 新导师目录初始化，写 _internal/latest.txt
+│   ├── phase1_init.py                  # 新导师目录初始化，写 _internal/latest.txt 和 seed.json
 │   ├── pipeline.md                     # 阶段 1 技术执行文档
 │   ├── step2_gs.py / step3_openalex.py # 论文采集
 │   ├── step4_arxiv_id.py / step5_arxiv.py
@@ -55,10 +55,11 @@ python src/phase1/phase1_init.py \
   --university "<大学>" \
   --institute "<学院或研究所>" \
   --department "<部门>" \
-  --name "<中文名>"
+  --name "<中文名>" \
+  --official-url "<导师官网 URL>"
 ```
 
-后续统一使用脚本输出的 `prof_dir` 和 `--prof-dir` 参数。不要手动拼 `_internal/archive/<ts>`。
+后续统一使用脚本输出的 `prof_dir` 和 `--prof-dir` 参数。不要手动拼 `_internal/archive/<ts>`；官网 URL 已写入 `_internal/seed.json`，作为身份锁定和 Fact Pack 的起点。
 
 阶段 1 完成后：
 

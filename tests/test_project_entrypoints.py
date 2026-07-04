@@ -24,6 +24,18 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertIn("run.py                         # 兼容调试捷径", text)
         self.assertIn("`run.py` — 兼容调试捷径", text)
 
+    def test_phase1_entrypoint_docs_require_official_url_seed(self):
+        files = [
+            ROOT / "QUICKSTART.md",
+            ROOT / ".claude" / "skills" / "research-advisor" / "SKILL.md",
+            ROOT / "src" / "phase1" / "pipeline.md",
+        ]
+
+        for path in files:
+            text = path.read_text(encoding="utf-8")
+            self.assertIn("--official-url", text, str(path))
+            self.assertIn("seed.json", text, str(path))
+
 
 if __name__ == "__main__":
     unittest.main()

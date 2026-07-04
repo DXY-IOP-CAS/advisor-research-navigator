@@ -11,7 +11,7 @@
 | `GS status=blocked` | GS 被封锁 | 降级到 OpenAlex 走 OA-only 路径。不重试 GS。 |
 | `network interrupt` | 网络中断 | 重新执行失败的 step（不是整条流水线）。用 `--prof-dir` 复用已采集数据。 |
 | `merged.json not found` | step6 没跑或路径错 | 先跑 step6，再 render。 |
-| `prof_dir 下找不到 _internal/latest.txt` | phase1_init.py 没跑或 prof_dir 错 | 先跑 `phase1_init.py --university ... --name ...`。 |
+| `prof_dir 下找不到 _internal/latest.txt` | phase1_init.py 没跑或 prof_dir 错 | 先跑 `phase1_init.py --university ... --name ... --official-url ...`。 |
 
 ---
 

@@ -6,7 +6,7 @@
 
 ### A.1 初始化目录
 
-`phase1_init.py` 已经自动建 `output/<路径>/_internal/archive/<ts>/` 并写 `_internal/latest.txt`。**不要手动 mkdir**。
+`phase1_init.py` 已经自动建 `output/<路径>/_internal/archive/<ts>/`，并写 `_internal/latest.txt` 与 `_internal/seed.json`。**不要手动 mkdir**。
 
 ### A.2 广度搜索
 

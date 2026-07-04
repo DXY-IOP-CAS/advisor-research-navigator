@@ -60,10 +60,11 @@ python src/phase1/phase1_init.py \
   --university "<大学>" \
   --institute "<学院或研究所>" \
   --department "<部门>" \
-  --name "<中文名>"
+  --name "<中文名>" \
+  --official-url "<教授主页链接>"
 ```
 
-后续步骤全部使用脚本打印出的 `prof_dir`。使用 `--prof-dir` 参数，不要手动拼接 `output/` 或 `archive/` 路径。项目规则把 `archive/` 标为只写不读，agent 不得检查或引用其中内容。
+后续步骤全部使用脚本打印出的 `prof_dir`。`phase1_init.py` 会把最小输入写入 `_internal/seed.json`；官网 URL 不是聊天临时信息，而是 Fact Pack 起点。使用 `--prof-dir` 参数，不要手动拼接 `output/` 或 `archive/` 路径。项目规则把 `archive/` 标为只写不读，agent 不得检查或引用其中内容。
 
 如果导师目录已经存在，先从用户给出的路径或当前 `output/` 路径定位活跃 `prof_dir`。不要把旧输出或存档当证据。
 
