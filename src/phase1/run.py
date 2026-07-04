@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """
-run.py — 阶段 1 统一入口脚本。
+run.py — 阶段 1 兼容调试捷径。
 
 将阶段 B（数据采集）+ 阶段 C（渲染）的 6 个脚本串联为一条命令。
 自动处理：存档旧版 → 建目录 → 采集 → 合并 → 渲染 → 验证。
 
-用法（常规）：
+它不是当前端到端主入口；新导师常规流程应从 `phase1_init.py --official-url`
+开始，再按 research-advisor skill 走 Fact Pack -> Cognitive Blueprint -> 00-04。
+
+用法（兼容调试）：
   python src/phase1/run.py "中科院物理所/超快物质科学中心/王示例" \
     --gs-id XXXXXXXXAAAAJ \
     --oa-id A5048473780 \
@@ -181,7 +184,7 @@ def run(prof_path: str, gs_id: str = "", oa_id: str = "",
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Phase 1 统一入口")
+    parser = argparse.ArgumentParser(description="Phase 1 兼容调试捷径（非新端到端主入口）")
     parser.add_argument("prof_path", nargs="?", default="",
                         help="output 下的学者路径，如 中科院物理所/超快物质科学中心/王示例。"
                              "不传时用 --university/--name 自动构造。")

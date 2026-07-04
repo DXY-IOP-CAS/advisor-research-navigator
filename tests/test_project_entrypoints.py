@@ -25,6 +25,10 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertIn("run.py                         # 兼容调试捷径", text)
         self.assertIn("`run.py` — 兼容调试捷径", text)
 
+        run_py = (ROOT / "src" / "phase1" / "run.py").read_text(encoding="utf-8")
+        self.assertNotIn("统一入口", run_py)
+        self.assertIn("兼容调试捷径", run_py)
+
     def test_phase1_entrypoint_docs_require_official_url_seed(self):
         files = [
             ROOT / "QUICKSTART.md",
