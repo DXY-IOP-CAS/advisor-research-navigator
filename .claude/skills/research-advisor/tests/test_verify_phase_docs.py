@@ -485,6 +485,14 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.assertFalse(result.ok)
         self.assertTrue(any("自动论文表" in m for m in result.messages))
 
+    def test_rejects_key_paper_label_in_final_docs(self):
+        text = (self.prof / "03_论文路线.md").read_text(encoding="utf-8")
+        self.write_doc("03_论文路线.md", text + "\n关键论文不应作为成品文档里的筛选式标签。\n")
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+        self.assertFalse(result.ok)
+        self.assertTrue(any("关键论文" in m for m in result.messages))
+
     def test_rejects_forbidden_advisor_evaluation(self):
         text = (self.prof / "02_领域地图.md").read_text(encoding="utf-8")
         self.write_doc("02_领域地图.md", text + "\n推荐申请。\n")
