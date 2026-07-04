@@ -101,6 +101,16 @@ BARE_URL_RE = re.compile(r"(?<!\]\()https?://[^\s)]+")
 SOURCE_SECTION_MARKER = "## 参考文献与资料"
 SOURCE_TABLE_HEADER = "| 编号 | 文献或资料 | 支撑内容 | 链接 | 类型 |"
 EVIDENCE_TABLE_HEADER = "| 文档位置 | 关键判断 | 来源 | 来源支撑了什么 | 证据强度 | 人工复核 |"
+BLUEPRINT_REQUIRED_FIELDS = [
+    ("读者起点", re.compile(r"读者起点")),
+    ("导师当前方向一句话", re.compile(r"导师当前方向一句话|当前方向一句话")),
+    ("目标论文", re.compile(r"目标论文")),
+    ("核心图", re.compile(r"核心图|图组")),
+    ("平台链路", re.compile(r"平台链路")),
+    ("课程到论文的学习桥", re.compile(r"课程到论文|学习桥")),
+    ("证据风险", re.compile(r"证据风险|人工复核|需人工复核")),
+    ("可视化计划", re.compile(r"可视化计划")),
+]
 PHASE4_MINIMAL_LOOP_HEADING = "## 进组前起步闭环"
 PHASE4_MINIMAL_LOOP_REQUIRED = ("论文", "图", "平台")
 PHASE4_CONCRETE_FIGURE_RE = re.compile(
@@ -402,11 +412,24 @@ def _check_evidence_tables(prof: Path, messages: list[str]) -> None:
             messages.append(f"[FAIL] _internal/evidence/{path.name} 缺少关键判断证据表头")
 
 
+def _check_cognitive_blueprint(prof: Path, messages: list[str]) -> None:
+    blueprint = prof / "_internal" / "blueprint.md"
+    if not blueprint.is_file():
+        messages.append("[FAIL] 缺少 _internal/blueprint.md 认知蓝图")
+        return
+
+    text = blueprint.read_text(encoding="utf-8")
+    for label, pattern in BLUEPRINT_REQUIRED_FIELDS:
+        if not pattern.search(text):
+            messages.append(f"[FAIL] _internal/blueprint.md 缺少认知蓝图字段: {label}")
+
+
 def verify_prof_dir(prof_dir: str | Path) -> VerifyResult:
     prof = Path(prof_dir)
     messages: list[str] = []
 
     _check_prof_root_cleanliness(prof, messages)
+    _check_cognitive_blueprint(prof, messages)
     _check_evidence_tables(prof, messages)
 
     for filename, sections in DOCS.items():

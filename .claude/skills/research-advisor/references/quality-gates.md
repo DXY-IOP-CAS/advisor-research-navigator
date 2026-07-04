@@ -13,6 +13,7 @@ python .claude/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "
 V2 基线下，这个门还检查：
 
 - 导师根目录只包含 00-04 五份 Markdown 和 `_internal/`。
+- `_internal/blueprint.md` 必须存在，并至少覆盖读者起点、导师当前方向一句话、目标论文、核心图或图组、平台链路、课程到论文的学习桥、证据风险和可视化计划。这个检查只确认字段存在，不判断蓝图质量。
 - 每份成品文档至少有一个正文可视化理解构件。构件可以是 Mermaid，也可以是正文表格/矩阵或文本层级树；参考文献表不算可视化构件。
 - 如果文档包含 Mermaid 代码块，代码块开头必须是可识别图类型，例如 `flowchart`、`graph`、`mindmap`、`timeline`、`quadrantChart`、`xychart-beta`、`block-beta`、`venn`、`treemap` 等。它是基础语法 smoke，不等于人工确认图已服务理解。
 - `_internal/evidence/` 下至少有一个 Markdown 关键判断证据核对表，并包含固定表头：`文档位置 / 关键判断 / 来源 / 来源支撑了什么 / 证据强度 / 人工复核`。

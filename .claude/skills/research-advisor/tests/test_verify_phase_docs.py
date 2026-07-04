@@ -36,6 +36,40 @@ TABLE_VISUAL = (
     "|:---|:---|:---|\n"
     "| P1 | 示例问题 | 当前主线 |\n"
 )
+BLUEPRINT_TEXT = """# 测试导师认知蓝图
+
+## 1. 读者起点
+
+默认读者有高数、线代和普物基础。
+
+## 2. 导师当前方向一句话
+
+测试导师当前方向是一句可审查的方向描述。
+
+## 5. 目标论文和论文路线
+
+目标论文用于连接论文路线。
+
+## 6. 核心图和读图链
+
+核心图用于进入论文证据。
+
+## 7. 平台链路
+
+平台链路连接光源、样品、信号和瓶颈。
+
+## 8. 课程到论文的学习桥
+
+课程到论文的学习桥连接基础课和目标论文。
+
+## 9. 可视化计划
+
+可视化计划说明每份文档用什么理解构件。
+
+## 10. 证据风险和人工复核
+
+证据风险用于提醒弱证据和需人工复核点。
+"""
 
 
 class VerifyPhaseDocsTest(unittest.TestCase):
@@ -45,6 +79,7 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.prof = workspace_tmp / f"case_{uuid.uuid4().hex}"
         self.prof.mkdir(parents=True, exist_ok=False)
         (self.prof / "_internal").mkdir()
+        (self.prof / "_internal" / "blueprint.md").write_text(BLUEPRINT_TEXT, encoding="utf-8")
         evidence_dir = self.prof / "_internal" / "evidence"
         evidence_dir.mkdir()
         (evidence_dir / "key_claims.md").write_text(
@@ -145,6 +180,27 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         module = load_module()
         result = module.verify_prof_dir(self.prof)
         self.assertTrue(result.ok, result.messages)
+
+    def test_rejects_missing_cognitive_blueprint(self):
+        (self.prof / "_internal" / "blueprint.md").unlink()
+
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+
+        self.assertFalse(result.ok)
+        self.assertIn("[FAIL] 缺少 _internal/blueprint.md 认知蓝图", result.messages)
+
+    def test_rejects_blueprint_without_core_fields(self):
+        (self.prof / "_internal" / "blueprint.md").write_text(
+            "# 测试导师认知蓝图\n\n## 1. 读者起点\n\n只有读者起点。\n",
+            encoding="utf-8",
+        )
+
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+
+        self.assertFalse(result.ok)
+        self.assertIn("[FAIL] _internal/blueprint.md 缺少认知蓝图字段: 目标论文", result.messages)
 
     def test_accepts_domain_adapted_phase4_learning_headings(self):
         text = (self.prof / "04_学习向导.md").read_text(encoding="utf-8")

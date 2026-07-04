@@ -37,8 +37,46 @@ EVIDENCE_TABLE = """# 关键判断证据核对表
 | 00_材料导读.md | 阅读顺序 | [O1] | 支撑测试判断 | 直接证据 | 否 |
 """
 
+BLUEPRINT = """# 测试导师认知蓝图
+
+## 1. 读者起点
+
+默认读者有高数、线代和普物基础。
+
+## 2. 导师当前方向一句话
+
+测试导师当前方向是一句可审查的方向描述。
+
+## 5. 目标论文和论文路线
+
+目标论文用于连接论文路线。
+
+## 6. 核心图和读图链
+
+核心图用于进入论文证据。
+
+## 7. 平台链路
+
+平台链路连接光源、样品、信号和瓶颈。
+
+## 8. 课程到论文的学习桥
+
+课程到论文的学习桥连接基础课和目标论文。
+
+## 9. 可视化计划
+
+可视化计划说明每份文档用什么理解构件。
+
+## 10. 证据风险和人工复核
+
+证据风险用于提醒弱证据和需人工复核点。
+"""
+
 
 def write_evidence_table(prof_dir: Path) -> None:
+    internal_dir = prof_dir / "_internal"
+    internal_dir.mkdir(parents=True, exist_ok=True)
+    (internal_dir / "blueprint.md").write_text(BLUEPRINT, encoding="utf-8")
     evidence_dir = prof_dir / "_internal" / "evidence"
     evidence_dir.mkdir(parents=True, exist_ok=True)
     (evidence_dir / "key_claims.md").write_text(EVIDENCE_TABLE, encoding="utf-8")
