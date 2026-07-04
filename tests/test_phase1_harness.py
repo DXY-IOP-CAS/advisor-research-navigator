@@ -14,6 +14,7 @@ sys.path.insert(0, PHASE1)
 
 import render_profile
 import apply_identity_review
+import apply_paper_review
 import risk_gate
 import step4_arxiv_id
 import step5_arxiv
@@ -560,6 +561,55 @@ run_timestamp: 20260704_010203
         self.assertEqual("张三 (San Zhang)", merged["professor"]["name"])
         self.assertEqual("iphy.ac.cn", merged["professor"]["email_domain"])
         self.assertEqual("https://example.edu/profile", merged["metadata"]["identity_review"]["official_url"])
+
+    def test_apply_paper_review_excludes_doi_and_recomputes_statistics(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            prof_dir = os.path.join(tmp, "output", "大学", "所", "部门", "张三")
+            archive_dir = os.path.join(prof_dir, "_internal", "archive", "20260704_120000")
+            os.makedirs(archive_dir)
+            os.makedirs(os.path.join(prof_dir, "_internal"), exist_ok=True)
+            with open(os.path.join(prof_dir, "_internal", "latest.txt"), "w", encoding="utf-8") as f:
+                f.write("20260704_120000\n")
+            merged_path = os.path.join(archive_dir, "04_merged.json")
+            with open(merged_path, "w", encoding="utf-8") as f:
+                json.dump(
+                    {
+                        "professor": {"name": "张三 (San Zhang)"},
+                        "papers": [
+                            {
+                                "title": "GS paper",
+                                "doi": "https://doi.org/10.1000/keep",
+                                "sources": ["google_scholar", "openalex"],
+                            },
+                            {
+                                "title": "OA same-name noise",
+                                "doi": "https://doi.org/10.1000/noise",
+                                "sources": ["openalex"],
+                            },
+                        ],
+                        "statistics": {"total": 2, "unique": 2, "by_source": {"google_scholar": 1, "openalex": 2}},
+                    },
+                    f,
+                    ensure_ascii=False,
+                )
+
+            apply_paper_review.exclude_papers_by_doi(
+                prof_dir=prof_dir,
+                dois=["10.1000/noise"],
+                reason="same-name noise",
+                source_url="https://example.edu/review",
+            )
+
+            with open(merged_path, "r", encoding="utf-8-sig") as f:
+                merged = json.load(f)
+
+        self.assertEqual(["GS paper"], [paper["title"] for paper in merged["papers"]])
+        self.assertEqual(1, merged["statistics"]["total"])
+        self.assertEqual({"google_scholar": 1, "openalex": 1}, merged["statistics"]["by_source"])
+        excluded = merged["metadata"]["paper_review"]["excluded"]
+        self.assertEqual("OA same-name noise", excluded[0]["title"])
+        self.assertEqual("same-name noise", excluded[0]["reason"])
+        self.assertEqual("https://example.edu/review", excluded[0]["source_url"])
 
     def test_step4_arxiv_id_accepts_prof_dir_and_writes_current_archive(self):
         with tempfile.TemporaryDirectory() as tmp:

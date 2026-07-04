@@ -67,6 +67,18 @@ python src/phase1/risk_gate.py --prof-dir "output/..." --list-single-source
 
 输出的 `single_source_oa_arxiv_papers` 是保守核查输入。逐篇判断是否属于目标学者；不确定则剔除或标记人工核查，不得直接渲染进画像。
 
+如果决定剔除 DOI，不要手动编辑 `04_merged.json`。使用受控脚本更新 active state，并让脚本重算统计、记录剔除理由：
+
+```bash
+python src/phase1/apply_paper_review.py \
+  --prof-dir "output/..." \
+  --exclude-doi "10.xxxx/xxxxx" \
+  --reason "conservative review: ..." \
+  --source-url "https://..."
+```
+
+`apply_paper_review.py` 只更新当前 active `04_merged.json`，并在 `metadata.paper_review.excluded` 记录题名、DOI、作者、来源、剔除理由和核查 URL；它不修改原始 GS/OA/arXiv 采集文件。
+
 ### 数据源细节
 
 需要调 API 时读 `references/01-data-sources.md`（限速、降级、噪声过滤）。

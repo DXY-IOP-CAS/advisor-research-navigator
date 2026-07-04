@@ -50,6 +50,17 @@ python src/phase1/risk_gate.py --prof-dir "output/..." --list-single-source
 
 `single_source_oa_arxiv_papers` 输出只作为保守核查清单。执行 AI 需要逐篇用 DOI、题名、作者、机构和领域判断是否属于目标学者；明显同名噪声应剔除，不确定项标为人工核查。
 
+剔除 DOI 必须走受控脚本，不手动改 active JSON：
+```bash
+python src/phase1/apply_paper_review.py \
+  --prof-dir "output/..." \
+  --exclude-doi "10.xxxx/xxxxx" \
+  --reason "conservative review: ..." \
+  --source-url "https://..."
+```
+
+该脚本只更新当前 active `04_merged.json`，重算 `statistics`，并在 `metadata.paper_review.excluded` 记录题名、DOI、作者、来源、剔除理由和核查 URL；它不修改原始 GS/OA/arXiv 文件。
+
 ## 记录要求
 
 端到端测试记录必须写入 `docs/e2e/`，并包含：
