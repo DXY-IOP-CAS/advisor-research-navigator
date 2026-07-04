@@ -105,5 +105,6 @@ git diff --check -- . ':(exclude)archive/**' ':(exclude)output/**/archive/**'
 - 来源必须可追溯；缺失写 `[未找到]`；弱推断写 `需人工复核`。
 - 不做导师评价，不写匹配度、推荐申请或是否值得报考。
 - 不读取或引用 `archive/` 与 `output/**/archive/**`。
+- archive 禁读指 Agent 不得手动打开、搜索、复制或引用历史/中间文件。脚本通过 `--prof-dir` / `ProfDirResolver` 读取当前 active `_internal/archive/<ts>` 不属于手动读取 archive；不要手动拼 archive 路径，也不要把脚本中间 JSON 当正文证据。
 - 每次运行从头查 API 和来源，不把 archive 当缓存。
 - `run.py` 只是旧兼容/本地调试捷径，不是新端到端主入口。

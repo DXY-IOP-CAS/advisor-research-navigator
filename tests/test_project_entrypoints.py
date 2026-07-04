@@ -41,6 +41,22 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertNotIn("旧统一入口", text)
         self.assertIn("兼容调试捷径（run.py）", text)
 
+    def test_archive_rule_distinguishes_manual_reads_from_prof_dir_tools(self):
+        files = [
+            ROOT / "AGENTS.md",
+            ROOT / "QUICKSTART.md",
+            ROOT / ".claude" / "skills" / "research-advisor" / "SKILL.md",
+        ]
+
+        required_phrase = "脚本通过 `--prof-dir` / `ProfDirResolver` 读取当前 active `_internal/archive/<ts>` 不属于手动读取 archive"
+        for path in files:
+            text = path.read_text(encoding="utf-8")
+            self.assertIn(required_phrase, text, str(path))
+
+        plan = (ROOT / "docs" / "计划书.md").read_text(encoding="utf-8")
+        self.assertNotIn("不作为普通收口命令直接运行", plan)
+        self.assertIn(required_phrase, plan)
+
     def test_phase1_entrypoint_docs_require_official_url_seed(self):
         files = [
             ROOT / "QUICKSTART.md",

@@ -66,6 +66,8 @@ python src/phase1/phase1_init.py \
 
 后续步骤全部使用脚本打印出的 `prof_dir`。`phase1_init.py` 会把最小输入写入 `_internal/seed.json`；官网 URL 不是聊天临时信息，而是 Fact Pack 起点。使用 `--prof-dir` 参数，不要手动拼接 `output/` 或 `archive/` 路径。项目规则把 `archive/` 标为只写不读，agent 不得检查或引用其中内容。
 
+archive 禁读指 Agent 不得手动打开、搜索、复制或引用历史/中间文件。脚本通过 `--prof-dir` / `ProfDirResolver` 读取当前 active `_internal/archive/<ts>` 不属于手动读取 archive；不要手动拼 archive 路径，也不要把脚本中间 JSON 当正文证据。
+
 如果导师目录已经存在，先从用户给出的路径或当前 `output/` 路径定位活跃 `prof_dir`。不要把旧输出或存档当证据。
 
 ## 路由
