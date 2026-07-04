@@ -26,7 +26,7 @@ render_profile.py — 从 merged.json 按模板生成 01_基础画像.md
   - 公开信息整理     - 所有外部超链接  - 每阶段叙事段落
 
 用法：
-  python src/phase1/render_profile.py 04_merged.json -o 01_基础画像.md --department "超快物质科学中心"
+  python src/phase1/render_profile.py --prof-dir output/... --department "超快物质科学中心"
 
 可选参数：
   --stages career_stages.json   学术阶段配置

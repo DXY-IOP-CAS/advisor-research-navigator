@@ -24,8 +24,6 @@ step4_arxiv_id.py — arXiv Author Identifier 精确获取。
   }
 
 用法：
-  python src/phase1/step4_arxiv_id.py "0000-0000-0000-0000" -o 03_arxiv.json
-  python src/phase1/step4_arxiv_id.py "0000-0000-0000-0000" --name "Wang_Shili" -o 03_arxiv.json
   python src/phase1/step4_arxiv_id.py "0000-0000-0000-0000" --name "Wang_Shili" --prof-dir output/...
 
 依赖：标准库

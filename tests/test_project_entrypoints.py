@@ -112,6 +112,31 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertEqual([], leaked, "phase1 source examples should write through --prof-dir")
         self.assertIn("--prof-dir \"output/...\"", text)
 
+    def test_phase1_script_usage_examples_prefer_prof_dir(self):
+        files = [
+            ROOT / "src" / "phase1" / "step2_gs.py",
+            ROOT / "src" / "phase1" / "step3_openalex.py",
+            ROOT / "src" / "phase1" / "step4_arxiv_id.py",
+            ROOT / "src" / "phase1" / "step5_arxiv.py",
+            ROOT / "src" / "phase1" / "step6_merge.py",
+            ROOT / "src" / "phase1" / "render_profile.py",
+        ]
+        forbidden = [
+            "-o output/<机构>",
+            "-o 03_arxiv.json",
+            "01_gs.json 02_oa.json 03_arxiv.json -o 04_merged.json",
+            "render_profile.py 04_merged.json -o 01_基础画像.md",
+        ]
+
+        leaked = []
+        for path in files:
+            text = path.read_text(encoding="utf-8")
+            for phrase in forbidden:
+                if phrase in text:
+                    leaked.append(f"{path.relative_to(ROOT)} contains {phrase}")
+
+        self.assertEqual([], leaked, "phase1 script usage examples should default to --prof-dir")
+
     def test_phase1_strategy_is_not_a_parallel_docs_entrypoint(self):
         self.assertFalse(
             (ROOT / "docs" / "phase1运行策略.md").exists(),

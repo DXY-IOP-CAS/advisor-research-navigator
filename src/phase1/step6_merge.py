@@ -31,7 +31,7 @@ step6_merge.py — 多源合并去重 + 教授信息合并
   - 排序：多源验证优先 → 引用数高优先 → 年份新优先
 
 用法：
-  python src/phase1/step6_merge.py 01_gs.json 02_oa.json 03_arxiv.json -o 04_merged.json
+  python src/phase1/step6_merge.py --prof-dir output/...
 
 依赖：标准库（utils.py 的匹配函数）
 """

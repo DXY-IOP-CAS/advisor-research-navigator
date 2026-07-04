@@ -27,7 +27,7 @@ step2_gs.py — Google Scholar 数据获取（scholarly 封装）
   - 梯子节点质量直接影响可用性
 
 用法：
-  python src/phase1/step2_gs.py {gs_id} -o output/<机构>/<部门>/<姓名>/_internal/archive/<timestamp>/01_gs.json
+  python src/phase1/step2_gs.py {gs_id} --prof-dir output/...
 
 依赖：pip install scholarly
 """

@@ -28,7 +28,7 @@ step3_openalex.py — OpenAlex 数据获取
   - 无 email 时自动限速至 ~1 req/s 避免 503
 
 用法：
-  python src/phase1/step3_openalex.py {oa_id} --email your@email.com -o output/<机构>/<部门>/<姓名>/_internal/archive/<timestamp>/02_oa.json
+  python src/phase1/step3_openalex.py {oa_id} --email your@email.com --prof-dir output/...
 
 依赖：标准库（urllib）
 """
