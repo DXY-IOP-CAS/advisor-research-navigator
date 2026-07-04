@@ -144,6 +144,14 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.assertFalse(result.ok)
         self.assertTrue(any("阶段 2-4" in m for m in result.messages))
 
+    def test_rejects_internal_auto_table_wording_in_final_docs(self):
+        text = (self.prof / "01_基础画像.md").read_text(encoding="utf-8")
+        self.write_doc("01_基础画像.md", text + "\n自动论文表保留原始输出。\n")
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+        self.assertFalse(result.ok)
+        self.assertTrue(any("自动论文表" in m for m in result.messages))
+
     def test_rejects_forbidden_advisor_evaluation(self):
         text = (self.prof / "02_领域地图.md").read_text(encoding="utf-8")
         self.write_doc("02_领域地图.md", text + "\n推荐申请。\n")
