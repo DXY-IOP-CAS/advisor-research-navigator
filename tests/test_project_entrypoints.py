@@ -160,6 +160,7 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
             ROOT / "docs" / "计划书.md",
             ROOT / ".claude" / "skills" / "research-advisor" / "SKILL.md",
         ]
+        active_docs.extend((ROOT / "docs" / "batches").glob("*.md"))
 
         leaked = []
         for path in active_docs:
