@@ -81,11 +81,11 @@ class VerifyPhaseDocsTest(unittest.TestCase):
             "## 终点：进组前应接近什么状态\n\n"
             "## 进组前起步闭环\n\n"
             "一篇主线论文、Fig. 2 核心图和一条平台链路可以组成进组前起步闭环。\n\n"
-            "## 第一段路：先知道光电子谱到底在看什么\n\n"
-            "## 第二段路：从静态谱走到时间分辨\n\n"
-            "## 第三段路：从飞秒过程走到阿秒电子运动\n\n"
-            "## 第四段路：从气相分子走到液相和凝聚相\n\n"
-            "## 第五段路：从读机制论文走到理解平台论文\n\n"
+            "## 先知道光电子谱到底在看什么\n\n"
+            "## 再把静态谱读成时间过程\n\n"
+            "## 随后进入阿秒电子运动\n\n"
+            "## 进入液相和凝聚相复杂环境\n\n"
+            "## 最后把机制论文接回平台边界\n\n"
             "## 回到张鹏举论文路线\n\n"
             "## 进组后先从哪里接上\n\n"
             "## 卡住时怎么判断该补什么\n\n"
@@ -246,6 +246,20 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.assertFalse(result.ok)
         self.assertTrue(any("最小闭环" in m for m in result.messages))
 
+    def test_rejects_numbered_phase4_path_headings(self):
+        text = (self.prof / "04_学习向导.md").read_text(encoding="utf-8")
+        self.write_doc(
+            "04_学习向导.md",
+            text
+            + "\n## 第一段路：旧标题\n\n"
+            + "## 第二段路：旧标题\n\n"
+            + "## 第三段路：旧标题\n\n",
+        )
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+        self.assertFalse(result.ok)
+        self.assertTrue(any("第一段路" in m for m in result.messages))
+
     def test_rejects_missing_source_marker(self):
         self.write_doc(
             "04_学习向导.md",
@@ -254,11 +268,11 @@ class VerifyPhaseDocsTest(unittest.TestCase):
             "## 终点：进组前应接近什么状态\n\n"
             "## 进组前起步闭环\n\n"
             "一篇主线论文、一张核心图和一条平台链路可以组成进组前起步闭环。\n\n"
-            "## 第一段路：先知道光电子谱到底在看什么\n\n"
-            "## 第二段路：从静态谱走到时间分辨\n\n"
-            "## 第三段路：从飞秒过程走到阿秒电子运动\n\n"
-            "## 第四段路：从气相分子走到液相和凝聚相\n\n"
-            "## 第五段路：从读机制论文走到理解平台论文\n\n"
+            "## 先知道光电子谱到底在看什么\n\n"
+            "## 再把静态谱读成时间过程\n\n"
+            "## 随后进入阿秒电子运动\n\n"
+            "## 进入液相和凝聚相复杂环境\n\n"
+            "## 最后把机制论文接回平台边界\n\n"
             "## 回到张鹏举论文路线\n\n"
             "## 进组后先从哪里接上\n\n"
             "## 卡住时怎么判断该补什么\n\n"

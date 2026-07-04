@@ -37,11 +37,11 @@ DOCS = {
         "## 资料概览",
         "## 终点：进组前应接近什么状态",
         "## 进组前起步闭环",
-        "## 第一段路：先知道光电子谱到底在看什么",
-        "## 第二段路：从静态谱走到时间分辨",
-        "## 第三段路：从飞秒过程走到阿秒电子运动",
-        "## 第四段路：从气相分子走到液相和凝聚相",
-        "## 第五段路：从读机制论文走到理解平台论文",
+        "## 先知道光电子谱到底在看什么",
+        "## 再把静态谱读成时间过程",
+        "## 随后进入阿秒电子运动",
+        "## 进入液相和凝聚相复杂环境",
+        "## 最后把机制论文接回平台边界",
         "## 回到张鹏举论文路线",
         "## 进组后先从哪里接上",
         "## 卡住时怎么判断该补什么",
@@ -105,6 +105,7 @@ FIXED_DAY_RE = re.compile(
     r"|[0-9０-９]+\s*天(?:路线|计划|安排|训练|打卡|任务|课程)?"
 )
 VISIBLE_TAXONOMY_RE = re.compile(r"(?:主线[一二三四五六七八九十]+[:：]|第[一二三四五六七八九十]+类是)")
+NUMBERED_PHASE4_PATH_RE = re.compile(r"第[一二三四五六七八九十]+段路")
 
 
 @dataclass
@@ -237,6 +238,9 @@ def _check_forbidden_style(filename: str, text: str, messages: list[str]) -> Non
 
     for match in VISIBLE_TAXONOMY_RE.finditer(text):
         messages.append(f"[FAIL] {filename} 含外显分类写法: {match.group(0)}")
+
+    for match in NUMBERED_PHASE4_PATH_RE.finditer(text):
+        messages.append(f"[FAIL] {filename} 含编号式学习路径标题: {match.group(0)}")
 
 
 def _check_optional_markdown_docs(prof: Path, messages: list[str]) -> None:
