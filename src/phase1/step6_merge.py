@@ -167,6 +167,7 @@ FIELD_PRIORITY = {
     "journal": ["openalex", "google_scholar", "arxiv"],
     "doi": ["openalex", "arxiv"],
     "arxiv_id": ["arxiv", "openalex"],
+    "url": ["google_scholar", "openalex", "arxiv"],
     "citation_count": ["openalex", "google_scholar"],
     "abstract": ["arxiv"],
     "source": [],  # maintain the winning source for the best-field logic
@@ -199,6 +200,7 @@ def merge_paper_group(entries: List[tuple]) -> dict:
         "journal": _pick(papers_only, "journal"),
         "doi": _pick(papers_only, "doi"),
         "arxiv_id": _pick(papers_only, "arxiv_id"),
+        "url": _pick(papers_only, "url"),
         "citation_count": _pick(papers_only, "citation_count"),
         "source": _pick(papers_only, "source"),
         "sources": source_names,

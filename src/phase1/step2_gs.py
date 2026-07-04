@@ -17,7 +17,7 @@ step2_gs.py — Google Scholar 数据获取（scholarly 封装）
     "source": "google_scholar",
     "status": "success | blocked | error",
     "professor": { name, affiliation, email_domain, gs_id, h_index, i10_index, total_citations },
-    "papers": [{ title, year, citation_count, source }, ...]
+    "papers": [{ title, year, citation_count, source, url }, ...]
   }
 
 特点：
@@ -62,7 +62,7 @@ def normalize_email_domain(value: str) -> str:
     return matches[-1] if matches else text.strip(" .@")
 
 
-def _scholarly_to_paper(pub: dict) -> dict:
+def _scholarly_to_paper(pub: dict, gs_id: str = None) -> dict:
     """将 scholarly 的一条 publication 转为统一论文格式。"""
     bib = pub.get("bib", {})
     title = (bib.get("title") or "").strip()
@@ -73,6 +73,13 @@ def _scholarly_to_paper(pub: dict) -> dict:
     # GS 不分离作者列表，但 scholarly 的 bib["author"] 含 "Name1 and Name2" 字符串
     authors_raw = bib.get("author")
     authors = [a.strip() for a in authors_raw.split(" and ")] if authors_raw else None
+    author_pub_id = pub.get("author_pub_id")
+    url = None
+    if gs_id and author_pub_id:
+        url = (
+            "https://scholar.google.com/citations?"
+            f"view_op=view_citation&hl=en&user={gs_id}&citation_for_view={author_pub_id}"
+        )
 
     return {
         "title": title,
@@ -81,6 +88,7 @@ def _scholarly_to_paper(pub: dict) -> dict:
         "journal": citation_text or None,
         "doi": None,
         "arxiv_id": None,
+        "url": url,
         "citation_count": pub.get("num_citations"),
         "source": "google_scholar",
         "abstract": None,
@@ -101,7 +109,7 @@ def scrape(gs_id: str) -> dict:
 
     filled = scholarly.fill(author, sections=["publications", "indices"])
     pubs = filled.get("publications", [])
-    papers = [_scholarly_to_paper(p) for p in pubs]
+    papers = [_scholarly_to_paper(p, gs_id) for p in pubs]
 
     return {
         "pipeline": "phase1",

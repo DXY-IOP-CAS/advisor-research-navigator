@@ -13,6 +13,7 @@ sys.path.insert(0, PHASE1)
 import render_profile
 import risk_gate
 import step2_gs
+import utils
 import validate_career_stages
 import verify_profile
 
@@ -289,6 +290,40 @@ run_timestamp: 20260704_010203
         self.assertEqual("iphy.ac.cn", step2_gs.normalize_email_domain("...@@iphy.ac.cn"))
         self.assertEqual("iphy.ac.cn", step2_gs.normalize_email_domain("@iphy.ac.cn"))
         self.assertEqual("iphy.ac.cn", step2_gs.normalize_email_domain("Verified email at iphy.ac.cn"))
+
+    def test_scholarly_to_paper_adds_google_scholar_publication_url(self):
+        paper = step2_gs._scholarly_to_paper(
+            {
+                "author_pub_id": "abc123:pub456",
+                "num_citations": 7,
+                "bib": {
+                    "title": "A GS-only paper",
+                    "pub_year": "2024",
+                    "citation": "Test Journal",
+                },
+            },
+            "abc123",
+        )
+
+        self.assertEqual(
+            "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=abc123&citation_for_view=abc123:pub456",
+            paper["url"],
+        )
+
+    def test_make_paper_link_uses_url_when_doi_and_arxiv_are_missing(self):
+        link = utils.make_paper_link(
+            {
+                "title": "A GS-only paper",
+                "doi": None,
+                "arxiv_id": None,
+                "url": "https://scholar.google.com/citations?view_op=view_citation&user=abc123",
+            }
+        )
+
+        self.assertEqual(
+            "[A GS-only paper](https://scholar.google.com/citations?view_op=view_citation&user=abc123)",
+            link,
+        )
 
     def test_risk_gate_load_json_accepts_utf8_bom(self):
         with tempfile.TemporaryDirectory() as tmp:

@@ -36,6 +36,7 @@ COMMON_PAPER_SCHEMA = {
     "journal": (str, type(None)),
     "doi": (str, type(None)),
     "arxiv_id": (str, type(None)),
+    "url": (str, type(None)),
     "citation_count": (int, type(None)),
     "source": str,
     "abstract": (str, type(None)),
@@ -386,7 +387,7 @@ def safe_get(d: dict, *keys, default=None):
 def make_paper_link(paper: dict) -> str:
     """从论文 dict 生成 markdown 链接字符串。
 
-    Priority: DOI > arXiv ID > None (return plain title).
+    Priority: DOI > arXiv ID > URL > None (return plain title).
 
     Examples
     --------
@@ -403,6 +404,9 @@ def make_paper_link(paper: dict) -> str:
     arxiv_id = paper.get("arxiv_id")
     if arxiv_id:
         return f"[{title}](https://arxiv.org/abs/{arxiv_id})"
+    url = paper.get("url")
+    if url:
+        return f"[{title}]({url})"
     return title
 
 
