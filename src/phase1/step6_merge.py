@@ -282,7 +282,7 @@ def main() -> None:
     parser.add_argument("input_files", nargs="*", help="统一格式的 JSON 源文件（不传时从 --archive-dir 读取）")
     parser.add_argument("--output", "-o", help="输出 JSON 文件")
     parser.add_argument("--archive-dir", help="archive 目录路径（自动读取 01_gs/02_oa/03_arxiv.json）")
-    parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 latest.txt 自动推导 archive_dir")
+    parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 _internal/latest.txt 自动推导 archive_dir")
     parser.add_argument("--verbose", "-v", action="store_true")
     args = parser.parse_args()
 
@@ -290,7 +290,7 @@ def main() -> None:
     if args.prof_dir and not args.archive_dir:
         args.archive_dir = ProfDirResolver(args.prof_dir).archive_dir
         if not args.archive_dir:
-            parser.error(f"--prof-dir {args.prof_dir} 下找不到 latest.txt，请先跑 phase1_init.py")
+            parser.error(f"--prof-dir {args.prof_dir} 下找不到 _internal/latest.txt，请先跑 phase1_init.py")
 
     if args.archive_dir and not args.output:
         args.output = os.path.join(args.archive_dir, "04_merged.json")

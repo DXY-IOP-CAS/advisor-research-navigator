@@ -444,7 +444,7 @@ def main() -> None:
     parser.add_argument("--output", "-o", help="输出路径")
     parser.add_argument("--stages", help="学术阶段配置 JSON 文件（不传则从 archive 自动查找）")
     parser.add_argument("--archive-dir", help="archive 目录路径（自动查找 career_stages.json、merged.json 等）")
-    parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 latest.txt 自动推导 archive_dir 和 merged.json")
+    parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 _internal/latest.txt 自动推导 archive_dir 和 merged.json")
     parser.add_argument("--department", "-d", default="", help="部门/实验室名称")
     parser.add_argument("--run-timestamp", help="兼容旧命令的运行时间戳参数；不写入最终 Markdown")
     args = parser.parse_args()
@@ -454,7 +454,7 @@ def main() -> None:
         resolver = ProfDirResolver(args.prof_dir)
         args.archive_dir = resolver.archive_dir
         if not args.archive_dir:
-            parser.error(f"--prof-dir {args.prof_dir} 下找不到 latest.txt，请先跑 phase1_init.py")
+            parser.error(f"--prof-dir {args.prof_dir} 下找不到 _internal/latest.txt，请先跑 phase1_init.py")
     args.output = default_output_path(args.prof_dir, args.output)
 
     stage_config = None

@@ -28,7 +28,7 @@ step5_arxiv.py — arXiv 预印本搜索
   - 噪声过滤：render_profile.py 对 arXiv-only 无 DOI 论文直接过滤
 
 用法：
-  python src/phase1/step5_arxiv.py "Wang_Shili" -c "physics.atom-ph" -o output/<机构>/<部门>/<姓名>/archive/<timestamp>/03_arxiv.json
+  python src/phase1/step5_arxiv.py "Wang_Shili" -c "physics.atom-ph" -o output/<机构>/<部门>/<姓名>/_internal/archive/<timestamp>/03_arxiv.json
 
 依赖：标准库
 """

@@ -6,7 +6,7 @@
 
 ### A.1 初始化目录
 
-`phase1_init.py` 已经自动建 `output/<路径>/archive/<ts>/` 并写 `latest.txt`。**不要手动 mkdir**。
+`phase1_init.py` 已经自动建 `output/<路径>/_internal/archive/<ts>/` 并写 `_internal/latest.txt`。**不要手动 mkdir**。
 
 ### A.2 广度搜索
 
@@ -18,7 +18,7 @@
 4. **ORCID**：官网有就直接用，否则 MCP 搜"姓名 + ORCID"
 5. **交叉验证**：邮箱域名匹配（T1）/ ORCID 匹配（T2）/ 论文指纹（T3）/ 全降级（T4）
 
-### A.3 写两份 JSON 到 archive/<ts>/
+### A.3 写两份 JSON 到 _internal/archive/<ts>/
 
 - `00_verified_ids.json`：所有 ID + 验证层级（schema 见 `phase1-templates.md`）
 - `career_stages.json`：从官网履历提取的学术阶段（schema 见 `phase1-templates.md`）

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-phase1_init.py — Phase 1 初始化：建目录 + 写 latest.txt + 输出路径。
+phase1_init.py — Phase 1 初始化：建目录 + 写 _internal/latest.txt + 输出路径。
 
 AI 不要手动 mkdir。用此脚本自动创建标准目录结构。
 
@@ -13,8 +13,8 @@ AI 不要手动 mkdir。用此脚本自动创建标准目录结构。
 
 输出：
   1. 创建 output/<大学>/<学院所>/<部门>/<姓名>/ 目录
-  2. 创建 archive/<timestamp>/ 目录
-  3. 写 latest.txt
+  2. 创建 _internal/archive/<timestamp>/ 目录
+  3. 写 _internal/latest.txt
   4. 打印 archive 路径供后续步骤使用
 """
 
@@ -45,10 +45,11 @@ def main():
     prof_path = build_prof_path(args.university, args.institute,
                                 args.department, args.name)
     base = f"output/{prof_path}"
-    archive = f"{base}/archive/{ts}"
+    internal = f"{base}/_internal"
+    archive = f"{internal}/archive/{ts}"
 
     os.makedirs(archive, exist_ok=True)
-    with open(f"{base}/latest.txt", "w", encoding="utf-8") as f:
+    with open(f"{internal}/latest.txt", "w", encoding="utf-8") as f:
         f.write(f"{ts}\n")
 
     print(f"prof_dir: {base}", file=sys.stderr)

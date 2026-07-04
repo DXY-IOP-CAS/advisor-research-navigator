@@ -437,25 +437,43 @@ def norm_url(url: str) -> str:
 class ProfDirResolver:
     """从 prof_dir（output/.../姓名/）自动解析所有路径。
 
-    AI 只需传入 prof_dir，timestamp 从 latest.txt 读取或通过 --ts 指定。
+    AI 只需传入 prof_dir，timestamp 从 _internal/latest.txt 读取或通过 --ts 指定。
+    旧版根目录 latest.txt 只作为过渡兼容。
     """
     OUTPUT_NAMES = {1: "01_gs.json", 2: "02_oa.json",
                     3: "03_arxiv.json", 4: "04_merged.json"}
 
     def __init__(self, prof_dir: str, ts: str = None):
         self.prof_dir = prof_dir.rstrip('/').rstrip('')
+        self._state_root = None
         self.ts = ts or self._read_latest()
+        if ts and not self._state_root:
+            self._state_root = self.internal_dir
 
     def _read_latest(self) -> str:
-        path = os.path.join(self.prof_dir, 'latest.txt')
-        if os.path.exists(path):
+        candidates = [
+            (os.path.join(self.internal_dir, 'latest.txt'), self.internal_dir),
+            (os.path.join(self.prof_dir, 'latest.txt'), self.prof_dir),
+        ]
+        for path, state_root in candidates:
+            if not os.path.exists(path):
+                continue
             with open(path, encoding='utf-8') as f:
+                self._state_root = state_root
                 return f.read().strip()
         return ''
 
     @property
+    def internal_dir(self) -> str:
+        return os.path.join(self.prof_dir, '_internal')
+
+    @property
+    def state_root(self) -> str:
+        return self._state_root or self.internal_dir
+
+    @property
     def archive_dir(self) -> str:
-        return os.path.join(self.prof_dir, 'archive', self.ts) if self.ts else ''
+        return os.path.join(self.state_root, 'archive', self.ts) if self.ts else ''
 
     def output_path(self, step_num: int) -> str:
         name = self.OUTPUT_NAMES.get(step_num)

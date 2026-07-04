@@ -1,6 +1,7 @@
 import io
 import json
 import os
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -158,6 +159,61 @@ class Phase1HarnessTests(unittest.TestCase):
             "custom.md",
         )
         self.assertEqual("custom.md", explicit_output)
+
+    def test_phase1_init_writes_state_inside_internal_dir(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            script = os.path.join(PHASE1, "phase1_init.py")
+
+            result = subprocess.run(
+                [
+                    sys.executable,
+                    script,
+                    "--university",
+                    "测试大学",
+                    "--institute",
+                    "测试所",
+                    "--department",
+                    "测试部门",
+                    "--name",
+                    "张三",
+                ],
+                cwd=tmp,
+                text=True,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                check=True,
+            )
+
+            prof_dir = os.path.join(tmp, "output", "测试大学", "测试所", "测试部门", "张三")
+            internal_dir = os.path.join(prof_dir, "_internal")
+            latest_path = os.path.join(internal_dir, "latest.txt")
+            archive_root = os.path.join(internal_dir, "archive")
+
+            self.assertTrue(os.path.isdir(internal_dir))
+            self.assertTrue(os.path.isfile(latest_path))
+            self.assertFalse(os.path.exists(os.path.join(prof_dir, "latest.txt")))
+            stdout_archive = os.path.normpath(os.path.join(tmp, result.stdout.strip()))
+            self.assertTrue(stdout_archive.startswith(os.path.normpath(archive_root)))
+
+    def test_prof_dir_resolver_uses_internal_state_paths(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            prof_dir = os.path.join(tmp, "output", "大学", "所", "部门", "张三")
+            internal_dir = os.path.join(prof_dir, "_internal")
+            os.makedirs(internal_dir)
+            with open(os.path.join(internal_dir, "latest.txt"), "w", encoding="utf-8") as f:
+                f.write("20260704_010203\n")
+
+            resolver = utils.ProfDirResolver(prof_dir)
+
+            self.assertEqual("20260704_010203", resolver.ts)
+            self.assertEqual(
+                os.path.normpath(os.path.join(internal_dir, "archive", "20260704_010203")),
+                os.path.normpath(resolver.archive_dir),
+            )
+            self.assertEqual(
+                os.path.normpath(os.path.join(prof_dir, "01_基础画像.md")),
+                os.path.normpath(resolver.profile_path),
+            )
 
     def test_render_profile_omits_internal_archive_path_from_markdown(self):
         with tempfile.TemporaryDirectory() as tmp:

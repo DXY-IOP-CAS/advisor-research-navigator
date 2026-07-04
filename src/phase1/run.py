@@ -62,7 +62,8 @@ def run(prof_path: str, gs_id: str = "", oa_id: str = "",
         name_pinyin: str = "") -> int:
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
     base = f"output/{prof_path}"
-    archive = f"{base}/archive/{ts}"
+    internal = f"{base}/_internal"
+    archive = f"{internal}/archive/{ts}"
 
     # 0. 存档旧版
     print(f"\n{'='*60}", file=sys.stderr)
@@ -83,7 +84,7 @@ def run(prof_path: str, gs_id: str = "", oa_id: str = "",
         if os.path.exists(src_path):
             import shutil
             shutil.copy2(src_path, os.path.join(archive, dst_name))
-            print(f"  📄 {src_name} → archive/", file=sys.stderr)
+            print(f"  📄 {src_name} → _internal/archive/", file=sys.stderr)
 
     # 3. 校验 career_stages.json
     stages_path = stages_file or os.path.join(archive, "career_stages.json")
@@ -156,8 +157,9 @@ def run(prof_path: str, gs_id: str = "", oa_id: str = "",
         print("  ❌ 渲染失败", file=sys.stderr)
         return 1
 
-    # 9. 记录 latest.txt
-    with open(f"{base}/latest.txt", "w") as f:
+    # 9. 记录 _internal/latest.txt
+    os.makedirs(internal, exist_ok=True)
+    with open(f"{internal}/latest.txt", "w") as f:
         f.write(f"{ts}\n")
 
     # 10. Verify

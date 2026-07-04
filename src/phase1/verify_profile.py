@@ -7,7 +7,7 @@ verify_profile.py — 画像质量自动门控。
 
 用法：
   python src/phase1/verify_profile.py output/<机构>/<部门>/<姓名>/01_基础画像.md \
-    --merged output/<机构>/<部门>/<姓名>/archive/<timestamp>/04_merged.json
+    --merged output/<机构>/<部门>/<姓名>/_internal/archive/<timestamp>/04_merged.json
 
 退出码：0 = 通过，1 = 有失败项
 """
@@ -359,7 +359,7 @@ def main():
                         help="01_基础画像.md 路径（不传时从 --prof-dir 自动查找）")
     parser.add_argument("--merged", help="04_merged.json 路径（校验论文行数）")
     parser.add_argument("--archive-dir", help="archive 目录路径（自动查找 merged.json）")
-    parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 latest.txt 自动推导")
+    parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 _internal/latest.txt 自动推导")
     args = parser.parse_args()
 
     # prof-dir 优先于 archive-dir
@@ -369,7 +369,7 @@ def main():
         if args.archive_dir and not args.profile:
             args.profile = resolver.profile_path
         if not args.archive_dir:
-            parser.error(f"--prof-dir {args.prof_dir} 下找不到 latest.txt，请先跑 phase1_init.py")
+            parser.error(f"--prof-dir {args.prof_dir} 下找不到 _internal/latest.txt，请先跑 phase1_init.py")
 
     merged_path = args.merged
     if not merged_path and args.archive_dir:

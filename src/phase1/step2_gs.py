@@ -27,7 +27,7 @@ step2_gs.py — Google Scholar 数据获取（scholarly 封装）
   - 梯子节点质量直接影响可用性
 
 用法：
-  python src/phase1/step2_gs.py {gs_id} -o output/<机构>/<部门>/<姓名>/archive/<timestamp>/01_gs.json
+  python src/phase1/step2_gs.py {gs_id} -o output/<机构>/<部门>/<姓名>/_internal/archive/<timestamp>/01_gs.json
 
 依赖：pip install scholarly
 """
@@ -137,7 +137,7 @@ def main() -> None:
     parser.add_argument("gs_id", help="Google Scholar profile ID")
     parser.add_argument("--output", "-o", help="输出 JSON 文件")
     parser.add_argument("--archive-dir", help="archive 目录（自动设置输出路径）")
-    parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 latest.txt 自动推导 archive_dir")
+    parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 _internal/latest.txt 自动推导 archive_dir")
     parser.add_argument("--verbose", "-v", action="store_true")
     args = parser.parse_args()
 
@@ -145,7 +145,7 @@ def main() -> None:
     if args.prof_dir and not args.archive_dir:
         args.archive_dir = ProfDirResolver(args.prof_dir).archive_dir
         if not args.archive_dir:
-            parser.error(f"--prof-dir {args.prof_dir} 下找不到 latest.txt，请先跑 phase1_init.py")
+            parser.error(f"--prof-dir {args.prof_dir} 下找不到 _internal/latest.txt，请先跑 phase1_init.py")
     if args.archive_dir and not args.output:
         args.output = os.path.join(args.archive_dir, "01_gs.json")
 

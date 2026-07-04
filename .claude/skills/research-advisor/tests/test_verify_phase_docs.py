@@ -37,6 +37,22 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         workspace_tmp.mkdir(parents=True, exist_ok=True)
         self.prof = workspace_tmp / f"case_{uuid.uuid4().hex}"
         self.prof.mkdir(parents=True, exist_ok=False)
+        (self.prof / "_internal").mkdir()
+        self.write_doc(
+            "00_材料导读.md",
+            "# 张鹏举 (Pengju Zhang) - 材料导读\n\n"
+            f"## 这套材料解决什么问题\n这套材料帮助学生建立阅读顺序。{cite('O1')}\n\n"
+            "## 建议阅读顺序\n先粗读基础画像，再读领域地图、论文路线和学习向导，最后回看基础画像。\n\n"
+            "## 如何阅读引用和证据标记\n[O#] 代表官方或身份来源，[P#] 代表论文来源，[R#] 代表教材、讲义或综述，[B#] 代表背景资料；[未找到] 表示暂缺来源，需人工复核表示判断还不够强。\n\n"
+            "## 起步讨论入口\n用一篇目标论文、Fig. 2 核心图和一条平台链路进入讨论。\n\n"
+            "## 文件定位\n五份文档按认知阶梯互相支撑。\n\n"
+            "## 使用边界\n本材料不做导师评价、不做申请建议、不替代论文和教材。\n\n"
+            "## 参考文献与资料\n\n"
+            "### 官方与身份资料\n\n"
+            + SOURCE_TABLE_HEADER
+            + "|:---|:---|:---|:---|:---|\n"
+            + source_table_row("O1"),
+        )
         self.write_doc(
             "01_基础画像.md",
             "# 张鹏举 (Pengju Zhang) - 基础画像\n\n"
@@ -104,6 +120,26 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         module = load_module()
         result = module.verify_prof_dir(self.prof)
         self.assertTrue(result.ok, result.messages)
+
+    def test_rejects_missing_material_guide(self):
+        (self.prof / "00_材料导读.md").unlink()
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+        self.assertFalse(result.ok)
+        self.assertIn("[FAIL] 缺少文件: 00_材料导读.md", result.messages)
+
+    def test_rejects_machine_files_in_professor_root(self):
+        (self.prof / "latest.txt").write_text("20260704_010203\n", encoding="utf-8")
+        (self.prof / "career_stages.json").write_text("{}", encoding="utf-8")
+        (self.prof / "archive").mkdir()
+
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+
+        self.assertFalse(result.ok)
+        self.assertIn("[FAIL] 导师根目录不得包含机器文件或目录: latest.txt", result.messages)
+        self.assertIn("[FAIL] 导师根目录不得包含机器文件或目录: career_stages.json", result.messages)
+        self.assertIn("[FAIL] 导师根目录不得包含机器文件或目录: archive", result.messages)
 
     def test_rejects_pipeline_run_info_heading(self):
         text = (self.prof / "02_领域地图.md").read_text(encoding="utf-8")

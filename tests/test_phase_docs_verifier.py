@@ -110,6 +110,20 @@ class PhaseDocsVerifierTests(unittest.TestCase):
     def test_accepts_problem_chain_phase4_structure(self):
         with tempfile.TemporaryDirectory() as tmp:
             prof_dir = Path(tmp)
+            (prof_dir / "00_材料导读.md").write_text(
+                """# 测试导师 - 材料导读
+
+## 这套材料解决什么问题
+正文 <sup><a href="#o1">[O1]</a></sup>
+## 建议阅读顺序
+## 如何阅读引用和证据标记
+## 起步讨论入口
+## 文件定位
+## 使用边界
+"""
+                + SOURCE_TABLE,
+                encoding="utf-8",
+            )
             (prof_dir / "01_基础画像.md").write_text(
                 "# 测试导师 - 基础画像\n\n## 资料概览\n\n来源：https://example.com\n",
                 encoding="utf-8",

@@ -14,6 +14,14 @@ from pathlib import Path
 
 
 DOCS = {
+    "00_材料导读.md": [
+        "## 这套材料解决什么问题",
+        "## 建议阅读顺序",
+        "## 如何阅读引用和证据标记",
+        "## 起步讨论入口",
+        "## 文件定位",
+        "## 使用边界",
+    ],
     "01_基础画像.md": ["## 资料概览"],
     "02_领域地图.md": [
         "## 资料概览",
@@ -106,6 +114,7 @@ FIXED_DAY_RE = re.compile(
 )
 VISIBLE_TAXONOMY_RE = re.compile(r"(?:主线[一二三四五六七八九十]+[:：]|第[一二三四五六七八九十]+类是)")
 NUMBERED_PHASE4_PATH_RE = re.compile(r"第[一二三四五六七八九十]+段路")
+ALLOWED_ROOT_ENTRIES = set(DOCS) | {"_internal"}
 
 
 @dataclass
@@ -254,9 +263,20 @@ def _check_optional_markdown_docs(prof: Path, messages: list[str]) -> None:
         _check_forbidden_style(path.name, text, messages)
 
 
+def _check_prof_root_cleanliness(prof: Path, messages: list[str]) -> None:
+    if not prof.exists():
+        return
+    for child in sorted(prof.iterdir(), key=lambda p: p.name):
+        if child.name in ALLOWED_ROOT_ENTRIES:
+            continue
+        messages.append(f"[FAIL] 导师根目录不得包含机器文件或目录: {child.name}")
+
+
 def verify_prof_dir(prof_dir: str | Path) -> VerifyResult:
     prof = Path(prof_dir)
     messages: list[str] = []
+
+    _check_prof_root_cleanliness(prof, messages)
 
     for filename, sections in DOCS.items():
         path = prof / filename

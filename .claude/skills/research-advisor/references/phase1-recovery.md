@@ -11,7 +11,7 @@
 | `GS status=blocked` | GS 被封锁 | 降级到 OpenAlex 走 OA-only 路径。不重试 GS。 |
 | `network interrupt` | 网络中断 | 重新执行失败的 step（不是整条流水线）。用 `--prof-dir` 复用已采集数据。 |
 | `merged.json not found` | step6 没跑或路径错 | 先跑 step6，再 render。 |
-| `prof_dir 下找不到 latest.txt` | phase1_init.py 没跑或 prof_dir 错 | 先跑 `phase1_init.py --university ... --name ...`。 |
+| `prof_dir 下找不到 _internal/latest.txt` | phase1_init.py 没跑或 prof_dir 错 | 先跑 `phase1_init.py --university ... --name ...`。 |
 
 ---
 
@@ -59,7 +59,7 @@ verify_profile.py 失败
 
 ## archive 行为（自动化，无需 AI 介入）
 
-每个 step 完成后用 `archive_step.py` 自动归档到 `archive/<ts>/`：
+每个 step 完成后用 `archive_step.py` 自动归档到 `_internal/archive/<ts>/`：
 
 ```bash
 python src/phase1/archive_step.py --prof-dir "output/..." --source 01_gs.json
@@ -78,6 +78,6 @@ Agent 不得手动读取或引用 `archive/`。需要恢复上下文时，用 `-
 1. 确认 `prof_dir` 是 `output/<大学>/<学院或研究所>/<部门>/<姓名>`。
 2. 运行 `python src/phase1/verify_profile.py --prof-dir "<prof_dir>"` 看当前最终画像是否已经通过。
 3. 如果最终画像缺失或 verify 指向中间文件缺失，重新执行对应 step，命令仍只传 `--prof-dir`。
-4. 不手动打开 `archive/<ts>/...` 判断状态；让脚本解析 `latest.txt` 和中间文件。
+4. 不手动打开 `_internal/archive/<ts>/...` 判断状态；让脚本解析 `_internal/latest.txt` 和中间文件。
 
-**不需要从头跑**。ProfDirResolver 会从 latest.txt 自动找到 archive 路径。
+**不需要从头跑**。ProfDirResolver 会从 `_internal/latest.txt` 自动找到 archive 路径。
