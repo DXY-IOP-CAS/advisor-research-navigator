@@ -136,6 +136,14 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertEqual([], leaked, "phase1 source examples should write through --prof-dir")
         self.assertIn("--prof-dir \"output/...\"", text)
 
+    def test_research_advisor_skill_uses_spaced_bilingual_name_contract(self):
+        text = (ROOT / ".claude" / "skills" / "research-advisor" / "SKILL.md").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("中文名 (English Name)", text)
+        self.assertNotIn("中文名(English Name)", text)
+
     def test_active_skill_references_do_not_keep_local_version_footers(self):
         refs_dir = ROOT / ".claude" / "skills" / "research-advisor" / "references"
         leaked = []

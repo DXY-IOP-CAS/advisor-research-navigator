@@ -21,7 +21,7 @@ description: >
 官网 URL：<教授主页链接>
 ```
 
-不要要求用户提供英文名、邮箱、Google Scholar ID、OpenAlex ID、ORCID、论文列表或 JSON 草稿。这些信息必须从来源中发现。最终画像姓名仍写成 `中文名(English Name)`；如果未找到英文名，写 `[未找到]` 并记录来源缺口。
+不要要求用户提供英文名、邮箱、Google Scholar ID、OpenAlex ID、ORCID、论文列表或 JSON 草稿。这些信息必须从来源中发现。最终画像姓名仍写成 `中文名 (English Name)`；如果未找到英文名，写 `[未找到]` 并记录来源缺口。
 
 五份成品文档是一条认知阶梯，不是互不相干的报告：
 
