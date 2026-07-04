@@ -68,7 +68,7 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertIn("validate_career_stages.py --prof-dir", text)
         self.assertIn("validate_verified_ids.py --prof-dir", text)
 
-    def test_legacy_archive_previous_is_not_presented_as_current_entrypoint(self):
+    def test_legacy_archive_previous_entrypoint_is_removed(self):
         for path in [ROOT / "AGENTS.md", ROOT / "CLAUDE.md"]:
             text = path.read_text(encoding="utf-8")
             self.assertNotIn("archive_previous / utils", text, str(path))
@@ -76,11 +76,11 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         pipeline = (ROOT / "src" / "phase1" / "pipeline.md").read_text(encoding="utf-8")
         self.assertNotIn("### 自动存档机制", pipeline)
         self.assertNotIn("该命令在阶段 A 开始前执行", pipeline)
-        self.assertIn("### 旧版整目录存档", pipeline)
-
-        archive_previous = (ROOT / "src" / "phase1" / "archive_previous.py").read_text(encoding="utf-8")
-        self.assertNotIn("运行前自动存档已有产出", archive_previous)
-        self.assertIn("旧版整目录迁移工具", archive_previous)
+        self.assertNotIn("archive_previous.py", pipeline)
+        self.assertFalse(
+            (ROOT / "src" / "phase1" / "archive_previous.py").exists(),
+            "archive_previous.py should not remain as an archive-writing legacy entrypoint",
+        )
 
     def test_archive_rule_distinguishes_manual_reads_from_prof_dir_tools(self):
         files = [
@@ -178,6 +178,7 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
     def test_obsolete_phase1_helpers_are_removed(self):
         obsolete = [
             ROOT / "src" / "phase1" / "archive_step.py",
+            ROOT / "src" / "phase1" / "archive_previous.py",
             ROOT / "src" / "phase1" / "merge_tables.py",
             ROOT / "src" / "phase1" / "run.py",
         ]
@@ -186,7 +187,7 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertEqual([], existing, "obsolete phase1 helpers should not remain as parallel entrypoints")
 
     def test_active_docs_do_not_reference_obsolete_phase1_helpers(self):
-        obsolete = ["archive_step.py", "merge_tables.py", "run.py"]
+        obsolete = ["archive_step.py", "archive_previous.py", "merge_tables.py", "run.py"]
         active_docs = [
             ROOT / "QUICKSTART.md",
             ROOT / "AGENTS.md",

@@ -19,8 +19,6 @@ python src/phase1/phase1_init.py \
   --official-url "<教授主页链接>"
 ```
 
-`archive_previous.py` 是旧版整目录存档工具，只作人工兼容操作，不是新端到端质量重构的常规入口。Agent 不读取或引用 `archive/`。
-
 ### 三阶段流
 
 ```
@@ -428,18 +426,6 @@ output/
         ├── 04_merged.json
         └── career_stages.json
 ```
-
-### 旧版整目录存档
-
-`archive_previous.py` 是旧版整目录迁移工具，不是当前端到端主路径的阶段 A 命令。新一轮运行默认用 `phase1_init.py` 在同一导师目录下创建新的 `_internal/archive/<timestamp>/` active state，并通过 `_internal/latest.txt` 切换当前状态。
-
-```bash
-python src/phase1/archive_previous.py "<学校>/<学院>/<部门>/<姓名>"
-```
-
-只有用户明确要求把整份旧输出移出 `output/` 做人工溯源时，才考虑这个旧工具。它会把旧版整目录移动到项目级 `archive/旧版产出/<姓名>_<timestamp>/`；agent 之后仍不得读取、搜索、复制或引用 `archive/` 中的任何内容。
-
----
 
 ## 9 已知限制
 
