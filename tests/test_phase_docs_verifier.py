@@ -98,7 +98,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 导师路径速览
 ## 当前方向学科定位
-## 领域发展树
+## 领域怎样发展到当前问题
 ## 关键问题和技术路线
 ## 当前前沿
 ## 证据与待复核点
@@ -161,7 +161,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 导师路径速览
 ## 当前方向学科定位
-## 领域发展树
+## 领域怎样发展到当前问题
 ## 关键问题和技术路线
 ## 当前前沿
 ## 证据与待复核点
@@ -227,7 +227,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 导师路径速览
 ## 当前方向学科定位
-## 领域发展树
+## 领域怎样发展到当前问题
 ## 关键问题和技术路线
 ## 当前前沿
 ## 证据与待复核点
@@ -292,7 +292,7 @@ class PhaseDocsVerifierTests(unittest.TestCase):
 正文 <sup><a href="#o1">[O1]</a></sup>
 ## 导师路径速览
 ## 当前方向学科定位
-## 领域发展树
+## 领域怎样发展到当前问题
 ## 关键问题和技术路线
 ## 当前前沿
 ## 证据与待复核点

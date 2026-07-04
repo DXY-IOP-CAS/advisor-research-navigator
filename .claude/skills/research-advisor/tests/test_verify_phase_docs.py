@@ -48,7 +48,7 @@ class VerifyPhaseDocsTest(unittest.TestCase):
             f"## 资料概览\n官方方向以导师主页为准。{cite('O1')}\n\n"
             "## 导师路径速览\n\n"
             "## 当前方向学科定位\n\n"
-            "## 领域发展树\n\n"
+            "## 领域怎样发展到当前问题\n\n"
             "## 关键问题和技术路线\n\n"
             "## 当前前沿\n\n"
             "## 证据与待复核点\n需人工复核。\n\n"
@@ -120,6 +120,17 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         result = module.verify_prof_dir(self.prof)
         self.assertFalse(result.ok)
         self.assertTrue(any("论文路线总表" in m for m in result.messages))
+
+    def test_rejects_old_phase2_field_tree_heading(self):
+        text = (self.prof / "02_领域地图.md").read_text(encoding="utf-8")
+        self.write_doc(
+            "02_领域地图.md",
+            text.replace("## 领域怎样发展到当前问题", "## 领域发展树"),
+        )
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+        self.assertFalse(result.ok)
+        self.assertTrue(any("领域发展树" in m for m in result.messages))
 
     def test_rejects_internal_pipeline_wording_in_final_docs(self):
         text = (self.prof / "02_领域地图.md").read_text(encoding="utf-8")
