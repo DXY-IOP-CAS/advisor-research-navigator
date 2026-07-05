@@ -206,6 +206,19 @@ class VerifyPhaseDocsTest(unittest.TestCase):
             first_line = text.splitlines()[0]
             self.assertIn("<中文名> (<English Name>)", first_line, filename)
 
+    def test_material_guide_template_lists_all_five_deliverables(self):
+        text = (TEMPLATE_DIR / "00_材料导读.md").read_text(encoding="utf-8")
+        for filename in [
+            "00_材料导读.md",
+            "01_基础画像.md",
+            "02_领域地图.md",
+            "03_论文路线.md",
+            "04_学习向导.md",
+        ]:
+            self.assertIn(filename, text)
+        self.assertIn("五份", text)
+        self.assertNotIn("四份文档", text)
+
     def test_rejects_missing_cognitive_blueprint(self):
         (self.prof / "_internal" / "blueprint.md").unlink()
 
