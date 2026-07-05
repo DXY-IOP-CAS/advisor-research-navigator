@@ -90,6 +90,22 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
 
         self.assertEqual([], leaked, "phase1 docs should allow Web/MCP/browser search tools")
 
+    def test_phase1_docs_do_not_prompt_user_for_openalex_email(self):
+        docs = [
+            ROOT / "src" / "phase1" / "pipeline.md",
+            ROOT / "src" / "phase1" / "step3_openalex.py",
+            ROOT / ".claude" / "skills" / "research-advisor" / "references" / "01-data-sources.md",
+        ]
+
+        leaked = []
+        for path in docs:
+            text = path.read_text(encoding="utf-8")
+            for phrase in ("your@real.com", "your@email.com", "you@example.com"):
+                if phrase in text:
+                    leaked.append(f"{path.relative_to(ROOT)} contains {phrase}")
+
+        self.assertEqual([], leaked, "OpenAlex email must be optional config, not user input")
+
     def test_pipeline_does_not_call_run_py_old_unified_entrypoint(self):
         text = (ROOT / "src" / "phase1" / "pipeline.md").read_text(encoding="utf-8")
 

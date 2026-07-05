@@ -240,7 +240,10 @@ python src/phase1/validate_career_stages.py --prof-dir "$PROF"
 # 每步优先用 --prof-dir 替代 -o，自动输出到当前 _internal/archive/<ts>/01_gs.json 等
 python src/phase1/step2_gs.py XXXXXXXXAAAAJ --prof-dir "$PROF"
 
-python src/phase1/step3_openalex.py A5000000000 --email your@real.com --prof-dir "$PROF"
+python src/phase1/step3_openalex.py A5000000000 --prof-dir "$PROF"
+
+# 可选：如果执行环境预先配置维护者邮箱，可加 --email <configured-email> 进入 polite pool。
+# 不要向用户索要邮箱；用户最小输入仍只有姓名、机构路径和官网 URL。
 
 # step4（ORCID 精确匹配）→ 失败回退 step5
 python src/phase1/step4_arxiv_id.py "0000-0000-0000-0000" --name "Wang_Shili" --prof-dir "$PROF" \

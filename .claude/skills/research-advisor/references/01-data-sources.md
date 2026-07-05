@@ -52,10 +52,10 @@ python src/phase1/step2_gs.py XXXXXXXXAAAAJ --prof-dir "output/..."
 **用法**（已封装为 step3_openalex.py）：
 
 ```bash
-python src/phase1/step3_openalex.py A5000000000 --email you@example.com --prof-dir "output/..."
+python src/phase1/step3_openalex.py A5000000000 --prof-dir "output/..."
 ```
 
-**限速**：polite pool 10 req/s（带 email），无 email 约 1 req/s。
+**限速**：polite pool 10 req/s（带预配置维护者 email），无 email 约 1 req/s。不要向用户索要邮箱；用户最小输入仍只有姓名、机构路径和官网 URL。
 
 **分页**：works 总数超过 200 时用 cursor 分页：
 
