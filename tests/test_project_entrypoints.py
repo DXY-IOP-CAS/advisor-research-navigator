@@ -75,6 +75,21 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertLess(init_index, phase_a_index, "phase1_init.py must create prof_dir before Phase A")
         self.assertNotIn("AI 将 Phase A 的 00_verified_ids.json", text)
 
+    def test_phase1_docs_do_not_require_mcp_specific_search_tools(self):
+        docs = [
+            ROOT / "src" / "phase1" / "pipeline.md",
+            ROOT / ".claude" / "skills" / "research-advisor" / "references" / "phase1-core.md",
+        ]
+
+        leaked = []
+        for path in docs:
+            text = path.read_text(encoding="utf-8")
+            for phrase in ("MCP 搜", "MCP fetch"):
+                if phrase in text:
+                    leaked.append(f"{path.relative_to(ROOT)} contains {phrase}")
+
+        self.assertEqual([], leaked, "phase1 docs should allow Web/MCP/browser search tools")
+
     def test_pipeline_does_not_call_run_py_old_unified_entrypoint(self):
         text = (ROOT / "src" / "phase1" / "pipeline.md").read_text(encoding="utf-8")
 

@@ -10,12 +10,12 @@
 
 ### A.2 广度搜索
 
-按以下顺序用 MCP 搜（不要漏步骤、也不要乱序）：
+按以下顺序用当前可用的网页读取和检索工具搜索（不要漏步骤、也不要乱序）。在 Codex 中可用浏览器或 Web search；在 Claude 环境中可用对应 MCP 工具。工具可以不同，证据顺序不能乱：
 
-1. **官网**：MCP fetch 读 → 提取姓名、英文名、机构、email、ORCID、履历
+1. **官网**：读取官网页面 → 提取姓名、英文名、机构、email、ORCID、履历
 2. **Google Scholar**：优先用官网/ORCID/OpenAlex 取得的英文名搜 `"英文名" + "机构英文名" + Google Scholar` → 提取 GS profile URL 和 GS ID
-3. **OpenAlex**：MCP 搜"姓名 + OpenAlex" 或用 ORCID 反查 → 提取 OA Author ID
-4. **ORCID**：官网有就直接用，否则 MCP 搜"姓名 + ORCID"
+3. **OpenAlex**：搜索 `"姓名" + "OpenAlex"` 或用 ORCID 反查 → 提取 OA Author ID
+4. **ORCID**：官网有就直接用，否则搜索 `"姓名" + "ORCID"`
 5. **交叉验证**：邮箱域名匹配（T1）/ ORCID 匹配（T2）/ 论文指纹（T3）/ 全降级（T4）
 
 ### A.3 写两份 JSON 到 _internal/archive/<ts>/

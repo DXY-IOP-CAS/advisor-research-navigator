@@ -26,7 +26,7 @@ python src/phase1/phase1_init.py \
     │
 阶段 A（AI 主导）—— 身份锁定 + 阶段配置
   Step 1: 官网抓取 → 提取 name, email, institution，履历
-  Step 2: MCP 搜 GS/ORCID → 跨源身份锁定（见下方协议）
+  Step 2: 网页检索 GS/ORCID/OpenAlex → 跨源身份锁定（见下方协议）
     → verified_ids.json
   Step 3: 官网履历 → career_stages.json（含 institution/position/direction）
   Step 4: step1_discipline → arXiv 学科分类
