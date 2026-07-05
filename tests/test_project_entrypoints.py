@@ -100,7 +100,13 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         leaked = []
         for path in docs:
             text = path.read_text(encoding="utf-8")
-            for phrase in ("your@real.com", "your@email.com", "you@example.com"):
+            for phrase in (
+                "your@real.com",
+                "your@email.com",
+                "you@example.com",
+                "推荐使用真实邮箱",
+                "真实邮箱（非",
+            ):
                 if phrase in text:
                     leaked.append(f"{path.relative_to(ROOT)} contains {phrase}")
 
