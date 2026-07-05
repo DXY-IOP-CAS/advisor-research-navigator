@@ -267,6 +267,21 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
 
         self.assertEqual([], leaked, "active skill references should rely on git history, not local version footers")
 
+    def test_phase1_references_do_not_ask_user_for_extra_ids_on_failure(self):
+        refs = [
+            ROOT / ".claude" / "skills" / "research-advisor" / "references" / "01-data-sources.md",
+            ROOT / ".claude" / "skills" / "research-advisor" / "references" / "phase1-recovery.md",
+        ]
+
+        leaked = []
+        for path in refs:
+            text = path.read_text(encoding="utf-8")
+            for phrase in ("提供其他 ID 链接", "建议用户检查网络"):
+                if phrase in text:
+                    leaked.append(f"{path.relative_to(ROOT)} contains {phrase}")
+
+        self.assertEqual([], leaked, "Phase 1 recovery must improve evidence/harness, not ask for extra IDs")
+
     def test_phase1_script_usage_examples_prefer_prof_dir(self):
         files = [
             ROOT / "src" / "phase1" / "step2_gs.py",
