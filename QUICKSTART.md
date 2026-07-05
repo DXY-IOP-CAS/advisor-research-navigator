@@ -61,7 +61,9 @@ python src/phase1/phase1_init.py \
 
 后续统一使用脚本输出的 `prof_dir` 和 `--prof-dir` 参数。不要手动拼 `_internal/archive/<ts>`；官网 URL 已写入 `_internal/seed.json`，作为身份锁定和 Fact Pack 的起点。
 
-`phase1_init.py` 只创建目录和 seed，不会采集论文。不要从 `phase1_init.py` 直接跳到 `risk_gate.py`；执行阶段 1 时先按 `src/phase1/pipeline.md` 和 `phase1-core.md` 运行 `step2_gs.py`、`step3_openalex.py`、`step4_arxiv_id.py` 或 `step5_arxiv.py`、`step6_merge.py`，再运行风险门。
+`phase1_init.py` 只创建目录和 seed，不会采集论文。初始化后，先完成 Phase A 身份锁定和阶段配置：从 `_internal/seed.json` 读取官网 URL，检索官网、Google Scholar、OpenAlex 和 ORCID，交叉验证身份，并把 `00_verified_ids.json` 与 `career_stages.json` 写入当前 active `_internal/archive/<ts>/`。
+
+不要从 `phase1_init.py` 直接跳到 `risk_gate.py`；执行阶段 1 时先按 `src/phase1/pipeline.md` 和 `phase1-core.md` 完成 Phase A，再运行 `step2_gs.py`、`step3_openalex.py`、`step4_arxiv_id.py` 或 `step5_arxiv.py`、`step6_merge.py`，最后运行风险门。
 
 阶段 1 完成后：
 

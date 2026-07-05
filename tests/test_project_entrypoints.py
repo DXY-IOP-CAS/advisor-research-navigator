@@ -158,6 +158,18 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertIn("step2_gs.py", text)
         self.assertIn("step6_merge.py", text)
 
+    def test_quickstart_mentions_phase_a_before_phase_b_scripts(self):
+        text = (ROOT / "QUICKSTART.md").read_text(encoding="utf-8")
+        section = text.split("## 常规执行骨架", 1)[1].split("## 端到端回归", 1)[0]
+
+        phase_a_index = section.find("先完成 Phase A 身份锁定")
+        step2_index = section.find("step2_gs.py")
+        self.assertNotEqual(-1, phase_a_index, "quickstart should mention Phase A before collection")
+        self.assertNotEqual(-1, step2_index, "quickstart should mention step2 collection")
+        self.assertLess(phase_a_index, step2_index)
+        self.assertIn("00_verified_ids.json", section)
+        self.assertIn("career_stages.json", section)
+
     def test_phase1_init_stdout_is_not_archive_entrypoint(self):
         text = (ROOT / "src" / "phase1" / "phase1_init.py").read_text(encoding="utf-8")
 
