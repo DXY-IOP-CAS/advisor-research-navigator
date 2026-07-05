@@ -33,6 +33,17 @@ def source_table_row(key: str) -> str:
 SOURCE_TABLE_HEADER = "| 编号 | 文献或资料 | 支撑内容 | 链接 | 类型 |\n"
 EVIDENCE_TABLE_HEADER = "| 文档位置 | 关键判断 | 来源 | 来源支撑了什么 | 证据强度 | 人工复核 |\n"
 MERMAID_BLOCK = "```mermaid\nflowchart LR\n    A[起点] --> B[终点]\n```\n"
+THIN_CHAIN_MERMAID_BLOCK = (
+    "```mermaid\n"
+    "flowchart TD\n"
+    "  A[关键词一]\n"
+    "  B[关键词二]\n"
+    "  C[关键词三]\n"
+    "  D[关键词四]\n"
+    "  E[关键词五]\n"
+    "  A --> B --> C --> D --> E\n"
+    "```\n"
+)
 TABLE_VISUAL = (
     "| 论文 | 问题 | 角色 |\n"
     "|:---|:---|:---|\n"
@@ -383,6 +394,22 @@ class VerifyPhaseDocsTest(unittest.TestCase):
 
         self.assertFalse(result.ok)
         self.assertIn("[FAIL] 03_论文路线.md Mermaid 代码块缺少可识别图类型", result.messages)
+
+    def test_rejects_thin_unlabeled_mermaid_chain(self):
+        text = (self.prof / "03_论文路线.md").read_text(encoding="utf-8")
+        self.write_doc(
+            "03_论文路线.md",
+            text.replace(MERMAID_BLOCK, THIN_CHAIN_MERMAID_BLOCK + TABLE_VISUAL),
+        )
+
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+
+        self.assertFalse(result.ok)
+        self.assertIn(
+            "[FAIL] 03_论文路线.md Mermaid 线性链条过薄：4 个以上节点必须使用分支、边标签，或改成矩阵/层级树/文本链路",
+            result.messages,
+        )
 
     def test_rejects_missing_key_claim_evidence_table(self):
         (self.prof / "_internal" / "evidence" / "key_claims.md").unlink()

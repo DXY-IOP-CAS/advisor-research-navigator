@@ -358,7 +358,19 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
                 check=True,
             )
             help_text = result.stdout + result.stderr
-            for phrase in ("--archive-dir", "--output", "-o OUTPUT", "archive 目录", "archive_dir", "archive"):
+            for phrase in (
+                "--archive-dir",
+                "--output",
+                "-o OUTPUT",
+                "--stages",
+                "--merged",
+                "input_files",
+                "merged_json",
+                "[profile]",
+                "archive 目录",
+                "archive_dir",
+                "archive",
+            ):
                 if phrase in help_text:
                     leaked.append(f"{script.relative_to(ROOT)} exposes {phrase}")
 

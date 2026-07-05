@@ -141,6 +141,9 @@ MERMAID_START_RE = re.compile(
 MARKDOWN_TABLE_SEPARATOR_RE = re.compile(r"^\s*\|?\s*:?-{3,}:?\s*(?:\|\s*:?-{3,}:?\s*)+\|?\s*$")
 TEXT_VISUAL_BLOCK_RE = re.compile(r"```(?:text|txt)\s*\n(.*?)\n```", re.DOTALL)
 TEXT_VISUAL_MARKERS = ("->", "→", "├", "└", "│")
+MERMAID_EDGE_SPLIT_RE = re.compile(r"\s*(?:-->|==>|-\.->)\s*")
+MERMAID_NODE_ID_RE = re.compile(r"^\s*([A-Za-z0-9_\u4e00-\u9fff]+)")
+MERMAID_LABELED_EDGE_RE = re.compile(r"(?:-->|==>|-\.->)\s*\||--\s+[^->|][^-]*\s+-->")
 ORDINARY_PARAGRAPH_MAX_CHARS = 420
 PARAGRAPH_BOUNDARY_RE = re.compile(
     r"^\s*(?:#{1,6}\s|[-*+]\s+|\d+[.)]\s+|>\s*|<!--|</?\w|---\s*$)"
@@ -383,20 +386,71 @@ def _has_text_visual_block(text: str) -> bool:
     return False
 
 
+def _extract_mermaid_node_id(part: str) -> str | None:
+    match = MERMAID_NODE_ID_RE.match(part.strip())
+    if not match:
+        return None
+    return match.group(1)
+
+
+def _is_thin_unlabeled_mermaid_chain(block: str) -> bool:
+    lines = [line.strip() for line in block.splitlines() if line.strip()]
+    if not lines or not re.match(r"^(?:flowchart|graph)\b", lines[0]):
+        return False
+
+    edges: list[tuple[str, str]] = []
+    for line in lines[1:]:
+        if "-->" not in line and "==>" not in line and "-.->" not in line:
+            continue
+        if MERMAID_LABELED_EDGE_RE.search(line):
+            return False
+        parts = MERMAID_EDGE_SPLIT_RE.split(line)
+        node_ids = [_extract_mermaid_node_id(part) for part in parts]
+        if any(node_id is None for node_id in node_ids):
+            return False
+        edges.extend(zip(node_ids, node_ids[1:]))
+
+    nodes = {node for edge in edges for node in edge}
+    if len(nodes) < 4 or len(edges) != len(nodes) - 1:
+        return False
+
+    indegree = {node: 0 for node in nodes}
+    outdegree = {node: 0 for node in nodes}
+    for source, target in edges:
+        outdegree[source] += 1
+        indegree[target] += 1
+        if outdegree[source] > 1 or indegree[target] > 1:
+            return False
+
+    starts = [node for node in nodes if indegree[node] == 0 and outdegree[node] == 1]
+    ends = [node for node in nodes if indegree[node] == 1 and outdegree[node] == 0]
+    middles = [node for node in nodes if indegree[node] == 1 and outdegree[node] == 1]
+    return len(starts) == 1 and len(ends) == 1 and len(middles) == len(nodes) - 2
+
+
 def _check_visualization_construct(filename: str, text: str, messages: list[str]) -> None:
     body, _sources = _split_sources_section(text)
     blocks = MERMAID_BLOCK_RE.findall(text)
     has_valid_mermaid = False
     has_invalid_mermaid = False
+    has_thin_chain = False
     for block in blocks:
         lines = [line.strip() for line in block.splitlines() if line.strip()]
         if lines and MERMAID_START_RE.match(lines[0]):
             has_valid_mermaid = True
+            if _is_thin_unlabeled_mermaid_chain(block):
+                has_thin_chain = True
         else:
             has_invalid_mermaid = True
 
     if has_invalid_mermaid:
         messages.append(f"[FAIL] {filename} Mermaid 代码块缺少可识别图类型")
+        return
+
+    if has_thin_chain:
+        messages.append(
+            f"[FAIL] {filename} Mermaid 线性链条过薄：4 个以上节点必须使用分支、边标签，或改成矩阵/层级树/文本链路"
+        )
         return
 
     if has_valid_mermaid or _has_markdown_table(body) or _has_text_visual_block(body):

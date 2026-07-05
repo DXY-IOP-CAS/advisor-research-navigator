@@ -439,15 +439,18 @@ def generate(data: dict, output_path: str, stage_config: list = None,
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="从 merged.json 生成基础画像")
+    parser = argparse.ArgumentParser(
+        description="从 merged.json 生成基础画像",
+        usage="%(prog)s [--prof-dir PROF_DIR] [--department DEPARTMENT]",
+    )
     parser.add_argument("merged_json", nargs="?",
-                        help="04_merged.json 路径（常规执行不传，由 --prof-dir 自动查找）")
+                        help=argparse.SUPPRESS)
     parser.add_argument("--output", "-o", help=argparse.SUPPRESS)
-    parser.add_argument("--stages", help="学术阶段配置 JSON 文件（常规执行不传，由 --prof-dir 自动查找）")
+    parser.add_argument("--stages", help=argparse.SUPPRESS)
     parser.add_argument("--archive-dir", help=argparse.SUPPRESS)
     parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 _internal/latest.txt 自动推导 active state 和 merged.json")
     parser.add_argument("--department", "-d", default="", help="部门/实验室名称")
-    parser.add_argument("--run-timestamp", help="兼容旧命令的运行时间戳参数；不写入最终 Markdown")
+    parser.add_argument("--run-timestamp", help=argparse.SUPPRESS)
     args = parser.parse_args()
 
     # prof-dir 优先；archive-dir 仅保留内部兼容，AI 不必手动拼路径

@@ -353,10 +353,13 @@ FIX_MAP = {
 
 
 def main():
-    parser = argparse.ArgumentParser(description="画像质量自动门控")
+    parser = argparse.ArgumentParser(
+        description="画像质量自动门控",
+        usage="%(prog)s --prof-dir PROF_DIR",
+    )
     parser.add_argument("profile", nargs="?",
-                        help="01_基础画像.md 路径（不传时从 --prof-dir 自动查找）")
-    parser.add_argument("--merged", help="04_merged.json 路径（校验论文行数）")
+                        help=argparse.SUPPRESS)
+    parser.add_argument("--merged", help=argparse.SUPPRESS)
     parser.add_argument("--archive-dir", help=argparse.SUPPRESS)
     parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 _internal/latest.txt 自动推导")
     args = parser.parse_args()

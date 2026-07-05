@@ -278,8 +278,11 @@ def merge(source_paths: List[str]) -> dict:
 # ── CLI ──────────────────────────────────────────────────────────────
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="多源合并去重")
-    parser.add_argument("input_files", nargs="*", help="统一格式的 JSON 源文件（常规执行不传，由 --prof-dir 推导）")
+    parser = argparse.ArgumentParser(
+        description="多源合并去重",
+        usage="%(prog)s [--prof-dir PROF_DIR] [--verbose]",
+    )
+    parser.add_argument("input_files", nargs="*", help=argparse.SUPPRESS)
     parser.add_argument("--output", "-o", help=argparse.SUPPRESS)
     parser.add_argument("--archive-dir", help=argparse.SUPPRESS)
     parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 _internal/latest.txt 自动推导 active state")
