@@ -358,11 +358,11 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
                 check=True,
             )
             help_text = result.stdout + result.stderr
-            for phrase in ("--archive-dir", "archive 目录", "archive_dir", "archive"):
+            for phrase in ("--archive-dir", "--output", "-o OUTPUT", "archive 目录", "archive_dir", "archive"):
                 if phrase in help_text:
                     leaked.append(f"{script.relative_to(ROOT)} exposes {phrase}")
 
-        self.assertEqual([], leaked, "phase1 public CLI help should route agents through --prof-dir only")
+        self.assertEqual([], leaked, "phase1 public CLI help should hide legacy path-output options")
 
     def test_render_profile_docstring_matches_current_ai_edit_contract(self):
         text = (ROOT / "src" / "phase1" / "render_profile.py").read_text(encoding="utf-8")

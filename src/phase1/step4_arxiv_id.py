@@ -218,7 +218,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="arXiv Author Identifier Feed 精确获取")
     parser.add_argument("orcid", help="ORCID（含连字符，如 0000-0000-0000-0000）")
     parser.add_argument("--name", "-n", help="姓名拼音（姓_名），用于日志")
-    parser.add_argument("--output", "-o", help="输出 JSON 文件")
+    parser.add_argument("--output", "-o", help=argparse.SUPPRESS)
     parser.add_argument("--archive-dir", help=argparse.SUPPRESS)
     parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 _internal/latest.txt 自动推导 active state")
     parser.add_argument("--verbose", "-v", action="store_true")

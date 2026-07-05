@@ -185,7 +185,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="OpenAlex 数据获取")
     parser.add_argument("oa_id", help="OpenAlex Author ID（如 A5000000000）")
     parser.add_argument("--email", help="Polite pool email")
-    parser.add_argument("--output", "-o", help="输出 JSON 文件")
+    parser.add_argument("--output", "-o", help=argparse.SUPPRESS)
     parser.add_argument("--archive-dir", help=argparse.SUPPRESS)
     parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 _internal/latest.txt 自动推导 active state")
     parser.add_argument("--verbose", "-v", action="store_true")

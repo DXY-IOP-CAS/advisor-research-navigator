@@ -442,7 +442,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="从 merged.json 生成基础画像")
     parser.add_argument("merged_json", nargs="?",
                         help="04_merged.json 路径（常规执行不传，由 --prof-dir 自动查找）")
-    parser.add_argument("--output", "-o", help="输出路径")
+    parser.add_argument("--output", "-o", help=argparse.SUPPRESS)
     parser.add_argument("--stages", help="学术阶段配置 JSON 文件（常规执行不传，由 --prof-dir 自动查找）")
     parser.add_argument("--archive-dir", help=argparse.SUPPRESS)
     parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 _internal/latest.txt 自动推导 active state 和 merged.json")

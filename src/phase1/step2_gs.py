@@ -135,7 +135,7 @@ def scrape(gs_id: str) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser(description="GS 数据获取（scholarly 封装）")
     parser.add_argument("gs_id", help="Google Scholar profile ID")
-    parser.add_argument("--output", "-o", help="输出 JSON 文件")
+    parser.add_argument("--output", "-o", help=argparse.SUPPRESS)
     parser.add_argument("--archive-dir", help=argparse.SUPPRESS)
     parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 _internal/latest.txt 自动推导 active state")
     parser.add_argument("--verbose", "-v", action="store_true")

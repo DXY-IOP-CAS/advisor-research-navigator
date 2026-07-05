@@ -238,7 +238,7 @@ def main() -> None:
     parser.add_argument("author_name", help="作者姓名拼音（下划线分隔，如 Wang_Shili）")
     parser.add_argument("--max-results", "-n", type=int, default=200)
     parser.add_argument("--categories", "-c", help="arXiv 分类过滤，如 'physics'")
-    parser.add_argument("--output", "-o", help="输出 JSON 文件")
+    parser.add_argument("--output", "-o", help=argparse.SUPPRESS)
     parser.add_argument("--archive-dir", help=argparse.SUPPRESS)
     parser.add_argument("--prof-dir", help="prof 根目录（output/.../姓名/），从 _internal/latest.txt 自动推导 active state")
     parser.add_argument("--verbose", "-v", action="store_true")
