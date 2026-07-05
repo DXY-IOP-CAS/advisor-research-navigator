@@ -65,6 +65,16 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         if found:
             self.fail(f"docs/计划书.md retains legacy human-gate identity wording: {found}")
 
+    def test_plan_phase1_data_flow_initializes_before_identity_search(self):
+        text = (ROOT / "docs" / "计划书.md").read_text(encoding="utf-8")
+
+        init_index = text.find("phase1_init.py --university")
+        phase_a_index = text.find("Phase A：身份锁定")
+        self.assertNotEqual(-1, init_index, "plan should document phase1_init.py in data flow")
+        self.assertNotEqual(-1, phase_a_index, "plan should document Phase A identity locking")
+        self.assertLess(init_index, phase_a_index, "phase1_init.py must create prof_dir before Phase A")
+        self.assertNotIn("AI 将 Phase A 的 00_verified_ids.json", text)
+
     def test_pipeline_does_not_call_run_py_old_unified_entrypoint(self):
         text = (ROOT / "src" / "phase1" / "pipeline.md").read_text(encoding="utf-8")
 
