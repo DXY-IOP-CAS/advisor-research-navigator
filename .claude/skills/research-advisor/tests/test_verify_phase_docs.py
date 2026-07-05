@@ -493,6 +493,14 @@ class VerifyPhaseDocsTest(unittest.TestCase):
         self.assertFalse(result.ok)
         self.assertTrue(any("关键论文" in m for m in result.messages))
 
+    def test_rejects_four_deliverable_ladder_wording_in_final_docs(self):
+        text = (self.prof / "00_材料导读.md").read_text(encoding="utf-8")
+        self.write_doc("00_材料导读.md", text + "\n这四份文档是一条认知阶梯。\n")
+        module = load_module()
+        result = module.verify_prof_dir(self.prof)
+        self.assertFalse(result.ok)
+        self.assertTrue(any("这四份文档" in m for m in result.messages))
+
     def test_rejects_forbidden_advisor_evaluation(self):
         text = (self.prof / "02_领域地图.md").read_text(encoding="utf-8")
         self.write_doc("02_领域地图.md", text + "\n推荐申请。\n")
