@@ -267,6 +267,26 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
 
         self.assertEqual([], leaked, "active skill references should rely on git history, not local version footers")
 
+    def test_superpowers_process_dirs_are_not_project_entrypoints(self):
+        self.assertFalse(
+            (ROOT / "docs" / "superpowers").exists(),
+            "docs/superpowers should not exist as a parallel spec/plan entrypoint",
+        )
+
+        active_docs = [
+            ROOT / "AGENTS.md",
+            ROOT / "QUICKSTART.md",
+            ROOT / "docs" / "计划书.md",
+            ROOT / "docs" / "上下文交接.md",
+        ]
+        leaked = []
+        for path in active_docs:
+            text = path.read_text(encoding="utf-8")
+            if "docs/superpowers" in text:
+                leaked.append(str(path.relative_to(ROOT)))
+
+        self.assertEqual([], leaked, "active docs should not route agents through docs/superpowers")
+
     def test_phase1_references_do_not_ask_user_for_extra_ids_on_failure(self):
         refs = [
             ROOT / ".claude" / "skills" / "research-advisor" / "references" / "01-data-sources.md",
