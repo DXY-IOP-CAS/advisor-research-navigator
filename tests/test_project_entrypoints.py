@@ -57,6 +57,14 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         if found:
             self.fail(f"docs/计划书.md retains legacy footer markers: {found}")
 
+    def test_plan_does_not_require_default_human_gate_for_identity_locking(self):
+        text = (ROOT / "docs" / "计划书.md").read_text(encoding="utf-8")
+
+        forbidden = ["人闸", "身份消歧不允许全自动", "任何 ID 锁定前用户确认"]
+        found = [phrase for phrase in forbidden if phrase in text]
+        if found:
+            self.fail(f"docs/计划书.md retains legacy human-gate identity wording: {found}")
+
     def test_pipeline_does_not_call_run_py_old_unified_entrypoint(self):
         text = (ROOT / "src" / "phase1" / "pipeline.md").read_text(encoding="utf-8")
 
