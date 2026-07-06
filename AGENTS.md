@@ -36,7 +36,9 @@
 ## Skills 使用纪律
 
 - 开始任务前按可用 skills 判断是否需要加载相关 skill；不要只惯性使用项目内 `research-advisor`。
-- 中文长回复、中文文档讨论、`00-04` 成品、导师调研材料、学习向导、项目说明和任何给真人阅读的中文正文：必须使用全局 `human-readable-chinese-docs`（若当前环境列出该 skill，则先完整读取 `C:/Users/DXY/.codex/skills/human-readable-chinese-docs/SKILL.md`）。目标是让文本有清楚读者路径、具体内容、证据边界和自然节奏，避免模板腔、空泛总结、机械三段式和明显 AI 味。`chinese-style-guide` 只作为中英文混排和排版辅助，不能替代可读性审查。
+- 中文长回复、中文文档讨论、`00-04` 成品、导师调研材料、学习向导、项目说明、视频脚本和任何给真人阅读的中文正文：必须使用全局 `human-readable-chinese-docs`。
+- 使用 `human-readable-chinese-docs` 时，先保证读者路径、具体内容、证据边界和自然节奏，再做措辞润色。重点避免模板腔、空泛总结、机械三段式和明显 AI 味。
+- `chinese-style-guide` 只作为中英文混排和排版辅助，不能替代 `human-readable-chinese-docs` 的可读性审查。
 - 导师调研、`00-04` 文档、学习路径、证据规则和成品质量修订：必须使用 `.claude/skills/research-advisor/`。
 - 讨论新结构、新流程、新规范、文档设计或 Harness 方向：先使用 `brainstorming`，形成设计判断后再改文件。
 - 学习科学、教学设计、论文证据、可视化方法、agent workflow 或外部最佳实践拿不准：使用可用的全局研究类/学习类 skills，并优先查可靠来源。
