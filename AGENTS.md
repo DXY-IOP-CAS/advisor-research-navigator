@@ -2,7 +2,7 @@
 
 ## 一句话
 
-导师研究方向调研工具。用户输入 `姓名 + 机构路径 + 官网 URL`，主路径是 `Fact Pack -> Cognitive Blueprint -> 00-04 成品 -> 验证/自审 -> 回归与瘦身`。当前 V2 重心是用学习科学、证据可靠性和新手理解质量来打磨 `00-04` 五份成品标准，而不是继续堆 workflow。新窗口先读 `QUICKSTART.md` 和 `docs/上下文交接.md`；阶段 1 技术细节见 `src/phase1/pipeline.md`，设计决策见 `docs/计划书.md`。
+导师研究方向调研工具。用户输入 `姓名 + 机构路径 + 官网 URL`，主路径是 `Fact Pack -> Cognitive Blueprint -> 00-04 成品 -> 验证/自审 -> 回归与瘦身`。当前 V2 重心是用学习科学、证据可靠性和新手理解质量来打磨 `00-04` 五份成品标准，而不是继续堆 workflow。新窗口先读 `QUICKSTART.md` 和 `docs/上下文交接.md`；阶段 1 技术细节见 `src/phase1/pipeline.md`。当前文档设计以 `quality-workbench/README.md` 为入口，`docs/计划书.md` 只作历史设计参考。
 
 ## 目录角色
 
@@ -12,7 +12,7 @@
 | `src/phase1/pipeline.md` | 阶段 1 技术执行文档（单一事实源） |
 | `.agents/skills/` | Codex/其他 CLI Skill 入口（NTFS junction → `.claude/skills/`，同一份内容，不重复维护） |
 | `.claude/skills/research-advisor/` | 当前 00-04 工作流入口、references、模板和验证脚本 |
-| `quality-workbench/` | 当前讨论 `00-04` 文档标准、学习与认知原则、图文设计和章节逻辑的临时工作台；不是最终成品或正式 Harness 规则 |
+| `quality-workbench/` | 当前 `00-04` 文档标准和支撑方法的设计工作台；根部只放 README，正文标准进 `文档标准/`，跨文档方法进 `支撑方法/` |
 | `output/` | 导师画像产出 |
 | `archive/` | 旧版存档（只写不读） |
 
@@ -20,8 +20,8 @@
 
 - 先讨论成品质量，再反推 Harness。当前重点是把 `00-04` 设计成面向新手的学习脚手架：有主线、有阅读顺序、有读后自检、有来源核查、有合适的理解构件。
 - 讨论阶段优先把可复用结论沉淀到 `quality-workbench/`，等五份文档标准讨论清楚后，再统一回收进成品、模板、skill reference、verifier 或计划书。
-- 学习与认知原则先看 `quality-workbench/学习与认知原则.md`。成品中应自然解释“为什么这样读、这样做”，但不要把教育学术语堆给学生。
-- `quality-workbench/` 中的内容未自动升格为长期规则。只有跨导师可复用、能稳定提高质量、且归属明确的结论，才在统一回收时进入正式 Harness。
+- 学习与认知原则先看 `quality-workbench/支撑方法/学习与认知原则.md`。信息检索、筛查、消歧、证据分级和冲突处理先看 `quality-workbench/支撑方法/信息检索与筛查.md`。
+- `quality-workbench/` 是当前设计源头，但未自动升格为正式 Harness。只有跨导师可复用、能稳定提高质量、且归属明确的结论，才在统一回收时进入正式 Harness。
 
 ## 硬约束
 
@@ -62,6 +62,6 @@
 ## 反臃肿原则
 
 - 不为每次小讨论新增长期 spec/plan/规则文件。只有能稳定提高 00-04 五份文档质量、能跨导师复用、且归属明确的规则才沉淀。
-- 规则唯一归属：设计原因进 `docs/计划书.md`；执行细节进 `.claude/skills/research-advisor/references/`；确定性检查进 `scripts/`；当前状态进 `docs/上下文交接.md`；阶段 1 技术细节进 `src/phase1/pipeline.md`。
+- 当前讨论期的规则归属：文档标准和支撑方法先进 `quality-workbench/`；当前状态进 `docs/上下文交接.md`；阶段 1 技术细节进 `src/phase1/pipeline.md`。等五份文档标准稳定后，再统一回收进 `docs/计划书.md`、`.claude/skills/research-advisor/references/`、模板、verifier 或 tests。
 - verifier 只做结构、来源、禁用语和格式 smoke，不做学术质量判断；模板只固定骨架，不替代检索和分析。
 - 完成一个导师的 00-04 五份文档后，做一次轻量去重审计，清理或合并已经被正式规则取代的过程文档。
