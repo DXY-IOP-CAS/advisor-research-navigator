@@ -1,122 +1,159 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="980" height="820" viewBox="0 0 980 820" role="img" aria-label="可视化类型总览" font-family="Microsoft YaHei, Noto Sans CJK SC, PingFang SC, sans-serif">
-  <rect x="20" y="20" width="940" height="780" rx="24" fill="#fffaf0" stroke="#3a342c" stroke-width="2.4"/>
-  <text x="50" y="62" fill="#2f2a24" font-size="24" font-weight="700">可视化类型总览：先看关系，再选图形</text>
-  <text x="50" y="92" fill="#5f5548" font-size="14">每个小图只展示轮廓，正式成品必须换成真实数据、读法和证据边界。</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="860" viewBox="0 0 1180 860" role="img" aria-label="导师材料可视化家族" font-family="Microsoft YaHei, Noto Sans CJK SC, PingFang SC, sans-serif">
+  <rect x="22" y="22" width="1136" height="816" rx="26" fill="#fffaf0" stroke="#3a342c" stroke-width="2.4"/>
+  <text x="56" y="68" fill="#2f2a24" font-size="25" font-weight="700">导师材料可视化家族：先辨认关系，再选择图形</text>
+  <text x="56" y="100" fill="#5f5548" font-size="14">每一类图对应一种不同的理解任务。相同形状可能表达不同关系，必须在图旁写清读法和证据边界。</text>
 
-  <g transform="translate(50 125)">
-    <rect width="420" height="120" rx="16" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
-    <text x="20" y="30" fill="#2f2a24" font-size="17" font-weight="700">组成 / 范围图</text>
-    <circle cx="118" cy="74" r="36" fill="#bfd7ea" fill-opacity=".78" stroke="#3a342c" stroke-width="1.8"/>
-    <circle cx="188" cy="72" r="30" fill="#d8eac8" fill-opacity=".78" stroke="#3a342c" stroke-width="1.8"/>
-    <circle cx="156" cy="70" r="20" fill="#f2b6a0" fill-opacity=".82" stroke="#3a342c" stroke-width="1.8"/>
-    <text x="245" y="64" fill="#5f5548" font-size="13">看板块组成</text>
-    <text x="245" y="84" fill="#5f5548" font-size="13">和粗略大小</text>
+  <g transform="translate(56 132)">
+    <rect width="338" height="150" rx="18" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
+    <text x="18" y="31" fill="#2f2a24" font-size="17" font-weight="700">1. 领域地形图</text>
+    <circle cx="92" cy="92" r="44" fill="#bfd7ea" fill-opacity=".78" stroke="#3a342c" stroke-width="1.7"/>
+    <circle cx="166" cy="91" r="36" fill="#d8eac8" fill-opacity=".78" stroke="#3a342c" stroke-width="1.7"/>
+    <circle cx="132" cy="88" r="22" fill="#f2b6a0" fill-opacity=".86" stroke="#3a342c" stroke-width="1.7"/>
+    <text x="222" y="76" fill="#5f5548" font-size="13">看位置、邻近</text>
+    <text x="222" y="96" fill="#5f5548" font-size="13">和粗略范围感</text>
   </g>
 
-  <g transform="translate(510 125)">
-    <rect width="420" height="120" rx="16" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
-    <text x="20" y="30" fill="#2f2a24" font-size="17" font-weight="700">层级 / 包含图</text>
-    <rect x="72" y="48" width="170" height="52" rx="14" fill="#bfd7ea" fill-opacity=".45" stroke="#3a342c" stroke-width="1.7"/>
-    <rect x="98" y="60" width="120" height="28" rx="10" fill="#d8eac8" stroke="#3a342c" stroke-width="1.7"/>
-    <rect x="140" y="66" width="58" height="16" rx="8" fill="#f2b6a0" stroke="#3a342c" stroke-width="1.4"/>
-    <text x="260" y="64" fill="#5f5548" font-size="13">看大类怎样</text>
-    <text x="260" y="84" fill="#5f5548" font-size="13">收束到问题域</text>
+  <g transform="translate(421 132)">
+    <rect width="338" height="150" rx="18" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
+    <text x="18" y="31" fill="#2f2a24" font-size="17" font-weight="700">2. 层级收束图</text>
+    <rect x="58" y="56" width="150" height="58" rx="15" fill="#bfd7ea" fill-opacity=".42" stroke="#3a342c" stroke-width="1.7"/>
+    <rect x="86" y="70" width="106" height="32" rx="11" fill="#d8eac8" stroke="#3a342c" stroke-width="1.6"/>
+    <rect x="128" y="77" width="44" height="18" rx="8" fill="#f2b6a0" stroke="#3a342c" stroke-width="1.4"/>
+    <text x="230" y="76" fill="#5f5548" font-size="13">看大类怎样</text>
+    <text x="230" y="96" fill="#5f5548" font-size="13">收束到问题域</text>
   </g>
 
-  <g transform="translate(50 265)">
-    <rect width="420" height="120" rx="16" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
-    <text x="20" y="30" fill="#2f2a24" font-size="17" font-weight="700">二维定位图</text>
-    <line x1="78" y1="94" x2="215" y2="94" stroke="#3a342c" stroke-width="1.8"/>
-    <line x1="78" y1="94" x2="78" y2="46" stroke="#3a342c" stroke-width="1.8"/>
-    <line x1="146" y1="94" x2="146" y2="46" stroke="#d6c8ad" stroke-width="1.4" stroke-dasharray="5 4"/>
-    <line x1="78" y1="70" x2="215" y2="70" stroke="#d6c8ad" stroke-width="1.4" stroke-dasharray="5 4"/>
-    <circle cx="182" cy="58" r="10" fill="#f2b6a0" stroke="#3a342c" stroke-width="1.5"/>
-    <circle cx="118" cy="78" r="9" fill="#bfd7ea" stroke="#3a342c" stroke-width="1.5"/>
-    <text x="245" y="64" fill="#5f5548" font-size="13">同时看两个</text>
-    <text x="245" y="84" fill="#5f5548" font-size="13">判断维度</text>
+  <g transform="translate(786 132)">
+    <rect width="338" height="150" rx="18" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
+    <text x="18" y="31" fill="#2f2a24" font-size="17" font-weight="700">3. 二维定位图</text>
+    <line x1="62" y1="118" x2="190" y2="118" stroke="#3a342c" stroke-width="1.8"/>
+    <line x1="62" y1="118" x2="62" y2="54" stroke="#3a342c" stroke-width="1.8"/>
+    <line x1="126" y1="118" x2="126" y2="54" stroke="#d6c8ad" stroke-width="1.3" stroke-dasharray="5 4"/>
+    <line x1="62" y1="86" x2="190" y2="86" stroke="#d6c8ad" stroke-width="1.3" stroke-dasharray="5 4"/>
+    <circle cx="164" cy="70" r="10" fill="#f2b6a0" stroke="#3a342c" stroke-width="1.5"/>
+    <circle cx="98" cy="98" r="9" fill="#bfd7ea" stroke="#3a342c" stroke-width="1.5"/>
+    <text x="217" y="78" fill="#5f5548" font-size="13">两个维度</text>
+    <text x="217" y="98" fill="#5f5548" font-size="13">共同定位对象</text>
   </g>
 
-  <g transform="translate(510 265)">
-    <rect width="420" height="120" rx="16" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
-    <text x="20" y="30" fill="#2f2a24" font-size="17" font-weight="700">关系网络图</text>
-    <line x1="154" y1="72" x2="92" y2="52" stroke="#5f5548" stroke-width="1.6"/>
-    <line x1="154" y1="72" x2="214" y2="52" stroke="#5f5548" stroke-width="1.6"/>
-    <line x1="154" y1="72" x2="104" y2="98" stroke="#5f5548" stroke-width="1.6"/>
-    <line x1="154" y1="72" x2="212" y2="98" stroke="#5f5548" stroke-width="1.6" stroke-dasharray="6 4"/>
-    <circle cx="154" cy="72" r="22" fill="#f2e7c9" stroke="#3a342c" stroke-width="1.7"/>
-    <circle cx="92" cy="52" r="14" fill="#bfd7ea" stroke="#3a342c" stroke-width="1.5"/>
-    <circle cx="214" cy="52" r="14" fill="#d8eac8" stroke="#3a342c" stroke-width="1.5"/>
-    <circle cx="104" cy="98" r="14" fill="#f2b6a0" stroke="#3a342c" stroke-width="1.5"/>
-    <circle cx="212" cy="98" r="14" fill="#f2e7c9" stroke="#3a342c" stroke-width="1.5" stroke-dasharray="6 4"/>
-    <text x="250" y="64" fill="#5f5548" font-size="13">看概念、论文</text>
-    <text x="250" y="84" fill="#5f5548" font-size="13">或平台怎样连接</text>
+  <g transform="translate(56 310)">
+    <rect width="338" height="150" rx="18" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
+    <text x="18" y="31" fill="#2f2a24" font-size="17" font-weight="700">4. 对比矩阵</text>
+    <rect x="58" y="58" width="145" height="70" rx="9" fill="#fffaf0" stroke="#3a342c" stroke-width="1.5"/>
+    <line x1="58" y1="82" x2="203" y2="82" stroke="#3a342c" stroke-width="1.1"/>
+    <line x1="106" y1="58" x2="106" y2="128" stroke="#3a342c" stroke-width="1.1"/>
+    <line x1="154" y1="58" x2="154" y2="128" stroke="#3a342c" stroke-width="1.1"/>
+    <circle cx="82" cy="105" r="6" fill="#bfd7ea"/>
+    <circle cx="130" cy="105" r="6" fill="#d8eac8"/>
+    <circle cx="178" cy="105" r="6" fill="#f2b6a0"/>
+    <text x="226" y="78" fill="#5f5548" font-size="13">用同一组字段</text>
+    <text x="226" y="98" fill="#5f5548" font-size="13">比较多个对象</text>
   </g>
 
-  <g transform="translate(50 405)">
-    <rect width="420" height="120" rx="16" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
-    <text x="20" y="30" fill="#2f2a24" font-size="17" font-weight="700">系统 / 平台链路图</text>
-    <rect x="64" y="56" width="58" height="34" rx="10" fill="#bfd7ea" stroke="#3a342c" stroke-width="1.6"/>
-    <rect x="150" y="56" width="58" height="34" rx="10" fill="#d8eac8" stroke="#3a342c" stroke-width="1.6"/>
-    <rect x="236" y="56" width="58" height="34" rx="10" fill="#f2b6a0" stroke="#3a342c" stroke-width="1.6"/>
-    <path d="M122 73 L150 73 M208 73 L236 73" fill="none" stroke="#3a342c" stroke-width="1.8"/>
-    <text x="316" y="64" fill="#5f5548" font-size="13">看实验或平台</text>
-    <text x="316" y="84" fill="#5f5548" font-size="13">从输入到输出</text>
+  <g transform="translate(421 310)">
+    <rect width="338" height="150" rx="18" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
+    <text x="18" y="31" fill="#2f2a24" font-size="17" font-weight="700">5. 论文角色地图</text>
+    <rect x="120" y="63" width="88" height="42" rx="12" fill="#f2e7c9" stroke="#3a342c" stroke-width="1.6"/>
+    <text x="141" y="89" fill="#2f2a24" font-size="12">问题</text>
+    <rect x="42" y="48" width="70" height="32" rx="10" fill="#bfd7ea" stroke="#3a342c" stroke-width="1.4"/>
+    <rect x="42" y="102" width="70" height="32" rx="10" fill="#f2b6a0" stroke="#3a342c" stroke-width="1.4"/>
+    <rect x="218" y="48" width="70" height="32" rx="10" fill="#d8eac8" stroke="#3a342c" stroke-width="1.4"/>
+    <rect x="218" y="102" width="70" height="32" rx="10" fill="#f2e7c9" stroke="#3a342c" stroke-width="1.4" stroke-dasharray="6 4"/>
+    <line x1="112" y1="64" x2="120" y2="76" stroke="#5f5548" stroke-width="1.4"/>
+    <line x1="112" y1="118" x2="120" y2="94" stroke="#5f5548" stroke-width="1.4"/>
+    <line x1="208" y1="76" x2="218" y2="64" stroke="#5f5548" stroke-width="1.4"/>
+    <line x1="208" y1="94" x2="218" y2="118" stroke="#5f5548" stroke-width="1.4" stroke-dasharray="6 4"/>
+    <text x="75" y="69" fill="#2f2a24" font-size="11" text-anchor="middle">底座</text>
+    <text x="75" y="123" fill="#2f2a24" font-size="11" text-anchor="middle">目标</text>
+    <text x="253" y="69" fill="#2f2a24" font-size="11" text-anchor="middle">方法</text>
+    <text x="253" y="123" fill="#2f2a24" font-size="11" text-anchor="middle">旁支</text>
   </g>
 
-  <g transform="translate(510 405)">
-    <rect width="420" height="120" rx="16" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
-    <text x="20" y="30" fill="#2f2a24" font-size="17" font-weight="700">矩阵比较</text>
-    <rect x="70" y="50" width="152" height="58" rx="8" fill="#fffaf0" stroke="#3a342c" stroke-width="1.5"/>
-    <line x1="70" y1="70" x2="222" y2="70" stroke="#3a342c" stroke-width="1.2"/>
-    <line x1="120" y1="50" x2="120" y2="108" stroke="#3a342c" stroke-width="1.2"/>
-    <line x1="172" y1="50" x2="172" y2="108" stroke="#3a342c" stroke-width="1.2"/>
-    <circle cx="95" cy="90" r="6" fill="#bfd7ea"/>
-    <circle cx="146" cy="90" r="6" fill="#d8eac8"/>
-    <circle cx="198" cy="90" r="6" fill="#f2b6a0"/>
-    <text x="255" y="64" fill="#5f5548" font-size="13">按同一组字段</text>
-    <text x="255" y="84" fill="#5f5548" font-size="13">比较多个对象</text>
+  <g transform="translate(786 310)">
+    <rect width="338" height="150" rx="18" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
+    <text x="18" y="31" fill="#2f2a24" font-size="17" font-weight="700">6. 机制 / 平台链路图</text>
+    <rect x="34" y="68" width="56" height="34" rx="10" fill="#bfd7ea" stroke="#3a342c" stroke-width="1.5"/>
+    <rect x="118" y="68" width="56" height="34" rx="10" fill="#d8eac8" stroke="#3a342c" stroke-width="1.5"/>
+    <rect x="202" y="68" width="56" height="34" rx="10" fill="#f2b6a0" stroke="#3a342c" stroke-width="1.5"/>
+    <path d="M90 85 L118 85 M174 85 L202 85" fill="none" stroke="#3a342c" stroke-width="1.8"/>
+    <text x="286" y="78" fill="#5f5548" font-size="13">看系统</text>
+    <text x="286" y="98" fill="#5f5548" font-size="13">怎样运转</text>
   </g>
 
-  <g transform="translate(50 545)">
-    <rect width="420" height="120" rx="16" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
-    <text x="20" y="30" fill="#2f2a24" font-size="17" font-weight="700">标注解剖图</text>
-    <rect x="70" y="52" width="118" height="56" rx="10" fill="#fffaf0" stroke="#3a342c" stroke-width="1.6"/>
-    <path d="M84 94 C110 82,128 64,156 80 S180 90,176 60" fill="none" stroke="#f2b6a0" stroke-width="3"/>
-    <line x1="188" y1="62" x2="248" y2="46" stroke="#5f5548" stroke-width="1.4" stroke-dasharray="5 4"/>
-    <line x1="146" y1="80" x2="248" y2="78" stroke="#5f5548" stroke-width="1.4" stroke-dasharray="5 4"/>
-    <text x="258" y="50" fill="#5f5548" font-size="13">先读坐标</text>
-    <text x="258" y="82" fill="#5f5548" font-size="13">再读变化</text>
+  <g transform="translate(56 488)">
+    <rect width="338" height="150" rx="18" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
+    <text x="18" y="31" fill="#2f2a24" font-size="17" font-weight="700">7. 时间 / 演化图</text>
+    <line x1="92" y1="52" x2="92" y2="128" stroke="#3a342c" stroke-width="1.8"/>
+    <circle cx="92" cy="60" r="8" fill="#bfd7ea" stroke="#3a342c" stroke-width="1.3"/>
+    <circle cx="92" cy="92" r="8" fill="#d8eac8" stroke="#3a342c" stroke-width="1.3"/>
+    <circle cx="92" cy="124" r="8" fill="#f2b6a0" stroke="#3a342c" stroke-width="1.3"/>
+    <rect x="122" y="48" width="82" height="24" rx="8" fill="#bfd7ea" stroke="#3a342c" stroke-width="1.2"/>
+    <rect x="122" y="80" width="82" height="24" rx="8" fill="#d8eac8" stroke="#3a342c" stroke-width="1.2"/>
+    <rect x="122" y="112" width="82" height="24" rx="8" fill="#f2b6a0" stroke="#3a342c" stroke-width="1.2"/>
+    <text x="232" y="78" fill="#5f5548" font-size="13">看阶段、先后</text>
+    <text x="232" y="98" fill="#5f5548" font-size="13">和回看节点</text>
   </g>
 
-  <g transform="translate(510 545)">
-    <rect width="420" height="120" rx="16" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
-    <text x="20" y="30" fill="#2f2a24" font-size="17" font-weight="700">时间 / 路线图</text>
-    <rect x="70" y="54" width="64" height="34" rx="12" fill="#bfd7ea" stroke="#3a342c" stroke-width="1.5"/>
-    <rect x="168" y="54" width="64" height="34" rx="12" fill="#d8eac8" stroke="#3a342c" stroke-width="1.5"/>
-    <rect x="266" y="54" width="64" height="34" rx="12" fill="#f2b6a0" stroke="#3a342c" stroke-width="1.5"/>
-    <path d="M134 71 L168 71 M232 71 L266 71" fill="none" stroke="#3a342c" stroke-width="1.8"/>
-    <text x="82" y="76" fill="#2f2a24" font-size="12">起点</text>
-    <text x="180" y="76" fill="#2f2a24" font-size="12">中段</text>
-    <text x="278" y="76" fill="#2f2a24" font-size="12">输出</text>
+  <g transform="translate(421 488)">
+    <rect width="338" height="150" rx="18" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
+    <text x="18" y="31" fill="#2f2a24" font-size="17" font-weight="700">8. 学习桥图</text>
+    <rect x="32" y="70" width="66" height="36" rx="10" fill="#bfd7ea" stroke="#3a342c" stroke-width="1.4"/>
+    <rect x="124" y="62" width="76" height="52" rx="12" fill="#d8eac8" stroke="#3a342c" stroke-width="1.4"/>
+    <rect x="226" y="70" width="66" height="36" rx="10" fill="#f2b6a0" stroke="#3a342c" stroke-width="1.4"/>
+    <line x1="98" y1="88" x2="124" y2="88" stroke="#3a342c" stroke-width="1.6"/>
+    <line x1="200" y1="88" x2="226" y2="88" stroke="#3a342c" stroke-width="1.6"/>
+    <text x="65" y="93" fill="#2f2a24" font-size="11" text-anchor="middle">已会</text>
+    <text x="162" y="82" fill="#2f2a24" font-size="11" text-anchor="middle">缺口</text>
+    <text x="162" y="99" fill="#2f2a24" font-size="11" text-anchor="middle">任务</text>
+    <text x="259" y="93" fill="#2f2a24" font-size="11" text-anchor="middle">输出</text>
   </g>
 
-  <g transform="translate(50 685)">
-    <rect width="420" height="90" rx="16" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
-    <text x="20" y="30" fill="#2f2a24" font-size="17" font-weight="700">证据风险图</text>
-    <rect x="70" y="50" width="56" height="24" rx="8" fill="#d8eac8" stroke="#3a342c" stroke-width="1.3"/>
-    <rect x="144" y="50" width="56" height="24" rx="8" fill="#f2e7c9" stroke="#3a342c" stroke-width="1.3" stroke-dasharray="6 4"/>
-    <rect x="218" y="50" width="56" height="24" rx="8" fill="#efc0b6" stroke="#3a342c" stroke-width="1.3"/>
-    <text x="300" y="60" fill="#5f5548" font-size="13">看判断强弱</text>
-    <text x="300" y="78" fill="#5f5548" font-size="13">和复核点</text>
+  <g transform="translate(786 488)">
+    <rect width="338" height="150" rx="18" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
+    <text x="18" y="31" fill="#2f2a24" font-size="17" font-weight="700">9. 核心图标注</text>
+    <rect x="58" y="62" width="118" height="58" rx="10" fill="#fffaf0" stroke="#3a342c" stroke-width="1.5"/>
+    <path d="M72 104 C96 90,118 74,146 92 S170 104,166 70" fill="none" stroke="#f2b6a0" stroke-width="3"/>
+    <line x1="176" y1="72" x2="236" y2="54" stroke="#5f5548" stroke-width="1.3" stroke-dasharray="5 4"/>
+    <line x1="136" y1="92" x2="236" y2="92" stroke="#5f5548" stroke-width="1.3" stroke-dasharray="5 4"/>
+    <text x="246" y="58" fill="#5f5548" font-size="13">先读坐标</text>
+    <text x="246" y="96" fill="#5f5548" font-size="13">再读趋势</text>
   </g>
 
-  <g transform="translate(510 685)">
-    <rect width="420" height="90" rx="16" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
-    <text x="20" y="30" fill="#2f2a24" font-size="17" font-weight="700">覆盖 / 空白图</text>
-    <rect x="76" y="46" width="64" height="30" rx="10" fill="#bfd7ea" stroke="#3a342c" stroke-width="1.4"/>
-    <rect x="156" y="46" width="64" height="30" rx="10" fill="#d8eac8" stroke="#3a342c" stroke-width="1.4"/>
-    <rect x="236" y="46" width="64" height="30" rx="10" fill="#fffaf0" stroke="#5f5548" stroke-width="1.4" stroke-dasharray="6 4"/>
-    <text x="322" y="58" fill="#5f5548" font-size="13">看已有证据</text>
-    <text x="322" y="76" fill="#5f5548" font-size="13">和缺口</text>
+  <g transform="translate(56 666)">
+    <rect width="338" height="126" rx="18" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
+    <text x="18" y="31" fill="#2f2a24" font-size="17" font-weight="700">10. 证据边界图</text>
+    <rect x="48" y="60" width="78" height="34" rx="10" fill="#f2e7c9" stroke="#3a342c" stroke-width="1.4"/>
+    <rect x="168" y="48" width="68" height="26" rx="9" fill="#d8eac8" stroke="#3a342c" stroke-width="1.3"/>
+    <rect x="168" y="84" width="68" height="26" rx="9" fill="#f2b6a0" stroke="#3a342c" stroke-width="1.3" stroke-dasharray="6 4"/>
+    <line x1="126" y1="77" x2="168" y2="61" stroke="#5f5548" stroke-width="1.3"/>
+    <line x1="126" y1="77" x2="168" y2="97" stroke="#5f5548" stroke-width="1.3" stroke-dasharray="6 4"/>
+    <text x="270" y="68" fill="#5f5548" font-size="13">看结论</text>
+    <text x="270" y="88" fill="#5f5548" font-size="13">靠不靠谱</text>
+  </g>
+
+  <g transform="translate(421 666)">
+    <rect width="338" height="126" rx="18" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
+    <text x="18" y="31" fill="#2f2a24" font-size="17" font-weight="700">11. 覆盖缺口图</text>
+    <rect x="52" y="54" width="164" height="56" rx="8" fill="#fffaf0" stroke="#3a342c" stroke-width="1.4"/>
+    <line x1="52" y1="82" x2="216" y2="82" stroke="#3a342c" stroke-width="1.1"/>
+    <line x1="106" y1="54" x2="106" y2="110" stroke="#3a342c" stroke-width="1.1"/>
+    <line x1="160" y1="54" x2="160" y2="110" stroke="#3a342c" stroke-width="1.1"/>
+    <rect x="66" y="64" width="26" height="10" rx="5" fill="#bfd7ea"/>
+    <rect x="120" y="92" width="26" height="10" rx="5" fill="#d8eac8"/>
+    <rect x="174" y="92" width="26" height="10" rx="5" fill="#fffaf0" stroke="#5f5548" stroke-dasharray="5 4"/>
+    <text x="244" y="68" fill="#5f5548" font-size="13">看资料篮子</text>
+    <text x="244" y="88" fill="#5f5548" font-size="13">哪里还缺</text>
+  </g>
+
+  <g transform="translate(786 666)">
+    <rect width="338" height="126" rx="18" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
+    <text x="18" y="31" fill="#2f2a24" font-size="17" font-weight="700">12. 阅读决策图</text>
+    <path d="M72 64 L132 64 L132 92 L190 92" fill="none" stroke="#3a342c" stroke-width="1.6"/>
+    <path d="M132 64 L132 38 L190 38" fill="none" stroke="#3a342c" stroke-width="1.6" stroke-dasharray="6 4"/>
+    <rect x="38" y="50" width="68" height="28" rx="9" fill="#bfd7ea" stroke="#3a342c" stroke-width="1.3"/>
+    <rect x="190" y="24" width="74" height="28" rx="9" fill="#d8eac8" stroke="#3a342c" stroke-width="1.3"/>
+    <rect x="190" y="78" width="74" height="28" rx="9" fill="#f2b6a0" stroke="#3a342c" stroke-width="1.3"/>
+    <text x="286" y="58" fill="#5f5548" font-size="13">按理解状态</text>
+    <text x="286" y="78" fill="#5f5548" font-size="13">选择下一步</text>
   </g>
 </svg>
