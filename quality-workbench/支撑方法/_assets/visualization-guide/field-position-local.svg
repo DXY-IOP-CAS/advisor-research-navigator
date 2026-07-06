@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="360" viewBox="0 0 920 360" role="img" aria-labelledby="title desc">
+  <title id="title">领域定位类图形局部示意</title>
+  <desc id="desc">展示领域地形图、层级收束图和二维定位图的区别。</desc>
+  <style>
+    text{font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#24303d}
+    .panel{fill:#fbfaf7;stroke:#d7d0c3;stroke-width:1.5}
+    .title{font-size:18px;font-weight:700}
+    .small{font-size:13px}
+    .note{font-size:12px;fill:#58636f}
+    .area{fill:#e8edf4;stroke:#8aa0b7;stroke-width:2}
+    .near{fill:#f5e6cf;stroke:#c89b5e;stroke-width:1.8}
+    .target{fill:#d95243;stroke:#963529;stroke-width:2.2}
+    .weak{fill:none;stroke:#8c98a6;stroke-width:1.6;stroke-dasharray:5 5}
+    .axis{stroke:#607080;stroke-width:2}
+    .grid{stroke:#d8dee5;stroke-width:1}
+  </style>
+
+  <rect class="panel" x="18" y="18" width="280" height="324" rx="18"/>
+  <text class="title" x="158" y="48" text-anchor="middle">领域地形图</text>
+  <path class="area" d="M70 112 C70 72 125 74 150 90 C180 63 244 88 242 142 C278 167 257 240 202 236 C180 275 110 260 112 222 C62 222 43 160 70 112 Z"/>
+  <circle class="near" cx="126" cy="145" r="42"/>
+  <circle class="near" cx="190" cy="148" r="30"/>
+  <circle class="target" cx="150" cy="188" r="26"/>
+  <ellipse class="weak" cx="198" cy="205" rx="36" ry="24"/>
+  <text class="small" x="150" y="193" text-anchor="middle" fill="#fff">当前方向</text>
+  <text class="note" x="88" y="117">相邻板块</text>
+  <text class="note" x="206" y="128">旁支</text>
+  <text class="note" x="188" y="252">弱线索区</text>
+  <text class="note" x="48" y="304">用来给学生范围感、相邻感和粗略大小感。</text>
+
+  <rect class="panel" x="320" y="18" width="280" height="324" rx="18"/>
+  <text class="title" x="460" y="48" text-anchor="middle">层级收束图</text>
+  <rect x="375" y="82" width="170" height="46" rx="12" fill="#e8edf4" stroke="#8aa0b7" stroke-width="2"/>
+  <rect x="395" y="153" width="130" height="46" rx="12" fill="#f5e6cf" stroke="#c89b5e" stroke-width="2"/>
+  <rect x="412" y="224" width="96" height="46" rx="12" fill="#d95243" stroke="#963529" stroke-width="2"/>
+  <path d="M460 128 L460 153 M460 199 L460 224" stroke="#607080" stroke-width="2" marker-end="url(#arrow)"/>
+  <text class="small" x="460" y="111" text-anchor="middle">大领域</text>
+  <text class="small" x="460" y="182" text-anchor="middle">子领域</text>
+  <text class="small" x="460" y="253" text-anchor="middle" fill="#fff">问题域</text>
+  <text class="note" x="352" y="304">用来说明上下位关系，不负责表达比例。</text>
+
+  <rect class="panel" x="622" y="18" width="280" height="324" rx="18"/>
+  <text class="title" x="762" y="48" text-anchor="middle">二维定位图</text>
+  <line class="grid" x1="680" y1="210" x2="850" y2="210"/>
+  <line class="grid" x1="765" y1="90" x2="765" y2="270"/>
+  <line class="axis" x1="680" y1="270" x2="850" y2="270" marker-end="url(#arrow)"/>
+  <line class="axis" x1="680" y1="270" x2="680" y2="90" marker-end="url(#arrow)"/>
+  <text class="note" x="846" y="292" text-anchor="end">实验平台强</text>
+  <text class="note" x="646" y="102" transform="rotate(-90 646 102)">理论抽象强</text>
+  <circle cx="750" cy="178" r="15" fill="#d95243" stroke="#963529" stroke-width="2"/>
+  <text class="small" x="768" y="166">导师方向</text>
+  <circle cx="815" cy="232" r="10" fill="#f5e6cf" stroke="#c89b5e" stroke-width="2"/>
+  <circle cx="715" cy="122" r="10" fill="#e8edf4" stroke="#8aa0b7" stroke-width="2"/>
+  <text class="note" x="654" y="304">用来说明两个维度共同决定位置。</text>
+
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6.5" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#607080"/>
+    </marker>
+  </defs>
+</svg>

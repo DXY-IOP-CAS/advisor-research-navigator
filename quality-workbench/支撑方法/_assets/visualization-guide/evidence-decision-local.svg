@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="360" viewBox="0 0 920 360" role="img" aria-labelledby="title desc">
+  <title id="title">证据与决策类图形局部示意</title>
+  <desc id="desc">展示证据边界图、覆盖缺口图和阅读决策图的区别。</desc>
+  <style>
+    text{font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif;fill:#24303d}
+    .panel{fill:#fbfaf7;stroke:#d7d0c3;stroke-width:1.5}
+    .title{font-size:18px;font-weight:700}
+    .small{font-size:13px}
+    .note{font-size:12px;fill:#58636f}
+    .main{fill:#d95243;stroke:#963529;stroke-width:2}
+    .mid{fill:#f5e6cf;stroke:#c89b5e;stroke-width:1.8}
+    .blue{fill:#e8edf4;stroke:#8aa0b7;stroke-width:1.8}
+    .ok{fill:#dfeedd;stroke:#7aa874;stroke-width:1.8}
+    .empty{fill:#fff;stroke:#d5d9df;stroke-width:1.2}
+    .line{stroke:#607080;stroke-width:2;fill:none}
+    .weak{stroke:#8c98a6;stroke-width:1.6;stroke-dasharray:5 5;fill:none}
+  </style>
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6.5" refY="4" orient="auto">
+      <path d="M0,0 L8,4 L0,8 Z" fill="#607080"/>
+    </marker>
+  </defs>
+
+  <rect class="panel" x="18" y="18" width="280" height="324" rx="18"/>
+  <text class="title" x="158" y="48" text-anchor="middle">证据边界图</text>
+  <rect class="main" x="82" y="90" width="154" height="44" rx="14"/>
+  <text class="small" x="159" y="117" text-anchor="middle" fill="#fff">正文判断</text>
+  <rect class="ok" x="52" y="182" width="82" height="38" rx="12"/>
+  <rect class="blue" x="148" y="182" width="82" height="38" rx="12"/>
+  <rect class="mid" x="101" y="244" width="116" height="38" rx="12"/>
+  <path class="line" d="M118 134 L94 182" marker-end="url(#arrow)"/>
+  <path class="line" d="M176 134 L188 182" marker-end="url(#arrow)"/>
+  <path class="weak" d="M158 134 L158 244" marker-end="url(#arrow)"/>
+  <text class="small" x="93" y="206" text-anchor="middle">官网</text>
+  <text class="small" x="189" y="206" text-anchor="middle">论文</text>
+  <text class="small" x="159" y="268" text-anchor="middle">弱线索</text>
+  <text class="note" x="48" y="304">检查某条判断靠什么支撑、强到哪里。</text>
+
+  <rect class="panel" x="320" y="18" width="280" height="324" rx="18"/>
+  <text class="title" x="460" y="48" text-anchor="middle">覆盖缺口图</text>
+  <g>
+    <rect class="ok" x="376" y="88" width="52" height="38" rx="8"/>
+    <rect class="ok" x="438" y="88" width="52" height="38" rx="8"/>
+    <rect class="empty" x="500" y="88" width="52" height="38" rx="8"/>
+    <rect class="ok" x="376" y="142" width="52" height="38" rx="8"/>
+    <rect class="empty" x="438" y="142" width="52" height="38" rx="8"/>
+    <rect class="empty" x="500" y="142" width="52" height="38" rx="8"/>
+    <rect class="ok" x="376" y="196" width="52" height="38" rx="8"/>
+    <rect class="mid" x="438" y="196" width="52" height="38" rx="8"/>
+    <rect class="empty" x="500" y="196" width="52" height="38" rx="8"/>
+  </g>
+  <text class="note" x="395" y="72">身份</text>
+  <text class="note" x="450" y="72">论文</text>
+  <text class="note" x="506" y="72">领域</text>
+  <text class="note" x="338" y="112">官网</text>
+  <text class="note" x="338" y="166">数据库</text>
+  <text class="note" x="338" y="220">综述</text>
+  <text class="note" x="352" y="304">检查资料篮子哪里空，不检查单条判断强弱。</text>
+
+  <rect class="panel" x="622" y="18" width="280" height="324" rx="18"/>
+  <text class="title" x="762" y="48" text-anchor="middle">阅读决策图</text>
+  <rect class="blue" x="686" y="84" width="150" height="40" rx="14"/>
+  <text class="small" x="761" y="109" text-anchor="middle">能复述主线吗</text>
+  <rect class="ok" x="650" y="176" width="96" height="40" rx="14"/>
+  <rect class="mid" x="778" y="176" width="96" height="40" rx="14"/>
+  <rect class="main" x="714" y="250" width="96" height="40" rx="14"/>
+  <path class="line" d="M738 124 L708 176" marker-end="url(#arrow)"/>
+  <path class="line" d="M784 124 L820 176" marker-end="url(#arrow)"/>
+  <path class="line" d="M698 216 C708 236 724 246 740 250" marker-end="url(#arrow)"/>
+  <path class="line" d="M826 216 C814 236 792 246 784 250" marker-end="url(#arrow)"/>
+  <text class="note" x="700" y="164" text-anchor="middle">能</text>
+  <text class="note" x="828" y="164" text-anchor="middle">不能</text>
+  <text class="small" x="698" y="201" text-anchor="middle">读下一份</text>
+  <text class="small" x="826" y="201" text-anchor="middle">回看定位</text>
+  <text class="small" x="762" y="275" text-anchor="middle" fill="#fff">留下问题</text>
+  <text class="note" x="652" y="304">帮助读者决定继续、回看还是记录卡点。</text>
+</svg>
