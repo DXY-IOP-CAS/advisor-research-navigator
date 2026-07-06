@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="470" viewBox="0 0 1080 470" role="img" aria-label="总览图与局部图接力" font-family="Microsoft YaHei, Noto Sans CJK SC, PingFang SC, sans-serif">
+  <rect x="22" y="22" width="1036" height="426" rx="24" fill="#fffaf0" stroke="#3a342c" stroke-width="2.4"/>
+  <text x="54" y="66" fill="#2f2a24" font-size="24" font-weight="700">总览图与局部图接力：不要让读者翻页后全靠记忆</text>
+  <text x="54" y="96" fill="#5f5548" font-size="14">总览图建立地图，局部图在具体段落里解释具体关系。</text>
+
+  <g transform="translate(78 140)">
+    <rect width="260" height="218" rx="18" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
+    <text x="24" y="38" fill="#2f2a24" font-size="18" font-weight="700">总览图</text>
+    <circle cx="92" cy="112" r="42" fill="#bfd7ea" fill-opacity=".76" stroke="#3a342c" stroke-width="1.5"/>
+    <circle cx="154" cy="112" r="34" fill="#d8eac8" fill-opacity=".76" stroke="#3a342c" stroke-width="1.5"/>
+    <circle cx="126" cy="106" r="18" fill="#f2b6a0" fill-opacity=".86" stroke="#3a342c" stroke-width="1.5"/>
+    <text x="52" y="174" fill="#5f5548" font-size="13">作用：先知道地图长什么样</text>
+  </g>
+
+  <path d="M348 248 L424 248" stroke="#3a342c" stroke-width="2.1"/>
+  <path d="M424 248 l-10 -7 v14 z" fill="#3a342c"/>
+
+  <g transform="translate(438 140)">
+    <rect width="260" height="218" rx="18" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
+    <text x="24" y="38" fill="#2f2a24" font-size="18" font-weight="700">局部图</text>
+    <rect x="46" y="76" width="78" height="42" rx="12" fill="#bfd7ea" stroke="#3a342c" stroke-width="1.4"/>
+    <rect x="146" y="76" width="78" height="42" rx="12" fill="#f2b6a0" stroke="#3a342c" stroke-width="1.4"/>
+    <path d="M124 97 L146 97" stroke="#3a342c" stroke-width="1.6"/>
+    <text x="52" y="150" fill="#5f5548" font-size="13">作用：解释当前段落的关系</text>
+    <text x="52" y="174" fill="#5f5548" font-size="13">让读者不必回忆总览图</text>
+  </g>
+
+  <path d="M708 248 L784 248" stroke="#3a342c" stroke-width="2.1"/>
+  <path d="M784 248 l-10 -7 v14 z" fill="#3a342c"/>
+
+  <g transform="translate(798 140)">
+    <rect width="204" height="218" rx="18" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
+    <text x="24" y="38" fill="#2f2a24" font-size="18" font-weight="700">读者输出</text>
+    <rect x="38" y="78" width="128" height="34" rx="10" fill="#d8eac8" stroke="#3a342c" stroke-width="1.4"/>
+    <rect x="38" y="128" width="128" height="34" rx="10" fill="#f2e7c9" stroke="#3a342c" stroke-width="1.4"/>
+    <text x="60" y="100" fill="#2f2a24" font-size="12">一句复述</text>
+    <text x="60" y="150" fill="#2f2a24" font-size="12">一个判断</text>
+    <text x="36" y="190" fill="#5f5548" font-size="13">图要导向可检查结果</text>
+  </g>
+</svg>

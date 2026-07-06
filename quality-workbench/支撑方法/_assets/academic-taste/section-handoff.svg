@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="460" viewBox="0 0 1040 460" role="img" aria-label="章节接力模型" font-family="Microsoft YaHei, Noto Sans CJK SC, PingFang SC, sans-serif">
+  <rect x="22" y="22" width="996" height="416" rx="24" fill="#fffaf0" stroke="#3a342c" stroke-width="2.4"/>
+  <text x="54" y="66" fill="#2f2a24" font-size="24" font-weight="700">章节接力模型：每节都要把读者交给下一节</text>
+  <text x="54" y="96" fill="#5f5548" font-size="14">章节不是并列展柜。上一节产出的判断，应该成为下一节的入口。</text>
+
+  <g transform="translate(76 146)">
+    <rect width="160" height="156" rx="18" fill="#bfd7ea" fill-opacity=".76" stroke="#3a342c" stroke-width="1.8"/>
+    <text x="26" y="38" fill="#2f2a24" font-size="17" font-weight="700">入口</text>
+    <text x="26" y="72" fill="#5f5548" font-size="13">承接上一节</text>
+    <text x="26" y="94" fill="#5f5548" font-size="13">交给读者的东西</text>
+  </g>
+  <path d="M246 224 L306 224" stroke="#3a342c" stroke-width="2"/>
+  <path d="M306 224 l-9 -6 v12 z" fill="#3a342c"/>
+
+  <g transform="translate(316 146)">
+    <rect width="160" height="156" rx="18" fill="#d8eac8" stroke="#3a342c" stroke-width="1.8"/>
+    <text x="26" y="38" fill="#2f2a24" font-size="17" font-weight="700">推进</text>
+    <text x="26" y="72" fill="#5f5548" font-size="13">让读者完成</text>
+    <text x="26" y="94" fill="#5f5548" font-size="13">一个新的理解动作</text>
+  </g>
+  <path d="M486 224 L546 224" stroke="#3a342c" stroke-width="2"/>
+  <path d="M546 224 l-9 -6 v12 z" fill="#3a342c"/>
+
+  <g transform="translate(556 146)">
+    <rect width="160" height="156" rx="18" fill="#f2e7c9" stroke="#3a342c" stroke-width="1.8"/>
+    <text x="26" y="38" fill="#2f2a24" font-size="17" font-weight="700">局部支撑</text>
+    <text x="26" y="72" fill="#5f5548" font-size="13">图、表、例子</text>
+    <text x="26" y="94" fill="#5f5548" font-size="13">或证据边界</text>
+  </g>
+  <path d="M726 224 L786 224" stroke="#3a342c" stroke-width="2"/>
+  <path d="M786 224 l-9 -6 v12 z" fill="#3a342c"/>
+
+  <g transform="translate(796 146)">
+    <rect width="160" height="156" rx="18" fill="#f2b6a0" fill-opacity=".84" stroke="#3a342c" stroke-width="1.8"/>
+    <text x="26" y="38" fill="#2f2a24" font-size="17" font-weight="700">出口</text>
+    <text x="26" y="72" fill="#5f5548" font-size="13">产出一句判断</text>
+    <text x="26" y="94" fill="#5f5548" font-size="13">或一个下一步问题</text>
+  </g>
+
+  <path d="M872 314 C780 384,280 384,154 314" fill="none" stroke="#5f5548" stroke-width="1.8" stroke-dasharray="8 6"/>
+  <text x="398" y="386" fill="#5f5548" font-size="14">回看检查：出口能否反过来解释本节存在的理由</text>
+</svg>
