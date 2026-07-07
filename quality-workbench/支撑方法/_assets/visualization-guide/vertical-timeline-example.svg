@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="340" viewBox="0 0 720 340" role="img" aria-label="时间演化图示例" font-family="Microsoft YaHei, Noto Sans CJK SC, PingFang SC, sans-serif">
+  <defs><style>.bg{fill:#fffaf0;stroke:#3a342c;stroke-width:2.2}.title{fill:#2f2a24;font-size:22px;font-weight:700}.note{fill:#5f5548;font-size:13px}.line{stroke:#3a342c;stroke-width:2}.box{stroke:#3a342c;stroke-width:1.6}.label{fill:#2f2a24;font-size:15px;font-weight:700}.small{fill:#5f5548;font-size:12px}</style></defs>
+  <rect x="20" y="20" width="680" height="300" rx="22" class="bg"/>
+  <text x="48" y="62" class="title">时间 / 演化图：看阶段变化，不拉成长横线</text>
+  <text x="48" y="88" class="note">Markdown 和 PDF 里优先竖向，减少缩放后看不清的问题。</text>
+  <line x1="164" y1="120" x2="164" y2="280" class="line"/>
+  <circle cx="164" cy="132" r="10" fill="#bfd7ea" stroke="#3a342c" stroke-width="1.5"/><rect x="196" y="112" width="360" height="40" rx="12" fill="#bfd7ea" fill-opacity=".6" class="box"/><text x="220" y="137" class="label">早期阶段：训练方法和对象</text>
+  <circle cx="164" cy="190" r="10" fill="#d8eac8" stroke="#3a342c" stroke-width="1.5"/><rect x="196" y="170" width="360" height="40" rx="12" fill="#d8eac8" fill-opacity=".72" class="box"/><text x="220" y="195" class="label">转折阶段：平台或问题变化</text>
+  <circle cx="164" cy="248" r="10" fill="#f2b6a0" stroke="#3a342c" stroke-width="1.5"/><rect x="196" y="228" width="360" height="40" rx="12" fill="#f2b6a0" fill-opacity=".82" class="box"/><text x="220" y="253" class="label">当前阶段：后续材料重点</text>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="340" viewBox="0 0 720 340" role="img" aria-label="覆盖缺口图示例" font-family="Microsoft YaHei, Noto Sans CJK SC, PingFang SC, sans-serif">
+  <defs><style>.bg{fill:#fffaf0;stroke:#3a342c;stroke-width:2.2}.title{fill:#2f2a24;font-size:22px;font-weight:700}.note{fill:#5f5548;font-size:13px}.box{stroke:#3a342c;stroke-width:1.6}.label{fill:#2f2a24;font-size:14px;font-weight:700}.small{fill:#5f5548;font-size:12px}</style></defs>
+  <rect x="20" y="20" width="680" height="300" rx="22" class="bg"/>
+  <text x="48" y="62" class="title">覆盖缺口图：看资料篮哪里还空</text>
+  <text x="48" y="88" class="note">它多用于内部审查或文末核查，不打断正文主线。</text>
+  <g transform="translate(90 126)">
+    <rect x="0" y="0" width="120" height="76" rx="16" fill="#bfd7ea" class="box"/><text x="60" y="34" class="label" text-anchor="middle">官网</text><text x="60" y="56" class="small" text-anchor="middle">已覆盖</text>
+    <rect x="140" y="0" width="120" height="76" rx="16" fill="#d8eac8" class="box"/><text x="200" y="34" class="label" text-anchor="middle">论文库</text><text x="200" y="56" class="small" text-anchor="middle">已覆盖</text>
+    <rect x="280" y="0" width="120" height="76" rx="16" fill="#f2e7c9" class="box"/><text x="340" y="34" class="label" text-anchor="middle">综述</text><text x="340" y="56" class="small" text-anchor="middle">待补强</text>
+    <rect x="420" y="0" width="120" height="76" rx="16" fill="#f8f3e8" class="box" stroke-dasharray="7 5"/><text x="480" y="34" class="label" text-anchor="middle">课程</text><text x="480" y="56" class="small" text-anchor="middle">缺口</text>
+  </g>
+  <text x="105" y="244" class="small">读法：先看哪些判断已有来源，再看哪些判断只能标弱线索或需人工复核。</text>
+</svg>
