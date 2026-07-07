@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="360" viewBox="0 0 760 360" role="img" aria-label="证据边界卡示意" font-family="Microsoft YaHei, Noto Sans CJK SC, PingFang SC, sans-serif">
+  <rect x="24" y="24" width="712" height="312" rx="24" fill="#fffaf0" stroke="#3a342c" stroke-width="2.2"/>
+  <text x="52" y="66" fill="#2f2a24" font-size="23" font-weight="700">证据边界卡：放在判断旁边，不画成网络</text>
+  <text x="52" y="96" fill="#5f5548" font-size="13">读法：先看正文判断，再看它靠哪些来源、强到什么程度、哪里要复核。</text>
+  <rect x="70" y="128" width="280" height="130" rx="18" fill="#f2e7c9" stroke="#3a342c" stroke-width="1.8"/>
+  <text x="94" y="166" fill="#2f2a24" font-size="17" font-weight="700">正文判断</text>
+  <text x="94" y="196" fill="#2f2a24" font-size="14">导师当前方向可先放在</text>
+  <text x="94" y="220" fill="#2f2a24" font-size="14">某大领域的某问题域阅读。</text>
+  <rect x="400" y="128" width="280" height="130" rx="18" fill="#f8f3e8" stroke="#3a342c" stroke-width="1.8"/>
+  <text x="424" y="160" fill="#2f2a24" font-size="16" font-weight="700">证据边界</text>
+  <circle cx="434" cy="190" r="6" fill="#bfd7ea"/><text x="450" y="195" fill="#2f2a24" font-size="13">官网方向：直接证据</text>
+  <circle cx="434" cy="218" r="6" fill="#d8eac8"/><text x="450" y="223" fill="#2f2a24" font-size="13">近期论文：交叉证据</text>
+  <circle cx="434" cy="246" r="6" fill="#f2b6a0"/><text x="450" y="251" fill="#2f2a24" font-size="13">新闻讲座：弱线索</text>
+  <path d="M356 193 L394 193" stroke="#3a342c" stroke-width="2"/>
+  <path d="M394 193 l-9 -6 v12 z" fill="#3a342c"/>
+  <text x="86" y="296" fill="#5f5548" font-size="13">这张卡服务“可靠性判断”，不服务论文内容分工。</text>
+</svg>
