@@ -1,4 +1,4 @@
-# QUICKSTART - 导师研究方向调研工具
+# QUICKSTART - advisor-research-navigator
 
 ## 一句话
 
@@ -22,7 +22,7 @@
 ## 项目结构
 
 ```text
-pilot-test/
+advisor-research-navigator/
 ├── src/phase1/                         # 阶段 1 Python 脚本
 │   ├── phase1_init.py                  # 新导师目录初始化，写 _internal/latest.txt 和 seed.json
 │   ├── pipeline.md                     # 阶段 1 技术执行文档

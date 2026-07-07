@@ -1,8 +1,8 @@
-# pilot-test AGENTS.md
+# advisor-research-navigator AGENTS.md
 
 ## 一句话
 
-导师研究方向调研工具。用户输入 `姓名 + 机构路径 + 官网 URL`，主路径是 `Fact Pack -> Cognitive Blueprint -> 00-04 成品 -> 验证/自审 -> 回归与瘦身`。当前 V2 重心是先把 `quality-workbench/支撑方法/` 重构成能真正指导 `00-04` 的方法，再反修 M0 总方法，随后调整 `文档标准/`、真实样本、skill、verifier 和 harness。新窗口先读 `QUICKSTART.md` 和 `docs/上下文交接.md`；阶段 1 技术细节见 `src/phase1/pipeline.md`。当前文档设计以 `quality-workbench/README.md` 为入口，`docs/计划书.md` 只作历史设计参考。
+`advisor-research-navigator` 是导师研究方向调研工具。用户输入 `姓名 + 机构路径 + 官网 URL`，主路径是 `Fact Pack -> Cognitive Blueprint -> 00-04 成品 -> 验证/自审 -> 回归与瘦身`。当前 V2 重心是先把 `quality-workbench/支撑方法/` 重构成能真正指导 `00-04` 的方法，再反修 M0 总方法，随后调整 `文档标准/`、真实样本、skill、verifier 和 harness。新窗口先读 `QUICKSTART.md` 和 `docs/上下文交接.md`；阶段 1 技术细节见 `src/phase1/pipeline.md`。当前文档设计以 `quality-workbench/README.md` 为入口，`docs/计划书.md` 只作历史设计参考。
 
 ## 目录角色
 

@@ -1,4 +1,4 @@
-# pilot-test CLAUDE.md
+# advisor-research-navigator CLAUDE.md
 
 本文件只为 Claude Code 兼容保留。AGENTS.md 是当前项目规则的单一事实源。
 
