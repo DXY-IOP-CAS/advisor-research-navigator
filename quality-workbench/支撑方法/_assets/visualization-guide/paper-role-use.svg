@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="380" viewBox="0 0 920 380" role="img" aria-label="论文角色结构图用法" font-family="Microsoft YaHei, Noto Sans CJK SC, PingFang SC, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L9,4 L0,8 Z" fill="#31363b"/></marker>
+    <style>.title{font-size:21px;font-weight:700;fill:#222426}.note{font-size:13px;fill:#5f6670}.head{font-size:15px;font-weight:700;fill:#222426}.label{font-size:13px;fill:#343a40}.small{font-size:12px;fill:#5f6670}.box{stroke:#30343a;stroke-width:1.6}.soft{stroke:#9aa0a6;stroke-width:1.2}.line{stroke:#31363b;stroke-width:2;fill:none;marker-end:url(#arrow)}.weak{stroke:#6f7780;stroke-width:1.7;fill:none;stroke-dasharray:7 5;marker-end:url(#arrow)}</style>
+  </defs>
+  <rect x="16" y="16" width="888" height="348" rx="16" fill="#fbfaf7" stroke="#30343a" stroke-width="2"/>
+  <text x="38" y="50" class="title">论文角色：先读论文做角色表，关系足够复杂时才画结构图</text>
+  <text x="38" y="75" class="note">用法：02 只给阅读假设；03 必须回到论文内容。每条线都要能回源。</text>
+
+  <g transform="translate(40 104)">
+    <rect x="0" y="0" width="280" height="190" rx="10" fill="#ffffff" class="box"/>
+    <text x="18" y="28" class="head">先做角色表</text>
+    <text x="18" y="52" class="small">题名、摘要、方法、对象、图表、互引</text>
+    <line x1="18" y1="72" x2="262" y2="72" class="soft"/>
+    <text x="20" y="94" class="small">P1</text><text x="62" y="94" class="small">入口</text><text x="116" y="94" class="small">提出问题</text><text x="198" y="94" class="small">强</text>
+    <text x="20" y="122" class="small">P2</text><text x="62" y="122" class="small">方法</text><text x="116" y="122" class="small">给出工具</text><text x="198" y="122" class="small">强</text>
+    <text x="20" y="150" class="small">P3</text><text x="62" y="150" class="small">目标</text><text x="116" y="150" class="small">验证对象</text><text x="198" y="150" class="small">强</text>
+    <text x="20" y="178" class="small">P4</text><text x="62" y="178" class="small">旁支</text><text x="116" y="178" class="small">相邻线索</text><text x="198" y="178" class="small">弱</text>
+  </g>
+
+  <path class="line" d="M342 198 L394 198"/>
+
+  <g transform="translate(414 96)">
+    <rect x="0" y="0" width="448" height="206" rx="10" fill="#ffffff" class="box"/>
+    <text x="18" y="30" class="head">升级后的最小结构图</text>
+    <rect x="154" y="76" width="140" height="48" rx="8" fill="#f6e7c6" class="box"/>
+    <text x="184" y="105" class="label">共同问题</text>
+    <rect x="18" y="48" width="98" height="38" rx="7" fill="#dce9f6" class="box"/><text x="38" y="72" class="small">入口论文</text>
+    <rect x="24" y="140" width="98" height="38" rx="7" fill="#d9ead3" class="box"/><text x="44" y="164" class="small">方法论文</text>
+    <rect x="328" y="48" width="98" height="38" rx="7" fill="#f1d4cf" class="box"/><text x="348" y="72" class="small">目标论文</text>
+    <rect x="326" y="140" width="98" height="38" rx="7" fill="#ffffff" stroke="#6f7780" stroke-width="1.6" stroke-dasharray="7 5"/><text x="346" y="164" class="small">旁支线索</text>
+    <path class="line" d="M116 68 L148 90"/><text x="111" y="54" class="small">提出问题</text>
+    <path class="line" d="M122 158 L150 116"/><text x="76" y="138" class="small">提供方法</text>
+    <path class="line" d="M294 92 L322 70"/><text x="308" y="104" class="small">验证对象</text>
+    <path class="weak" d="M294 116 L320 154"/><text x="300" y="134" class="small">需复核</text>
+    <text x="18" y="196" class="small">线条必须写语义：提出问题、提供方法、支撑平台、验证对象、延伸旁支。</text>
+  </g>
+
+  <text x="38" y="334" class="note">审稿问题：每条线能否回到摘要、方法、图表、互引或正文证据？不能回源就删线或改成弱线索。</text>
+</svg>
