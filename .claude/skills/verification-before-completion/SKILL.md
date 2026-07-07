@@ -1,139 +1,102 @@
 ---
 name: verification-before-completion
-description: Use when about to claim work is complete, fixed, or passing, before committing or creating PRs - requires running verification commands and confirming output before making any success claims; evidence before assertions always
+description: "Use before claiming work is complete, fixed, improved, committed, or ready for review. Requires fresh verification evidence, diff/status inspection, and explicit residual-risk reporting. Applies to docs, skills, advisor deliverables, code, verifier, harness, commits, and PRs."
 ---
 
 # Verification Before Completion
 
-## Overview
+Evidence comes before completion claims. Do not say work is complete, fixed, passing, improved, or committed until fresh checks support that exact claim.
 
-Claiming work is complete without verification is dishonesty, not efficiency.
+## Gate
 
-**Core principle:** Evidence before claims, always.
+Before a completion or success claim:
 
-**Violating the letter of this rule is violating the spirit of this rule.**
+1. Name the claim.
+2. Choose the narrowest command or review that can support it.
+3. Run the check in the current turn.
+4. Read the output and exit code.
+5. Inspect the diff or changed files when files changed.
+6. State what passed and what remains manual or risky.
 
-## The Iron Law
+If no command can prove the claim, say so and report the manual review boundary.
 
-```
-NO COMPLETION CLAIMS WITHOUT FRESH VERIFICATION EVIDENCE
-```
+## Project Check Sets
 
-If you haven't run the verification command in this message, you cannot claim it passes.
+### Workbench And Chinese Docs
 
-## The Gate Function
+Run:
 
-```
-BEFORE claiming any status or expressing satisfaction:
-
-1. IDENTIFY: What command proves this claim?
-2. RUN: Execute the FULL command (fresh, complete)
-3. READ: Full output, check exit code, count failures
-4. VERIFY: Does output confirm the claim?
-   - If NO: State actual status with evidence
-   - If YES: State claim WITH evidence
-5. ONLY THEN: Make the claim
-
-Skip any step = lying, not verifying
+```powershell
+git diff --check -- . ':(exclude)archive/**' ':(exclude)output/**/archive/**'
+rg -n "<project banned wording regex>" "<changed-doc>"
+git status --short
 ```
 
-## Common Failures
+Also inspect the changed document for:
 
-| Claim | Requires | Not Sufficient |
-|-------|----------|----------------|
-| Tests pass | Test command output: 0 failures | Previous run, "should pass" |
-| Linter clean | Linter output: 0 errors | Partial check, extrapolation |
-| Build succeeds | Build command: exit 0 | Linter passing, logs look good |
-| Bug fixed | Test original symptom: passes | Code changed, assumed fixed |
-| Regression test works | Red-green cycle verified | Test passes once |
-| Agent completed | VCS diff shows changes | Agent reports "success" |
-| Requirements met | Line-by-line checklist | Tests passing |
+- reader entry and exit;
+- section handoff;
+- source-to-judgment-to-application chain;
+- evidence boundary;
+- tables, diagrams, and checklists serving a real reader task.
 
-## Red Flags - STOP
+Mechanical checks do not prove academic or teaching quality.
 
-- Using "should", "probably", "seems to"
-- Expressing satisfaction before verification ("Great!", "Perfect!", "Done!", etc.)
-- About to commit/push/PR without verification
-- Trusting agent success reports
-- Relying on partial verification
-- Thinking "just this once"
-- Tired and wanting work over
-- **ANY wording implying success without having run verification**
+### Project Skills
 
-## Rationalization Prevention
+Run:
 
-| Excuse | Reality |
-|--------|---------|
-| "Should work now" | RUN the verification |
-| "I'm confident" | Confidence ≠ evidence |
-| "Just this once" | No exceptions |
-| "Linter passed" | Linter ≠ compiler |
-| "Agent said success" | Verify independently |
-| "I'm tired" | Exhaustion ≠ excuse |
-| "Partial check is enough" | Partial proves nothing |
-| "Different words so rule doesn't apply" | Spirit over letter |
-
-## Key Patterns
-
-**Tests:**
-```
-✅ [Run test command] [See: 34/34 pass] "All tests pass"
-❌ "Should pass now" / "Looks correct"
+```powershell
+git diff --check -- . ':(exclude)archive/**' ':(exclude)output/**/archive/**'
+rg -n "<stale skill placeholder or old superpowers workflow regex>" ".claude/skills"
+git status --short
 ```
 
-**Regression tests (TDD Red-Green):**
-```
-✅ Write → Run (pass) → Revert fix → Run (MUST FAIL) → Restore → Run (pass)
-❌ "I've written a regression test" (without red-green verification)
-```
+Then inspect each changed `SKILL.md` for:
 
-**Build:**
-```
-✅ [Run build] [See: exit 0] "Build passes"
-❌ "Linter passed" (linter doesn't check compilation)
-```
+- valid YAML frontmatter with `name` and `description`;
+- concise body;
+- no stale generic workflow that conflicts with `AGENTS.md`;
+- no unnecessary reference files or extra docs;
+- clear routing for when to load the skill.
 
-**Requirements:**
-```
-✅ Re-read plan → Create checklist → Verify each → Report gaps or completion
-❌ "Tests pass, phase complete"
-```
+### Advisor Deliverables
 
-**Agent delegation:**
-```
-✅ Agent reports success → Check VCS diff → Verify changes → Report actual state
-❌ Trust agent report
+When real `00-04` output changes, run the relevant project verifiers when available:
+
+```powershell
+python .claude/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "<prof_dir>"
+python .claude/skills/research-advisor/scripts/verify_source_metadata.py --prof-dir "<prof_dir>"
+python .claude/skills/research-advisor/scripts/verify_mermaid_render.py --prof-dir "<prof_dir>"
 ```
 
-## Why This Matters
+Only run commands that match the files changed and the available environment. Always state which academic-quality claims still require manual review.
 
-From 24 failure memories:
-- your human partner said "I don't believe you" - trust broken
-- Undefined functions shipped - would crash
-- Missing requirements shipped - incomplete features
-- Time wasted on false completion → redirect → rework
-- Violates: "Honesty is a core value. If you lie, you'll be replaced."
+### Code, Verifier, Harness, Or Tests
 
-## When To Apply
+Run the narrowest meaningful tests, lint, type check, build, or smoke test for the changed area. If TDD applies, verify the red and green states when practical.
 
-**ALWAYS before:**
-- ANY variation of success/completion claims
-- ANY expression of satisfaction
-- ANY positive statement about work state
-- Committing, PR creation, task completion
-- Moving to next task
-- Delegating to agents
+Do not treat doc smoke checks as proof that research judgment is correct.
 
-**Rule applies to:**
-- Exact phrases
-- Paraphrases and synonyms
-- Implications of success
-- ANY communication suggesting completion/correctness
+## Commit Gate
 
-## The Bottom Line
+Before committing:
 
-**No shortcuts for verification.**
+1. Run the relevant check set.
+2. Inspect `git diff --cached --stat` after staging.
+3. Ensure staged files match the intended scope.
+4. Commit only after verification and scope inspection.
+5. Run `git status --short --branch` after commit.
 
-Run the command. Read the output. THEN claim the result.
+## Reporting Shape
 
-This is non-negotiable.
+When closing work, report:
+
+```text
+Changed:
+Verified:
+Not proven by automation:
+Git status / commit:
+```
+
+Do not imply stronger certainty than the evidence supports.
