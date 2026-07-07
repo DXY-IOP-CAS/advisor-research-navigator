@@ -1,6 +1,6 @@
 # Codex 线程索引
 
-本文件只记录对新项目仍有用的旧 Codex 线程线索。原始聊天不迁移进仓库；长期事实必须沉淀到 `AGENTS.md`、`QUICKSTART.md`、`docs/上下文交接.md`、`quality-workbench/`、`.claude/skills/research-advisor/` 或测试里。
+本文件只记录对新项目仍有用的旧 Codex 线程线索。原始聊天不迁移进仓库；长期事实必须沉淀到 `AGENTS.md`、`QUICKSTART.md`、`docs/上下文交接.md`、`quality-workbench/`、`.agents/skills/research-advisor/` 或测试里。
 
 ## 使用边界
 

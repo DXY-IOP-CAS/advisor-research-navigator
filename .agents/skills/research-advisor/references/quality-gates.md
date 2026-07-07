@@ -5,7 +5,7 @@
 运行：
 
 ```bash
-python .claude/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "<prof_dir>"
+python .agents/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "<prof_dir>"
 ```
 
 这个门只检查必需文件、必需标题、来源标记和禁用导师评价语。通过它不等于内容质量合格。
@@ -22,7 +22,7 @@ V2 基线下，这个门还检查：
 有 Mermaid 渲染器时，继续运行图渲染门：
 
 ```bash
-python .claude/skills/research-advisor/scripts/verify_mermaid_render.py --prof-dir "<prof_dir>"
+python .agents/skills/research-advisor/scripts/verify_mermaid_render.py --prof-dir "<prof_dir>"
 ```
 
 这个门会调用本机 `mmdc` 逐个渲染 Mermaid 成 SVG。若文档没有 Mermaid 代码块，渲染门应跳过；若文档有 Mermaid 且本机未安装 `mmdc`，脚本必须明确失败。不得把 `verify_phase_docs.py` 的可视化构件检查误报为“Mermaid 可渲染”。临时环境可以显式加 `--use-npx` 使用 `npx --yes @mermaid-js/mermaid-cli`，但要记录引入原因、运行结果和是否被中断。
@@ -30,7 +30,7 @@ python .claude/skills/research-advisor/scripts/verify_mermaid_render.py --prof-d
 有网络时，继续运行 DOI 元数据门：
 
 ```bash
-python .claude/skills/research-advisor/scripts/verify_source_metadata.py --prof-dir "<prof_dir>"
+python .agents/skills/research-advisor/scripts/verify_source_metadata.py --prof-dir "<prof_dir>"
 ```
 
 这个门检查 `02_领域地图.md`、`03_论文路线.md`、`04_学习向导.md` 文末 DOI 来源题名是否和 Crossref/DataCite 元数据一致。`[WARN] DOI metadata unavailable` 不等于失败，通常表示该 DOI 不在 Crossref/DataCite 或被来源站点限制；`[FAIL] DOI title mismatch` 必须修正或标明原因。

@@ -15,15 +15,6 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertIn("Fact Pack -> Cognitive Blueprint -> 00-04", text)
         self.assertNotIn("四阶段流水线", text)
 
-    def test_claude_md_defers_to_agents_md_without_duplicate_rules(self):
-        text = (ROOT / "CLAUDE.md").read_text(encoding="utf-8")
-
-        self.assertIn("AGENTS.md 是当前项目规则的单一事实源", text)
-        self.assertIn("不要在 CLAUDE.md 里新增或复制项目规则", text)
-        self.assertNotIn("## 硬约束", text)
-        self.assertNotIn("来源必标 URL", text)
-        self.assertNotIn("## 目录角色", text)
-
     def test_obsolete_run_py_entrypoint_is_removed(self):
         self.assertFalse(
             (ROOT / "src" / "phase1" / "run.py").exists(),
@@ -78,7 +69,7 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
     def test_phase1_docs_do_not_require_mcp_specific_search_tools(self):
         docs = [
             ROOT / "src" / "phase1" / "pipeline.md",
-            ROOT / ".claude" / "skills" / "research-advisor" / "references" / "phase1-core.md",
+            ROOT / ".agents" / "skills" / "research-advisor" / "references" / "phase1-core.md",
         ]
 
         leaked = []
@@ -94,7 +85,7 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         docs = [
             ROOT / "src" / "phase1" / "pipeline.md",
             ROOT / "src" / "phase1" / "step3_openalex.py",
-            ROOT / ".claude" / "skills" / "research-advisor" / "references" / "01-data-sources.md",
+            ROOT / ".agents" / "skills" / "research-advisor" / "references" / "01-data-sources.md",
         ]
 
         leaked = []
@@ -132,7 +123,7 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertNotIn("根目录 `latest.txt` 只作过渡兼容", text)
 
     def test_legacy_archive_previous_entrypoint_is_removed(self):
-        for path in [ROOT / "AGENTS.md", ROOT / "CLAUDE.md"]:
+        for path in [ROOT / "AGENTS.md"]:
             text = path.read_text(encoding="utf-8")
             self.assertNotIn("archive_previous / utils", text, str(path))
 
@@ -149,7 +140,7 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         files = [
             ROOT / "AGENTS.md",
             ROOT / "QUICKSTART.md",
-            ROOT / ".claude" / "skills" / "research-advisor" / "SKILL.md",
+            ROOT / ".agents" / "skills" / "research-advisor" / "SKILL.md",
         ]
 
         required_phrase = "脚本通过 `--prof-dir` / `ProfDirResolver` 读取当前 active `_internal/archive/<ts>` 不属于手动读取 archive"
@@ -164,7 +155,7 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
     def test_phase1_entrypoint_docs_require_official_url_seed(self):
         files = [
             ROOT / "QUICKSTART.md",
-            ROOT / ".claude" / "skills" / "research-advisor" / "SKILL.md",
+            ROOT / ".agents" / "skills" / "research-advisor" / "SKILL.md",
             ROOT / "src" / "phase1" / "pipeline.md",
         ]
 
@@ -202,7 +193,7 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
 
     def test_phase1_references_use_prof_dir_for_step_outputs(self):
         text = (
-            ROOT / ".claude" / "skills" / "research-advisor" / "references" / "01-data-sources.md"
+            ROOT / ".agents" / "skills" / "research-advisor" / "references" / "01-data-sources.md"
         ).read_text(encoding="utf-8")
 
         forbidden = ["-o 01_gs.json", "-o 02_oa.json", "-o 03_arxiv.json"]
@@ -211,7 +202,7 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertIn("--prof-dir \"output/...\"", text)
 
     def test_research_advisor_skill_uses_spaced_bilingual_name_contract(self):
-        text = (ROOT / ".claude" / "skills" / "research-advisor" / "SKILL.md").read_text(
+        text = (ROOT / ".agents" / "skills" / "research-advisor" / "SKILL.md").read_text(
             encoding="utf-8"
         )
 
@@ -219,7 +210,7 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertNotIn("中文名(English Name)", text)
 
     def test_research_advisor_skill_advertises_five_deliverables(self):
-        text = (ROOT / ".claude" / "skills" / "research-advisor" / "SKILL.md").read_text(
+        text = (ROOT / ".agents" / "skills" / "research-advisor" / "SKILL.md").read_text(
             encoding="utf-8"
         )
 
@@ -232,7 +223,7 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
             ROOT / "AGENTS.md",
             ROOT / "QUICKSTART.md",
             ROOT / "docs" / "计划书.md",
-            ROOT / ".claude" / "skills" / "research-advisor" / "SKILL.md",
+            ROOT / ".agents" / "skills" / "research-advisor" / "SKILL.md",
         ]
         active_docs.extend((ROOT / "docs" / "batches").glob("*.md"))
 
@@ -247,7 +238,7 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
     def test_phase4_reference_avoids_forbidden_key_paper_wording(self):
         text = (
             ROOT
-            / ".claude"
+            / ".agents"
             / "skills"
             / "research-advisor"
             / "references"
@@ -258,7 +249,7 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
         self.assertIn("目标论文", text)
 
     def test_active_skill_references_do_not_keep_local_version_footers(self):
-        refs_dir = ROOT / ".claude" / "skills" / "research-advisor" / "references"
+        refs_dir = ROOT / ".agents" / "skills" / "research-advisor" / "references"
         leaked = []
         for path in refs_dir.glob("*.md"):
             text = path.read_text(encoding="utf-8")
@@ -289,8 +280,8 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
 
     def test_phase1_references_do_not_ask_user_for_extra_ids_on_failure(self):
         refs = [
-            ROOT / ".claude" / "skills" / "research-advisor" / "references" / "01-data-sources.md",
-            ROOT / ".claude" / "skills" / "research-advisor" / "references" / "phase1-recovery.md",
+            ROOT / ".agents" / "skills" / "research-advisor" / "references" / "01-data-sources.md",
+            ROOT / ".agents" / "skills" / "research-advisor" / "references" / "phase1-recovery.md",
         ]
 
         leaked = []
@@ -411,9 +402,9 @@ class ProjectEntrypointDocsTests(unittest.TestCase):
             ROOT / "QUICKSTART.md",
             ROOT / "AGENTS.md",
             ROOT / "src" / "phase1" / "pipeline.md",
-            ROOT / ".claude" / "skills" / "research-advisor" / "SKILL.md",
-            ROOT / ".claude" / "skills" / "research-advisor" / "references" / "phase1-core.md",
-            ROOT / ".claude" / "skills" / "research-advisor" / "references" / "phase1-recovery.md",
+            ROOT / ".agents" / "skills" / "research-advisor" / "SKILL.md",
+            ROOT / ".agents" / "skills" / "research-advisor" / "references" / "phase1-core.md",
+            ROOT / ".agents" / "skills" / "research-advisor" / "references" / "phase1-recovery.md",
         ]
 
         leaked = []

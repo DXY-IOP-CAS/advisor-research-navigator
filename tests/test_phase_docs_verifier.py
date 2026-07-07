@@ -6,7 +6,7 @@ import unittest
 
 
 ROOT = Path(__file__).resolve().parents[1]
-VERIFY_PATH = ROOT / ".claude" / "skills" / "research-advisor" / "scripts" / "verify_phase_docs.py"
+VERIFY_PATH = ROOT / ".agents" / "skills" / "research-advisor" / "scripts" / "verify_phase_docs.py"
 
 spec = importlib.util.spec_from_file_location("verify_phase_docs", VERIFY_PATH)
 verify_phase_docs = importlib.util.module_from_spec(spec)

@@ -34,7 +34,3 @@ archive/
 output/**/archive/
 output/**/_internal/latest.txt
 output/**/_internal/seed.json
-
-# .agents/skills is an NTFS junction to .claude/skills (single source of truth).
-# git doesn't track junctions as symlinks — ignore the target path to avoid duplicate commits.
-.agents/skills/

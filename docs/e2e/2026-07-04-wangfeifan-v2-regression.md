@@ -20,7 +20,7 @@
 运行：
 
 ```powershell
-python .claude\skills\research-advisor\scripts\verify_phase_docs.py --prof-dir "output\中国科学院大学\中科院物理研究所\超快物质科学中心\汪非凡"
+python .agents\skills\research-advisor\scripts\verify_phase_docs.py --prof-dir "output\中国科学院大学\中科院物理研究所\超快物质科学中心\汪非凡"
 ```
 
 结果失败，失败类型如下：
@@ -219,10 +219,10 @@ python src\phase1\verify_profile.py --prof-dir "output\中国科学院大学\中
 验证命令：
 
 ```powershell
-python .claude\skills\research-advisor\scripts\verify_phase_docs.py --prof-dir "output\中国科学院大学\中科院物理研究所\超快物质科学中心\汪非凡"
+python .agents\skills\research-advisor\scripts\verify_phase_docs.py --prof-dir "output\中国科学院大学\中科院物理研究所\超快物质科学中心\汪非凡"
 python src\phase1\verify_profile.py --prof-dir "output\中国科学院大学\中科院物理研究所\超快物质科学中心\汪非凡"
-python .claude\skills\research-advisor\scripts\verify_mermaid_render.py --prof-dir "output\中国科学院大学\中科院物理研究所\超快物质科学中心\汪非凡"
-python .claude\skills\research-advisor\scripts\verify_source_metadata.py --prof-dir "output\中国科学院大学\中科院物理研究所\超快物质科学中心\汪非凡"
+python .agents\skills\research-advisor\scripts\verify_mermaid_render.py --prof-dir "output\中国科学院大学\中科院物理研究所\超快物质科学中心\汪非凡"
+python .agents\skills\research-advisor\scripts\verify_source_metadata.py --prof-dir "output\中国科学院大学\中科院物理研究所\超快物质科学中心\汪非凡"
 ```
 
 结果：

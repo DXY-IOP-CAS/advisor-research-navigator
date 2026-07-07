@@ -14,7 +14,7 @@
 
 1. 读 `AGENTS.md`，尤其是 archive 禁读、每次从头查 API、先用 research-advisor skill。
 2. 读 `docs/上下文交接.md`，确认当前分支、已完成里程碑和下一步。
-3. 涉及导师调研或 00-04 文档时，读 `.claude/skills/research-advisor/SKILL.md`。
+3. 涉及导师调研或 00-04 文档时，读 `.agents/skills/research-advisor/SKILL.md`。
 4. 只有执行阶段 1 技术步骤时，再读 `src/phase1/pipeline.md` 和相关 references。
 
 不要从旧 quickstart、旧 e2e 记录或已删除的兼容脚本反推当前 workflow。它们只能作历史参考。
@@ -32,7 +32,7 @@ advisor-research-navigator/
 │   ├── risk_gate.py                    # standard / conservative 风险门
 │   ├── render_profile.py               # 01 骨架生成
 │   └── verify_profile.py               # 01 机械验证
-├── .claude/skills/research-advisor/     # 00-04 工作流入口、模板和验证脚本
+├── .agents/skills/research-advisor/     # 00-04 工作流入口、模板和验证脚本
 ├── docs/                               # 计划书、交接、历史 e2e 记录
 ├── output/<大学>/<学院所>/<部门>/<姓名>/
 │   ├── 00_材料导读.md
@@ -94,11 +94,11 @@ python src/phase1/phase1_init.py \
 
 ```bash
 python src/phase1/verify_profile.py --prof-dir "<prof_dir>"
-python .claude/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "<prof_dir>"
-python .claude/skills/research-advisor/scripts/verify_mermaid_render.py --prof-dir "<prof_dir>"
-python .claude/skills/research-advisor/scripts/verify_source_metadata.py --prof-dir "<prof_dir>"
+python .agents/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "<prof_dir>"
+python .agents/skills/research-advisor/scripts/verify_mermaid_render.py --prof-dir "<prof_dir>"
+python .agents/skills/research-advisor/scripts/verify_source_metadata.py --prof-dir "<prof_dir>"
 python -m unittest discover -s tests -p "test_*.py" -v
-python -m unittest discover -s .claude/skills/research-advisor/tests -p "test_*.py" -v
+python -m unittest discover -s .agents/skills/research-advisor/tests -p "test_*.py" -v
 git diff --check -- . ':(exclude)archive/**' ':(exclude)output/**/archive/**'
 ```
 

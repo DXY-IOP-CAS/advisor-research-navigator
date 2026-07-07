@@ -48,7 +48,7 @@ Run:
 
 ```powershell
 git diff --check -- . ':(exclude)archive/**' ':(exclude)output/**/archive/**'
-rg -n "<stale skill placeholder or old superpowers workflow regex>" ".claude/skills"
+rg -n "<stale skill placeholder or old superpowers workflow regex>" ".agents/skills"
 git status --short
 ```
 
@@ -65,9 +65,9 @@ Then inspect each changed `SKILL.md` for:
 When real `00-04` output changes, run the relevant project verifiers when available:
 
 ```powershell
-python .claude/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "<prof_dir>"
-python .claude/skills/research-advisor/scripts/verify_source_metadata.py --prof-dir "<prof_dir>"
-python .claude/skills/research-advisor/scripts/verify_mermaid_render.py --prof-dir "<prof_dir>"
+python .agents/skills/research-advisor/scripts/verify_phase_docs.py --prof-dir "<prof_dir>"
+python .agents/skills/research-advisor/scripts/verify_source_metadata.py --prof-dir "<prof_dir>"
+python .agents/skills/research-advisor/scripts/verify_mermaid_render.py --prof-dir "<prof_dir>"
 ```
 
 Only run commands that match the files changed and the available environment. Always state which academic-quality claims still require manual review.

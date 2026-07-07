@@ -10,8 +10,8 @@
 |:-----|:------|
 | `src/phase1/` | 阶段 1 Python 脚本（phase1_init / step2_gs / step3_openalex / step4_arxiv_id / step5_arxiv / step6_merge / risk_gate / render_profile / verify_profile / utils） |
 | `src/phase1/pipeline.md` | 阶段 1 技术执行文档（单一事实源） |
-| `.agents/skills/` | Codex/其他 CLI Skill 入口（NTFS junction → `.claude/skills/`，同一份内容，不重复维护） |
-| `.claude/skills/research-advisor/` | 当前 00-04 工作流入口、references、模板和验证脚本 |
+| `.agents/skills/` | Codex 项目本地 Skill 入口 |
+| `.agents/skills/research-advisor/` | 当前 00-04 工作流入口、references、模板和验证脚本 |
 | `quality-workbench/` | 当前 `00-04` 文档标准和支撑方法的设计工作台；根部只放 README，正文标准进 `文档标准/`，跨文档方法进 `支撑方法/` |
 | `output/` | 导师画像产出 |
 | `archive/` | 旧版存档（只写不读） |
@@ -66,7 +66,7 @@
 - 来源必标 URL，缺失标 `[未找到]`
 - 不做导师评价（匹配度、推荐意见等）
 - 重要改动前后按“Git 保存纪律”处理：先检查状态；达到可审查里程碑后提交或明确说明未提交原因。
-- 导师调研、阶段 1-4 文档生成、阶段 2-4 质量修订必须先使用 `.claude/skills/research-advisor/`；上下文较长或换新窗口时先读 `docs/上下文交接.md`
+- 导师调研、阶段 1-4 文档生成、阶段 2-4 质量修订必须先使用 `.agents/skills/research-advisor/`；上下文较长或换新窗口时先读 `docs/上下文交接.md`
 - **`archive/` 目录是旧版存档，禁止读取或引用其中的任何内容**。存档仅供人工溯源。Agent 不得通过 Bash 或其他方式访问 archive/。
 - archive 禁读指 Agent 不得手动打开、搜索、复制或引用历史/中间文件。脚本通过 `--prof-dir` / `ProfDirResolver` 读取当前 active `_internal/archive/<ts>` 不属于手动读取 archive；不要手动拼 archive 路径，也不要把脚本中间 JSON 当正文证据。
 - 每次运行从头查所有 API。不使用任何缓存或历史数据。
@@ -76,7 +76,7 @@
 - 开始任务前按可用 skills 判断是否需要加载相关 skill；不要只惯性使用项目内 `research-advisor`。
 - 中文长回复、文档讨论、`00-04` 成品、导师材料、学习向导、项目说明和 workbench 内容：必须使用全局 `human-readable-chinese-docs`，先保证读者路径、具体内容、证据边界和自然节奏，再润色。
 - `chinese-style-guide` 只做中英文混排和排版辅助，不能替代 `human-readable-chinese-docs` 的可读性审查。
-- 导师调研、`00-04` 文档、学习路径、证据规则和成品质量修订：必须使用 `.claude/skills/research-advisor/`。
+- 导师调研、`00-04` 文档、学习路径、证据规则和成品质量修订：必须使用 `.agents/skills/research-advisor/`。
 - 讨论新结构、新流程、新规范、文档设计或 Harness 方向：先使用 `brainstorming`，形成设计判断后再改文件。
 - 学习科学、教学设计、论文证据、可视化方法、agent workflow 或外部最佳实践拿不准：使用可用的全局研究类/学习类 skills，并优先查可靠来源。
 - bug、验证失败或异常行为：使用 `systematic-debugging`。实现或修改脚本时，按风险使用 `test-driven-development`。
@@ -100,6 +100,6 @@
 ## 反臃肿原则
 
 - 不为每次小讨论新增长期 spec/plan/规则文件。只有能稳定提高 00-04 五份文档质量、能跨导师复用、且归属明确的规则才沉淀。
-- 当前讨论期的规则归属：支撑方法、M0 和文档标准先进 `quality-workbench/`；当前状态进 `docs/上下文交接.md`；阶段 1 技术细节进 `src/phase1/pipeline.md`。等 S1-S4、M0 和 D00-D04 都稳定后，再统一回收进 `docs/计划书.md`、`.claude/skills/research-advisor/references/`、模板、verifier 或 tests。
+- 当前讨论期的规则归属：支撑方法、M0 和文档标准先进 `quality-workbench/`；当前状态进 `docs/上下文交接.md`；阶段 1 技术细节进 `src/phase1/pipeline.md`。等 S1-S4、M0 和 D00-D04 都稳定后，再统一回收进 `docs/计划书.md`、`.agents/skills/research-advisor/references/`、模板、verifier 或 tests。
 - verifier 只做结构、来源、禁用语和格式 smoke，不做学术质量判断；模板只固定骨架，不替代检索和分析。
 - 完成一个导师的 00-04 五份文档后，做一次轻量去重审计，清理或合并已经被正式规则取代的过程文档。
