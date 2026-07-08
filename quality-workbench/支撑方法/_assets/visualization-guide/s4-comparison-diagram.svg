@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="490" viewBox="0 0 1080 490" role="img" aria-label="相邻方向比较图" font-family="Microsoft YaHei, Noto Sans CJK SC, PingFang SC, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="4.5" orient="auto"><path d="M0,0 L10,4.5 L0,9 Z" fill="#2f3337"/></marker>
+    <style>
+      .title{font-size:24px;font-weight:700;fill:#202428}
+      .note{font-size:13px;fill:#5d6670}
+      .head{font-size:15px;font-weight:700;fill:#202428}
+      .txt{font-size:13px;fill:#343a40}
+      .small{font-size:12px;fill:#5d6670}
+      .box{stroke:#2f3337;stroke-width:1.6}
+      .thin{stroke:#2f3337;stroke-width:1.2}
+      .line{stroke:#2f3337;stroke-width:2;fill:none;marker-end:url(#arrow)}
+      .curve{stroke:#2f3337;stroke-width:2;fill:none;marker-end:url(#arrow)}
+      .soft{stroke:#9aa0a6;stroke-width:1.3;fill:none}
+      .weak{stroke:#6f7780;stroke-width:1.7;fill:none;stroke-dasharray:7 5;marker-end:url(#arrow)}
+      .return{stroke:#6f7780;stroke-width:1.7;fill:none;stroke-dasharray:4 6}
+      .bad{stroke:#8a3a32;stroke-width:2.3;fill:none}
+      .region{stroke:#2f3337;stroke-width:1.6;opacity:.92}
+    </style>
+  </defs>
+  <rect x="16" y="16" width="1048" height="458" rx="14" fill="#fbfaf7" stroke="#2f3337" stroke-width="2"/>
+  <text x="38" y="50" class="title">相邻方向比较图</text>
+  <text x="38" y="76" class="note">用于 02/03：把差异、交集和比较维度画清楚。</text>
+  <text x="208" y="128" class="head" text-anchor="middle">有真实交集</text><ellipse cx="164" cy="222" rx="96" ry="64" fill="#dce9f6" class="box"/><ellipse cx="254" cy="222" rx="96" ry="64" fill="#d9ead3" class="box"/><text x="132" y="224" class="small" text-anchor="middle">方向A</text><text x="286" y="224" class="small" text-anchor="middle">方向B</text><text x="208" y="224" class="head" text-anchor="middle">共同问题</text><text x="208" y="312" class="small" text-anchor="middle">只有确有交集才画 Venn</text><text x="540" y="128" class="head" text-anchor="middle">两个连续维度</text><path d="M408 300 L408 174 L672 174" class="soft" fill="none"/><text x="398" y="166" class="small" text-anchor="middle">对象相近</text><text x="678" y="178" class="small">方法相近</text><circle cx="478" cy="248" r="16" fill="#dce9f6" class="box"/><text x="478" y="253" class="small" text-anchor="middle">P1</text><circle cx="574" cy="210" r="16" fill="#f6e7c6" class="box"/><text x="574" y="215" class="small" text-anchor="middle">P2</text><circle cx="632" cy="264" r="16" fill="#f1d4cf" class="box"/><text x="632" y="269" class="small" text-anchor="middle">P3</text><text x="540" y="330" class="small" text-anchor="middle">维度必须写出来，点位不能凭感觉</text><text x="872" y="128" class="head" text-anchor="middle">并列剖面对照</text><path d="M780 178 C820 146 884 146 924 178 C884 210 820 210 780 178 Z" class="region" fill="#dce9f6"/><path d="M780 268 C820 236 884 236 924 268 C884 300 820 300 780 268 Z" class="region" fill="#d9ead3"/><text x="852" y="182" class="head" text-anchor="middle">方法 A</text><text x="852" y="272" class="head" text-anchor="middle">方法 B</text><path d="M946 178 L996 178" class="line" fill="none"/><path d="M946 268 L996 268" class="line" fill="none"/><text x="1010" y="181" class="small">同一维度比较</text><text x="872" y="350" class="small" text-anchor="middle">比较图服务边界，不服务装饰</text><rect x="104" y="398" width="872" height="44" rx="8" fill="#ffffff" class="box"/><text x="128" y="426" class="txt">限制：没有真实交集不画 Venn；没有连续维度不画坐标；只是字段对照时保留 Markdown 表格。</text>
+</svg>

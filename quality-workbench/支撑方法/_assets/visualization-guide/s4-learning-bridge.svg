@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="470" viewBox="0 0 1080 470" role="img" aria-label="学习桥接图" font-family="Microsoft YaHei, Noto Sans CJK SC, PingFang SC, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="4.5" orient="auto"><path d="M0,0 L10,4.5 L0,9 Z" fill="#2f3337"/></marker>
+    <style>
+      .title{font-size:24px;font-weight:700;fill:#202428}
+      .note{font-size:13px;fill:#5d6670}
+      .head{font-size:15px;font-weight:700;fill:#202428}
+      .txt{font-size:13px;fill:#343a40}
+      .small{font-size:12px;fill:#5d6670}
+      .box{stroke:#2f3337;stroke-width:1.6}
+      .thin{stroke:#2f3337;stroke-width:1.2}
+      .line{stroke:#2f3337;stroke-width:2;fill:none;marker-end:url(#arrow)}
+      .curve{stroke:#2f3337;stroke-width:2;fill:none;marker-end:url(#arrow)}
+      .soft{stroke:#9aa0a6;stroke-width:1.3;fill:none}
+      .weak{stroke:#6f7780;stroke-width:1.7;fill:none;stroke-dasharray:7 5;marker-end:url(#arrow)}
+      .return{stroke:#6f7780;stroke-width:1.7;fill:none;stroke-dasharray:4 6}
+      .bad{stroke:#8a3a32;stroke-width:2.3;fill:none}
+      .region{stroke:#2f3337;stroke-width:1.6;opacity:.92}
+    </style>
+  </defs>
+  <rect x="16" y="16" width="1048" height="438" rx="14" fill="#fbfaf7" stroke="#2f3337" stroke-width="2"/>
+  <text x="38" y="50" class="title">学习桥接图</text>
+  <text x="38" y="76" class="note">用于 04：把学生已有课程一路接到目标论文图和进组问题。</text>
+  <path d="M66 336 C82 296 178 288 200 328 C178 362 92 366 66 336 Z" class="region" fill="#dce9f6"/><text x="130" y="322" class="head" text-anchor="middle">基础课</text><text x="130" y="346" class="small" text-anchor="middle">线代 / 普物</text><path d="M202 326 C240 314 188 292 224 284" class="curve" fill="none"/><path d="M236 294 C252 254 348 246 370 286 C348 320 262 324 236 294 Z" class="region" fill="#d9ead3"/><text x="300" y="280" class="head" text-anchor="middle">概念缺口</text><text x="300" y="304" class="small" text-anchor="middle">领域词先落地</text><path d="M372 284 C410 272 362 252 398 244" class="curve" fill="none"/><path d="M410 254 C426 214 522 206 544 246 C522 280 436 284 410 254 Z" class="region" fill="#f6e7c6"/><text x="474" y="240" class="head" text-anchor="middle">方法工具</text><text x="474" y="264" class="small" text-anchor="middle">模型 / 实验</text><path d="M546 244 C584 232 538 212 574 204" class="curve" fill="none"/><path d="M586 214 C602 174 698 166 720 206 C698 240 612 244 586 214 Z" class="region" fill="#f1d4cf"/><text x="650" y="200" class="head" text-anchor="middle">目标论文图</text><text x="650" y="224" class="small" text-anchor="middle">会读核心图</text><path d="M722 204 C760 192 712 172 748 164" class="curve" fill="none"/><path d="M760 174 C776 134 872 126 894 166 C872 200 786 204 760 174 Z" class="region" fill="#e7ddf2"/><text x="824" y="160" class="head" text-anchor="middle">进组问题</text><text x="824" y="184" class="small" text-anchor="middle">能问具体问题</text><path d="M96 388 C252 418 650 398 884 232" class="return" fill="none"/><text x="476" y="414" class="small" text-anchor="middle">回看线：输出答不上就回到缺口处，不把整条路线重画成课程表</text><text x="86" y="112" class="txt">箭头 = 前置能力，不表示论文贡献、时间因果或资源推荐顺序。</text>
+</svg>

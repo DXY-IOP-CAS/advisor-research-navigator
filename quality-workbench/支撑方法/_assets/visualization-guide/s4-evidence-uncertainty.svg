@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="440" viewBox="0 0 1080 440" role="img" aria-label="证据与不确定性图" font-family="Microsoft YaHei, Noto Sans CJK SC, PingFang SC, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="4.5" orient="auto"><path d="M0,0 L10,4.5 L0,9 Z" fill="#2f3337"/></marker>
+    <style>
+      .title{font-size:24px;font-weight:700;fill:#202428}
+      .note{font-size:13px;fill:#5d6670}
+      .head{font-size:15px;font-weight:700;fill:#202428}
+      .txt{font-size:13px;fill:#343a40}
+      .small{font-size:12px;fill:#5d6670}
+      .box{stroke:#2f3337;stroke-width:1.6}
+      .thin{stroke:#2f3337;stroke-width:1.2}
+      .line{stroke:#2f3337;stroke-width:2;fill:none;marker-end:url(#arrow)}
+      .curve{stroke:#2f3337;stroke-width:2;fill:none;marker-end:url(#arrow)}
+      .soft{stroke:#9aa0a6;stroke-width:1.3;fill:none}
+      .weak{stroke:#6f7780;stroke-width:1.7;fill:none;stroke-dasharray:7 5;marker-end:url(#arrow)}
+      .return{stroke:#6f7780;stroke-width:1.7;fill:none;stroke-dasharray:4 6}
+      .bad{stroke:#8a3a32;stroke-width:2.3;fill:none}
+      .region{stroke:#2f3337;stroke-width:1.6;opacity:.92}
+    </style>
+  </defs>
+  <rect x="16" y="16" width="1048" height="408" rx="14" fill="#fbfaf7" stroke="#2f3337" stroke-width="2"/>
+  <text x="38" y="50" class="title">证据与不确定性图</text>
+  <text x="38" y="76" class="note">用于所有文档：让学生看见判断强弱，而不是把弱线索画成结论。</text>
+  <rect x="78" y="126" width="260" height="174" rx="10" fill="#fff7f5" class="box"/><text x="208" y="164" class="head" text-anchor="middle">弱线索</text><path d="M104 184 L312 184" class="soft" fill="none"/><text x="102" y="216" class="txt">可支撑：补查方向</text><text x="102" y="248" class="txt">不能支撑：定位、中心、主线</text><text x="102" y="280" class="txt">下一步：回 S1 找直接来源</text><rect x="388" y="126" width="260" height="174" rx="10" fill="#f6e7c6" class="box"/><text x="518" y="164" class="head" text-anchor="middle">交叉证据</text><path d="M414 184 L622 184" class="soft" fill="none"/><text x="412" y="216" class="txt">可支撑：粗阅读位置</text><text x="412" y="248" class="txt">不能支撑：精确距离、因果</text><text x="412" y="280" class="txt">下一步：标出仍需复核处</text><rect x="698" y="126" width="260" height="174" rx="10" fill="#d9ead3" class="box"/><text x="828" y="164" class="head" text-anchor="middle">直接证据</text><path d="M724 184 L932 184" class="soft" fill="none"/><text x="722" y="216" class="txt">可支撑：明确判断</text><text x="722" y="248" class="txt">不能支撑：超出原文的机制</text><text x="722" y="280" class="txt">下一步：写进正文并保留来源</text><rect x="78" y="326" width="880" height="82" rx="8" fill="#ffffff" class="box"/><text x="104" y="358" class="txt">读法：三张卡不是升级流程。先看当前判断落在哪张卡，再看它能支撑什么、不能支撑什么、下一步复核什么。</text><text x="104" y="388" class="small">禁止：不用箭头、面积、颜色深浅或线粗暗示可信度自动变强。</text>
+</svg>

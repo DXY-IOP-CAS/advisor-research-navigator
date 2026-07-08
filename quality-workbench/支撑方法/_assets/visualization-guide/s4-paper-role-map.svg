@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="510" viewBox="0 0 1080 510" role="img" aria-label="论文角色概念图" font-family="Microsoft YaHei, Noto Sans CJK SC, PingFang SC, Arial, sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="11" markerHeight="11" refX="9" refY="4.5" orient="auto"><path d="M0,0 L10,4.5 L0,9 Z" fill="#2f3337"/></marker>
+    <style>
+      .title{font-size:24px;font-weight:700;fill:#202428}
+      .note{font-size:13px;fill:#5d6670}
+      .head{font-size:15px;font-weight:700;fill:#202428}
+      .txt{font-size:13px;fill:#343a40}
+      .small{font-size:12px;fill:#5d6670}
+      .box{stroke:#2f3337;stroke-width:1.6}
+      .thin{stroke:#2f3337;stroke-width:1.2}
+      .line{stroke:#2f3337;stroke-width:2;fill:none;marker-end:url(#arrow)}
+      .curve{stroke:#2f3337;stroke-width:2;fill:none;marker-end:url(#arrow)}
+      .soft{stroke:#9aa0a6;stroke-width:1.3;fill:none}
+      .weak{stroke:#6f7780;stroke-width:1.7;fill:none;stroke-dasharray:7 5;marker-end:url(#arrow)}
+      .return{stroke:#6f7780;stroke-width:1.7;fill:none;stroke-dasharray:4 6}
+      .bad{stroke:#8a3a32;stroke-width:2.3;fill:none}
+      .region{stroke:#2f3337;stroke-width:1.6;opacity:.92}
+    </style>
+  </defs>
+  <rect x="16" y="16" width="1048" height="478" rx="14" fill="#fbfaf7" stroke="#2f3337" stroke-width="2"/>
+  <text x="38" y="50" class="title">论文角色概念图</text>
+  <text x="38" y="76" class="note">用于 03：不是论文列表美化，而是让学生复述论文怎样分工推进问题。</text>
+  <circle cx="540" cy="254" r="70" fill="#f6e7c6" class="box"/><text x="540" y="246" class="head" text-anchor="middle">共同问题</text><text x="540" y="270" class="small" text-anchor="middle">论文群围绕什么推进</text><circle cx="252" cy="156" r="50" fill="#dce9f6" class="box"/><text x="252" y="154" class="head" text-anchor="middle">入口论文</text><text x="252" y="177" class="small" text-anchor="middle">提出问题</text><circle cx="300" cy="356" r="50" fill="#d9ead3" class="box"/><text x="300" y="354" class="head" text-anchor="middle">方法论文</text><text x="300" y="377" class="small" text-anchor="middle">提供方法</text><circle cx="804" cy="158" r="50" fill="#f1d4cf" class="box"/><text x="804" y="156" class="head" text-anchor="middle">目标论文</text><text x="804" y="179" class="small" text-anchor="middle">验证对象</text><circle cx="792" cy="354" r="50" fill="#ffffff" class="box"/><text x="792" y="352" class="head" text-anchor="middle">旁支线索</text><text x="792" y="375" class="small" text-anchor="middle">需复核</text><path d="M300 170 C386 172 442 196 484 226" class="curve" fill="none"/><text x="390" y="172" class="small" text-anchor="middle">提出问题</text><path d="M344 338 C418 318 458 292 492 276" class="curve" fill="none"/><text x="420" y="326" class="small" text-anchor="middle">提供方法</text><path d="M604 226 C654 196 710 174 754 164" class="curve" fill="none"/><text x="686" y="182" class="small" text-anchor="middle">验证对象</text><path d="M604 286 C680 332 718 348 742 354" class="weak" fill="none"/><text x="682" y="330" class="small" text-anchor="middle">需复核</text><rect x="80" y="422" width="920" height="42" rx="8" fill="#ffffff" class="box"/><text x="104" y="449" class="txt">限制：每条边必须写动词关系并回到摘要、方法、图表、正文或互引；题名相似不能画线。</text>
+</svg>
