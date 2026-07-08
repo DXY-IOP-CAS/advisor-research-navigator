@@ -117,7 +117,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Apply reviewed identity fields to active Phase 1 state")
     parser.add_argument("--prof-dir", required=True, help="output/.../<name> profile directory")
     parser.add_argument("--ts", help="archive timestamp override")
-    parser.add_argument("--display-name", help="Reviewed display name, e.g. 汪非凡 (Feifan Wang)")
+    parser.add_argument("--display-name", help="Reviewed display name, e.g. 张鹏举 (Pengju Zhang)")
     parser.add_argument("--official-email-domain", help="Reviewed current official email domain, e.g. iphy.ac.cn")
     parser.add_argument("--official-affiliation", help="Reviewed current official affiliation")
     parser.add_argument(
