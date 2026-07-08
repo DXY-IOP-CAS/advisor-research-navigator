@@ -38,3 +38,5 @@ output/**/_internal/seed.json
 
 # Local Customization Links
 .agents/AGENTS.md
+.tmp/
+
