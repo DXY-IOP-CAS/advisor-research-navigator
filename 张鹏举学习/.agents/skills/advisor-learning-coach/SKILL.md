@@ -24,6 +24,21 @@ Never start by teaching an isolated term.
 
 Always start from the relevant original document in `01_原文/`, extract the main line, then teach one subtask at a time.
 
+For every `00-04` source document, "main line" means the full-document learning route, not the current example, current paper, current figure, or previous chat topic. Before tutoring any local concept, first build or verify a document-level map:
+
+```text
+Source document:
+Document-level question:
+All important content blocks:
+Understanding dependencies between blocks:
+Which blocks are examples or entry cases, not the whole main line:
+Beginner-to-advanced learning order:
+Full-document exit sentence or output:
+Current round position inside that full map:
+```
+
+If this map is missing, stale, or only covers one example, do not start teaching. Rebuild the map from the original document first.
+
 For this learning folder, "continue studying" means preparation first, explanation second. Do not start tutoring until the original document has been reread, the main-line table has been checked or created, and the current multi-turn dialogue plan has been checked or created.
 
 The learner-facing material is `02_分讲/`. A round record in `03_学习记录/` is never a substitute for a lecture note. Do not run a tutoring round as repeated recall questions before first using or creating the relevant `02_分讲/` file.
@@ -35,16 +50,19 @@ Before explaining a concept, run this file-backed workflow:
 ```text
 1. Read the current source document in `01_原文/`.
 2. Check `02_分讲/<source-topic>/00_主线表.md`.
-3. If the table is missing, create it from the source document.
-4. If the table exists but was not extracted from the source document's real structure, fix it before tutoring.
-5. Lock the current learner-facing note in `02_分讲/<source-topic>/第NN讲_*.md`.
-6. If that note is missing for the current subtask, create it before tutoring.
-7. Check or create the current round record in `03_学习记录/<source-topic>/`.
-8. The round record must include a multi-turn dialogue plan and must point to the current `02_分讲/` note.
-9. Only then begin the actual explanation by reading through the `02_分讲/` note section by section.
+3. If the table is missing, create a full-document main-line table from the source document.
+4. If the table exists but was not extracted from the source document's real structure, or if it covers only a local example, fix it before tutoring.
+5. State the document map to the learner before the first tutoring turn on this source document.
+6. Lock the current learner-facing note in `02_分讲/<source-topic>/第NN讲_*.md`.
+7. If that note is missing for the current subtask, create it before tutoring.
+8. Check or create the current round record in `03_学习记录/<source-topic>/`.
+9. The round record must include a multi-turn dialogue plan and must point to the current `02_分讲/` note.
+10. Only then begin the actual explanation by reading through the `02_分讲/` note section by section.
 ```
 
 The main-line table must be extracted from the source document's headings, paragraph jobs, tables, figures, and evidence boundaries. Do not derive it from existing lecture titles, previous chat summaries, or a convenient teaching sequence.
+
+The main-line table must cover the whole source document. It must not let one vivid entry case, such as liquid-water ICD in the Zhang Pengju materials, replace the document-level route. If the source document is `03_论文路线.md`, the map must cover the whole paper-route problem: signal base, target paper, look-back paper, adjacent molecular-attosecond language, platform papers, side branches, evidence boundaries, and handoff to `04`. If the source document is `04_学习向导.md`, the map must cover the whole learning bridge from existing coursework to target-paper figures, concepts, methods, platform chain, and entry-group questions.
 
 The round record is a teaching control file, not a project plan. It should specify:
 
@@ -66,6 +84,10 @@ If any of these pieces cannot be filled in, read the original document again and
 Before the first explanation in a tutoring turn, state:
 
 ```text
+本轮原文：
+整份文档主问题：
+整份文档学习路线：
+本轮主线位置：
 本轮主阅读：
 本次只读哪几段：
 暂时不读哪几段：
@@ -80,15 +102,33 @@ For each source document:
 
 1. Identify what the original document wants the learner to understand.
 2. Create or verify the file `00_主线表.md` for that document.
-3. State the main line in plain Chinese.
+3. State the full-document main line in plain Chinese.
 4. Separate main points from examples and supporting details.
-5. Split the main line into ordered learning subtasks.
-6. Create or update the current round record with a dialogue plan.
-7. Use or create the matching `02_分讲/` note as the learner-facing material.
-8. Teach only one subtask at a time, following the note's section order.
-9. Allow short discussion and learner questions.
-10. After every digression, explicitly connect back to the main line and the current note section.
-11. End with a short Feynman-style output: what the learner should now be able to say.
+5. Split the full document into ordered learning subtasks.
+6. Mark which subtask is the current local round and which subtasks are intentionally deferred.
+7. Create or update the current round record with a dialogue plan.
+8. Use or create the matching `02_分讲/` note as the learner-facing material.
+9. Teach only one subtask at a time, following the note's section order.
+10. Allow short discussion and learner questions.
+11. After every digression, explicitly connect back to the full-document map and the current note section.
+12. End with a short Feynman-style output: what the learner should now be able to say, and where this output sits in the full document.
+
+## Overload And Drift Recovery
+
+If the learner says they are confused, overloaded, losing the route, wasting time, or that the tutoring is circling one example, stop local explanation immediately. Do not apologize and then continue the same local thread.
+
+Run this recovery sequence:
+
+```text
+1. Name the current source document.
+2. Restate the document-level question.
+3. Show the full-document content blocks in learning order.
+4. Mark the block where the conversation drifted.
+5. State which block should come next and why.
+6. Ask for one short confirmation before continuing.
+```
+
+After recovery, do not continue the local example unless it is explicitly the next block in the full-document map.
 
 ## Teaching Style
 
@@ -163,7 +203,9 @@ If such a topic arises, say it belongs outside the advisor learning folder.
 
 ## Current Instance Sequencing Guard
 
-For the current Zhang Pengju instance, `02_领域地图.md` must follow understanding dependency:
+For the current Zhang Pengju instance, the sequence below is only a local route inside `02_领域地图.md`. It must not override the full-document map of `00-04`, and it must not be reused as the route for `03_论文路线.md` or `04_学习向导.md`.
+
+For `02_领域地图.md`, follow this understanding dependency:
 
 ```text
 1. 张老师到底研究什么。
@@ -175,3 +217,5 @@ For the current Zhang Pengju instance, `02_领域地图.md` must follow understa
 ```
 
 Do not ask the learner to classify mechanism/platform papers before they have learned the concrete ICD example.
+
+When the learner moves to another source document, rebuild that document's map from its own original text. Do not continue the liquid-water ICD route unless the new document explicitly uses it as the current entry case.
