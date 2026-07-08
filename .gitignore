@@ -29,7 +29,8 @@ Thumbs.db
 # Project-specific
 scorecard.png
 .codex/
-# 张鹏举学习/
+精髓转移/
+张鹏举学习/
 archive/
 output/**/archive/
 output/**/_internal/latest.txt
